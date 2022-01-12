@@ -24,6 +24,7 @@ can_check_sim_slot = False
 can_ask_faeser = False
 sim_schrank_offen = False
 
+
 @when("inventar")
 @when("inventar zeigen")
 @when("zeige inventar")
@@ -62,6 +63,9 @@ can_check_sim_slot = False
 @when("brecheisen nehmen", context="room1")
 @when("nimm brecheisen", context="room1")
 @when("nimm das brecheisen", context="room1")
+@when("nimm die brechstange", context="room1")
+@when("nimm brechstange", context="room1")
+@when("brechstange nehmen", context="room1")
 def brecheisen_nehmen():
     # Brecheisen in Raum 1 nehmen
     if "brecheisen" not in inventory:
@@ -125,18 +129,23 @@ def tasten_druecken():
 # RAUM 2: MASCHINENRAUM #
 #########################
 
+# TODO: Zurück in Raum 1 gehen
 
 @when("umschauen", context="room2")
 @when("schaue um", context="room2")
 @when("schau dich um", context="room2")
 def look_around_room2():
-    print("Lila-L \n Rot-R \n Blau-B \n Schwarz-S \n Grün-S \n Du solltest zu den Ventilen gehen.")
+    say("""Lila-L \n Rot-R \n Blau-B \n Schwarz-S \n Grün-S \n Du solltest zu den Ventilen gehen.""")
 
 
 def ueberleitung_room2():
-    print("""Du betrittst den Maschinenraum voller blinkender Lichter und lauten Maschinen.
+    say("""Du betrittst den Maschinenraum voller blinkender Lichter und lauten Maschinen.
     In der Mitte des Raumes stehen 5 große Pumpen. Die Pumpen haben Ventile mit Farben darauf. \n
-    I->Lila \n II->Rot \n III->Blau \n IV->Schwarz \n V->Blau""")
+    I->Lila \n
+    II->Rot \n
+    III->Blau \n
+    IV->Schwarz \n
+    V->Blau""")
     set_context("room2")
 
 
