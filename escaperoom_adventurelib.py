@@ -1,4 +1,4 @@
-from adventurelib import *
+from adventurelib import Room, when, say, start
 import time
 # import pyqrcode
 # from PIL import Image
@@ -10,11 +10,12 @@ room1.has_crowbar = True
 room1.action_counter = 0
 
 crowbar = Item("brecheisen", "crowbar")
-inventory = Bag()    
+inventory = Bag()
 
 current_room = room1  # Startraum
 
-@when ("inventar")
+
+@when("inventar")
 def zeige_inventar():
     print("Du hast: ")
     if not inventory:
@@ -22,6 +23,7 @@ def zeige_inventar():
         return
     for item in inventory:
         print(f'*{item}')
+
 
 @when("umschauen")
 @when("schaue um")
@@ -87,7 +89,9 @@ def tasten_druecken():
 
 
 def ueberleitung_room2():
-    print("Du betrittst den Maschinenraum voller blinkender Lichter und lauten Maschinen. In der Mitte des Raumes stehen 5 große Pumpen. Die Pumpen haben Ventile mit Farben darauf. \n I->Lila \n II->Rot \n III->Blau \n IV->Schwarz \n V->Blau""")
+    print("""Du betrittst den Maschinenraum voller blinkender Lichter und lauten Maschinen.
+    In der Mitte des Raumes stehen 5 große Pumpen. Die Pumpen haben Ventile mit Farben darauf. \n
+    I->Lila \n II->Rot \n III->Blau \n IV->Schwarz \n V->Blau""")
     global current_room
     current_room = room2
 
@@ -112,14 +116,23 @@ def zu_ventilen():
                     counter = counter - 1
                 print("Noch", counter, "Minuten bis zur Kernschmelze")
 
+
 def room2Ende():
-    say("""Das Kühlsystem fällt komplett aus. Noch 15 Minuten bis zur Kernschmelze. Der AKW Chef wacht wieder auf und teilt mir mit, dass der Haupt-Kontrollrechner entschlüsselt werden muss um diesen wieder hochzufahren. Du kommst auf die Idee einen Rechner zu suchen welcher noch nicht von der Ransomware befallen wurde. Der Kraftwerks-Chef erwähnt ein 5G-Campusnetz, welches alle verfübaren Geräte im Netzwerk auflistet. Um Zugriff auf das Campusnetz zu bekommen, muss man eine zugehörige SIM-Karte benutzen. Er weiß aber nicht mehr wo genau die SIM-Karten gelagert werden.""")
+    say("""Das Kühlsystem fällt komplett aus. Noch 15 Minuten bis zur Kernschmelze.
+    Der AKW Chef wacht wieder auf und teilt mir mit, dass der Haupt-Kontrollrechner
+    entschlüsselt werden muss um diesen wieder hochzufahren. Du kommst auf die
+    Idee einen Rechner zu suchen welcher noch nicht von der Ransomware befallen wurde.
+    Der Kraftwerks-Chef erwähnt ein 5G-Campusnetz, welches alle verfübaren Geräte im Netzwerk auflistet.
+    Um Zugriff auf das Campusnetz zu bekommen, muss man eine zugehörige SIM-Karte benutzen.
+    Er weiß aber nicht mehr wo genau die SIM-Karten gelagert werden.""")
     ueberleitung_room3()
+
 
 def ueberleitung_room3():
     print("uberleitung raum 3")
     global current_room
     current_room = 3
+
 
 @when("debug")
 def debug():
