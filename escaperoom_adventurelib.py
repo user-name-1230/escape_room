@@ -246,8 +246,8 @@ def tuer_oeffnen_unklar():
     say("""Ich weiß nicht, welche Tür du meinst""")
 
 
-@when("gehe in raum", context="room3")
 @when("gehe in den raum", context="room3")
+@when("gehe in raum", context="room3")
 @when("geh in den raum", context="room3")
 @when("geh in raum", context="room3")
 @when("in raum gehen", context="room3")
@@ -313,6 +313,7 @@ def werkzeugkiste_oeffnen():
 
 @when("schrank öffnen", context="room4")
 def schrank_oeffnen():
+    sim_schrank_offen = True
     print("sim schrank geöffnet")
 
 
