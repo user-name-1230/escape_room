@@ -1,6 +1,11 @@
+<<<<<<< HEAD
 #!/usr/bin/env python3
 
 from adventurelib import start, when, Room, say, set_context
+=======
+from adventurelib import Room, when, say, start, Bag, Item
+import time
+>>>>>>> 743714035b96a1c40cf45987d3536df8bf3b6697
 # import pyqrcode
 from PIL import Image
 import sys
@@ -12,7 +17,22 @@ room3 = Room("""Beschreibung des Flurs""")
 room1.has_crowbar = True
 room1.action_counter = 0
 
+
 current_room = room3  # Startraum
+
+crowbar = Item("brecheisen", "crowbar")
+inventory = Bag()
+
+
+
+@when("inventar")
+def zeige_inventar():
+    print("Du hast: ")
+    if not inventory:
+        print("nichts")
+        return
+    for item in inventory:
+        print(f'*{item}')
 
 
 @when("umschauen")
@@ -23,9 +43,11 @@ def look_around():
     if current_room == room1:
         # umschauen in Raum 1
         if current_room.has_crowbar:
-            say("""Hier ist eine Beschreibung des Kontrollraums mit hängendem Brecheisen""")
+            say("""Hier ist eine Beschreibung des Kontrollraums mit hängender Brecheisen""")
         else:
-            say("""Hier ist eine Beschreibung des Kontrollraums ohne hängendem Brecheisen""")
+            say("""Hier ist eine Beschreibung des Kontrollraums ohne hängende Brecheisen""")
+    elif current_room == room2:
+        print("Lila-L \n Rot-R \n Blau-B \n Schwarz-S \n Grün-S \n Du solltest zu den Ventilen gehen.")            
     elif current_room == room3:
         # umschauen in Raum 3
         say("""Du stehst in einem langen Flur mit 7 Türen.
@@ -41,10 +63,10 @@ def look_around():
         An einer Pinnwand hängen Fotos von einem Firmenausflug.
         """)
 
+
 ########################
 # RAUM 1: KONTROLLRAUM #
 ########################
-
 
 @when("brecheisen nehmen")
 def brecheisen_nehmen():
@@ -54,11 +76,10 @@ def brecheisen_nehmen():
         if current_room.has_crowbar:
             current_room.has_crowbar = False
             say("""Du nimmst das Brecheisen. Es ist schwer.""")
-            # Falls wir noch mehr Dinge benutzen wollen, sollten wir uns
-            # nicht mehr nur auf Raumattribute verlassen,
-            # sondern die Items in einem Inventar speichern
+            inventory.add(crowbar)
         else:
             say("""Du hast das Brecheisen schon genommen.""")
+
 
 
 @when("brecheisen benutzen")
@@ -70,7 +91,7 @@ def brecheisen_benutzen():
             if current_room.action_counter == 2:
                 ueberleitung_room2()
         else:
-            say("""Du müssen das Brecheisen zuerst von der Wand nehmen.""")
+            say("""Du musst das Brecheisen zuerst von der Wand nehmen.""")
 
 
 @when("computer neustarten")
@@ -82,6 +103,9 @@ def computer_neustarten():
         say("""Du startest den Kontrollrechner neu.
             Der Bildschirm wird schwarz, nach einiger Zeit taucht der Totenkopf wieder auf.
             Das hat leider nichts gebracht.""")
+        current_room.action_counter += 1
+        if current_room.action_counter == 2:
+            ueberleitung_room2()
 
 
 @when("tasten drücken")
@@ -96,17 +120,52 @@ def tasten_druecken():
 
 
 def ueberleitung_room2():
-    say("""Überleitung zu Raum 2""")
+    print("""Du betrittst den Maschinenraum voller blinkender Lichter und lauten Maschinen.
+    In der Mitte des Raumes stehen 5 große Pumpen. Die Pumpen haben Ventile mit Farben darauf. \n
+    I->Lila \n II->Rot \n III->Blau \n IV->Schwarz \n V->Blau""") # TODO
     global current_room
     current_room = room2
     set_context(room2)
 
 
-@when("debug")
-def debug():
-    say(str(room1))
-    say(str(room1.has_crowbar))
+@when("zu den ventilen gehen")
+@when("zu ventilen gehen")
+@when("gehe zu ventilen")
+def zu_ventilen():
+    if current_room == room2:
+        counter = 20
+        while(True):
+            input_1 = input("Reihenfolge der Ventile eingeben: ")
+            if input_1 == "35124":
+                say("""Es scheint die richtige Reihenfolge zu sein, jedoch lassen sich die Pumpenventile nicht drehen.""")
+                if inventory.find("crowbar") != None:
+                    say("""Du benutzt das Brecheisen um die Ventile zu drehen, aber selbst das hilft nicht.""")
+                    time.sleep(4.0)
+                    room2Ende()
+                    return
+                else:
+                    say("""Du benötigst einen Gegenstand um die Ventile zu drehen.""")
+            else:
+                if counter > 15:
+                    counter = counter - 1
+                print("Noch", counter, "Minuten bis zur Kernschmelze")
 
+
+def room2Ende():
+    say("""Das Kühlsystem fällt komplett aus. Noch 15 Minuten bis zur Kernschmelze.
+    Der AKW Chef wacht wieder auf und teilt mir mit, dass der Haupt-Kontrollrechner
+    entschlüsselt werden muss um diesen wieder hochzufahren. Du kommst auf die
+    Idee einen Rechner zu suchen welcher noch nicht von der Ransomware befallen wurde.
+    Der Kraftwerks-Chef erwähnt ein 5G-Campusnetz, welches alle verfübaren Geräte im Netzwerk auflistet.
+    Um Zugriff auf das Campusnetz zu bekommen, muss man eine zugehörige SIM-Karte benutzen.
+    Er weiß aber nicht mehr wo genau die SIM-Karten gelagert werden.""")
+    ueberleitung_room3()
+
+
+def ueberleitung_room3():
+    print("uberleitung raum 3")
+    global current_room
+    current_room = 3
 
 ################
 # RAUM 3: FLUR #
@@ -128,6 +187,7 @@ def tuer_anschauen():
     say("""Einige Türen scheinen verschlossen zu sein. Keine Zeit zu verlieren, du musst die richtige finden!""")
 
 
+<<<<<<< HEAD
 # @when("öffne tür mit welle")
 # @when("öffne tür mit stern")
 # @when("öffne tür mit plus")
@@ -137,6 +197,9 @@ def tuer_anschauen():
 # @when("öffne tür mit dreieck")
 @when("öffne tür mit FORM", context=room3)
 @when("tür mit FORM öffnen", context=room3)
+=======
+@when("öffne tür mit FORM")
+>>>>>>> 743714035b96a1c40cf45987d3536df8bf3b6697
 def tuer_oeffnen(form):
     if form not in ("welle", "stern", "plus", "fünfeck", "dach", "minus", "dreieck"):
         say("""Eine Tür mit diesem Symbol gibt es nicht.""")
