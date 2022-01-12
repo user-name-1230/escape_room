@@ -20,9 +20,9 @@ def look_around():
     if current_room == room1:
         # umschauen in Raum 1
         if current_room.has_crowbar:
-            say("""Hier ist eine Beschreibung des Kontrollraums mit hängender Brecheisen""")
+            say("""Hier ist eine Beschreibung des Kontrollraums mit hängendem Brecheisen""")
         else:
-            say("""Hier ist eine Beschreibung des Kontrollraums ohne hängende Brecheisen""")
+            say("""Hier ist eine Beschreibung des Kontrollraums ohne hängendem Brecheisen""")
 
 
 @when("brecheisen nehmen")
@@ -32,12 +32,12 @@ def brecheisen_nehmen():
     if current_room == room1:
         if current_room.has_crowbar:
             current_room.has_crowbar = False
-            say("""Sie nehmen die Brecheisen. Sie ist scharf und schwer.""")
+            say("""Sie nehmen das Brecheisen. Es ist schwer.""")
             # Falls wir noch mehr Dinge benutzen wollen, sollten wir uns
             # nicht mehr nur auf Raumattribute verlassen,
             # sondern die Items in einem Inventar speichern
         else:
-            say("""Sie haben die Brecheisen schon genommen.""")
+            say("""Sie haben das Brecheisen schon genommen.""")
 
 
 @when("brecheisen benutzen")
@@ -49,7 +49,7 @@ def brecheisen_benutzen():
             if current_room.action_counter == 2:
                 ueberleitung_room2()
         else:
-            say("""Sie müssen die Brecheisen zuerst von der Wand nehmen.""")
+            say("""Sie müssen das Brecheisen zuerst von der Wand nehmen.""")
 
 
 @when("computer neustarten")
