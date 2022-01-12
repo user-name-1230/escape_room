@@ -19,6 +19,14 @@ smartphone = Item("smartphone", "smartphone")
 hairpin = Item("haarnadel", "hairpin")
 inventory = Bag()
 
+<<<<<<< HEAD
+=======
+
+can_check_sim_slot = False
+can_ask_faeser = False
+
+
+>>>>>>> ae93af2442623ff486cf5f6183a8f39d9af0b5a1
 @when("inventar")
 @when("inventar zeigen")
 @when("zeige inventar")
@@ -37,6 +45,7 @@ def zeige_inventar():
 @when("schau dich um", context="room1")
 def look_around_room1():
     # umschauen in Raum 1
+    # TODO
     if inventory.find("brecheisen") is None:
         say("""Hier ist eine Beschreibung des Kontrollraums mit hängendem Brecheisen""")
     else:
@@ -108,6 +117,7 @@ def tasten_druecken():
 #########################
 # RAUM 2: MASCHINENRAUM #
 #########################
+
 
 @when("umschauen", context="room2")
 @when("schaue um", context="room2")
@@ -206,7 +216,7 @@ def tuer_anschauen():
 def tuer_oeffnen(form):
     if form not in ("welle", "stern", "plus", "fünfeck", "dach", "minus", "dreieck"):
         say("""Eine Tür mit diesem Symbol gibt es nicht.""")
-    if form == "stern":
+    elif form == "stern":
         say(f"""Du versuchst, die Tür mit der {form} zu öffnen.\n
         Die Tür lässt sich öffnen. Es scheint die richtige Tür zu sein!""")
     else:
@@ -222,6 +232,23 @@ def tuer_oeffnen_unklar():
     say("""Ich weiß nicht, welche Tür du meinst""")
 
 
+<<<<<<< HEAD
+=======
+@when("gehe in raum", context="roon3")
+def gehe_in_lagerraum():
+    print("""Du betrittst den Raum hinter der soeben geöffneten Tür.""")
+    ueberleitung_raum4()
+
+
+@when("debug")
+def debug():
+    # debug
+    # say(str(room1))
+    # say(str(room1.has_crowbar))
+    global current_room
+    current_room == 4
+
+>>>>>>> ae93af2442623ff486cf5f6183a8f39d9af0b5a1
 
 #####################
 # RAUM 4: LAGERRAUM #
@@ -245,6 +272,7 @@ def oberes_abteil():
 def mittleres_abteil():
     print("beschreibung")
 
+<<<<<<< HEAD
 @when("unteres abteil angucken", context="room4")
 def unteres_abteil():
     print("beschreibung")
@@ -258,35 +286,67 @@ def werkzeugkiste_oeffnen():
     print("werkzeugkiste geöffnet, nichts drin")
 
 @when("schrank öffnen", context="room4")
+=======
+
+@when("schrank öffnen")
+>>>>>>> ae93af2442623ff486cf5f6183a8f39d9af0b5a1
 def schrank_oeffnen():
     print("sim schrank geöffnet")
 
+<<<<<<< HEAD
 @when("sim karte nehmen", context="room4")
+=======
+
+@when("sim karte nehmen")
+>>>>>>> ae93af2442623ff486cf5f6183a8f39d9af0b5a1
 def sim_karte_nehmen():
     print("sim karte genommen")
 
+<<<<<<< HEAD
 @when("sim karten slot öffnen", context="room4")
+=======
+
+@when("sim karten slot öffnen")
+>>>>>>> ae93af2442623ff486cf5f6183a8f39d9af0b5a1
 def sim_kartenslot_oeffnen():
     print("sim slot geöffnet")
 
+<<<<<<< HEAD
 @when("smartphone anschauen", context="room4"):
+=======
+
+@when("smartphone anschauen")
+>>>>>>> ae93af2442623ff486cf5f6183a8f39d9af0b5a1
 def smartphone_anschauen():
     print("smartphone angeschaut")
     can_check_sim_slot = True
 
+<<<<<<< HEAD
 @when("sim schacht öffnen", context="room4")
 @when("sim slot öffnen", context="room4")
+=======
+
+@when("sim slot öffnen")
+>>>>>>> ae93af2442623ff486cf5f6183a8f39d9af0b5a1
 def sim_slot_oeffnen():
     if inventory.find("haarnadel") is None:
         print("Erfolglos mit der Hand versucht zu öffnen")
     else:
         print("erfolgreich geöffnet")
 
+<<<<<<< HEAD
 @when("haarnadel nehmen", context="room4")
 @when("faeser nach haarnadel fragen", context="room4")
 def faeser_haarnadel():
     print("...brauchst pin....siehst qr code")
     inventory.add(hairpin)
+=======
+
+@when("faeser nach haarnadel fragen")
+def faeser_haarnadel():
+    print("...brauchst pin....siehst qr code")
+
+>>>>>>> ae93af2442623ff486cf5f6183a8f39d9af0b5a1
 
 @when("qr code anzeigen", context="room4")
 @when("qr code anschauen", context="room4")
@@ -295,21 +355,60 @@ def show_qr():
     img.show()
     hamming_code()
 
+
 def hamming_code():
     while(True):
-        input_2 = input("Bei der Übertragung der binären Nachricht kam es zu einem Fehler, Nachricht korrigieren und in Dezimal umwandeln für den PIN: ")
+        input_2 = input(
+            "Bei der Übertragung der binären Nachricht kam es zu einem Fehler, Nachricht korrigieren und in Dezimal umwandeln für den PIN: ")
         if input_2 == "1234":
             print("PIN korrekt")
             raum4Ende()
             return
         else:
-        print("Falscher PIN, bitte noch einmal versuchen.")
+            print("Falscher PIN, bitte noch einmal versuchen.")
 
+<<<<<<< HEAD
 def raum4Ende():
     print("raum 4 ende beschreibung")
 
 
 
 ## start ###
+=======
+
+@when("oberes abteil angucken")
+def oberes_abteil():
+    if current_room == 4:
+        print("beschreibung")
+
+
+@when("mittleres abteil angucken")
+def mittleres_abteil():
+    if current_room == 4:
+        print("beschreibung")
+
+
+@when("unteres abteil angucken")
+def unteres_abteil():
+    if current_room == 4:
+        print("beschreibung")
+
+
+@when("rechner anmachen")
+def rechner_anmachen():
+    if current_room == 4:
+        print("schon betroffen")
+
+
+@when("werkzeugkiste öffnen")
+def werkzeugkiste_oeffnen():
+    if current_room == 4:
+        print("nichts drin")
+
+
+def raum4Ende():
+    print("raum 4 ende beschreibung")
+>>>>>>> ae93af2442623ff486cf5f6183a8f39d9af0b5a1
+
 
 start()
