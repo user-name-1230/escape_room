@@ -225,6 +225,7 @@ def tuer_anschauen():
 
 
 @when("öffne tür mit FORM", context="room3")
+@when("tür öffnen mit FORM", context="room3")
 @when("tür mit FORM öffnen", context="room3")
 def tuer_oeffnen(form):
     if form not in ("welle", "stern", "plus", "fünfeck", "dach", "minus", "dreieck"):
@@ -247,9 +248,14 @@ def tuer_oeffnen_unklar():
 
 @when("gehe in raum", context="room3")
 @when("gehe in den raum", context="room3")
+@when("geh in den raum", context="room3")
+@when("geh in raum", context="room3")
 @when("in raum gehen", context="room3")
+@when("in den raum gehen", context="room3")
 @when("raum betreten", context="room3")
-@when("in raum den gehen", context="room3")
+@when("den raum betreten", context="room3")
+@when("betrete raum", context="room3")
+@when("betrete den raum", context="room3")
 def gehe_in_lagerraum():
     print("""Du betrittst den Raum hinter der soeben geöffneten Tür.""")
     ueberleitung_raum4()
@@ -268,9 +274,9 @@ def debug():
 #####################
 
 
-@when("umschauen")
-@when("schau um")
-@when("schau dich um")
+@when("umschauen", context="room4")
+@when("schau um", context="room4")
+@when("schau dich um", context="room4")
 def look_around_room4():
     say("""Du siehst einen Schrank mit SIM Karten drinnen. Zudem siehst du einen Lagerschrank mit 3 Abteilen und eine Werkzeugkiste. Zudem hat Ministerin Faeser ein Haarnadel dabei. etc.""")
 
