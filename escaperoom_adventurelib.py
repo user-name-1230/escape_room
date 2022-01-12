@@ -1,23 +1,25 @@
 from adventurelib import Room, when, say, start, Bag, Item
 import time
+# import pyqrcode
 from PIL import Image
-
+import sys
 
 room1 = Room("""Beschreibung des Kontrollraums""")
 room2 = Room("""Beschreibung des Maschinenraums""")
+room3 = Room("""Beschreibung des Flurs""")
 room1.has_crowbar = True
 room1.action_counter = 0
+
+
+current_room = room3  # Startraum
 
 crowbar = Item("brecheisen", "crowbar")
 smartphone = Item("smartphone", "smartphone")
 inventory = Bag()
 
+
 can_check_sim_slot = False
 can_ask_faeser = False
-
-current_room = room1  # Startraum
-
-
 @when("inventar")
 def zeige_inventar():
     print("Du hast: ")
@@ -32,15 +34,34 @@ def zeige_inventar():
 @when("schaue um")
 @when("schau dich um")
 def look_around():
+    global current_room
     if current_room == room1:
         # umschauen in Raum 1
         if current_room.has_crowbar:
             say("""Hier ist eine Beschreibung des Kontrollraums mit hängender Brecheisen""")
         else:
             say("""Hier ist eine Beschreibung des Kontrollraums ohne hängende Brecheisen""")
-    if current_room == room2:
-        print("Lila-L \n Rot-R \n Blau-B \n Schwarz-S \n Grün-S \n Du solltest zu den Ventilen gehen.")
+    elif current_room == room2:
+        print("Lila-L \n Rot-R \n Blau-B \n Schwarz-S \n Grün-S \n Du solltest zu den Ventilen gehen.")            
+    elif current_room == room3:
+        # umschauen in Raum 3
+        say("""Du stehst in einem langen Flur mit 7 Türen.
+        Auf jeder Tür ist ein Symbol: \n
+        - Welle \n
+        - Stern \n
+        - Plus \n
+        - Fünfeck \n
+        - Dach \n
+        - Minus \n
+        - Dreieck \n
+        Einige Türen scheinen verschlossen zu sein, aber alle durchzuprobieren kostet zu viel Zeit.\n
+        An einer Pinnwand hängen Fotos von einem Firmenausflug.
+        """)
 
+
+########################
+# RAUM 1: KONTROLLRAUM #
+########################
 
 @when("brecheisen nehmen")
 def brecheisen_nehmen():
@@ -49,25 +70,23 @@ def brecheisen_nehmen():
     if current_room == room1:
         if current_room.has_crowbar:
             current_room.has_crowbar = False
-            say("""Sie nehmen die Brecheisen. Sie ist scharf und schwer.""")
+            say("""Du nimmst das Brecheisen. Es ist schwer.""")
             inventory.add(crowbar)
-            # Falls wir noch mehr Dinge benutzen wollen, sollten wir uns
-            # nicht mehr nur auf Raumattribute verlassen,
-            # sondern die Items in einem Inventar speichern
         else:
-            say("""Sie haben die Brecheisen schon genommen.""")
+            say("""Du hast das Brecheisen schon genommen.""")
+
 
 
 @when("brecheisen benutzen")
 def brecheisen_benutzen():
     if current_room == room1:
         if not current_room.has_crowbar:
-            say("""Vielleicht sollten Sie den Kontrollrechner lieber nicht zerstören...""")
+            say("""Vielleicht solltest du den Kontrollrechner lieber nicht zerstören...""")
             current_room.action_counter += 1
             if current_room.action_counter == 2:
                 ueberleitung_room2()
         else:
-            say("""Sie müssen die Brecheisen zuerst von der Wand nehmen.""")
+            say("""Du musst das Brecheisen zuerst von der Wand nehmen.""")
 
 
 @when("computer neustarten")
@@ -76,15 +95,18 @@ def brecheisen_benutzen():
 @when("rechner rebooten")
 def computer_neustarten():
     if current_room == room1:
-        say("""Sie starten den Kontrollrechner neu.
+        say("""Du startest den Kontrollrechner neu.
             Der Bildschirm wird schwarz, nach einiger Zeit taucht der Totenkopf wieder auf.
             Das hat leider nichts gebracht.""")
+        current_room.action_counter += 1
+        if current_room.action_counter == 2:
+            ueberleitung_room2()
 
 
 @when("tasten drücken")
 def tasten_druecken():
     if current_room == room1:
-        say("""Sie versuchen verschiedenste Tastenkombinationen, doch der Totenkopf bleibt.
+        say("""Du versuchst verschiedenste Tastenkombinationen, doch der Totenkopf bleibt.
             Selbst Strg+Alt+Entf hilft nicht weiter. """)
         current_room.action_counter += 1
         if current_room.action_counter == 2:
@@ -94,12 +116,14 @@ def tasten_druecken():
 def ueberleitung_room2():
     print("""Du betrittst den Maschinenraum voller blinkender Lichter und lauten Maschinen.
     In der Mitte des Raumes stehen 5 große Pumpen. Die Pumpen haben Ventile mit Farben darauf. \n
-    I->Lila \n II->Rot \n III->Blau \n IV->Schwarz \n V->Blau""")
+    I->Lila \n II->Rot \n III->Blau \n IV->Schwarz \n V->Blau""") # TODO
     global current_room
     current_room = room2
 
 
 @when("zu den ventilen gehen")
+@when("zu ventilen gehen")
+@when("gehe zu ventilen")
 def zu_ventilen():
     if current_room == room2:
         counter = 20
@@ -135,6 +159,7 @@ def ueberleitung_room3():
     print("uberleitung raum 3")
     global current_room
     current_room = 3
+
 
 #####debug
 @when("debug")
@@ -224,6 +249,40 @@ def rechner_anmachen():
 def werkzeugkiste_oeffnen():
     if current_room == 4:
         print("nichts drin")
+
+################
+# RAUM 3: FLUR #
+################
+
+@when("pinnwand anschauen")
+def pinnwand_anschauen():
+    say("""Auf der Pinnwand hängen 6 Fotos von den Mitarbeitern des AKWs bei verschiedenen deutschen Sehenswürdigkeiten""")
+    pinnwand = Image.open("pinnwand.jpg")
+    pinnwand.show()
+
+
+@when("türen anschauen")
+@when("tür anschauen")
+def tuer_anschauen():
+    say("""Einige Türen scheinen verschlossen zu sein. Keine Zeit zu verlieren, du musst die richtige finden!""")
+
+
+@when("öffne tür mit FORM")
+def tuer_oeffnen(form):
+    if form == "stern":
+        say(f"""Du versuchst, die Tür mit der {form} zu öffnen."
+        Die Tür lässt sich öffnen. Es scheint die richtige Tür zu sein!""")
+    else:
+        # Doppelt gemoppelt, damit die Deklination passt
+        say(f"""Du versuchst, die Tür mit dem {form} zu öffnen.
+        Diese Tür scheint verschlossen zu sein. Du verlierst Zeit!""")
+        # TODO verschlossene Türen und leere Räume
+
+
+@when("öffne tür")
+def tuer_oeffnen_unklar():
+    say("""Ich weiß nicht, welche Tür du meinst""")
+
 
 def raum4Ende():
     print("raum 4 ende beschreibung")
