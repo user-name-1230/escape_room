@@ -10,7 +10,7 @@ room4 = Room("""Beschreibung des Lagerraums""")
 room1.has_crowbar = True
 room1.action_counter = 0
 
-# Startraum # 
+# Startraum #
 set_context("room1")
 
 # Inventar #
@@ -21,6 +21,7 @@ inventory = Bag()
 
 can_check_sim_slot = False
 can_ask_faeser = False
+
 
 @when("inventar")
 @when("inventar zeigen")
@@ -35,6 +36,8 @@ def zeige_inventar():
         print(f'*{item}')
 
 # Look Around #
+
+
 @when("umschauen", context="room1")
 @when("schaue um", context="room1")
 @when("schau dich um", context="room1")
@@ -46,12 +49,14 @@ def look_around_room1():
     else:
         say("""Hier ist eine Beschreibung des Kontrollraums ohne hängendem Brecheisen""")
 
+
 # Global Vars #
 can_check_sim_slot = False
 
 ########################
 # RAUM 1: KONTROLLRAUM #
 ########################
+
 
 @when("brecheisen nehmen", context="room1")
 @when("nimm brecheisen", context="room1")
@@ -108,7 +113,6 @@ def tasten_druecken():
             ueberleitung_room2()
 
 
-
 #########################
 # RAUM 2: MASCHINENRAUM #
 #########################
@@ -163,7 +167,6 @@ def room2Ende():
     ueberleitung_room3()
 
 
-
 ################
 # RAUM 3: FLUR #
 ################
@@ -186,9 +189,11 @@ def look_around_room3():
         An einer Pinnwand hängen Fotos von einem Firmenausflug.
         """)
 
+
 def ueberleitung_room3():
     print("ueberleitung raum 3")
     set_context("room3")
+
 
 @when("pinnwand anschauen", context="room3")
 @when("schaue pinnwand an", context="room3")
@@ -226,10 +231,12 @@ def tuer_oeffnen(form):
 def tuer_oeffnen_unklar():
     say("""Ich weiß nicht, welche Tür du meinst""")
 
+
 @when("gehe in raum", context="roon3")
 def gehe_in_lagerraum():
     print("""Du betrittst den Raum hinter der soeben geöffneten Tür.""")
     ueberleitung_raum4()
+
 
 @when("debug")
 def debug():
@@ -243,45 +250,55 @@ def debug():
 # RAUM 4: LAGERRAUM #
 #####################
 
+
 @when("umschauen")
 @when("schau um")
 @when("schau dich um")
 def look_around_room4():
     say("""Du siehst einen Schrank mit SIM Karten drinnen. Zudem siehst du einen Lagerschrank mit 3 Abteilen und eine Werkzeugkiste. Zudem hat Ministerin Faeser ein Haarnadel dabei. etc.""")
 
+
 def ueberleitung_raum4():
     print("ueberleitung raum 4")
     set_context("room4")
+
 
 @when("oberes abteil angucken", context="room4")
 def oberes_abteil():
     print("beschreibung")
 
+
 @when("mittleres abteil angucken", context="room4")
 def mittleres_abteil():
     print("beschreibung")
+
 
 @when("unteres abteil angucken", context="room4")
 def unteres_abteil():
     print("beschreibung")
 
+
 @when("rechner anmachen", context="room4")
 def rechner_anmachen():
     print("schon betroffen")
 
+
 @when("werkzeugkiste öffnen", context="room4")
 def werkzeugkiste_oeffnen():
     print("werkzeugkiste geöffnet, nichts drin")
+
 
 @when("schrank öffnen", context="room4")
 @when("schrank öffnen")
 def schrank_oeffnen():
     print("sim schrank geöffnet")
 
+
 @when("sim karte nehmen", context="room4")
 @when("sim karte nehmen")
 def sim_karte_nehmen():
     print("sim karte genommen")
+
 
 @when("sim karten slot öffnen", context="room4")
 @when("sim karten slot öffnen")
@@ -304,16 +321,19 @@ def sim_slot_oeffnen():
         print("Erfolglos mit der Hand versucht zu öffnen")
     else:
         print("erfolgreich geöffnet")
-        
+
+
 @when("haarnadel nehmen", context="room4")
 @when("faeser nach haarnadel fragen", context="room4")
 def faeser_haarnadel():
     print("...brauchst pin....siehst qr code")
     inventory.add(hairpin)
 
+
 @when("faeser nach haarnadel fragen")
 def faeser_haarnadel():
     print("...brauchst pin....siehst qr code")
+
 
 @when("qr code anzeigen", context="room4")
 @when("qr code anschauen", context="room4")
@@ -321,6 +341,7 @@ def show_qr():
     img = Image.open("qr.png")
     img.show()
     hamming_code()
+
 
 def hamming_code():
     while(True):
@@ -333,9 +354,9 @@ def hamming_code():
         else:
             print("Falscher PIN, bitte noch einmal versuchen.")
 
+
 def raum4Ende():
     print("raum 4 ende beschreibung")
-
 
 
 ## start ###
