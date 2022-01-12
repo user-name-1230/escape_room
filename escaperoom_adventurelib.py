@@ -14,14 +14,15 @@ room1.action_counter = 0
 set_context("room1")
 
 # Inventar #
-crowbar = Item("brecheisen", "crowbar")
-smartphone = Item("smartphone", "smartphone")
-hairpin = Item("haarnadel", "hairpin")
+crowbar = Item("brecheisen")
+smartphone = Item("smartphone")
+hairpin = Item("haarnadel")
+sim = Item("sim karte")
 inventory = Bag()
 
 can_check_sim_slot = False
 can_ask_faeser = False
-
+sim_schrank_offen = False
 
 @when("inventar")
 @when("inventar zeigen")
@@ -297,25 +298,24 @@ def werkzeugkiste_oeffnen():
 
 
 @when("schrank öffnen", context="room4")
-@when("schrank öffnen")
 def schrank_oeffnen():
     print("sim schrank geöffnet")
 
 
 @when("sim karte nehmen", context="room4")
-@when("sim karte nehmen")
 def sim_karte_nehmen():
-    print("sim karte genommen")
+    if sim_schrank_offen == True:
+        print("sim karte genommen")
+        inventory.add("sim")
 
 
 @when("sim karten slot öffnen", context="room4")
-@when("sim karten slot öffnen")
 def sim_kartenslot_oeffnen():
-    print("sim slot geöffnet")
+    if inventory.find("sim") is not None:
+        print("sim slot geöffnet")
 
 
 @when("smartphone anschauen", context="room4")
-@when("smartphone anschauen")
 def smartphone_anschauen():
     print("smartphone angeschaut")
     can_check_sim_slot = True
@@ -323,12 +323,14 @@ def smartphone_anschauen():
 
 @when("sim schacht öffnen", context="room4")
 @when("sim slot öffnen", context="room4")
-@when("sim slot öffnen", context="room4")
 def sim_slot_oeffnen():
-    if inventory.find("haarnadel") is None:
-        print("Erfolglos mit der Hand versucht zu öffnen")
+    if inventory.find("sim") is not None:
+        if inventory.find("haarnadel") is None:
+            print("Erfolglos mit der Hand versucht zu öffnen")
+        else:
+            print("erfolgreich geöffnet")
     else:
-        print("erfolgreich geöffnet")
+        print("SIM Karte nicht im Inventar")
 
 
 @when("haarnadel nehmen", context="room4")
@@ -338,7 +340,7 @@ def faeser_haarnadel():
     inventory.add(hairpin)
 
 
-@when("faeser nach haarnadel fragen")
+@when("faeser nach haarnadel fragen", context="room4")
 def faeser_haarnadel():
     print("...brauchst pin....siehst qr code")
 
