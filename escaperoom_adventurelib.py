@@ -2,27 +2,46 @@
 
 from adventurelib import start, when, Room, say
 # import pyqrcode
-# from PIL import Image
+from PIL import Image
+import sys
 
 
 room1 = Room("""Beschreibung des Kontrollraums""")
 room2 = Room("""Beschreibung des Maschinenraums""")
+room3 = Room("""Beschreibung des Flurs""")
 room1.has_crowbar = True
 room1.action_counter = 0
 
-current_room = room1  # Startraum
+current_room = room3  # Startraum
 
 
 @when("umschauen")
 @when("schaue um")
 @when("schau dich um")
 def look_around():
+    global current_room
     if current_room == room1:
         # umschauen in Raum 1
         if current_room.has_crowbar:
             say("""Hier ist eine Beschreibung des Kontrollraums mit hängendem Brecheisen""")
         else:
             say("""Hier ist eine Beschreibung des Kontrollraums ohne hängendem Brecheisen""")
+    elif current_room == room3:
+        say("""Sie stehen in einem langen Flur mit 7 Türen.
+        Auf jeder Tür ist ein Symbol: \n
+        - Welle \n
+        - Stern \n
+        - Plus \n
+        - Fünfeck \n
+        - Dach \n
+        - Minus \n
+        - Dreieck \n
+        An einer Pinnwand hängen Fotos von einem Firmenausflug.
+        """)
+
+########################
+# RAUM 1: KONTROLLRAUM #
+########################
 
 
 @when("brecheisen nehmen")
@@ -83,6 +102,17 @@ def ueberleitung_room2():
 def debug():
     say(str(room1))
     say(str(room1.has_crowbar))
+
+
+################
+# RAUM 3: FLUR #
+################
+
+@when("pinnwand anschauen")
+def pinnwand_anschauen():
+    say("""Auf der Pinnwand hängen 6 Fotos von den Mitarbeitern des AKWs bei verschiedenen deutschen Sehenswürdigkeiten""")
+    pinnwand = Image.open("pinnwand.jpg")
+    pinnwand.show()
 
 
 start()
