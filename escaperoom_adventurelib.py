@@ -289,7 +289,7 @@ def sim_kartenslot_oeffnen():
     print("sim slot geöffnet")
 
 
-@when("smartphone anschauen", context="room4"):
+@when("smartphone anschauen", context="room4")
 @when("smartphone anschauen")
 def smartphone_anschauen():
     print("smartphone angeschaut")
