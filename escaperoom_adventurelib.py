@@ -24,6 +24,7 @@ can_check_sim_slot = False
 can_ask_faeser = False
 sim_schrank_offen = False
 
+
 @when("inventar")
 @when("inventar zeigen")
 @when("zeige inventar")
@@ -136,15 +137,11 @@ def look_around_room2():
 def ueberleitung_room2():
     print("""Du betrittst den Maschinenraum voller blinkender Lichter und lauten Maschinen.
     In der Mitte des Raumes stehen 5 große Pumpen. Die Pumpen haben Ventile mit Farben darauf. \n
-<<<<<<< HEAD
     I->Lila \n
     II->Rot \n
     III->Blau \n
     IV->Schwarz \n
-a   V->Blau""")
-=======
-    I->Lila \n II->Rot \n III->Blau \n IV->Schwarz \n V->Blau""")
->>>>>>> ee5af77400d9ef9be266425bc7949dcc46d2b852
+    V->Blau""")
     set_context("room2")
 
 
@@ -315,7 +312,7 @@ def schrank_oeffnen():
 
 @when("sim karte nehmen", context="room4")
 def sim_karte_nehmen():
-    if sim_schrank_offen == True:
+    if sim_schrank_offen:
         print("sim karte genommen")
         inventory.add("sim")
 
