@@ -232,7 +232,7 @@ def tuer_oeffnen_unklar():
     say("""Ich weiß nicht, welche Tür du meinst""")
 
 
-@when("gehe in raum", context="roon3")
+@when("gehe in raum", context="room3")
 def gehe_in_lagerraum():
     print("""Du betrittst den Raum hinter der soeben geöffneten Tür.""")
     ueberleitung_raum4()
