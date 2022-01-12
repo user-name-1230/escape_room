@@ -39,6 +39,7 @@ def zeige_inventar():
 @when("schau dich um", context="room1")
 def look_around_room1():
     # umschauen in Raum 1
+    # TODO
     if inventory.find("brecheisen") is None:
         say("""Hier ist eine Beschreibung des Kontrollraums mit hängendem Brecheisen""")
     else:
@@ -225,9 +226,15 @@ def tuer_oeffnen_unklar():
     say("""Ich weiß nicht, welche Tür du meinst""")
 
 
-# debug
+@when("gehe in raum", context="roon3")
+def gehe_in_lagerraum():
+    print("""Du betrittst den Raum hinter der soeben geöffneten Tür.""")
+    ueberleitung_raum4()
+
+
 @when("debug")
 def debug():
+    # debug
     # say(str(room1))
     # say(str(room1.has_crowbar))
     global current_room
