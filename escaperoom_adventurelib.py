@@ -1,4 +1,4 @@
-from adventurelib import Room, when, say, start
+from adventurelib import Room, when, say, start, Bag, Item
 import time
 # import pyqrcode
 # from PIL import Image
