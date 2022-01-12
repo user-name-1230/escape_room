@@ -145,7 +145,7 @@ def ueberleitung_room2():
     II->Rot \n
     III->Blau \n
     IV->Schwarz \n
-    V->Blau""")
+a   V->Blau""")
     set_context("room2")
 
 
@@ -250,7 +250,10 @@ def tuer_oeffnen_unklar():
 
 
 @when("gehe in raum", context="room3")
+@when("gehe in den raum", context="room3")
 @when("in raum gehen", context="room3")
+@when("raum betreten", context="room3")
+@when("in raum den gehen", context="room3")
 def gehe_in_lagerraum():
     print("""Du betrittst den Raum hinter der soeben geöffneten Tür.""")
     ueberleitung_raum4()
