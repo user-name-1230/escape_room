@@ -136,15 +136,7 @@ def look_around_room2():
 def ueberleitung_room2():
     print("""Du betrittst den Maschinenraum voller blinkender Lichter und lauten Maschinen.
     In der Mitte des Raumes stehen 5 große Pumpen. Die Pumpen haben Ventile mit Farben darauf. \n
-<<<<<<< HEAD
-    I->Lila \n
-    II->Rot \n
-    III->Blau \n
-    IV->Schwarz \n
-a   V->Blau""")
-=======
     I->Lila \n II->Rot \n III->Blau \n IV->Schwarz \n V->Blau""")
->>>>>>> ee5af77400d9ef9be266425bc7949dcc46d2b852
     set_context("room2")
 
 
@@ -249,10 +241,7 @@ def tuer_oeffnen_unklar():
 
 
 @when("gehe in raum", context="room3")
-@when("gehe in den raum", context="room3")
 @when("in raum gehen", context="room3")
-@when("raum betreten", context="room3")
-@when("in raum den gehen", context="room3")
 def gehe_in_lagerraum():
     print("""Du betrittst den Raum hinter der soeben geöffneten Tür.""")
     ueberleitung_raum4()
@@ -310,6 +299,7 @@ def werkzeugkiste_oeffnen():
 
 @when("schrank öffnen", context="room4")
 def schrank_oeffnen():
+    sim_schrank_offen = True
     print("sim schrank geöffnet")
 
 
