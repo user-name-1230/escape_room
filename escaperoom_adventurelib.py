@@ -90,6 +90,13 @@ def brecheisen_benutzen():
 @when("rechner neustarten", context="room1")
 @when("computer rebooten", context="room1")
 @when("rechner rebooten", context="room1")
+@when("system neustarten", context="room1")
+@when("system rebooten", context="room1")
+@when("kontrollrechner rebooten", context="room1")
+@when("starte rechner neu", context="room1")
+@when("starte kontrollrechner neu", context="room1")
+@when("starte computer neu", context="room1")
+@when("starte system neu", context="room1")
 def computer_neustarten():
     say("""Du startest den Kontrollrechner neu.
     Der Bildschirm wird schwarz, nach einiger Zeit taucht der Totenkopf wieder auf.
@@ -233,6 +240,7 @@ def tuer_oeffnen_unklar():
 
 
 @when("gehe in raum", context="room3")
+@when("in raum gehen", context="room3")
 def gehe_in_lagerraum():
     print("""Du betrittst den Raum hinter der soeben geöffneten Tür.""")
     ueberleitung_raum4()
