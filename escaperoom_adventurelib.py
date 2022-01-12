@@ -115,4 +115,16 @@ def pinnwand_anschauen():
     pinnwand.show()
 
 
+@when("öffne tür mit welle")
+@when("öffne tür mit stern")
+@when("öffne tür mit plus")
+@when("öffne tür mit fünfeck")
+@when("öffne tür mit dach")
+@when("öffne tür mit minus")
+@when("öffne tür mit dreieck")
+@when("öffne tür mit FORM")
+def tuer_oeffnen(form):
+    say("""Du versuchst, die Tür mit """)
+
+
 start()
