@@ -150,7 +150,7 @@ def zu_ventilen():
         input_1 = input("Reihenfolge der Ventile eingeben: ")
         if input_1 == "35124":
             say("""Es scheint die richtige Reihenfolge zu sein, jedoch lassen sich die Pumpenventile nicht drehen.""")
-            if inventory.find("crowbar") is not None:
+            if inventory.find("brecheisen") is not None:
                 say("""Du benutzt das Brecheisen um die Ventile zu drehen, aber selbst das hilft nicht.""")
                 time.sleep(4.0)
                 room2Ende()
