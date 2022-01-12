@@ -4,7 +4,6 @@ import time
 from PIL import Image
 import sys
 
-
 room1 = Room("""Beschreibung des Kontrollraums""")
 room2 = Room("""Beschreibung des Maschinenraums""")
 room3 = Room("""Beschreibung des Flurs""")
@@ -15,10 +14,12 @@ room1.action_counter = 0
 current_room = room3  # Startraum
 
 crowbar = Item("brecheisen", "crowbar")
+smartphone = Item("smartphone", "smartphone")
 inventory = Bag()
 
 
-
+can_check_sim_slot = False
+can_ask_faeser = False
 @when("inventar")
 def zeige_inventar():
     print("Du hast: ")
@@ -111,7 +112,7 @@ def tasten_druecken():
         if current_room.action_counter == 2:
             ueberleitung_room2()
 
-
+##########raum2
 def ueberleitung_room2():
     print("""Du betrittst den Maschinenraum voller blinkender Lichter und lauten Maschinen.
     In der Mitte des Raumes stehen 5 große Pumpen. Die Pumpen haben Ventile mit Farben darauf. \n
@@ -159,6 +160,96 @@ def ueberleitung_room3():
     global current_room
     current_room = 3
 
+
+#####debug
+@when("debug")
+def debug():
+    #say(str(room1))
+    #say(str(room1.has_crowbar))
+    global current_room
+    current_room == 4
+
+
+######raum 4
+def ueberleitung_raum4():
+    print("ueberleitung raum 4")
+    global current_room
+    current_room = 4
+
+@when("schrank öffnen")
+def schrank_oeffnen():
+    if current_room == 4:
+        print("...")
+
+@when("sim karte nehmen")
+def sim_karte_nehmen():
+    if current_room == 4:
+        print("...")
+
+@when("sim karten slot öffnen")
+def sim_kartenslot_oeffnen():
+    if current_room == 4:
+        print("...")
+
+@when("smartphone anschauen"):
+def smartphone_anschauen():
+    if current_room == 4:
+        print("...")
+        can_check_sim_slot = True
+
+@when("sim slot öffnen")
+def sim_slot_oeffnen():
+    if current_room == 4:
+        if can_check_sim_slot == True:
+            print("Erfolglos mit der Hand versucht zu öffnen")
+            can_ask_faeser = True
+
+@when("faeser nach haarnadel fragen")
+def faeser_haarnadel():
+        print("...brauchst pin....siehst qr code")
+
+@when("qr code anschauen")
+def show_qr():
+    img = Image.open("qr.png")
+    img.show()
+    hamming_code()
+
+def hamming_code():
+    while(True):
+        input_2 = input("Bei der Übertragung der binären Nachricht kam es zu einem Fehler, Nachricht korrigieren und in Dezimal umwandeln für den PIN: ")
+        if input_2 == "1234":
+            print("PIN korrekt. Freigabe 5G Campus Netz. Öffnest Spind.")
+            raum4Ende()
+            return
+        else:
+        print("Falscher PIN, bitte noch einmal versuchen.")
+
+
+@when("oberes abteil angucken")
+def oberes_abteil():
+    if current_room == 4:
+        print("beschreibung")
+
+@when("mittleres abteil angucken")
+def mittleres_abteil():
+    if current_room == 4:
+        print("beschreibung")
+
+@when("unteres abteil angucken")
+def unteres_abteil():
+    if current_room == 4:
+        print("beschreibung")
+
+@when("rechner anmachen")
+def rechner_anmachen():
+    if current_room == 4:
+        print("schon betroffen")
+
+@when("werkzeugkiste öffnen")
+def werkzeugkiste_oeffnen():
+    if current_room == 4:
+        print("nichts drin")
+
 ################
 # RAUM 3: FLUR #
 ################
@@ -192,5 +283,8 @@ def tuer_oeffnen(form):
 def tuer_oeffnen_unklar():
     say("""Ich weiß nicht, welche Tür du meinst""")
 
+
+def raum4Ende():
+    print("raum 4 ende beschreibung")
 
 start()
