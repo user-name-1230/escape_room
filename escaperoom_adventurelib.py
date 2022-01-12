@@ -27,7 +27,8 @@ def look_around():
         else:
             say("""Hier ist eine Beschreibung des Kontrollraums ohne hängendem Brecheisen""")
     elif current_room == room3:
-        say("""Sie stehen in einem langen Flur mit 7 Türen.
+        # umschauen in Raum 3
+        say("""Du stehst in einem langen Flur mit 7 Türen.
         Auf jeder Tür ist ein Symbol: \n
         - Welle \n
         - Stern \n
@@ -36,6 +37,7 @@ def look_around():
         - Dach \n
         - Minus \n
         - Dreieck \n
+        Einige Türen scheinen verschlossen zu sein, aber alle durchzuprobieren kostet zu viel Zeit.\n
         An einer Pinnwand hängen Fotos von einem Firmenausflug.
         """)
 
@@ -51,24 +53,24 @@ def brecheisen_nehmen():
     if current_room == room1:
         if current_room.has_crowbar:
             current_room.has_crowbar = False
-            say("""Sie nehmen das Brecheisen. Es ist schwer.""")
+            say("""Du nimmst das Brecheisen. Es ist schwer.""")
             # Falls wir noch mehr Dinge benutzen wollen, sollten wir uns
             # nicht mehr nur auf Raumattribute verlassen,
             # sondern die Items in einem Inventar speichern
         else:
-            say("""Sie haben das Brecheisen schon genommen.""")
+            say("""Du hast das Brecheisen schon genommen.""")
 
 
 @when("brecheisen benutzen")
 def brecheisen_benutzen():
     if current_room == room1:
         if not current_room.has_crowbar:
-            say("""Vielleicht sollten Sie den Kontrollrechner lieber nicht zerstören...""")
+            say("""Vielleicht solltest du den Kontrollrechner lieber nicht zerstören...""")
             current_room.action_counter += 1
             if current_room.action_counter == 2:
                 ueberleitung_room2()
         else:
-            say("""Sie müssen das Brecheisen zuerst von der Wand nehmen.""")
+            say("""Du müssen das Brecheisen zuerst von der Wand nehmen.""")
 
 
 @when("computer neustarten")
@@ -77,7 +79,7 @@ def brecheisen_benutzen():
 @when("rechner rebooten")
 def computer_neustarten():
     if current_room == room1:
-        say("""Sie starten den Kontrollrechner neu.
+        say("""Du startest den Kontrollrechner neu.
             Der Bildschirm wird schwarz, nach einiger Zeit taucht der Totenkopf wieder auf.
             Das hat leider nichts gebracht.""")
 
@@ -85,7 +87,7 @@ def computer_neustarten():
 @when("tasten drücken")
 def tasten_druecken():
     if current_room == room1:
-        say("""Sie versuchen verschiedenste Tastenkombinationen, doch der Totenkopf bleibt.
+        say("""Du versuchst verschiedenste Tastenkombinationen, doch der Totenkopf bleibt.
             Selbst Strg+Alt+Entf hilft nicht weiter. """)
         current_room.action_counter += 1
         if current_room.action_counter == 2:
@@ -115,16 +117,34 @@ def pinnwand_anschauen():
     pinnwand.show()
 
 
-@when("öffne tür mit welle")
-@when("öffne tür mit stern")
-@when("öffne tür mit plus")
-@when("öffne tür mit fünfeck")
-@when("öffne tür mit dach")
-@when("öffne tür mit minus")
-@when("öffne tür mit dreieck")
+@when("türen anschauen")
+@when("tür anschauen")
+def tuer_anschauen():
+    say("""Einige Türen scheinen verschlossen zu sein. Keine Zeit zu verlieren, du musst die richtige finden!""")
+
+
+# @when("öffne tür mit welle")
+# @when("öffne tür mit stern")
+# @when("öffne tür mit plus")
+# @when("öffne tür mit fünfeck")
+# @when("öffne tür mit dach")
+# @when("öffne tür mit minus")
+# @when("öffne tür mit dreieck")
 @when("öffne tür mit FORM")
 def tuer_oeffnen(form):
-    say("""Du versuchst, die Tür mit """)
+    if form == "stern":
+        say(f"""Du versuchst, die Tür mit der {form} zu öffnen."
+        Die Tür lässt sich öffnen. Es scheint die richtige Tür zu sein!""")
+    else:
+        # Doppelt gemoppelt, damit die Deklination passt
+        say(f"""Du versuchst, die Tür mit dem {form} zu öffnen.
+        Diese Tür scheint verschlossen zu sein. Du verlierst Zeit!""")
+        # TODO verschlossene Türen und leere Räume
+
+
+@when("öffne tür")
+def tuer_oeffnen_unklar():
+    say("""Ich weiß nicht, welche Tür du meinst""")
 
 
 start()
