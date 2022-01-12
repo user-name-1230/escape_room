@@ -19,14 +19,9 @@ smartphone = Item("smartphone", "smartphone")
 hairpin = Item("haarnadel", "hairpin")
 inventory = Bag()
 
-<<<<<<< HEAD
-=======
-
 can_check_sim_slot = False
 can_ask_faeser = False
 
-
->>>>>>> ae93af2442623ff486cf5f6183a8f39d9af0b5a1
 @when("inventar")
 @when("inventar zeigen")
 @when("zeige inventar")
@@ -231,14 +226,10 @@ def tuer_oeffnen(form):
 def tuer_oeffnen_unklar():
     say("""Ich weiß nicht, welche Tür du meinst""")
 
-
-<<<<<<< HEAD
-=======
 @when("gehe in raum", context="roon3")
 def gehe_in_lagerraum():
     print("""Du betrittst den Raum hinter der soeben geöffneten Tür.""")
     ueberleitung_raum4()
-
 
 @when("debug")
 def debug():
@@ -247,8 +238,6 @@ def debug():
     # say(str(room1.has_crowbar))
     global current_room
     current_room == 4
-
->>>>>>> ae93af2442623ff486cf5f6183a8f39d9af0b5a1
 
 #####################
 # RAUM 4: LAGERRAUM #
@@ -272,7 +261,6 @@ def oberes_abteil():
 def mittleres_abteil():
     print("beschreibung")
 
-<<<<<<< HEAD
 @when("unteres abteil angucken", context="room4")
 def unteres_abteil():
     print("beschreibung")
@@ -286,67 +274,46 @@ def werkzeugkiste_oeffnen():
     print("werkzeugkiste geöffnet, nichts drin")
 
 @when("schrank öffnen", context="room4")
-=======
-
 @when("schrank öffnen")
->>>>>>> ae93af2442623ff486cf5f6183a8f39d9af0b5a1
 def schrank_oeffnen():
     print("sim schrank geöffnet")
 
-<<<<<<< HEAD
 @when("sim karte nehmen", context="room4")
-=======
-
 @when("sim karte nehmen")
->>>>>>> ae93af2442623ff486cf5f6183a8f39d9af0b5a1
 def sim_karte_nehmen():
     print("sim karte genommen")
 
-<<<<<<< HEAD
 @when("sim karten slot öffnen", context="room4")
-=======
-
 @when("sim karten slot öffnen")
->>>>>>> ae93af2442623ff486cf5f6183a8f39d9af0b5a1
 def sim_kartenslot_oeffnen():
     print("sim slot geöffnet")
 
-<<<<<<< HEAD
-@when("smartphone anschauen", context="room4"):
-=======
 
+@when("smartphone anschauen", context="room4"):
 @when("smartphone anschauen")
->>>>>>> ae93af2442623ff486cf5f6183a8f39d9af0b5a1
 def smartphone_anschauen():
     print("smartphone angeschaut")
     can_check_sim_slot = True
 
-<<<<<<< HEAD
+
 @when("sim schacht öffnen", context="room4")
 @when("sim slot öffnen", context="room4")
-=======
-
-@when("sim slot öffnen")
->>>>>>> ae93af2442623ff486cf5f6183a8f39d9af0b5a1
+@when("sim slot öffnen", context="room4")
 def sim_slot_oeffnen():
     if inventory.find("haarnadel") is None:
         print("Erfolglos mit der Hand versucht zu öffnen")
     else:
         print("erfolgreich geöffnet")
-
-<<<<<<< HEAD
+        
 @when("haarnadel nehmen", context="room4")
 @when("faeser nach haarnadel fragen", context="room4")
 def faeser_haarnadel():
     print("...brauchst pin....siehst qr code")
     inventory.add(hairpin)
-=======
 
 @when("faeser nach haarnadel fragen")
 def faeser_haarnadel():
     print("...brauchst pin....siehst qr code")
-
->>>>>>> ae93af2442623ff486cf5f6183a8f39d9af0b5a1
 
 @when("qr code anzeigen", context="room4")
 @when("qr code anschauen", context="room4")
@@ -354,7 +321,6 @@ def show_qr():
     img = Image.open("qr.png")
     img.show()
     hamming_code()
-
 
 def hamming_code():
     while(True):
@@ -367,48 +333,10 @@ def hamming_code():
         else:
             print("Falscher PIN, bitte noch einmal versuchen.")
 
-<<<<<<< HEAD
 def raum4Ende():
     print("raum 4 ende beschreibung")
 
 
 
 ## start ###
-=======
-
-@when("oberes abteil angucken")
-def oberes_abteil():
-    if current_room == 4:
-        print("beschreibung")
-
-
-@when("mittleres abteil angucken")
-def mittleres_abteil():
-    if current_room == 4:
-        print("beschreibung")
-
-
-@when("unteres abteil angucken")
-def unteres_abteil():
-    if current_room == 4:
-        print("beschreibung")
-
-
-@when("rechner anmachen")
-def rechner_anmachen():
-    if current_room == 4:
-        print("schon betroffen")
-
-
-@when("werkzeugkiste öffnen")
-def werkzeugkiste_oeffnen():
-    if current_room == 4:
-        print("nichts drin")
-
-
-def raum4Ende():
-    print("raum 4 ende beschreibung")
->>>>>>> ae93af2442623ff486cf5f6183a8f39d9af0b5a1
-
-
 start()
