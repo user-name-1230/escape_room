@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from adventurelib import start, when, Room, say
+from adventurelib import start, when, Room, say, set_context
 # import pyqrcode
 from PIL import Image
 import sys
@@ -85,6 +85,7 @@ def computer_neustarten():
 
 
 @when("tasten drücken")
+@when("drücke tasten")
 def tasten_druecken():
     if current_room == room1:
         say("""Du versuchst verschiedenste Tastenkombinationen, doch der Totenkopf bleibt.
@@ -98,6 +99,7 @@ def ueberleitung_room2():
     say("""Überleitung zu Raum 2""")
     global current_room
     current_room = room2
+    set_context(room2)
 
 
 @when("debug")
@@ -110,15 +112,18 @@ def debug():
 # RAUM 3: FLUR #
 ################
 
-@when("pinnwand anschauen")
+@when("pinnwand anschauen", context=room3)
+@when("schaue pinnwand an", context=room3)
 def pinnwand_anschauen():
     say("""Auf der Pinnwand hängen 6 Fotos von den Mitarbeitern des AKWs bei verschiedenen deutschen Sehenswürdigkeiten""")
     pinnwand = Image.open("pinnwand.jpg")
     pinnwand.show()
 
 
-@when("türen anschauen")
-@when("tür anschauen")
+@when("türen anschauen", context=room3)
+@when("tür anschauen", context=room3)
+@when("schaue tür an", context=room3)
+@when("schaue türen an", context=room3)
 def tuer_anschauen():
     say("""Einige Türen scheinen verschlossen zu sein. Keine Zeit zu verlieren, du musst die richtige finden!""")
 
@@ -130,8 +135,11 @@ def tuer_anschauen():
 # @when("öffne tür mit dach")
 # @when("öffne tür mit minus")
 # @when("öffne tür mit dreieck")
-@when("öffne tür mit FORM")
+@when("öffne tür mit FORM", context=room3)
+@when("tür mit FORM öffnen", context=room3)
 def tuer_oeffnen(form):
+    if form not in ("welle", "stern", "plus", "fünfeck", "dach", "minus", "dreieck"):
+        say("""Eine Tür mit diesem Symbol gibt es nicht.""")
     if form == "stern":
         say(f"""Du versuchst, die Tür mit der {form} zu öffnen."
         Die Tür lässt sich öffnen. Es scheint die richtige Tür zu sein!""")
@@ -142,7 +150,8 @@ def tuer_oeffnen(form):
         # TODO verschlossene Türen und leere Räume
 
 
-@when("öffne tür")
+@when("öffne tür", context=room3)
+@when("tür öffnen", context=room3)
 def tuer_oeffnen_unklar():
     say("""Ich weiß nicht, welche Tür du meinst""")
 
