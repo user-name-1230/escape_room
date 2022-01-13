@@ -13,6 +13,7 @@
 # Foto von Herr Solar false
 # 5G Pin eingabe korreckt false
 # Hinweis Raumnummer2 false
+# passwort eingegeben false
 # 
 # Optionen
 # umschauen
@@ -69,7 +70,11 @@
 # öffne Wartungsklappe, geht nicht Fehlermeldung zu wenig Kraft
 # benutze Brecheisen mit Wartungsklappe, sie öffnet sich, Tastatur dahinter
 # ersetzte Wartungsklappe durch Tastatur
-# benutze Tastatur (zur finalen Eingabe des Passwortes)
+# benutze Tastatur: wenn passwort eingegeben = false dann (zur finalen Eingabe des Passwortes): bei falscher Eingabe, weiterhin Anzeige Passwortfeld
+# bei richtiger Eingabe Text aus Raum 6 -> passwort eingegeben = true
+# wenn passwort eingegeben = true: Option benutze Kontrollrechner
+# benutze Tastatur oder benutze Kontrollrechner: wenn passwort eingegeben = true, Text und Firewall ASCII, abbrechen mit a
+# 
 #
 # Herr Solar
 # betrachten, wenn problem Gesichtsscan = true, dann auch fotografieren -> Foto Herr Solar = true
