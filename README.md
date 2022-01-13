@@ -11,3 +11,6 @@ How to use:
 7. chmod +x install.sh
 8. bash install.sh
 9. python3 escaperoom_adventurelib.py
+
+
+# NICHT FERTIG
