@@ -1,0 +1,35 @@
+# Logik - Raum 2#
+# Texte kommen von Lukas und die Beschreibungen
+# bei jedem Ort optionen auflisten?
+# wir brauchen wohl für jeden Schrank, Tür, Ort eine ID, damit nur dort die Spezial Aktionen funktionieren
+#
+# Umgebungsvariablen
+# Ventil Reihenfolge probiert false
+# Ventil Reihenfolge richtg false
+# Hinweis Flur false
+#
+# Optionen
+# umschauen
+# gehe zu, schaue an
+# verlasse Raum
+# Inventar
+#
+# umschauen
+# Pumpenventile
+# Zettel
+#
+# Zettel
+# anschauen, nehmen
+#
+# Pumpenventile
+# anschauen, -> Bild + Beschreibungen
+# benutzen, drehen,
+# Reihenfolge abfragen (1, 2, 3, 4, 5):
+# bei falsch, Text falsche Reihenfolge, Hinweise auf beispiel geben zB 12345 -> Ventil Reihenfolge probiert = true
+# bei richtig -> Ventil Reihenfolge richtig = true
+# Text, dreht sich nicht, Hebel notwendig
+# Wenn Ventil Reihenfolge richtig == true, dann benutze Brecheisen mit Pumpenventile möglich
+# nach benutzung, Text, Herr Solar wach = true,
+# Text mit Herrn Solar
+# automatisch neuer Standort: Flur
+# 

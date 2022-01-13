@@ -1,0 +1,23 @@
+# Logik - Raum 5#
+# Texte kommen von Lukas und die Beschreibungen
+# bei jedem Ort optionen auflisten?
+# wir brauchen wohl für jeden Schrank, Tür, Ort eine ID, damit nur dort die Spezial Aktionen funktionieren
+#
+# Umgebungsvariablen
+# 
+# 
+# Optionen
+# umschauen
+# gehe zu, schaue an
+# verlasse Raum
+# Inventar
+# Herr Solar
+# potentiell nicht betroffener PC
+# 
+# potentiell nicht betroffener PC
+# anschauen, schau an
+# Text
+# mehr Text
+# Komanndozeile öffnet sich
+# Passwort ins Inventar
+# schaue an Passwort: 30JahreBSI1991!

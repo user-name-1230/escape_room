@@ -1,0 +1,51 @@
+# Logik - Raum 3#
+# Texte kommen von Lukas und die Beschreibungen
+# bei jedem Ort optionen auflisten?
+# wir brauchen wohl für jeden Schrank, Tür, Ort eine ID, damit nur dort die Spezial Aktionen funktionieren
+#
+# Umgebungsvariablen
+# Zähler Türen getestet im Flur == 0
+# Hinweis Lagerraum false
+# 
+# Optionen
+# umschauen
+# gehe zu, schaue an
+# öffne Tür (direkter sprung zum Tür öffnen)
+# verlasse Raum
+# Inventar
+# Herr Solar
+#
+# umschauen
+# Pinnwand
+# Karte von Deutschland
+# Tür Welle
+# Tür Plus
+# Tür Minus
+# Tür Fünfeck
+# Tür Größer als
+# Tür Dreieck
+# Tür Stern
+#
+# Tür Welle oder Tür Fünfeck oder Tür Größer als
+# anschauen, Tür mit dem Symbol ...
+# öffnen
+# Das scheint die falsche Tür zu sein. Leider lässt sie sich nicht öffnen.
+# Zähler Türen geöffnet +1
+#
+# Tür Plus oder Tür Minus oder Dreieck
+# anschauen, Tür mit dem Symbol ...
+# öffnen
+# Die Tür ist offen. Du schaust dich im Raum um, doch kannst nichts entdecken, was dir irgendwie weiterhilft. Schade…du hast wertvolle Zeit verloren.
+# Zähler Türen geöffnet +1
+#
+# Wenn Zähler == 2, dann Zwischentext
+# vielleicht sollte ich nicht wahllos herum probieren, irgendwas will mir die Pinnwand doch sicherlich sagen ;-)
+# 
+# Wenn Zähler == 4, dann Zwischentext
+# vielleicht sollte ich nicht wahllos herum probieren, vielleicht sollte ich einmal Herrn Solar fragen
+#
+# Tür Stern
+# anschauen, Tür mit dem Symbol ...
+# öffnen -> Zähler Türen getestet im Flur == 0 und Hinweis Lagerraum = true
+# Text
+# automatisch neuer Standort Raum4, Lagerraum, Text Herr Solar folgt dir aus Neugierde
