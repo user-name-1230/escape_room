@@ -128,19 +128,14 @@ def tasten_druecken():
 @when("schaue um", context="room2")
 @when("schau dich um", context="room2")
 def look_around_room2():
-    print("Lila-L \n Rot-R \n Blau-B \n Schwarz-S \n Grün-S \n Du solltest zu den Ventilen gehen.")
+    say("""Lila-L Rot-R Blau-B Schwarz-S Grün-G | Du solltest zu den Ventilen gehen.""")
 
 
 def ueberleitung_room2():
-    print("""Du betrittst den Maschinenraum voller blinkender Lichter und lauten Maschinen.
+    say("""Du betrittst den Maschinenraum voller blinkender Lichter und lauten Maschinen.
     In der Mitte des Raumes stehen 5 große Pumpen. Die Pumpen haben Ventile mit Farben darauf. \n
-    I->Lila \n
-    II->Rot \n
-    III->Blau \n
-    IV->Schwarz \n
-    V->Blau""")
+    I->Lila II->Rot III->Blau IV->Schwarz V->Blau""")
     set_context("room2")
-
 
 @when("zu den ventilen gehen", context="room2")
 @when("zu ventilen gehen", context="room2")
@@ -159,6 +154,7 @@ def zu_ventilen():
                 return
             else:
                 say("""Du benötigst einen Gegenstand um die Ventile zu drehen.""")
+                return
                 # TODO gehe wieder zu Raum 1
         else:
             if counter > 15:
@@ -270,16 +266,13 @@ def gehe_in_lagerraum():
 def look_around_room4():
     say("""Du siehst einen Schrank mit SIM Karten drinnen. Zudem siehst du einen Lagerschrank mit 3 Abteilen und eine Werkzeugkiste. Zudem hat Ministerin Faeser ein Haarnadel dabei. etc.""")
 
-
 def ueberleitung_raum4():
     print("ueberleitung raum 4")
     set_context("room4")
 
-
 @when("oberes abteil angucken", context="room4")
 def oberes_abteil():
     print("oberes abteil beschreibung")
-
 
 @when("mittleres abteil angucken", context="room4")
 def mittleres_abteil():
@@ -290,16 +283,13 @@ def mittleres_abteil():
 def unteres_abteil():
     print("unteres abteil beschreibung")
 
-
 @when("rechner anmachen", context="room4")
 def rechner_anmachen():
     print("schon betroffen")
 
-
 @when("werkzeugkiste öffnen", context="room4")
 def werkzeugkiste_oeffnen():
     print("werkzeugkiste geöffnet, nichts drin")
-
 
 @when("schrank öffnen", context="room4")
 def schrank_oeffnen():
@@ -307,12 +297,11 @@ def schrank_oeffnen():
     sim_schrank_offen = True
     print("sim schrank geöffnet")
 
-
 @when("sim karte nehmen", context="room4")
 def sim_karte_nehmen():
-    if  sim_schrank_offen == False:
+    if  not sim_schrank_offen:
         print("nicht offen")
-    if  sim_schrank_offen == True:
+    if  sim_schrank_offen:
         print("sim karte genommen")
         inventory.add(sim)
 
@@ -325,7 +314,7 @@ def smartphone_anschauen():
 @when("sim schacht öffnen", context="room4")
 @when("sim slot öffnen", context="room4")
 def sim_slot_oeffnen():
-    if can_check_sim_slot == True:
+    if can_check_sim_slot:
         if inventory.find("simkarte") is not None:
             if inventory.find("haarnadel") is not None:
                 print("erfolgreich geöffnet")
@@ -369,6 +358,8 @@ def raum4Ende():
 
 @when("debugraum")
 def debug():
+    print("RAUMNAMEN GENAU EINGEBEN!")
+    print("1,2,3,4,5,6")
     debug_input = input("In welchen Raum springen? ")
     if debug_input == "1":
         set_context("room1")
@@ -385,11 +376,11 @@ def debug():
     
 @when("debugitem")
 def debug2():
-    print("itemnamen genau eingeben!")
+    print("ITEMNAMEN GENAU EINGEBEN!")
     print("brecheisen, smartphone, haarnadel, simkarte")
-    debug_input = input("Welches ITEM hinzufügen :")
+    debug_input = input("Welches ITEM hinzufügen: ")
     if debug_input == "brecheisen":
-        inventory.add(brecheisen)
+        inventory.add(crowbar)
     elif debug_input == "smartphone":
         inventory.add(smartphone)
     elif debug_input == "haarnadel":
