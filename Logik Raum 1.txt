@@ -12,6 +12,7 @@
 # Problem Gesichtsscan false
 # Foto von Herr Solar false
 # 5G Pin eingabe korreckt false
+# Hinweis Raumnummer2 false
 # 
 # Optionen
 # umschauen
@@ -49,6 +50,7 @@
 # später dann auch die anderen Räume
 # if Hinweis Flur == true, dann Option Flur
 # if Hinweis Lagerraum == true, dann Option Lagerraum
+# if Hinweis Raumnummer2 = true, dann Option Büro
 #
 # Sicherheitsausrüstung
 # Text
@@ -78,6 +80,7 @@
 # Problem Eingabe am Kontrollrechner -> Hinweis Wartungsklappe = true
 # Wenn Zähler Türen getestet im Flur >= 2, dann Hinweise auf richtige Tür
 # Der Organisator des letzten Betriebsausflugs ist ein Fan GPS-Symbolen auf Karten
+# Wenn Hinweis Raumnummer = true, dann diese Option, -> Hinweis Raumnummer2 = true
 # 
 #
 # Ministerin Faeser
