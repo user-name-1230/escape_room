@@ -778,7 +778,7 @@ def computer_entsperren():
             help - zeigt diese Hilfe an
             ls - listet Dateien im aktuellen Verzeichnis \n
             cd [dir] - wechselt ins Verzeichnis [dir] \n
-            hashcat [file] - vergleicht Hash in Datei [file] mit Hashtabelle in Documents/hash_list.txt  \n
+            hashcat [file] - vergleicht Hash in Datei [file] mit Hashes der Wörter in Documents/password_list.txt  \n
             [command] --help - zeigt die Hilfe des jeweiligen Programms an"""
 
     say(helpmessage)
@@ -822,7 +822,8 @@ def computer_entsperren():
             if len(hashcat_in) > 1:
                 file = hashcat_in[1]
                 if current_dir == "/root/Downloads" and file == ".passwort.txt":
-                    say("""Vergleiche Hashes mit Hash in .passwort.txt...""")
+                    say(
+                        """Vergleicht Hash in Datei [file] mit Hashes der Wörter in Documents/password_list.txt""")
                     time.sleep(5.0)
                     say("""Hash gefunden!""")
                     say("""[hash] = [passwort im klartext]""")
