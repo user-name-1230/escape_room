@@ -70,8 +70,7 @@
 # wenn Herr Solar wach == true, dann rede mit möglich
 # rede mit Optionen:
 # Problem Eingabe am Kontrollrechner -> Hinweis Wartungsklappe = true
-# Kühlsystem -> Hinweis Maschinenraum = true
-# Wenn Reihenfolge im Maschinenraum mindest einmal falsch eingeben -> Hinweis auf Alphabet geben
+# 
 #
 # Ministerin Faeser
 # Text Hochsteckfrisur
@@ -97,4 +96,4 @@
 # wenn Foto Herr Solar = true -> Option Foto auf Handy zeigen, Handy benutzen,...
 # Foto wird erkannt, Text, PIN-Abfrage
 # richtiger PIN 160364, sonst zurück zum Gesichtsscan
-# Tür öffnet sich -> Sicherheitstür geöffnet = true -> Herr Solar wach = true
+# Tür öffnet sich -> Sicherheitstür geöffnet = true
