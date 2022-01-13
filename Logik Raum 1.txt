@@ -60,7 +60,7 @@
 # betrachte Power-Button, Reset-Button, DIN-AT-Buchse -> Textanwort
 # später betrachte Wartungsklappe dazu
 # öffne Wartungsklappe, geht nicht Fehlermeldung zu wenig Kraft
-# benutze Brecheisen mit Wartungsklappe, sie öffnet sich, Tastatuiir dahinter
+# benutze Brecheisen mit Wartungsklappe, sie öffnet sich, Tastatur dahinter
 # ersetzte Wartungsklappe durch Tastatur
 # benutze Tastatur (zur finalen Eingabe des Passwortes)
 #
@@ -71,6 +71,8 @@
 # wenn Herr Solar wach == true, dann rede mit möglich
 # rede mit Optionen:
 # Problem Eingabe am Kontrollrechner -> Hinweis Wartungsklappe = true
+# Wenn Zähler Türen getestet im Flur >= 2, dann Hinweise auf richtige Tür
+# Der Organisator des letzten Betriebsausflugs ist ein Fan GPS-Symbolen auf Karten
 # 
 #
 # Ministerin Faeser
