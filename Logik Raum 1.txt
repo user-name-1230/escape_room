@@ -43,6 +43,7 @@
 # falls gewählte Option aktueller Standort: da bin ich doch schon
 # if Hinweise Maschinenraum & Sicherheitstür geöffnet == true, dann Option Maschinenraum
 # später dann auch die anderen Räume
+# if Hinweis Flur == true, dann Option Flur
 #
 # Sicherheitsausrüstung
 # Text
@@ -59,22 +60,27 @@
 # betrachte Power-Button, Reset-Button, DIN-AT-Buchse -> Textanwort
 # später betrachte Wartungsklappe dazu
 # öffne Wartungsklappe, geht nicht Fehlermeldung zu wenig Kraft
-# benutze Brecheisen mit Wartungsklappe, sie öffnet sich, Tastatuiir dahinter
+# benutze Brecheisen mit Wartungsklappe, sie öffnet sich, Tastatur dahinter
 # ersetzte Wartungsklappe durch Tastatur
 # benutze Tastatur (zur finalen Eingabe des Passwortes)
 #
 # Herr Solar
 # betrachten, wenn problem Gesichtsscan = true, dann auch fotografieren -> Foto Herr Solar = true
-# Text zu ohnmächtig
+# Text zu ohnmächtig wenn Herr Solar wach = false
+# Text zu wach durcheinander, ansprechbar, wenn Herr Solar wach = true
 # wenn Herr Solar wach == true, dann rede mit möglich
 # rede mit Optionen:
 # Problem Eingabe am Kontrollrechner -> Hinweis Wartungsklappe = true
+# Wenn Zähler Türen getestet im Flur >= 2, dann Hinweise auf richtige Tür
+# Der Organisator des letzten Betriebsausflugs ist ein Fan GPS-Symbolen auf Karten
+# 
 #
 # Ministerin Faeser
 # Text Hochsteckfrisur
 # rede mit
 # Optionen:
 # keine, wenn can_ask_faeser = True , dann Haarnadel -> ins Inventar
+# wenn Ventil Reihenfolge probiert, dann Option: Pumpenventile: Hinweise auf Alphabet, meist sind es doch einfache Dinge, abcde...
 #
 # Fernsehteam
 # rede mit

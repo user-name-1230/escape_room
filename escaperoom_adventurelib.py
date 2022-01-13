@@ -12,6 +12,7 @@ room1.action_counter = 0
 
 # Startraum #
 set_context("room1")
+print("cmds for debug: debugraum, debugitem")
 
 # Inventar #
 crowbar = Item("brecheisen")
@@ -57,6 +58,7 @@ sim_schrank_offen = False
 ########################
 # RAUM 1: KONTROLLRAUM #
 ########################
+
 
 @when("das brecheisen nehmen", context="room1")	#brecheisen, nehmen
 @when("brecheisen nehmen", context="room1")
@@ -139,7 +141,6 @@ def computer_neustarten():
 
 @when("tasten drücken", context="room1")
 @when("drücke tasten", context="room1")
-@when("auf tastatur rumdrücken", context="room1")
 def tasten_druecken():
     say("""Du versuchst verschiedenste Tastenkombinationen, doch der Totenkopf bleibt.
             Selbst Strg+Alt+Entf hilft nicht weiter. """)
@@ -159,18 +160,15 @@ def tasten_druecken():
 @when("schaue um", context="room2")
 @when("schau dich um", context="room2")
 def look_around_room2():
-    print("Lila-L \n Rot-R \n Blau-B \n Schwarz-S \n Grün-S \n Du solltest zu den Ventilen gehen.")
+    say("""Lila-L Rot-R Blau-B Schwarz-S Grün-G | Du solltest zu den Ventilen gehen.""")
 
 
 def ueberleitung_room2():
-    print("""Du betrittst den Maschinenraum voller blinkender Lichter und lauten Maschinen.
+    say("""Du betrittst den Maschinenraum voller blinkender Lichter und lauten Maschinen.
     In der Mitte des Raumes stehen 5 große Pumpen. Die Pumpen haben Ventile mit Farben darauf. \n
-    I->Lila \n
-    II->Rot \n
-    III->Blau \n
-    IV->Schwarz \n
-    V->Blau""")
+    I->Lila II->Rot III->Blau IV->Schwarz V->Blau""")
     set_context("room2")
+
 
 
 @when("zu den ventilen gehen", context="room2")	#gehen
@@ -198,6 +196,7 @@ def zu_ventilen():
                 return
             else:
                 say("""Du benötigst einen Gegenstand um die Ventile zu drehen.""")
+                return
                 # TODO gehe wieder zu Raum 1
         else:
             if counter > 15:
@@ -244,6 +243,7 @@ def ueberleitung_room3():
     set_context("room3")
 
 
+
 @when("pinnwand anschauen", context="room3")		#anschauen
 @when("schaue pinnwand an", context="room3")
 @when("schau pinnwand an", context="room3")
@@ -280,11 +280,9 @@ def tuer_anschauen():
 
 @when("öffne tür mit FORM", context="room3")		#öffnen
 @when("öffne die tür mit FORM", context="room3")
+@when("öffne tür mit FORM", context="room3")
 @when("tür öffnen mit FORM", context="room3")
 @when("tür mit FORM öffnen", context="room3")
-@when("die tür mit FORM öffnen", context="room3")
-@when("FORM tür öffnen", context="room3")
-@when("öffne FORM tür", context="room3")
 def tuer_oeffnen(form):
     if form not in ("welle", "stern", "plus", "fünfeck", "dach", "minus", "dreieck"):
         say("""Eine Tür mit diesem Symbol gibt es nicht.""")
@@ -339,11 +337,9 @@ def gehe_in_lagerraum():
 def look_around_room4():
     say("""Du siehst einen Schrank mit SIM Karten drinnen. Zudem siehst du einen Lagerschrank mit 3 Abteilen und eine Werkzeugkiste. Zudem hat Ministerin Faeser ein Haarnadel dabei. etc.""")
 
-
 def ueberleitung_raum4():
     print("ueberleitung raum 4")
     set_context("room4")
-
 
 @when("oberes abteil angucken", context="room4")	#angucken
 @when("gucke oberes abteil an", context="room4")
@@ -386,6 +382,7 @@ def mittleres_abteil():
 @when("betrachte unteres abteil", context="room4")
 def unteres_abteil():
     print("unteres abteil beschreibung")
+
 
 
 @when("rechner anmachen", context="room4")		#rechner, anmachen
@@ -446,9 +443,9 @@ def schrank_oeffnen():
 @when("nimm die sim-karte", context="room4")
 @when("nimm die sim", context="room4")
 def sim_karte_nehmen():
-    if  sim_schrank_offen == False:
+    if  not sim_schrank_offen:
         print("nicht offen")
-    if  sim_schrank_offen == True:
+    if  sim_schrank_offen:
         print("sim karte genommen")
         inventory.add(sim)
 
@@ -480,7 +477,7 @@ def smartphone_anschauen():
 @when("sim schacht öffnen", context="room4")
 @when("sim slot öffnen", context="room4")
 def sim_slot_oeffnen():
-    if can_check_sim_slot == True:
+    if can_check_sim_slot:
         if inventory.find("simkarte") is not None:
             if inventory.find("haarnadel") is not None:
                 print("erfolgreich geöffnet")
@@ -518,9 +515,41 @@ def hamming_code():
 def raum4Ende():
     print("raum 4 ende beschreibung")
 
-@when("debug")
-def debugr4():
-    set_context("room4")
+
+
+# debug #
+
+@when("debugraum")
+def debug():
+    print("RAUMNAMEN GENAU EINGEBEN!")
+    print("1,2,3,4,5,6")
+    debug_input = input("In welchen Raum springen? ")
+    if debug_input == "1":
+        set_context("room1")
+    elif debug_input == "2":
+        set_context("room2")
+    elif debug_input == "3":
+        set_context("room3")
+    elif debug_input == "4":
+        set_context("room4")
+    elif debug_input == "5":
+        set_context("room5")
+    elif debug_input == "6":
+        set_context("room6")
+    
+@when("debugitem")
+def debug2():
+    print("ITEMNAMEN GENAU EINGEBEN!")
+    print("brecheisen, smartphone, haarnadel, simkarte")
+    debug_input = input("Welches ITEM hinzufügen: ")
+    if debug_input == "brecheisen":
+        inventory.add(crowbar)
+    elif debug_input == "smartphone":
+        inventory.add(smartphone)
+    elif debug_input == "haarnadel":
+        inventory.add(hairpin)
+    elif debug_input == "simkarte":
+        inventory.add(sim)
 
 
 
