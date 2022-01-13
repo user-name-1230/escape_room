@@ -521,7 +521,8 @@ def smartphone_anschauen():
 
 @when("sim schacht öffnen", context="room4")  # sim schacht, öffnen
 @when("öffne sim schacht", context="room4")
-@when("sim karten schacht öffnen", context="room4")  # sim karten schacht, öffnen
+# sim karten schacht, öffnen
+@when("sim karten schacht öffnen", context="room4")
 @when("öffne sim karten schacht", context="room4")
 @when("sim slot öffnen", context="room4")  # sim slot, öffnen
 @when("öffne sim slot", context="room4")
@@ -658,8 +659,9 @@ def computer_entsperren():
         "/root/Dokumente": [
             "quartalsbericht_2021_q4.pdf",
             "auswertung_mitarbeiterbefragung.pptx",
+            "hash_list.txt"
         ],
-        "/root/Downloads": [".passwort.txt"],
+        "/root/Downloads": [".hash.txt"],
         "/root/Bilder": ["reaktor_schema.jpg"],
         "/root/Videos": [""],
         "/root/Musik": ["never_gonna_give_you_up.mp3"],
@@ -670,7 +672,7 @@ def computer_entsperren():
             help - zeigt diese Hilfe an
             ls - listet Dateien im aktuellen Verzeichnis \n
             cd [dir] - wechselt ins Verzeichnis [dir] \n
-            hashcat - entschlüsselt Passwörter \n
+            hashcat [file] - vergleicht Hash in Datei [file] mit Hashtabelle in Documents/hash_list.txt  \n
             [command] --help - zeigt die Hilfe des jeweiligen Programms an"""
 
     say(helpmessage)
@@ -685,10 +687,8 @@ def computer_entsperren():
             if len(ls_in) > 1:
                 arg = ls_in[1]
                 if arg == "--help":
-                    say(
-                        """ls - listet Dateien im aktuellen Verzeichnis \n
-                    ls -a - listet Dateien inklusive versteckter Dateien auf"""
-                    )
+                    say("""ls - listet Dateien im aktuellen Verzeichnis \n
+                    ls -a - listet Dateien inklusive versteckter Dateien auf""")
                 elif arg == "-a":
                     list_all = True
                 else:
@@ -713,17 +713,19 @@ def computer_entsperren():
             say(helpmessage)
         elif command.__contains__("hashcat"):
             hashcat_in = command.split()
-            file = hashcat_in[1]
-            if current_dir == "/root/Downloads" and file == ".passwort.txt":
-                say("""Vergleiche Hashes mit Hash in .passwort.txt...""")
-                time.sleep(5.0)
-                say("""Hash gefunden!""")
-                say("""[hash] = [passwort im klartext]""")
+            if len(hashcat_in) > 1:
+                file = hashcat_in[1]
+                if current_dir == "/root/Downloads" and file == ".passwort.txt":
+                    say("""Vergleiche Hashes mit Hash in .passwort.txt...""")
+                    time.sleep(5.0)
+                    say("""Hash gefunden!""")
+                    say("""[hash] = [passwort im klartext]""")
+                else:
+                    say(
+                        """Fehler: Datei ist nicht verschlüsselt. Haben Sie die
+                    richtige Datei ausgewählt?""")
             else:
-                say(
-                    """Fehler: Datei ist nicht verschlüsselt. Haben Sie die
-                richtige Datei ausgewählt?"""
-                )
+                say("""Fehler: Kommando ungültig""")
         elif command.__contains__("cd"):
             cd_in = command.split()
             if len(cd_in) > 1:
@@ -733,14 +735,13 @@ def computer_entsperren():
                         """cd [dir] - wechselt ins Verzeichnis [dir] \n
                     cd - (ohne Eingabe) wechselt ins Home-Verzeichnis des aktuellen Nutzers"""
                     )
-                elif "/root/" + dir in dir_system.keys():
+                elif "/root/" + dir in dir_system.keys() and current_dir == "/root":
                     current_dir = "/root/" + dir
+                elif dir in dir_system.keys() and current_dir != "/root"
                 else:
                     say("""Fehler: Verzeichnis {} nicht gefunden""".format(dir))
             else:
                 current_dir = "/root"
-        elif command == "pwd":
-            say(current_dir)
 
         else:
             say(
