@@ -11,7 +11,7 @@ room1.has_crowbar = True
 room1.action_counter = 0
 
 # Startraum #
-set_context("room1")
+set_context("room5")
 
 # Inventar #
 crowbar = Item("brecheisen")
@@ -184,6 +184,25 @@ def room2Ende():
 # RAUM 3: FLUR #
 ################
 
+tür_welle = Item("welle")      # 1
+tür_welle.status = False
+tür_stern = Item("stern")      # 2
+tür_stern.status = False
+tür_plus = Item("plus")        # 3
+tür_plus.status = False
+tür_fünfeck = Item("fünfeck")  # 4
+tür_fünfeck.status = False
+tür_dach = Item("dach")        # 5
+tür_dach.status = False
+tür_dreieck = Item("dreieck")  # 6
+tür_dreieck.status = False
+tür_minus = Item("minus")      # 7
+tür_minus.status = False
+
+türen = Bag([tür_welle, tür_stern, tür_dach, tür_dreieck,
+            tür_fünfeck, tür_minus, tür_plus])
+
+
 @when("umschauen", context="room3")
 @when("schaue um", context="room3")
 @when("schau dich um", context="room3")
@@ -228,9 +247,10 @@ def tuer_anschauen():
 @when("tür öffnen mit FORM", context="room3")
 @when("tür mit FORM öffnen", context="room3")
 def tuer_oeffnen(form):
-    if form not in ("welle", "stern", "plus", "fünfeck", "dach", "minus", "dreieck"):
+    if türen.find(form) is None:
         say("""Eine Tür mit diesem Symbol gibt es nicht.""")
     elif form == "stern":
+        türen.find("stern").status = True
         say(f"""Du versuchst, die Tür mit der {form} zu öffnen.\n
         Die Tür lässt sich öffnen. Es scheint die richtige Tür zu sein!""")
     else:
@@ -257,8 +277,12 @@ def tuer_oeffnen_unklar():
 @when("betrete raum", context="room3")
 @when("betrete den raum", context="room3")
 def gehe_in_lagerraum():
-    print("""Du betrittst den Raum hinter der soeben geöffneten Tür.""")
-    ueberleitung_raum4()
+    # TODO: andere Türen machen
+    if türen.find("stern").status:
+        say("""Du betrittst den Raum hinter der soeben geöffneten Tür.""")
+        ueberleitung_raum4()
+    else:
+        say("""Die Tür ist noch geschlossen.""")
 
 
 @when("debug")
@@ -382,6 +406,124 @@ def hamming_code():
 
 def raum4Ende():
     print("raum 4 ende beschreibung")
+
+################
+# RAUM 5: BÜRO #
+################
+
+
+@when("umschauen", context="room5")
+@when("schau um", context="room5")
+@when("schau dich um", context="room5")
+def look_around_room5():
+    say("""Du bist in einem Büro mit vielen Schreibtischen und Computern, aber keiner Menschenseele.
+    Manche Computer wurden nicht ausgeschaltet.""")
+
+
+@when("computer anschauen", context="room5")
+def computer_anschauen():
+    say("""Mehrere Computer wurden einfach angelassen. Viele zeigen den gleichen Totenkopf wie im Kontrollraum an, doch
+    der Computer des Abteilungsmanagers scheint nicht befallen zu sein.""")
+
+
+@when("computer des managers anschauen", context="room5")
+def nicht_befallenen_computer_anschauen():
+    say("""Dieser Rechner ist nicht von der Ransomware betroffen. Er scheint eine Verbindung zum Kontrollrechner
+    im Kontrollraum zu haben, jedoch ist er mit einem Passwort geschützt. Das Passwort hängt auf einem
+    Post-It am Monitor.""")
+
+
+@when("computer entsperren", context="room5")
+def computer_entsperren():
+    # abandon all hope, ye who enters here
+    say("""Der Computer nimmt das Passwort an. Du siehst, dass die aktuell geöffnete Kommandozeile über SSH an den
+    Rechner im Kontrollraum eingeloggt ist. So ein Glück! Vielleicht findet sich jahr hier ein Passwort oder Schlüssel...
+    Du setzt dich an den Rechner und wählst die Kommandozeile aus.""")
+
+    current_dir = "/root"
+    dir_system = {
+        "/root/Dokumente": ["quartalsbericht_2021_q4.pdf", "auswertung_mitarbeiterbefragung.pptx"],
+        "/root/Downloads": [".passwort.txt"],
+        "/root/Bilder": ["reaktor_schema.jpg"],
+        "/root/Videos": [""],
+        "/root/Musik": ["never_gonna_give_you_up.mp3"],
+        "/root/Öffentlich": [""],
+        "/root/Desktop": ["run_hl3.sh", "reactorcontrol.sh"]
+    }
+    helpmessage = """Verfügbare Kommandos: \n
+            help - zeigt diese Hilfe an
+            ls - listet Dateien im aktuellen Verzeichnis \n
+            cd [dir] - wechselt ins Verzeichnis [dir] \n
+            hashcat - entschlüsselt Passwörter \n
+            [command] --help - zeigt die Hilfe des jeweiligen Programms an"""
+
+    say(helpmessage)
+    # what a terrible day to have eyes...
+    while True:
+        command = input(current_dir + " # ")
+        if command == "exit":
+            break
+        elif command.__contains__("ls"):
+            list_all = False
+            ls_in = command.split()
+            if len(ls_in) > 1:
+                arg = ls_in[1]
+                if arg == "--help":
+                    say("""ls - listet Dateien im aktuellen Verzeichnis \n
+                    ls -a - listet Dateien inklusive versteckter Dateien auf""")
+                elif arg == "-a":
+                    list_all = True
+                else:
+                    say("Fehler: Kommando ungültig")
+                    continue
+            if current_dir == "/root":
+                for dir in dir_system:
+                    say(dir)
+            elif current_dir in dir_system:
+                files = dir_system.get(current_dir)
+                for file in files:
+                    if not list_all:
+                        if not file.startswith("."):
+                            say(file)
+                        else:
+                            continue
+                    else:
+                        say(file)
+            else:
+                say("""Fehler: Kommando ungültig""")
+        elif command == "help":
+            say(helpmessage)
+        elif command.__contains__("hashcat"):
+            hashcat_in = command.split()
+            file = hashcat_in[1]
+            if current_dir == "/root/Downloads" and file == ".passwort.txt":
+                say("""Vergleiche Hashes mit Hash in .passwort.txt...""")
+                time.sleep(5.0)
+                say("""Hash gefunden!""")
+                say("""[hash] = [passwort im klartext]""")
+            else:
+                say("""Fehler: Datei ist nicht verschlüsselt. Haben Sie die
+                richtige Datei ausgewählt?""")
+        elif command.__contains__("cd"):
+            cd_in = command.split()
+            if len(cd_in) > 1:
+                dir = cd_in[1]
+                if dir == "--help":
+                    say("""cd [dir] - wechselt ins Verzeichnis [dir] \n
+                    cd - (ohne Eingabe) wechselt ins Home-Verzeichnis des aktuellen Nutzers""")
+                elif "/root/" + dir in dir_system.keys():
+                    current_dir = "/root/" + dir
+                else:
+                    say("""Fehler: Verzeichnis {} nicht gefunden""".format(dir))
+            else:
+                current_dir = "/root"
+        elif command == "pwd":
+            say(current_dir)
+
+        else:
+            say("""Error: Befehl nicht erkannt. Geben Sie 'help' ein, um alle Befehle zu sehen.""")
+
+    say("""Du verlässt die Kommandozeile""")
 
 
 ## start ###
