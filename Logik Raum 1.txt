@@ -11,6 +11,7 @@
 # Herr Solar wach false
 # Problem Gesichtsscan false
 # Foto von Herr Solar false
+# 5G Pin eingabe korreckt false
 # 
 # Optionen
 # umschauen
@@ -35,8 +36,10 @@
 # anschauen: kurzer Text
 # Smartphone: wenn 5G Karte im Inventar = true, dann SIM Karten Slot -> im Inventar
 # Sim Karten Slot: Optionen: Öffnen -> Fehler kann SIM-Karten-Schacht mit der Hand nicht öffnen, brauche etwas spitzes dünnes, wie ein Haarnadel
-# wenn 5G SIM eingelegt == true, dann benutzen freigeschaltet: SIM-Pin eingeben: mit a abbrechen
-# 
+# wenn 5G SIM eingelegt == false & Foto Herr Solar = false: Fotografieren
+# wenn 5G SIM eingelegt == false & Foto Herr Solar = true: Bild Herr Solar anzeigen
+# wenn 5G SIM eingelegt == true & 5G Pin eingabe korreckt = false, dann benutzen: SIM-Pin eingeben: mit a abbrechen, wenn richtig, dann 5G Pin eingabe korreckt = true und Text Dashboard, Hinweis Raumnummer = true
+# wenn 5G SIM eingelegt == true & 5G Pin eingabe korreckt = true, dann benutzen: Text Dashboard
 #
 # verlasse Raum
 # Optionen aufzählen
@@ -99,7 +102,7 @@
 # öffne Tür -> verschlossen
 # Drücke Start-Taste
 # Optionen: eigenes Gesicht -> Text -> Problem Gesichtsscan = true
-# wenn Foto Herr Solar = true -> Option Foto auf Handy zeigen, Handy benutzen,...
+# wenn Foto Herr Solar = true -> Option Foto auf Handy zeigen, Handy benutzen mit Kamera
 # Foto wird erkannt, Text, PIN-Abfrage
 # richtiger PIN 160364, sonst zurück zum Gesichtsscan
 # Tür öffnet sich -> Sicherheitstür geöffnet = true
