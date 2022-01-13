@@ -1,0 +1,93 @@
+# Logik - Raum 1#
+# Texte kommen von Lukas und die Beschreibungen
+# bei jedem Ort optionen auflisten?
+# wir brauchen wohl für jeden Schrank, Tür, Ort eine ID, damit nur dort die Spezial Aktionen funktionieren
+#
+# Umgebungsvariablen
+# Rechner neugestartet false
+# Hinweis Maschinenraum false
+# Hinweis Wartungsklappe false
+# Sicherheitstür geöffnet false
+# Herr Solar wach false
+# Problem Gesichtsscan false
+# Foto von Herr Solar false
+# 
+# Optionen
+# umschauen
+# gehe zu, schaue an
+# verlasse Raum
+# Inventar
+# 
+# umschauen
+# Kontrollrechner
+# Sicherheitsausrüstung
+# Herr Solar
+# Ministerin Faeser
+# Fernsehteam
+# Sicherheitstür
+# Poster an der Wand
+#
+# Inventar
+# du betrachtest deine Sachen:
+# zum Start: Smartphone, Kali-Linux USB-Stick, zusammen gerollte USB-Tastatur
+# bei Dingen im Inventar:
+# Möglichkeite es zu benutzen: Aber immer hier wohl nicht sinnvoll, außer bei bestimmten Fällen
+#
+# verlasse Raum
+# Optionen aufzählen
+# aktuelle Option: Kontrollraum, im Raum bleiben
+# falls gewählte Option aktueller Standort: da bin ich doch schon
+# if Hinweise Maschinenraum & Sicherheitstür geöffnet == true, dann Option Maschinenraum
+# später dann auch die anderen Räume
+#
+# Sicherheitsausrüstung
+# Text
+# Brecheisen, 
+# nehmen, nimm
+# ins Inventar
+#
+# Kontrollrechner
+# Text 1
+# Text 2 dazu wenn Hinweis Wartungsklappe == true, Du entdeckst eine Wartungsklappe auf der Unterseite des Schreibtisches
+# Optionen:
+# drücke Power-Putton, Reset-Button
+# Rechner neugestartet = true
+# betrachte Power-Button, Reset-Button, DIN-AT-Buchse -> Textanwort
+# später betrachte Wartungsklappe dazu
+# öffne Wartungsklappe, geht nicht Fehlermeldung zu wenig Kraft
+# benutze Brecheisen mit Wartungsklappe, sie öffnet sich, Tastatuiir dahinter
+# ersetzte Wartungsklappe durch Tastatur
+# benutze Tastatur (zur finalen Eingabe des Passwortes)
+#
+# Herr Solar
+# betrachten, wenn problem Gesichtsscan = true, dann auch fotografieren -> Foto Herr Solar = true
+# Text zu ohnmächtig
+# wenn Herr Solar wach == true, dann rede mit möglich
+# rede mit Optionen:
+# Problem Eingabe am Kontrollrechner -> Hinweis Wartungsklappe = true
+#
+# Ministerin Faeser
+# Text Hochsteckfrisur
+# rede mit
+# Optionen:
+# keine, wenn can_ask_faeser = True , dann Haarnadel -> ins Inventar
+#
+# Fernsehteam
+# rede mit
+# Optionen:
+# Herr Solar -> Text über Scooter
+# wenn Rechner neugestartet true -> Option: Kühlsystem -> Hinweis Maschinenraum = true
+# 
+# Poster an der Wand
+# betrachte:
+# Text, wichtige Daten Scooter
+#
+# Sicherheitstür
+# Text
+# öffne Tür -> verschlossen
+# Drücke Start-Taste
+# Optionen: eigenes Gesicht -> Text -> Problem Gesichtsscan = true
+# wenn Foto Herr Solar = true -> Option Foto auf Handy zeigen, Handy benutzen,...
+# Foto wird erkannt, Text, PIN-Abfrage
+# richtiger PIN 160364, sonst zurück zum Gesichtsscan
+# Tür öffnet sich -> Sicherheitstür geöffnet = true
