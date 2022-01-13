@@ -290,6 +290,8 @@ def ventile_anschauen():
         Schwarzes Ventil ist mit IV beschriftet\n
         Grünes Ventil ist mit V beschriftet"""
     )
+    img = Image.open("ventile.jpg")
+    img.show()
 
 
 @when("zu den ventilen gehen", context="room2")  # gehen
@@ -392,6 +394,8 @@ def look_around_room3():
         An einer Pinnwand hängen Fotos von einem Firmenausflug.
         """
     )
+    img = Image.open("doors.png")
+    img.show()
 
 
 def ueberleitung_room3():
