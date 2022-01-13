@@ -14,6 +14,7 @@
 # 5G Pin eingabe korreckt false
 # Hinweis Raumnummer2 false
 # passwort eingegeben false
+# firewall geloest false
 # 
 # Optionen
 # umschauen
@@ -29,6 +30,7 @@
 # Fernsehteam
 # Sicherheitstür
 # Poster an der Wand
+# wenn passwort eingegeben = true: Zettel am Kontrollpult
 #
 # Inventar
 # du betrachtest deine Sachen:
@@ -73,7 +75,7 @@
 # benutze Tastatur: wenn passwort eingegeben = false dann (zur finalen Eingabe des Passwortes): bei falscher Eingabe, weiterhin Anzeige Passwortfeld
 # bei richtiger Eingabe Text aus Raum 6 -> passwort eingegeben = true
 # wenn passwort eingegeben = true: Option benutze Kontrollrechner
-# benutze Tastatur oder benutze Kontrollrechner: wenn passwort eingegeben = true, Text und Firewall ASCII, abbrechen mit a
+# benutze Tastatur oder benutze Kontrollrechner: wenn passwort eingegeben = true, Text und Firewall ASCII, abbrechen mit a, wenn gelöst -> firewall geloest = true, Text + Ende
 # 
 #
 # Herr Solar
@@ -114,3 +116,7 @@
 # Foto wird erkannt, Text, PIN-Abfrage
 # richtiger PIN 160364, sonst zurück zum Gesichtsscan
 # Tür öffnet sich -> Sicherheitstür geöffnet = true
+# 
+# wenn passwort eingegeben = true: Zettel am Kontrollpult
+# anschauen -> Text
+# nehmen -> Inventar
