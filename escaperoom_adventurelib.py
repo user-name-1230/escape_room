@@ -21,10 +21,11 @@ sim = Item("simkarte")
 inventory = Bag()
 
 @when("inventar")
-@when("inventar zeigen")
+@when("inventar zeigen")			#zeigen
 @when("zeige inventar")
-@when("inventar anzeigen")
-@when("öffne inventar")
+@when("inventar anzeigen")			#anzeigen
+@when("anzeige vom inventar")
+@when("öffne inventar")			#öffnen
 @when("inventar öffnen")
 def zeige_inventar():
     print("Du hast: ")
@@ -57,13 +58,17 @@ sim_schrank_offen = False
 # RAUM 1: KONTROLLRAUM #
 ########################
 
-@when("das brecheisen nehmen", context="room1")
+@when("das brecheisen nehmen", context="room1")	#brecheisen, nehmen
 @when("brecheisen nehmen", context="room1")
-@when("nimm brecheisen", context="room1")
+@when("nehm brecheisen", context="room1")
+@when("nehm das brecheisen", context="room1")
+@when("nimm brecheisen", context="room1")		#brecheisen, nimm
 @when("nimm das brecheisen", context="room1")
-@when("die brechstange nehmen", context="room1")
+@when("die brechstange nehmen", context="room1")	#brechstange, nehmen
 @when("brechstange nehmen", context="room1")
-@when("nimm die brechstange", context="room1")
+@when("nehm brechstange", context="room1")
+@when("nehm die brechstange", context="room1")
+@when("nimm die brechstange", context="room1")	#brechstange, nimm
 @when("nimm brechstange", context="room1")
 def brecheisen_nehmen():
     # Brecheisen in Raum 1 nehmen
@@ -74,9 +79,17 @@ def brecheisen_nehmen():
         say("""Du hast das Brecheisen schon genommen.""")
 
 
+@when("benutze brecheisen", context="room1")		#brecheisen, benutzen
+@when("benutz brecheisen", context="room1")
 @when("brecheisen benutzen", context="room1")
+@when("nutze brecheisen", context="room1")		#brecheisen, nutzen
+@when("nutz brecheisen", context="room1")
 @when("brecheisen nutzen", context="room1")
-@when("brechstange benutzen", context="room1")
+@when("nutze brechstange", context="room1")		#brechstange, benutzen
+@when("nutz brechstange", context="room1")	
+@when("benutze brechstange", context="room1")
+@when("benutz brechstange", context="room1")
+@when("brechstange benutzen", context="room1")	#brechstange, nutzen
 @when("brechstange nutzen", context="room1")
 def brecheisen_benutzen():
     if inventory.find("brecheisen") is None:
@@ -93,17 +106,26 @@ def brecheisen_benutzen():
                 ueberleitung_room2()
 
 
-@when("computer neustarten", context="room1")
-@when("rechner neustarten", context="room1")
-@when("computer rebooten", context="room1")
-@when("rechner rebooten", context="room1")
-@when("system neustarten", context="room1")
-@when("system rebooten", context="room1")
-@when("kontrollrechner rebooten", context="room1")
-@when("starte rechner neu", context="room1")
-@when("starte kontrollrechner neu", context="room1")
+@when("computer neustarten", context="room1")		#neustarten
 @when("starte computer neu", context="room1")
+@when("rechner neustarten", context="room1")
+@when("starte rechner neu", context="room1")
+@when("pc neustarten", context="room1")
+@when("starte pc neu", context="room1")
+@when("kontrollrechner neustarten", context="room1")	
+@when("starte kontrollrechner neu", context="room1")
+@when("system neustarten", context="room1")
 @when("starte system neu", context="room1")
+@when("computer rebooten", context="room1")		#rebooten
+@when("reboote computer", context="room1")
+@when("rechner rebooten", context="room1")
+@when("reboote rechner", context="room1")
+@when("system rebooten", context="room1")
+@when("reboote system", context="room1")
+@when("pc rebooten", context="room1")
+@when("reboote pc", context="room1")
+@when("kontrollrechner rebooten", context="room1")
+@when("reboote kontrollrechner", context="room1")
 def computer_neustarten():
     say("""Du startest den Kontrollrechner neu.
     Der Bildschirm wird schwarz, nach einiger Zeit taucht der Totenkopf wieder auf.
@@ -151,12 +173,16 @@ def ueberleitung_room2():
     set_context("room2")
 
 
-@when("zu den ventilen gehen", context="room2")
+@when("zu den ventilen gehen", context="room2")	#gehen
 @when("zu ventilen gehen", context="room2")
 @when("gehe zu ventilen", context="room2")
+@when("geh zu ventilen", context="room2")
 @when("gehe zu den ventilen", context="room2")
-@when("laufe zu ventilen", context="room2")
+@when("geh zu den ventilen", context="room2")
+@when("laufe zu ventilen", context="room2")		#laufen
+@when("lauf zu ventilen", context="room2")
 @when("laufe zu den ventilen", context="room2")
+@when("lauf zu den ventilen", context="room2")
 @when("zu ventilen laufen", context="room2")
 def zu_ventilen():
     # if current_room == room2:
@@ -218,11 +244,13 @@ def ueberleitung_room3():
     set_context("room3")
 
 
-@when("pinnwand anschauen", context="room3")
-@when("pinnwand angucken", context="room3")
+@when("pinnwand anschauen", context="room3")		#anschauen
 @when("schaue pinnwand an", context="room3")
-@when("gucke pinnwand an", context="room3")
-@when("pinnwand betrachten", context="room3")
+@when("schau pinnwand an", context="room3")
+@when("gucke pinnwand an", context="room3")		#gucken
+@when("guck pinnwand an", context="room3")
+@when("pinnwand angucken", context="room3")
+@when("pinnwand betrachten", context="room3")		#betrachten
 @when("betrachte pinnwand", context="room3")
 def pinnwand_anschauen():
     say("""Auf der Pinnwand hängen 6 Fotos von den Mitarbeitern des AKWs bei verschiedenen deutschen Sehenswürdigkeiten""")
@@ -230,15 +258,19 @@ def pinnwand_anschauen():
     pinnwand.show()
 
 
-@when("türen anschauen", context="room3")
+@when("türen anschauen", context="room3")		#anschauen
 @when("schaue türen an", context="room3")
+@when("schau türen an", context="room3")
 @when("tür anschauen", context="room3")
 @when("schaue tür an", context="room3")
-@when("türen angucken", context="room3")
+@when("schau tür an", context="room3")
+@when("türen angucken", context="room3")		#angucken
 @when("gucke türen an", context="room3")
+@when("guck türen an", context="room3")
 @when("tür angucken", context="room3")
 @when("gucke tür an", context="room3")
-@when("tür betrachten", context="room3")
+@when("guck tür an", context="room3")
+@when("tür betrachten", context="room3")		#betrachten
 @when("betrachte tür", context="room3")
 @when("türen betrachten", context="room3")
 @when("betrachte türen ", context="room3")
@@ -246,7 +278,7 @@ def tuer_anschauen():
     say("""Einige Türen scheinen verschlossen zu sein. Keine Zeit zu verlieren, du musst die richtige finden!""")
 
 
-@when("öffne tür mit FORM", context="room3")
+@when("öffne tür mit FORM", context="room3")		#öffnen
 @when("öffne die tür mit FORM", context="room3")
 @when("tür öffnen mit FORM", context="room3")
 @when("tür mit FORM öffnen", context="room3")
@@ -272,22 +304,23 @@ def tuer_oeffnen_unklar():
     say("""Ich weiß nicht, welche Tür du meinst""")
 
 
-@when("gehe in den raum", context="room3")
+@when("gehe in den raum", context="room3")	#gehe,raum
 @when("gehe in raum", context="room3")
-@when("gehe in den raum", context="room3")
 @when("in raum gehen", context="room3")
 @when("in den raum gehen", context="room3")
-@when("gehe durch tür", context="room3")
+@when("gehe durch tür", context="room3")	#gehe, tür
 @when("gehe durch die tür", context="room3")
 @when("durch tür gehen", context="room3")
 @when("durch die tür gehen", context="room3")
-@when("geh in den raum", context="room3")
+@when("durch die tür hindurch gehen", context="room3")
+@when("geh in den raum", context="room3")	#geh, raum
 @when("geh in raum", context="room3")
-@when("in raum gehen", context="room3")
-@when("in den raum gehen", context="room3")
-@when("raum betreten", context="room3")
+@when("geh durch tür", context="room3")	#geh, tür
+@when("geh durch die tür", context="room3")
+@when("geh durch die tür hindurch", context="room3")
+@when("raum betreten", context="room3")	#betreten, raum
 @when("den raum betreten", context="room3")
-@when("betrete raum", context="room3")
+@when("betrete raum", context="room3")	#betrete, raum
 @when("betrete den raum", context="room3")
 def gehe_in_lagerraum():
     print("""Du betrittst den Raum hinter der soeben geöffneten Tür.""")
@@ -312,39 +345,106 @@ def ueberleitung_raum4():
     set_context("room4")
 
 
-@when("oberes abteil angucken", context="room4")
+@when("oberes abteil angucken", context="room4")	#angucken
+@when("gucke oberes abteil an", context="room4")
+@when("guck oberes abteil an", context="room4")
+@when("abteil oben angucken", context="room4")
+@when("oberes abteil anschauen", context="room4") 	#anschauen
+@when("schaue oberes abteil an", context="room4")
+@when("schau oberes abteil an", context="room4")
+@when("abteil oben anschauen", context="room4")
+@when("abteil oben betrachten", context="room4")	#betrachten
+@when("betrachte oberes abteil", context="room4")
 def oberes_abteil():
     print("oberes abteil beschreibung")
 
 
-@when("mittleres abteil angucken", context="room4")
+@when("mittleres abteil angucken", context="room4")	#angucken
+@when("gucke mittleres abteil an", context="room4")
+@when("guck mittleres abteil an", context="room4")
+@when("abteil mitte angucken", context="room4")
+@when("abteil in der mitte angucken", context="room4")
+@when("mittleres abteil anschauen", context="room4")	#anschauen
+@when("schaue mittleres abteil an", context="room4")
+@when("schau mittleres abteil an", context="room4")
+@when("abteil mitte anschauen", context="room4")
+@when("abteil in der mitte anschauen", context="room4")
+@when("abteil mitte betrachten", context="room4")	#betrachten
+@when("abteil in der mitte betrachten", context="room4")
+@when("betrachte mittleres abteil", context="room4")
 def mittleres_abteil():
     print("mittleres abteil beschreibung")
 
 
-@when("unteres abteil angucken", context="room4")
+@when("unteres abteil angucken", context="room4")	#angucken
+@when("gucke unteres abteil an", context="room4")
+@when("abteil unten angucken", context="room4")
+@when("unteres abteil anschauen", context="room4") 	#anschauen
+@when("schaue unteres abteil an", context="room4")
+@when("abteil unten anschauen", context="room4")
+@when("abteil unten betrachten", context="room4")	#betrachten
+@when("betrachte unteres abteil", context="room4")
 def unteres_abteil():
     print("unteres abteil beschreibung")
 
 
-@when("rechner anmachen", context="room4")
+@when("rechner anmachen", context="room4")		#rechner, anmachen
+@when("mache rechner an", context="room4")
+@when("rechner starten", context="room4")		#rechner, starten
+@when("starte rechner", context="room4")
+@when("rechner anschalten", context="room4")		#rechner, anschalten
+@when("schalte rechner an", context="room4")
+@when("computer anmachen", context="room4")		#computer, anmachen
+@when("mache computer an", context="room4")
+@when("computer starten", context="room4")		#computer, starten
+@when("starte computer", context="room4")
+@when("computer anschalten", context="room4")		#computer, anschalten
+@when("schalte computer an", context="room4")
+@when("pc anmachen", context="room4")			#pc, anmachen
+@when("mache pc an", context="room4")
+@when("pc starten", context="room4")			#pc, starten
+@when("starte pc", context="room4")
+@when("pc anschalten", context="room4")		#pc, anschalten
+@when("schalte pc an", context="room4")
 def rechner_anmachen():
     print("schon betroffen")
 
 
-@when("werkzeugkiste öffnen", context="room4")
+@when("werkzeugkiste öffnen", context="room4")	#öffnen
+@when("öffne werkzeugkiste", context="room4")
 def werkzeugkiste_oeffnen():
     print("werkzeugkiste geöffnet, nichts drin")
 
 
-@when("schrank öffnen", context="room4")
+@when("schrank öffnen", context="room4")		#öffnen
+@when("öffne schrank", context="room4")
 def schrank_oeffnen():
     global sim_schrank_offen 
     sim_schrank_offen = True
     print("sim schrank geöffnet")
 
 
-@when("sim karte nehmen", context="room4")
+@when("sim karte nehmen", context="room4")		#nehmen
+@when("sim-karte nehmen", context="room4")
+@when("sim nehmen", context="room4")
+@when("nehme sim karte", context="room4")
+@when("nehme sim-karte", context="room4")
+@when("nehme sim", context="room4")
+@when("nehme die sim karte", context="room4")
+@when("nehme die sim-karte", context="room4")	
+@when("nehme die sim", context="room4")
+@when("nehm sim karte", context="room4")
+@when("nehm sim-karte", context="room4")
+@when("nehm sim", context="room4")
+@when("nehm die sim karte", context="room4")
+@when("nehm die sim-karte", context="room4")	
+@when("nehm die sim", context="room4")
+@when("nimm sim karte", context="room4")		#nimm
+@when("nimm sim-karte", context="room4")
+@when("nimm sim", context="room4")
+@when("nimm die sim karte", context="room4")
+@when("nimm die sim-karte", context="room4")
+@when("nimm die sim", context="room4")
 def sim_karte_nehmen():
     if  sim_schrank_offen == False:
         print("nicht offen")
@@ -352,7 +452,26 @@ def sim_karte_nehmen():
         print("sim karte genommen")
         inventory.add(sim)
 
-@when("smartphone anschauen", context="room4")
+@when("smartphone anschauen", context="room4")	#anschauen, smartphone
+@when("schaue smartphone an", context="room4")
+@when("schaue das smartphone an", context="room4")
+@when("schau smartphone an", context="room4")
+@when("schau das smartphone an", context="room4")
+@when("handy anschauen", context="room4")		#anschauen, handy
+@when("schaue handy an", context="room4")
+@when("schaue das handy an", context="room4")
+@when("schau handy an", context="room4")
+@when("schau das handy an", context="room4")
+@when("smartphone angucken", context="room4")		#angucken, smartphone
+@when("gucke smartphone an", context="room4")
+@when("gucke das smartphone an", context="room4")
+@when("guck smartphone an", context="room4")
+@when("guck das smartphone an", context="room4")
+@when("handy angucken", context="room4")		#angucken, handy
+@when("gucke handy an", context="room4")
+@when("gucke das handy an", context="room4")
+@when("guck handy an", context="room4")
+@when("guck das handy an", context="room4")
 def smartphone_anschauen():
     print("smartphone angeschaut")
     global can_check_sim_slot 
