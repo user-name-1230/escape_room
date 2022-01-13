@@ -14,6 +14,53 @@ room1.action_counter = 0
 set_context("room1")
 print("cmds for debug: debugraum, debugitem")
 
+# Einleitungsstory
+say("""----------------------------------------------------------------------------------""")
+say("""Einleitung: \n
+Zur feierlichen Abschaltung des letzten deutschen AKWs sind hochrangige Gäste
+eingeladen. Unter anderem das BMI und somit Ministerin Schrader. Du, als
+technischer Sachverständiger und IT-Spezialist darfst die Ministerin begleiten,
+welche den roten Knopf zur Abschaltung drücken soll. Der AKW-Chef Herr Solar
+führt Ministerin Schrader, das Fernsehteam und dich durch die Anlage. Nach
+einigen Minuten gelangt ihr in das Herzstück des AKWs – den Kontrollraum –
+welches sich hinter einer meterdicken Sicherheitstür befindet.""")
+say("""""")
+time.sleep(6.0)
+say("""Ihr begebt euch gemeinsam zum Abschaltterminal. Über ein Mikrofon zählt
+Herr Solar den Countdown herunter. Die Journalisten außerhalb des Kraftwerks
+lauschen gespannt mit. Ministerin Schrader hat bereits die Hand auf dem großen
+roten Knopf. 5...4...3...2……...plötzlich völlige Dunkelheit.""")
+say("""""")
+time.sleep(6.0)
+say("""Ihr hört ein lautes Surren und Klicken. Nach einer gefühlten Ewigkeit
+geht ein rot-pulsierendes Notlicht an und im Kontrollraum verhallt das
+Warnsignal aus dem Maschinenraum. Die Sicherheitstür wird mit einem Knall
+verriegelt. Der Bildschirm des Kontrollrechners leuchtet auf und ein Totenkopf
+erscheint mit folgender Mitteilung: "Die Evil Corp hat soeben das Kraftwerk
+übernommen. Wir haben das Kühlsystem der Brennstäbe gehackt und die Pumpen
+heruntergefahren.“""")
+say("""""")
+time.sleep(6.0)
+say("""Ein Countdown startet: 30:00, 29:59, 29:58, ....""")
+say("""""")
+time.sleep(6.0)
+say("""„Zur Entsperrung der Anlage müssen sie nur einen kleinen Betrag von
+100.000.000 Dogecoin auf die Wallet-Adresse besser.aBSIchern überweisen.“""")
+say("""""")
+time.sleep(6.0)
+say("""Unter der Mitteilung erscheint ein Eingabefeld, welches mit Passwort
+beschriftet ist. Na toll…Ransomware. Der Chef des Kraftwerks ist erschüttert und
+erklärt, dass es zu einer Kettenreaktion und letzten Endes zur Kernschmelze
+kommen wird, wenn die Kühlung länger als 30 Minuten stillsteht. Danach fällt er
+vor Schreck in Ohnmacht. Ministerin Schrader greift sofort zum Telefon um den
+Kanzler zu fragen, ob die Bezahlung eine Option darstellt. Aber sie hat keinen
+Empfang. Die Wände des Kontrollraums sind zu dick. Das Fernsehteam steht ratlos
+in der Ecke des Raumes. Du möchtest nicht warten und glaubst auch nicht, dass
+eine Bezahlung des Lösegelds wirksam ist. Also suchst du als einziger Anwesender
+mit breitem IT-Wissen - denn du hast ja DACS studiert ;) - nach einer
+Lösung.""")
+
+
 # Inventar #
 crowbar = Item("brecheisen")
 smartphone = Item("smartphone")
@@ -21,12 +68,13 @@ hairpin = Item("haarnadel")
 sim = Item("simkarte")
 inventory = Bag()
 
+
 @when("inventar")
-@when("inventar zeigen")			#zeigen
+@when("inventar zeigen")  # zeigen
 @when("zeige inventar")
-@when("inventar anzeigen")			#anzeigen
+@when("inventar anzeigen")  # anzeigen
 @when("anzeige vom inventar")
-@when("öffne inventar")			#öffnen
+@when("öffne inventar")  # öffnen
 @when("inventar öffnen")
 def zeige_inventar():
     print("Du hast: ")
@@ -34,7 +82,8 @@ def zeige_inventar():
         print("nichts")
         return
     for item in inventory:
-        print(f'*{item}')
+        print(f"*{item}")
+
 
 # Look Around #
 @when("umschauen", context="room1")
@@ -44,9 +93,9 @@ def look_around_room1():
     # umschauen in Raum 1
     # TODO
     if inventory.find("brecheisen") is None:
-        say("""Hier ist eine Beschreibung des Kontrollraums mit hängendem Brecheisen""")
+        say("""Du siehst den Kontrollrechner und Sicherheitsausrüstung in der Ecke.""")
     else:
-        say("""Hier ist eine Beschreibung des Kontrollraums ohne hängendem Brecheisen""")
+        say("""Du siehst den Kontrollrechner.""")
 
 
 # Global Vars #
@@ -60,40 +109,51 @@ status_gesehen = False
 ########################
 # RAUM 1: KONTROLLRAUM #
 ########################
+# Einleitung Raum 1:
+time.sleep(6.0)
+say("""----------------------------------------------------------------------------------""")
+say("""Du befindest dich nun im Kontrollraum. Die Menge an Schaltern, Hebeln und
+erschlägt dich fast und es fällt dir schwer deine Panik in den Griff zu
+bekommen. Du versuchst dich zu sammeln und deine Möglichkeiten abzuwägen: \n
+Du kannst dich im Raum [umschauen]\n
+Du kannst Dinge im Raum [anschauen], [nehmen] und [benutzen]\n
+Du kannst dein aktuelles [Inventar] anschauen\n
+Du kannst dir [help] suchen, wenn du nicht weiterkommst\n
+Du kannst mit [exit] das AKW verlassen (Spiel beenden)""")
 
 
-@when("das brecheisen nehmen", context="room1")	#brecheisen, nehmen
+@when("das brecheisen nehmen", context="room1")  # brecheisen, nehmen
 @when("brecheisen nehmen", context="room1")
 @when("nehm brecheisen", context="room1")
 @when("nehm das brecheisen", context="room1")
-@when("nimm brecheisen", context="room1")		#brecheisen, nimm
+@when("nimm brecheisen", context="room1")  # brecheisen, nimm
 @when("nimm das brecheisen", context="room1")
-@when("die brechstange nehmen", context="room1")	#brechstange, nehmen
+@when("die brechstange nehmen", context="room1")  # brechstange, nehmen
 @when("brechstange nehmen", context="room1")
 @when("nehm brechstange", context="room1")
 @when("nehm die brechstange", context="room1")
-@when("nimm die brechstange", context="room1")	#brechstange, nimm
+@when("nimm die brechstange", context="room1")  # brechstange, nimm
 @when("nimm brechstange", context="room1")
 def brecheisen_nehmen():
     # Brecheisen in Raum 1 nehmen
     if "brecheisen" not in inventory:
-        say("""Du nimmst das Brecheisen. Es ist schwer.""")
+        say("""„Das könnte eventuell noch nützlich sein“, sagst du und packst das Brecheisen 	 direkt ein.""")
         inventory.add(crowbar)
     else:
         say("""Du hast das Brecheisen schon genommen.""")
 
 
-@when("benutze brecheisen", context="room1")		#brecheisen, benutzen
+@when("benutze brecheisen", context="room1")  # brecheisen, benutzen
 @when("benutz brecheisen", context="room1")
 @when("brecheisen benutzen", context="room1")
-@when("nutze brecheisen", context="room1")		#brecheisen, nutzen
+@when("nutze brecheisen", context="room1")  # brecheisen, nutzen
 @when("nutz brecheisen", context="room1")
 @when("brecheisen nutzen", context="room1")
-@when("nutze brechstange", context="room1")		#brechstange, benutzen
-@when("nutz brechstange", context="room1")	
+@when("nutze brechstange", context="room1")  # brechstange, benutzen
+@when("nutz brechstange", context="room1")
 @when("benutze brechstange", context="room1")
 @when("benutz brechstange", context="room1")
-@when("brechstange benutzen", context="room1")	#brechstange, nutzen
+@when("brechstange benutzen", context="room1")  # brechstange, nutzen
 @when("brechstange nutzen", context="room1")
 def brecheisen_benutzen():
     if inventory.find("brecheisen") is None:
@@ -110,17 +170,17 @@ def brecheisen_benutzen():
                 ueberleitung_room2()
 
 
-@when("computer neustarten", context="room1")		#neustarten
+@when("computer neustarten", context="room1")  # neustarten
 @when("starte computer neu", context="room1")
 @when("rechner neustarten", context="room1")
 @when("starte rechner neu", context="room1")
 @when("pc neustarten", context="room1")
 @when("starte pc neu", context="room1")
-@when("kontrollrechner neustarten", context="room1")	
+@when("kontrollrechner neustarten", context="room1")
 @when("starte kontrollrechner neu", context="room1")
 @when("system neustarten", context="room1")
 @when("starte system neu", context="room1")
-@when("computer rebooten", context="room1")		#rebooten
+@when("computer rebooten", context="room1")  # rebooten
 @when("reboote computer", context="room1")
 @when("rechner rebooten", context="room1")
 @when("reboote rechner", context="room1")
@@ -131,9 +191,11 @@ def brecheisen_benutzen():
 @when("kontrollrechner rebooten", context="room1")
 @when("reboote kontrollrechner", context="room1")
 def computer_neustarten():
-    say("""Du startest den Kontrollrechner neu.
-    Der Bildschirm wird schwarz, nach einiger Zeit taucht der Totenkopf wieder auf.
-            Das hat leider nichts gebracht.""")
+    say(
+        """Du startest den Kontrollrechner neu.
+        Der Bildschirm wird schwarz, nach einiger Zeit taucht der Totenkopf wieder auf.
+        Das hat leider nichts gebracht."""
+    )
 
     if room1.action_counter < 2:
         room1.action_counter += 1
@@ -144,8 +206,9 @@ def computer_neustarten():
 @when("tasten drücken", context="room1")
 @when("drücke tasten", context="room1")
 def tasten_druecken():
-    say("""Du versuchst verschiedenste Tastenkombinationen, doch der Totenkopf bleibt.
-            Selbst Strg+Alt+Entf hilft nicht weiter. """)
+    say(
+        """Du versuchst verschiedenste Tastenkombinationen, doch der Totenkopf bleibt. Selbst Strg+Alt+Entf hilft nicht weiter. """
+    )
 
     if room1.action_counter < 2:
         room1.action_counter += 1
@@ -156,30 +219,57 @@ def tasten_druecken():
 #########################
 # RAUM 2: MASCHINENRAUM #
 #########################
-
-
 @when("umschauen", context="room2")
 @when("schaue um", context="room2")
 @when("schau dich um", context="room2")
 def look_around_room2():
-    say("""Lila-L Rot-R Blau-B Schwarz-S Grün-G | Du solltest zu den Ventilen gehen.""")
+    say("""Du entdeckst die Pumpenventile der riesigen Kühlpumpen und einen
+    Zettel auf einem Tisch in der Nähe. Die Ventile scheinen beschriftet zu
+    sein. Bestimmt muss eine Reihenfolge eingehalten werden.""")
 
 
 def ueberleitung_room2():
-    say("""Du betrittst den Maschinenraum voller blinkender Lichter und lauten Maschinen.
-    In der Mitte des Raumes stehen 5 große Pumpen. Die Pumpen haben Ventile mit Farben darauf. \n
-    I->Lila II->Rot III->Blau IV->Schwarz V->Blau""")
+    time.sleep(6.0)
+    say("""---------------------------------------------------------------------------------""")
+    say("""Sehr gut. Du konntest die Sicherheitstür öffnen und rennst so schnell
+    du kannst los. Dabei folgst du stur dem Warnsignal, welches dich direkt zum
+    Maschinenraum führt, während es immer lauter wird. \n Beim Betreten des
+    Raums nimmst du eine Durchsage einer Computerstimme aus den Lautsprechern
+    wahr: „Noch 20 Minuten bis zur Kernschmelze!“ Die vielen blinkenden Lichter
+    vor Ort werden alle von dem immer noch rot-pulsierenden Licht überdeckt. Das
+    laute Brummen der großen Maschinen ist ohrenbetäubend. Mittig im Raum stehen
+    5 riesige Pumpen. „Das müssen sie sein!“ Vorsichtshalber ziehst du das
+    Netzwerkkabel des Kontrollrechners des Kühlsystems. Die Hacker dürften jetzt
+    wenigstens keinen Zugriff mehr darauf haben. Was nun?""")
+    say("""""")
     set_context("room2")
 
 
+@when("zettel anschauen", context="room2")
+def zettel_anschauen():
+    say("""Lila – L\n
+	Rot – R\n
+	Blau – B\n
+	Schwarz – S\n
+	Grün – G""")
 
-@when("zu den ventilen gehen", context="room2")	#gehen
+
+@when("ventile anschauen", context="room2")
+def ventile_anschauen():
+    say("""Lila Ventil ist mit I beschriftet\n
+	Rotes Ventil ist mit II beschriftet\n
+	Blaues Ventil ist mit III beschriftet\n
+	Schwarzes Ventil ist mit IV beschriftet\n
+	Grünes Ventil ist mit V beschriftet""")
+
+
+@when("zu den ventilen gehen", context="room2")  # gehen
 @when("zu ventilen gehen", context="room2")
 @when("gehe zu ventilen", context="room2")
 @when("geh zu ventilen", context="room2")
 @when("gehe zu den ventilen", context="room2")
 @when("geh zu den ventilen", context="room2")
-@when("laufe zu ventilen", context="room2")		#laufen
+@when("laufe zu ventilen", context="room2")  # laufen
 @when("lauf zu ventilen", context="room2")
 @when("laufe zu den ventilen", context="room2")
 @when("lauf zu den ventilen", context="room2")
@@ -187,12 +277,20 @@ def ueberleitung_room2():
 def zu_ventilen():
     # if current_room == room2:
     counter = 20
-    while(True):
-        input_1 = input("Reihenfolge der Ventile eingeben: ")
+    while True:
+        input_1 = input(
+            "Reihenfolge der Ventile eingeben (um weitere Hinweise zu suchen [zurück]): ")
         if input_1 == "35124":
-            say("""Es scheint die richtige Reihenfolge zu sein, jedoch lassen sich die Pumpenventile nicht drehen.""")
+            say(
+                """Das muss die richtige Reihenfolge gewesen sein. Doch die Ventile lassen sich nicht drehen. Du brauchst
+                irgendetwas, womit du mehr Kraft aufbringen kannst. Eine Art Hebel."""
+            )
             if inventory.find("brecheisen") is not None:
-                say("""Du benutzt das Brecheisen um die Ventile zu drehen, aber selbst das hilft nicht.""")
+                say(
+                    """Die Ventile lassen sich nun drehen. Doch was ist das!? Ein lautes Knarzen übertönt plötzlich das Warnsignal
+                    und alle Pumpen gehen wieder aus. Na toll…erneut hörst du eine Durchsage aus den Lautsprechern: „Noch 15
+                    Minuten bis zur Kernschmelze!“"""
+                )
                 time.sleep(4.0)
                 room2Ende()
                 return
@@ -200,6 +298,8 @@ def zu_ventilen():
                 say("""Du benötigst einen Gegenstand um die Ventile zu drehen.""")
                 return
                 # TODO gehe wieder zu Raum 1
+        if input_1 == "zurück" or input_1 == "exit":
+            return
         else:
             if counter > 15:
                 counter = counter - 1
@@ -207,13 +307,15 @@ def zu_ventilen():
 
 
 def room2Ende():
-    say("""Das Kühlsystem fällt komplett aus. Noch 15 Minuten bis zur Kernschmelze.
+    say(
+        """Das Kühlsystem fällt komplett aus. Noch 15 Minuten bis zur Kernschmelze.
     Der AKW Chef wacht wieder auf und teilt mir mit, dass der Haupt-Kontrollrechner
     entschlüsselt werden muss um diesen wieder hochzufahren. Du kommst auf die
     Idee einen Rechner zu suchen welcher noch nicht von der Ransomware befallen wurde.
     Der Kraftwerks-Chef erwähnt ein 5G-Campusnetz, welches alle verfübaren Geräte im Netzwerk auflistet.
     Um Zugriff auf das Campusnetz zu bekommen, muss man eine zugehörige SIM-Karte benutzen.
-    Er weiß aber nicht mehr wo genau die SIM-Karten gelagert werden.""")
+    Er weiß aber nicht mehr wo genau die SIM-Karten gelagert werden."""
+    )
     ueberleitung_room3()
 
 
@@ -221,12 +323,33 @@ def room2Ende():
 # RAUM 3: FLUR #
 ################
 
+tür_welle = Item("welle")  # 1
+tür_welle.status = False
+tür_stern = Item("stern")  # 2
+tür_stern.status = False
+tür_plus = Item("plus")  # 3
+tür_plus.status = False
+tür_fünfeck = Item("fünfeck")  # 4
+tür_fünfeck.status = False
+tür_dach = Item("dach")  # 5
+tür_dach.status = False
+tür_dreieck = Item("dreieck")  # 6
+tür_dreieck.status = False
+tür_minus = Item("minus")  # 7
+tür_minus.status = False
+
+türen = Bag(
+    [tür_welle, tür_stern, tür_dach, tür_dreieck, tür_fünfeck, tür_minus, tür_plus]
+)
+
+
 @when("umschauen", context="room3")
 @when("schaue um", context="room3")
 @when("schau dich um", context="room3")
 def look_around_room3():
     # umschauen in Raum 3
-    say("""Du stehst in einem langen Flur mit 7 Türen.
+    say(
+        """Du stehst in einem langen Flur mit 7 Türen.
         Auf jeder Tür ist ein Symbol: \n
         - Welle \n
         - Stern \n
@@ -237,22 +360,37 @@ def look_around_room3():
         - Dreieck \n
         Einige Türen scheinen verschlossen zu sein, aber alle durchzuprobieren kostet zu viel Zeit.\n
         An einer Pinnwand hängen Fotos von einem Firmenausflug.
-        """)
+        """
+    )
 
 
 def ueberleitung_room3():
-    print("ueberleitung raum 3")
+    time.sleep(6.0)
+    say("""---------------------------------------------------------------------------------""")
+    say("""Doch von dem lauten Geräusch scheint der Kraftwerk-Chef wieder
+    aufgewacht zu sein. Er kommt schweren Schrittes auf dich zugelaufen und
+    versucht dir winkend und mit letztem Atem keuchend mitzuteilen, dass die
+    Pumpen nur über den Haupt-Kontrollrechner gestartet werden können.\n Du
+    musst also unbedingt einen Weg finden, den Rechner zu entsperren. Doch wie
+    sollst du das bloß anstellen? Vielleicht sind noch nicht alle Rechner mit
+    der Ransomware infiziert. Du musst einen Rechner finden, der noch nicht
+    betroffen ist, vielleicht hilft dir das weiter.\n Herr Solar scheint einen
+    Gedankenblitz zu haben: „Wir haben neulich mit anderen Kraftwerken zusammen
+    ein 5G-Campusnetz aufgebaut, das alle verfügbaren Geräte in unserem Netzwerk
+    auflisten kann. Dazu braucht man nur eine passende SIM-Karte. Jedoch hab ich
+    leider vergessen, wo genau die SIM-Karten gelagert werden. Es muss irgendwo
+    hier drüben sein.“, sagt er und führt dich in einen langen, kargen Flur mit
+    sieben Türen.""")
     set_context("room3")
 
 
-
-@when("pinnwand anschauen", context="room3")		#anschauen
+@when("pinnwand anschauen", context="room3")  # anschauen
 @when("schaue pinnwand an", context="room3")
 @when("schau pinnwand an", context="room3")
-@when("gucke pinnwand an", context="room3")		#gucken
+@when("gucke pinnwand an", context="room3")  # gucken
 @when("guck pinnwand an", context="room3")
 @when("pinnwand angucken", context="room3")
-@when("pinnwand betrachten", context="room3")		#betrachten
+@when("pinnwand betrachten", context="room3")  # betrachten
 @when("betrachte pinnwand", context="room3")
 def pinnwand_anschauen():
     say("""Auf der Pinnwand hängen 6 Fotos von den Mitarbeitern des AKWs bei verschiedenen deutschen Sehenswürdigkeiten""")
@@ -260,19 +398,19 @@ def pinnwand_anschauen():
     pinnwand.show()
 
 
-@when("türen anschauen", context="room3")		#anschauen
+@when("türen anschauen", context="room3")  # anschauen
 @when("schaue türen an", context="room3")
 @when("schau türen an", context="room3")
 @when("tür anschauen", context="room3")
 @when("schaue tür an", context="room3")
 @when("schau tür an", context="room3")
-@when("türen angucken", context="room3")		#angucken
+@when("türen angucken", context="room3")  # angucken
 @when("gucke türen an", context="room3")
 @when("guck türen an", context="room3")
 @when("tür angucken", context="room3")
 @when("gucke tür an", context="room3")
 @when("guck tür an", context="room3")
-@when("tür betrachten", context="room3")		#betrachten
+@when("tür betrachten", context="room3")  # betrachten
 @when("betrachte tür", context="room3")
 @when("türen betrachten", context="room3")
 @when("betrachte türen ", context="room3")
@@ -280,21 +418,26 @@ def tuer_anschauen():
     say("""Einige Türen scheinen verschlossen zu sein. Keine Zeit zu verlieren, du musst die richtige finden!""")
 
 
-@when("öffne tür mit FORM", context="room3")		#öffnen
+@when("öffne tür mit FORM", context="room3")  # öffnen
 @when("öffne die tür mit FORM", context="room3")
 @when("öffne tür mit FORM", context="room3")
 @when("tür öffnen mit FORM", context="room3")
 @when("tür mit FORM öffnen", context="room3")
 def tuer_oeffnen(form):
-    if form not in ("welle", "stern", "plus", "fünfeck", "dach", "minus", "dreieck"):
+    if türen.find(form) is None:
         say("""Eine Tür mit diesem Symbol gibt es nicht.""")
     elif form == "stern":
-        say(f"""Du versuchst, die Tür mit der {form} zu öffnen.\n
-        Die Tür lässt sich öffnen. Es scheint die richtige Tür zu sein!""")
+        türen.find("stern").status = True
+        say(
+            f"""Du versuchst, die Tür mit der {form} zu öffnen.\n
+        Die Tür lässt sich öffnen. Es scheint die richtige Tür zu sein!"""
+        )
     else:
         # Doppelt gemoppelt, damit die Deklination passt
-        say(f"""Du versuchst, die Tür mit dem {form} zu öffnen.
-        Diese Tür scheint verschlossen zu sein. Du verlierst Zeit!""")
+        say(
+            f"""Du versuchst, die Tür mit dem {form} zu öffnen.
+        Diese Tür scheint verschlossen zu sein. Du verlierst Zeit!"""
+        )
         # TODO verschlossene Türen und leere Räume
 
 
@@ -304,28 +447,31 @@ def tuer_oeffnen_unklar():
     say("""Ich weiß nicht, welche Tür du meinst""")
 
 
-@when("gehe in den raum", context="room3")	#gehe,raum
+@when("gehe in den raum", context="room3")  # gehe,raum
 @when("gehe in raum", context="room3")
 @when("in raum gehen", context="room3")
 @when("in den raum gehen", context="room3")
-@when("gehe durch tür", context="room3")	#gehe, tür
+@when("gehe durch tür", context="room3")  # gehe, tür
 @when("gehe durch die tür", context="room3")
 @when("durch tür gehen", context="room3")
 @when("durch die tür gehen", context="room3")
 @when("durch die tür hindurch gehen", context="room3")
-@when("geh in den raum", context="room3")	#geh, raum
+@when("geh in den raum", context="room3")  # geh, raum
 @when("geh in raum", context="room3")
-@when("geh durch tür", context="room3")	#geh, tür
+@when("geh durch tür", context="room3")  # geh, tür
 @when("geh durch die tür", context="room3")
 @when("geh durch die tür hindurch", context="room3")
-@when("raum betreten", context="room3")	#betreten, raum
+@when("raum betreten", context="room3")  # betreten, raum
 @when("den raum betreten", context="room3")
-@when("betrete raum", context="room3")	#betrete, raum
+@when("betrete raum", context="room3")  # betrete, raum
 @when("betrete den raum", context="room3")
 def gehe_in_lagerraum():
-    print("""Du betrittst den Raum hinter der soeben geöffneten Tür.""")
-    ueberleitung_raum4()
-
+    # TODO: andere Türen machen
+    if türen.find("stern").status:
+        say("""Du betrittst den Raum hinter der soeben geöffneten Tür.""")
+        ueberleitung_raum4()
+    else:
+        say("""Die Tür ist noch geschlossen.""")
 
 
 #####################
@@ -337,92 +483,103 @@ def gehe_in_lagerraum():
 @when("schau um", context="room4")
 @when("schau dich um", context="room4")
 def look_around_room4():
-    say("""Du siehst einen Schrank mit SIM Karten drinnen. Zudem siehst du einen Lagerschrank mit 3 Abteilen und eine Werkzeugkiste. Zudem hat Ministerin Faeser ein Haarnadel dabei. etc.""")
+    say("""Du siehst einen Schrank mit SIM Karten drinnen. Zudem siehst du einen
+    Lagerschrank mit 3 Abteilen und eine Werkzeugkiste. Zudem hat Ministerin
+    Faeser ein Haarnadel dabei. etc.""")
+
 
 def ueberleitung_raum4():
-    print("ueberleitung raum 4")
+    time.sleep(6.0)
+    say("""---------------------------------------------------------------------------------""")
+    say("""Du scheinst in eine Art Lagerraum gekommen zu sein mit allerlei
+    technischen Geräten, die ihre beste Zeit hinter sich haben. In der Ecke
+    steht ein leeres Serverrack und daneben eine Werkzeugtasche, die allerdings
+    nur nutzlose Werkzeuge enthält. Mal sehen, was du noch so entdecken kannst,
+    was dir weiterhelfen könnte.""")
     set_context("room4")
 
-@when("oberes abteil angucken", context="room4")	#angucken
+
+@when("oberes abteil angucken", context="room4")  # angucken
 @when("gucke oberes abteil an", context="room4")
 @when("guck oberes abteil an", context="room4")
 @when("abteil oben angucken", context="room4")
-@when("oberes abteil anschauen", context="room4") 	#anschauen
+@when("oberes abteil anschauen", context="room4")  # anschauen
 @when("schaue oberes abteil an", context="room4")
 @when("schau oberes abteil an", context="room4")
 @when("abteil oben anschauen", context="room4")
-@when("abteil oben betrachten", context="room4")	#betrachten
+@when("abteil oben betrachten", context="room4")  # betrachten
 @when("betrachte oberes abteil", context="room4")
 def oberes_abteil():
     print("oberes abteil beschreibung")
 
 
-@when("mittleres abteil angucken", context="room4")	#angucken
+@when("mittleres abteil angucken", context="room4")  # angucken
 @when("gucke mittleres abteil an", context="room4")
 @when("guck mittleres abteil an", context="room4")
 @when("abteil mitte angucken", context="room4")
 @when("abteil in der mitte angucken", context="room4")
-@when("mittleres abteil anschauen", context="room4")	#anschauen
+@when("mittleres abteil anschauen", context="room4")  # anschauen
 @when("schaue mittleres abteil an", context="room4")
 @when("schau mittleres abteil an", context="room4")
 @when("abteil mitte anschauen", context="room4")
 @when("abteil in der mitte anschauen", context="room4")
-@when("abteil mitte betrachten", context="room4")	#betrachten
+@when("abteil mitte betrachten", context="room4")  # betrachten
 @when("abteil in der mitte betrachten", context="room4")
 @when("betrachte mittleres abteil", context="room4")
 def mittleres_abteil():
     print("mittleres abteil beschreibung")
 
 
-@when("unteres abteil angucken", context="room4")	#angucken
+@when("unteres abteil angucken", context="room4")  # angucken
 @when("gucke unteres abteil an", context="room4")
 @when("abteil unten angucken", context="room4")
-@when("unteres abteil anschauen", context="room4") 	#anschauen
+@when("unteres abteil anschauen", context="room4")  # anschauen
 @when("schaue unteres abteil an", context="room4")
 @when("abteil unten anschauen", context="room4")
-@when("abteil unten betrachten", context="room4")	#betrachten
+@when("abteil unten betrachten", context="room4")  # betrachten
 @when("betrachte unteres abteil", context="room4")
 def unteres_abteil():
     print("unteres abteil beschreibung")
 
 
-
-@when("rechner anmachen", context="room4")		#rechner, anmachen
+@when("rechner anmachen", context="room4")  # rechner, anmachen
 @when("mache rechner an", context="room4")
-@when("rechner starten", context="room4")		#rechner, starten
+@when("rechner starten", context="room4")  # rechner, starten
 @when("starte rechner", context="room4")
-@when("rechner anschalten", context="room4")		#rechner, anschalten
+@when("rechner anschalten", context="room4")  # rechner, anschalten
 @when("schalte rechner an", context="room4")
-@when("computer anmachen", context="room4")		#computer, anmachen
+@when("computer anmachen", context="room4")  # computer, anmachen
 @when("mache computer an", context="room4")
-@when("computer starten", context="room4")		#computer, starten
+@when("computer starten", context="room4")  # computer, starten
 @when("starte computer", context="room4")
-@when("computer anschalten", context="room4")		#computer, anschalten
+@when("computer anschalten", context="room4")  # computer, anschalten
 @when("schalte computer an", context="room4")
-@when("pc anmachen", context="room4")			#pc, anmachen
+@when("pc anmachen", context="room4")  # pc, anmachen
 @when("mache pc an", context="room4")
-@when("pc starten", context="room4")			#pc, starten
+@when("pc starten", context="room4")  # pc, starten
 @when("starte pc", context="room4")
-@when("pc anschalten", context="room4")		#pc, anschalten
+@when("pc anschalten", context="room4")  # pc, anschalten
 @when("schalte pc an", context="room4")
 def rechner_anmachen():
     print("schon betroffen")
 
 
-@when("werkzeugkiste öffnen", context="room4")	#öffnen
+@when("werkzeugkiste öffnen", context="room4")  # öffnen
 @when("öffne werkzeugkiste", context="room4")
 def werkzeugkiste_oeffnen():
     print("werkzeugkiste geöffnet, nichts drin")
 
 
-@when("schrank öffnen", context="room4")		#öffnen
+@when("schrank öffnen", context="room4")  # öffnen
 @when("öffne schrank", context="room4")
 def schrank_oeffnen():
-    global sim_schrank_offen 
+    global sim_schrank_offen
     sim_schrank_offen = True
     print("sim schrank geöffnet")
 
 
+
+@when("sim karte nehmen", context="room4")  # nehmen
 @when("sim nehmen", context="room4")
 @when("nehme sim karte", context="room4")
 @when("nehme sim", context="room4")
@@ -432,43 +589,57 @@ def schrank_oeffnen():
 @when("nehm sim", context="room4")
 @when("nehm die sim karte", context="room4")
 @when("nehm die sim", context="room4")
-@when("nimm sim karte", context="room4")		#nimm
+@when("nimm sim karte", context="room4")  # nimm
 @when("nimm sim", context="room4")
+@when("nimm die sim karte", context="room4")
 @when("nimm die sim", context="room4")
 def sim_karte_nehmen():
-    if  not sim_schrank_offen:
+    if not sim_schrank_offen:
         print("nicht offen")
-    if  sim_schrank_offen:
+    if sim_schrank_offen:
         print("sim karte genommen")
         inventory.add(sim)
 
-@when("smartphone anschauen", context="room4")	#anschauen, smartphone
+
+@when("smartphone anschauen", context="room4")  # anschauen, smartphone
 @when("schaue smartphone an", context="room4")
 @when("schaue das smartphone an", context="room4")
 @when("schau smartphone an", context="room4")
 @when("schau das smartphone an", context="room4")
-@when("handy anschauen", context="room4")		#anschauen, handy
+@when("handy anschauen", context="room4")  # anschauen, handy
 @when("schaue handy an", context="room4")
 @when("schaue das handy an", context="room4")
 @when("schau handy an", context="room4")
 @when("schau das handy an", context="room4")
-@when("smartphone angucken", context="room4")		#angucken, smartphone
+@when("smartphone angucken", context="room4")  # angucken, smartphone
 @when("gucke smartphone an", context="room4")
 @when("gucke das smartphone an", context="room4")
 @when("guck smartphone an", context="room4")
 @when("guck das smartphone an", context="room4")
-@when("handy angucken", context="room4")		#angucken, handy
+@when("handy angucken", context="room4")  # angucken, handy
 @when("gucke handy an", context="room4")
 @when("gucke das handy an", context="room4")
 @when("guck handy an", context="room4")
 @when("guck das handy an", context="room4")
 def smartphone_anschauen():
     print("smartphone angeschaut")
-    global can_check_sim_slot 
+    global can_check_sim_slot
     can_check_sim_slot = True
 
-@when("sim schacht öffnen", context="room4")
-@when("sim slot öffnen", context="room4")
+
+@when("sim schacht öffnen", context="room4")  # sim schacht, öffnen
+@when("öffne sim schacht", context="room4")
+# sim karten schacht, öffnen
+@when("sim karten schacht öffnen", context="room4")
+@when("öffne sim karten schacht", context="room4")
+@when("sim slot öffnen", context="room4")  # sim slot, öffnen
+@when("öffne sim slot", context="room4")
+@when("sim karten slot öffnen", context="room4")  # sim karten slot, öffnen
+@when("öffne sim karten slot", context="room4")
+@when("sim tray öffnen", context="room4")  # sim tray, öffnen
+@when("öffne sim tray", context="room4")
+@when("sim karten tray öffnen", context="room4")  # sim karten tray, öffnen
+@when("öffne sim karten tray", context="room4")
 def sim_slot_oeffnen():
     if can_check_sim_slot:
         if inventory.find("simkarte") is not None:
@@ -483,26 +654,60 @@ def sim_slot_oeffnen():
     else:
         print("du musst noch dein handy anschauen")
 
+
 @when("faeser nach haarnadel fragen", context="room4")
+@when("frage faeser nach haarnadel", context="room4")
 def faeser_haarnadel():
     print("...")
     inventory.add(hairpin)
 
-@when("qr code anzeigen", context="room4")
-@when("qr code anschauen", context="room4")
+
+@when("qr code anzeigen", context="room4")  # qr code, anzeigen
+@when("zeige qr code an", context="room4")
+@when("zeig qr code an", context="room4")
+@when("qr code anschauen", context="room4")  # qr code, anschauen
+@when("schaue qr code an", context="room4")
+@when("schau qr code an", context="room4")
+@when("qrcode anzeigen", context="room4")  # qrcode, anzeigen
+@when("zeige qrcode an", context="room4")
+@when("zeig qrcode an", context="room4")
+@when("qrcode anschauen", context="room4")  # qrcode, anschauen
+@when("schaue qrcode an", context="room4")
+@when("schau qrcode an", context="room4")
+@when("qr anzeigen", context="room4")  # qr, anzeigen
+@when("zeige qr an", context="room4")
+@when("zeig qr an", context="room4")
+@when("qr anschauen", context="room4")  # qr, anschauen
+@when("schaue qr an", context="room4")
+@when("schau qr an", context="room4")
 def show_qr():
     img = Image.open("qr.png")
     img.show()
-    
-@when("pin eingeben", context="room4")
+
+
+@when("pin eingeben", context="room4")  # eingeben
+@when("eingabe pin", context="room4")
+@when("eingabe vom pin", context="room4")
+@when("pin bestaetigen", context="room4")  # bestätigen
+@when("bestaetigen mit pin", context="room4")
+@when("bestaetige mit pin", context="room4")
+@when("nutze pin", context="room4")  # benutzen
+@when("nutz pin", context="room4")
+@when("nutze den pin", context="room4")
+@when("nutz den pin", context="room4")
+@when("benutze pin", context="room4")
+@when("benutz pin", context="room4")
+@when("benutze den pin", context="room4")
+@when("benutz den pin", context="room4")
 def pin_eingeben():
     if can_use_pin:
         hamming_code()
     else:
         print("SIM karte noch nicht hinzugefügt")
 
+
 def hamming_code():
-    while(True):
+    while True:
         input_2 = input("PIN eingeben: ")
         if input_2 == "1234":
             print("PIN korrekt")
@@ -511,14 +716,156 @@ def hamming_code():
         else:
             print("Falscher PIN, bitte noch einmal versuchen.")
 
-def raum4Ende():
-    print("raum 4 ende beschreibung")
 
+def raum4Ende():
+    say("""Hier kommt eine Überleitung zu Raum 5""")
+    # TODO
+    set_context("room5")
+
+
+################
+# RAUM 5: BÜRO #
+################
+
+
+@when("umschauen", context="room5")
+@when("schau um", context="room5")
+@when("schau dich um", context="room5")
+def look_around_room5():
+    say(
+        """Du bist in einem Büro mit vielen Schreibtischen und Computern, aber keiner Menschenseele.
+    Manche Computer wurden nicht ausgeschaltet."""
+    )
+
+
+@when("computer anschauen", context="room5")
+def computer_anschauen():
+    say(
+        """Mehrere Computer wurden einfach angelassen. Viele zeigen den gleichen Totenkopf wie im Kontrollraum an, doch
+    der Computer des Abteilungsmanagers scheint nicht befallen zu sein."""
+    )
+
+
+@when("computer des managers anschauen", context="room5")
+def nicht_befallenen_computer_anschauen():
+    say(
+        """Dieser Rechner ist nicht von der Ransomware betroffen. Er scheint eine Verbindung zum Kontrollrechner
+    im Kontrollraum zu haben, jedoch ist er mit einem Passwort geschützt. Das Passwort hängt auf einem
+    Post-It am Monitor."""
+    )
+
+
+@when("computer entsperren", context="room5")
+def computer_entsperren():
+    # abandon all hope, ye who enters here
+    say(
+        """Der Computer nimmt das Passwort an. Du siehst, dass die aktuell geöffnete Kommandozeile über SSH an den
+    Rechner im Kontrollraum eingeloggt ist. So ein Glück! Vielleicht findet sich jahr hier ein Passwort oder Schlüssel...
+    Du setzt dich an den Rechner und wählst die Kommandozeile aus."""
+    )
+
+    current_dir = "/root"
+    dir_system = {
+        "/root/Dokumente": [
+            "quartalsbericht_2021_q4.pdf",
+            "auswertung_mitarbeiterbefragung.pptx",
+            "hash_list.txt"
+        ],
+        "/root/Downloads": [".hash.txt"],
+        "/root/Bilder": ["reaktor_schema.jpg"],
+        "/root/Videos": [""],
+        "/root/Musik": ["never_gonna_give_you_up.mp3"],
+        "/root/Öffentlich": [""],
+        "/root/Desktop": ["run_hl3.sh", "reactorcontrol.sh"],
+    }
+    helpmessage = """Verfügbare Kommandos: \n
+            help - zeigt diese Hilfe an
+            ls - listet Dateien im aktuellen Verzeichnis \n
+            cd [dir] - wechselt ins Verzeichnis [dir] \n
+            hashcat [file] - vergleicht Hash in Datei [file] mit Hashtabelle in Documents/hash_list.txt  \n
+            [command] --help - zeigt die Hilfe des jeweiligen Programms an"""
+
+    say(helpmessage)
+    # what a terrible day to have eyes...
+    while True:
+        command = input(current_dir + " # ")
+        if command == "exit":
+            break
+        elif command.__contains__("ls"):
+            list_all = False
+            ls_in = command.split()
+            if len(ls_in) > 1:
+                arg = ls_in[1]
+                if arg == "--help":
+                    say("""ls - listet Dateien im aktuellen Verzeichnis \n
+                    ls -a - listet Dateien inklusive versteckter Dateien auf""")
+                elif arg == "-a":
+                    list_all = True
+                else:
+                    say("Fehler: Kommando ungültig")
+                    continue
+            if current_dir == "/root":
+                for dir in dir_system:
+                    say(dir)
+            elif current_dir in dir_system:
+                files = dir_system.get(current_dir)
+                for file in files:
+                    if not list_all:
+                        if not file.startswith("."):
+                            say(file)
+                        else:
+                            continue
+                    else:
+                        say(file)
+            else:
+                say("""Fehler: Kommando ungültig""")
+        elif command == "help":
+            say(helpmessage)
+        elif command.__contains__("hashcat"):
+            hashcat_in = command.split()
+            if len(hashcat_in) > 1:
+                file = hashcat_in[1]
+                if current_dir == "/root/Downloads" and file == ".passwort.txt":
+                    say("""Vergleiche Hashes mit Hash in .passwort.txt...""")
+                    time.sleep(5.0)
+                    say("""Hash gefunden!""")
+                    say("""[hash] = [passwort im klartext]""")
+                else:
+                    say(
+                        """Fehler: Datei ist nicht verschlüsselt. Haben Sie die
+                    richtige Datei ausgewählt?""")
+            else:
+                say("""Fehler: Kommando ungültig""")
+        elif command.__contains__("cd"):
+            cd_in = command.split()
+            if len(cd_in) > 1:
+                dir = cd_in[1]
+                if dir == "--help":
+                    say(
+                        """cd [dir] - wechselt ins Verzeichnis [dir] \n
+                    cd - (ohne Eingabe) wechselt ins Home-Verzeichnis des aktuellen Nutzers"""
+                    )
+                elif "/root/" + dir in dir_system.keys() and current_dir == "/root":
+                    current_dir = "/root/" + dir
+                elif dir in dir_system.keys() and current_dir != "/root":
+                    current_dir = dir
+                else:
+                    say("""Fehler: Verzeichnis {} nicht gefunden""".format(dir))
+            else:
+                current_dir = "/root"
+
+        else:
+            say(
+                """Error: Befehl nicht erkannt. Geben Sie 'help' ein, um alle Befehle zu sehen."""
+            )
+
+    say("""Du verlässt die Kommandozeile""")
 
 
 ########################
 # RAUM 6: KONTROLLRAUM #
 ########################
+
 
 @when("umschauen", context="room6")
 @when("schau um", context="room6")
@@ -529,8 +876,14 @@ def look_around_room6():
     if status_gesehen:
         say("""Hinweiszettel Raum 6""")
 
+
 def ueberleitung_raum6():
-    print("ueberleitung raum 6")
+    time.sleep(6.0)
+    say("""---------------------------------------------------------------------------------""")
+    say("""Ihr seid alle zurück im Kontrollraum angekommen. Du rennst zum
+    Rechner. Verdammt…wo ist die Tastatur? Du findest keine Eingabemöglichkeit.
+    Die Tastaturen der anderen Rechner würden nicht funktionieren. Die sind alle
+    mit USB.""")
     set_context("room6")
 
 @when("brecheisen benutzen", context="room6")
@@ -611,8 +964,9 @@ __________________________________________________________________________
 def abspann():
     say("""IT Grundschutz Abspann""")
     sys.exit()
- 
+
 # Debug #
+
 
 @when("debugraum")
 def debug():
@@ -631,7 +985,8 @@ def debug():
         set_context("room5")
     elif debug_input == "6":
         set_context("room6")
-    
+
+
 @when("debugitem")
 def debug2():
     print("ITEMNAMEN GENAU EINGEBEN!")
@@ -647,6 +1002,9 @@ def debug2():
         inventory.add(sim)
 
 
-
 ## start ###
 start()
+
+
+def no_command_matches(command):
+    print("Das habe ich nicht verstanden")

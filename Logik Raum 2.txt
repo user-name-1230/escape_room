@@ -32,4 +32,4 @@
 # nach benutzung, Text, Herr Solar wach = true,
 # Text mit Herrn Solar
 # automatisch neuer Standort: Flur
-# Problem mit Herrn Solar, wo befindet der sich jetzt....
+# 
