@@ -105,6 +105,7 @@ can_use_pin = False
 klappe_offen = False
 zugriff_computer = False
 status_gesehen = False
+check_sicherheitsausruestung = False
 
 ########################
 # RAUM 1: KONTROLLRAUM #
@@ -136,11 +137,14 @@ Du kannst mit [quit] das AKW verlassen (Spiel beenden)""")
 @when("nimm brechstange", context="room1")
 def brecheisen_nehmen():
     # Brecheisen in Raum 1 nehmen
-    if "brecheisen" not in inventory:
-        say("""„Das könnte eventuell noch nützlich sein“, sagst du und packst das Brecheisen 	 direkt ein.""")
-        inventory.add(crowbar)
-    else:
-        say("""Du hast das Brecheisen schon genommen.""")
+    if check_sicherheitsausruestung == True:
+    	if "brecheisen" not in inventory:
+    		say("""„Das könnte eventuell noch nützlich sein“, sagst du und packst das Brecheisen direkt ein.""")
+    		inventory.add(crowbar)
+    	else:
+    		say("""Du hast das Brecheisen schon genommen.""")
+    else: 
+    	say("""Du solltest dich zuerst noch ein wenig umsehen.""")
 
 
 @when("benutze brecheisen", context="room1")  # brecheisen, benutzen
@@ -169,6 +173,15 @@ def brecheisen_benutzen():
             if room1.action_counter == 2:
                 ueberleitung_room2()
 
+@when("sicherheitsausruestung anschauen", context="room1")
+def sicherheitsausruestung_anschauen():
+	if inventory.find("brecheisen") is None:
+		global check_sicherheitsausruestung
+		check_sicherheitsausruestung = True
+		say("""In der Sicherheitsausrüstung findest du ein Brecheisen.""")
+	else:
+		say("""Du hast die Sicherheitsausrüstung bereits durchsucht""")
+	
 
 @when("computer neustarten", context="room1")  # neustarten
 @when("starte computer neu", context="room1")
@@ -202,12 +215,21 @@ def computer_neustarten():
         if room1.action_counter == 2:
             ueberleitung_room2()
 
+@when("sicherheitstuer anschauen", context="room1") #sollte beim zweiten mal umschauen da sein
+def sicherheitstuer_anschauen():
+	say("""Du rüttelst an der Tür, doch sie bewegt sich keinen Zentimeter. Direkt neben der Tür befindet sich ein Tastenfeld
+	und darüber eine Kamera. Du drückst die Grüne Starttaste und die Kamera beginnt mit einem Scan von deinem Gesicht. Du
+	erschrickst. Auf dem Display erscheint in roter Schrift „Zugriff verweigert“. „Das Gesicht des Chefs sollte
+	funktionieren!“, denkst du dir, erinnerst dich aber, dass dieser ohnmächtig geworden ist. Du nimmst dein Smartphone in
+	die Hand und hältst ein Bild von Herrn Solar in die Kamera. „Guten Tag Herr Solar! Bitte geben Sie Ihren PIN ein!“,
+	ertönt eine roboterartige Stimme aus dem Terminal und das Display zeigt: * * * * * *. „Mist, wo krieg ich denn jetzt den
+	PIN her?“, fragst du dich und schaust dich noch einmal um.""")
 
 @when("tasten drücken", context="room1")
 @when("drücke tasten", context="room1")
 def tasten_druecken():
     say(
-        """Du versuchst verschiedenste Tastenkombinationen, doch der Totenkopf bleibt. Selbst Strg+Alt+Entf hilft nicht weiter. """
+        """Du versuchst verschiedenste Tastenkombinationen, doch der Totenkopf bleibt. Selbst Strg+Alt+Entf hilft nicht weiter."""
     )
 
     if room1.action_counter < 2:
@@ -263,17 +285,19 @@ def ventile_anschauen():
 	Grünes Ventil ist mit V beschriftet""")
 
 
-@when("zu den ventilen gehen", context="room2")  # gehen
-@when("zu ventilen gehen", context="room2")
-@when("gehe zu ventilen", context="room2")
-@when("geh zu ventilen", context="room2")
-@when("gehe zu den ventilen", context="room2")
-@when("geh zu den ventilen", context="room2")
-@when("laufe zu ventilen", context="room2")  # laufen
-@when("lauf zu ventilen", context="room2")
-@when("laufe zu den ventilen", context="room2")
-@when("lauf zu den ventilen", context="room2")
-@when("zu ventilen laufen", context="room2")
+#@when("zu den ventilen gehen", context="room2")  # gehen
+#@when("zu ventilen gehen", context="room2")
+#@when("gehe zu ventilen", context="room2")
+#@when("geh zu ventilen", context="room2")
+#@when("gehe zu den ventilen", context="room2")
+#@when("geh zu den ventilen", context="room2")
+#@when("laufe zu ventilen", context="room2")  # laufen
+#@when("lauf zu ventilen", context="room2")
+#@when("laufe zu den ventilen", context="room2")
+#@when("lauf zu den ventilen", context="room2")
+#@when("zu ventilen laufen", context="room2")
+@when("ventile drehen", context="room2")
+@when("drehen ventile", context="room2")
 def zu_ventilen():
     # if current_room == room2:
     counter = 20
@@ -882,7 +906,6 @@ def computer_entsperren():
 @when("schau dich um", context="room6")
 def look_around_room6():
     say("""umschauen standardtext""")
-    print(status_gesehen)
     if status_gesehen:
         say("""Hinweiszettel Raum 6""")
 
@@ -905,17 +928,17 @@ def brecheisen_benutzen2():
 @when("tastatur benutzen", context="room6")
 def tastatur_benutzen():
     if klappe_offen:
-        input_tastatur = input("Passwort eingeben: ")
         while(True):
-            if input_tastatur == "30JahreBSI1991!":
-                say("""""")
-                global zugriff_computer 
-                zugriff_computer = True
-                return
-            elif input_tastatur == "exit":
-                return
-            else: 
-                say("""Falsches Passwort. Tippe "exit" um abzubrechen.""")
+        	input_tastatur = input("Passwort eingeben: ")
+        	if input_tastatur == "30JahreBSI1991!":
+        		say("""""")
+        		global zugriff_computer 
+        		zugriff_computer = True
+        		return
+        	elif input_tastatur == "exit":
+        		return
+        	else: 
+        		say("""Falsches Passwort. Tippe "exit" um abzubrechen.""")
     else:
         say("""""")
 
@@ -936,7 +959,6 @@ def status_firewall():
     if zugriff_computer:
         global status_gesehen
         status_gesehen = True
-        print(status_gesehen)
         print(r"""
 __________________________________________________________________________
 |               |               |                       |               |
