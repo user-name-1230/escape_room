@@ -224,6 +224,7 @@ def look_around_room2():
     Zettel auf einem Tisch in der Nähe. Die Ventile scheinen beschriftet zu
     sein. Bestimmt muss eine Reihenfolge eingehalten werden.""")
 
+
 def ueberleitung_room2():
     time.sleep(6.0)
     say("""---------------------------------------------------------------------------------""")
@@ -240,21 +241,24 @@ def ueberleitung_room2():
     say("""""")
     set_context("room2")
 
+
 @when("zettel anschauen", context="room2")
 def zettel_anschauen():
-	say("""Lila – L\n
+    say("""Lila – L\n
 	Rot – R\n
 	Blau – B\n
 	Schwarz – S\n
 	Grün – G""")
 
+
 @when("ventile anschauen", context="room2")
 def ventile_anschauen():
-	say("""Lila Ventil ist mit I beschriftet\n
+    say("""Lila Ventil ist mit I beschriftet\n
 	Rotes Ventil ist mit II beschriftet\n
 	Blaues Ventil ist mit III beschriftet\n
 	Schwarzes Ventil ist mit IV beschriftet\n
 	Grünes Ventil ist mit V beschriftet""")
+
 
 @when("zu den ventilen gehen", context="room2")  # gehen
 @when("zu ventilen gehen", context="room2")
@@ -271,7 +275,8 @@ def zu_ventilen():
     # if current_room == room2:
     counter = 20
     while True:
-        input_1 = input("Reihenfolge der Ventile eingeben (um weitere Hinweise zu suchen [zurück]): ")
+        input_1 = input(
+            "Reihenfolge der Ventile eingeben (um weitere Hinweise zu suchen [zurück]): ")
         if input_1 == "35124":
             say(
                 """Das muss die richtige Reihenfolge gewesen sein. Doch die Ventile lassen sich nicht drehen. Du brauchst
@@ -291,7 +296,7 @@ def zu_ventilen():
                 return
                 # TODO gehe wieder zu Raum 1
         if input_1 == "zurück" or input_1 == "exit":
-        	return
+            return
         else:
             if counter > 15:
                 counter = counter - 1
@@ -478,6 +483,7 @@ def look_around_room4():
     say("""Du siehst einen Schrank mit SIM Karten drinnen. Zudem siehst du einen
     Lagerschrank mit 3 Abteilen und eine Werkzeugkiste. Zudem hat Ministerin
     Faeser ein Haarnadel dabei. etc.""")
+
 
 def ueberleitung_raum4():
     time.sleep(6.0)
@@ -708,7 +714,9 @@ def hamming_code():
 
 
 def raum4Ende():
-    print("raum 4 ende beschreibung")
+    say("""Hier kommt eine Überleitung zu Raum 5""")
+    # TODO
+    set_context("room5")
 
 
 ################
