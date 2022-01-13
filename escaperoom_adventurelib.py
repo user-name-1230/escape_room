@@ -897,3 +897,7 @@ def debug2():
 
 ## start ###
 start()
+
+
+def no_command_matches(command):
+    print("Das habe ich nicht verstanden")
