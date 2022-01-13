@@ -421,25 +421,18 @@ def schrank_oeffnen():
 
 
 @when("sim karte nehmen", context="room4")		#nehmen
-@when("sim-karte nehmen", context="room4")
 @when("sim nehmen", context="room4")
 @when("nehme sim karte", context="room4")
-@when("nehme sim-karte", context="room4")
 @when("nehme sim", context="room4")
 @when("nehme die sim karte", context="room4")
-@when("nehme die sim-karte", context="room4")	
 @when("nehme die sim", context="room4")
 @when("nehm sim karte", context="room4")
-@when("nehm sim-karte", context="room4")
 @when("nehm sim", context="room4")
 @when("nehm die sim karte", context="room4")
-@when("nehm die sim-karte", context="room4")	
 @when("nehm die sim", context="room4")
 @when("nimm sim karte", context="room4")		#nimm
-@when("nimm sim-karte", context="room4")
 @when("nimm sim", context="room4")
 @when("nimm die sim karte", context="room4")
-@when("nimm die sim-karte", context="room4")
 @when("nimm die sim", context="room4")
 def sim_karte_nehmen():
     if  not sim_schrank_offen:
