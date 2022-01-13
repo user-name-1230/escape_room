@@ -116,7 +116,7 @@ Du kannst dich im Raum [umschauen]\n
 Du kannst Dinge im Raum [anschauen], [nehmen] und [benutzen]\n
 Du kannst dein aktuelles [Inventar] anschauen\n
 Du kannst dir [help] suchen, wenn du nicht weiterkommst\n
-Du kannst mit [exit] das AKW verlassen (Spiel beenden)""")
+Du kannst mit [quit] das AKW verlassen (Spiel beenden)""")
 
 
 @when("das brecheisen nehmen", context="room1")  # brecheisen, nehmen
@@ -475,9 +475,8 @@ def gehe_in_lagerraum():
 @when("schau um", context="room4")
 @when("schau dich um", context="room4")
 def look_around_room4():
-    say("""Du siehst einen Schrank mit SIM Karten drinnen. Zudem siehst du einen
-    Lagerschrank mit 3 Abteilen und eine Werkzeugkiste. Zudem hat Ministerin
-    Faeser ein Haarnadel dabei. etc.""")
+    say("""An der gegenüberliegenden Wand des Serverracks steht ein Lagerspind mit einem Zahlenschloss, das anscheinend bei der
+    letzten Benutzung nicht richtig verschlossen wurde.""")
 
 def ueberleitung_raum4():
     time.sleep(6.0)
@@ -561,12 +560,15 @@ def werkzeugkiste_oeffnen():
     print("werkzeugkiste geöffnet, nichts drin")
 
 
-@when("schrank öffnen", context="room4")  # öffnen
-@when("öffne schrank", context="room4")
-def schrank_oeffnen():
+@when("spind öffnen", context="room4")  # öffnen
+@when("öffne spind", context="room4")
+def spind_oeffnen():
     global sim_schrank_offen
     sim_schrank_offen = True
-    print("sim schrank geöffnet")
+    say("""Du öffnest den Spind und schaust dir den Inhalt genau an. Zuerst siehst du nur alte Ersatzteile für Computer.
+    RAM,Lüfter, Netzteile, alte Festplatten und so weiter. Doch dann sticht dir ein kleiner Karton mit der Aufschrift „SIM-Karten“
+    ins Auge. \n
+    An der Innenseite der Spindtür entdeckst du einen QR-Code. Ob der wohl was damit zu tun hat? """)
 
 
 @when("sim karte nehmen", context="room4")  # nehmen
@@ -587,7 +589,9 @@ def sim_karte_nehmen():
     if not sim_schrank_offen:
         print("nicht offen")
     if sim_schrank_offen:
-        print("sim karte genommen")
+        say("""Du nimmst dir eine Karte aus dem Karton. „Verdammt…wie soll ich denn jetzt den SIM-Slot an meinem Handy öffnen?“,
+        fragst du dich.\n
+        Du hörst schnelle Schritte auf dem Gang. Die Ministerin und das Fernsehteam betreten den Raum.""")
         inventory.add(sim)
 
 
@@ -618,8 +622,7 @@ def smartphone_anschauen():
 
 
 @when("sim schacht öffnen", context="room4")  # sim schacht, öffnen
-@when("öffne sim schacht", context="room4")
-# sim karten schacht, öffnen
+@when("öffne sim schacht", context="room4") # sim karten schacht, öffnen
 @when("sim karten schacht öffnen", context="room4")
 @when("öffne sim karten schacht", context="room4")
 @when("sim slot öffnen", context="room4")  # sim slot, öffnen
@@ -634,7 +637,8 @@ def sim_slot_oeffnen():
     if can_check_sim_slot:
         if inventory.find("simkarte") is not None:
             if inventory.find("haarnadel") is not None:
-                print("erfolgreich geöffnet")
+                say("""Zum Glück ist die Nadel dünn genug, um den SIM-Slot zu öffnen. Du legst die SIM-Karte in dein Handy ein,
+                worauf die Aufforderung „SIM-PIN eingeben“ angezeigt wird.""")
                 global can_use_pin
                 can_use_pin = True
             else:
@@ -645,10 +649,11 @@ def sim_slot_oeffnen():
         print("du musst noch dein handy anschauen")
 
 
-@when("faeser nach haarnadel fragen", context="room4")
-@when("frage faeser nach haarnadel", context="room4")
-def faeser_haarnadel():
-    print("...")
+@when("schrader nach haarnadel fragen", context="room4")
+@when("frage schrader nach haarnadel", context="room4")
+def schrader_haarnadel():
+    say("""Dir fällt sofort die feine Haarnadel der Ministerin ins Auge. Du fragst sie, ob du dir ihre Haarnadel kurz ausleihen
+    kannst. Sie nickt aufgeregt und übergibt sie dir schnell.""")
     inventory.add(hairpin)
 
 
@@ -691,7 +696,13 @@ def show_qr():
 @when("benutz den pin", context="room4")
 def pin_eingeben():
     if can_use_pin:
-        hamming_code()
+    	say("""Sehr gut. Du hast es geschafft, die SIM-Karte zu entsperren. Auf deinem Smartphone-Display erscheint direkt das
+    	Dashboard der Intranet-Seite des Kraftwerks. In einer Liste am Rand werden alle Computer im Netzwerk angezeigt. Das sieht
+    	schlecht aus. Alle PCs sind mit einem Schloss-Symbol versehen. Das kann nichts Gutes bedeuten. Du scrollst durch die
+    	Liste. Doch was ist das? Kurz vor Ende der Liste ist tatsächlich noch ein PC aufgeführt, der noch nicht mit einem Schloss
+    	Symbol versehen ist. Das ist es! Du klickst darauf, um dir mehr Details ansehen zu können. Dabei steht sogar eine
+    	Raumnummer. „Ich kann Sie dort hinführen!“, sagt der Kraftwerkchef aufgeregt.""")
+    	hamming_code()
     else:
         print("SIM karte noch nicht hinzugefügt")
 
@@ -715,41 +726,40 @@ def raum4Ende():
 # RAUM 5: BÜRO #
 ################
 
+def ueberleitung_raum5():
+    time.sleep(6.0)
+    say("""---------------------------------------------------------------------------------""")
+    say("""Du läufst zusammen mit den anderen zu einer Art Büro-Abteil. Herr Solar geht voran. Ihr betretet ein Büro und schaut
+    euch kurz um. Das Büro ist bestückt mit mehreren Schreibtischen und PC-Arbeitsplätzen. Die meisten von ihnen zeigen die
+    gleiche Nachricht wie der Kontrollrechner und den Totenkopf auf dem Monitor oder sind ausgeschaltet. """)
+    set_context("room5")
 
 @when("umschauen", context="room5")
 @when("schau um", context="room5")
 @when("schau dich um", context="room5")
 def look_around_room5():
     say(
-        """Du bist in einem Büro mit vielen Schreibtischen und Computern, aber keiner Menschenseele.
-    Manche Computer wurden nicht ausgeschaltet."""
+        """Schnell entdeckst du den potentiell nicht betroffenen PC im Raum."""
     )
+
+
+
+#@when("computer des managers anschauen", context="room5")
+#def nicht_befallenen_computer_anschauen():
+#    say(
+#        """Der Bildschirm zeigt ein Anmeldefenster mit einem Passwortfeld. Dir fällt direkt auf, dass auf dem Computer das Betriebssystem Kali Linux installiert ist. Du schaust dich kurz um und entdeckst, dass am Monitor ein Zettel hängt mit der Aufschrift „Passwort“. „Wie blöd!“, denkst du dir, „aber gut für mich!“. Du loggst dich ein und öffnest direkt die Kommandozeile. Mit ein paar Befehlen hast du Zugriff auf den Kontrollrechner bekommen und durchsuchst die Ordnerstruktur nach versteckten Dateien und Verzeichnissen."""
+#    )
 
 
 @when("computer anschauen", context="room5")
-def computer_anschauen():
-    say(
-        """Mehrere Computer wurden einfach angelassen. Viele zeigen den gleichen Totenkopf wie im Kontrollraum an, doch
-    der Computer des Abteilungsmanagers scheint nicht befallen zu sein."""
-    )
-
-
-@when("computer des managers anschauen", context="room5")
-def nicht_befallenen_computer_anschauen():
-    say(
-        """Dieser Rechner ist nicht von der Ransomware betroffen. Er scheint eine Verbindung zum Kontrollrechner
-    im Kontrollraum zu haben, jedoch ist er mit einem Passwort geschützt. Das Passwort hängt auf einem
-    Post-It am Monitor."""
-    )
-
-
-@when("computer entsperren", context="room5")
 def computer_entsperren():
     # abandon all hope, ye who enters here
     say(
-        """Der Computer nimmt das Passwort an. Du siehst, dass die aktuell geöffnete Kommandozeile über SSH an den
-    Rechner im Kontrollraum eingeloggt ist. So ein Glück! Vielleicht findet sich jahr hier ein Passwort oder Schlüssel...
-    Du setzt dich an den Rechner und wählst die Kommandozeile aus."""
+        """Der Bildschirm zeigt ein Anmeldefenster mit einem Passwortfeld. Dir fällt direkt auf, dass auf dem Computer das
+        Betriebssystem Kali Linux installiert ist. Du schaust dich kurz um und entdeckst, dass am Monitor ein Zettel hängt mit der
+        Aufschrift „Passwort“. „Wie blöd!“, denkst du dir, „aber gut für mich!“. Du loggst dich ein und öffnest direkt die
+        Kommandozeile. Mit ein paar Befehlen hast du Zugriff auf den Kontrollrechner bekommen und durchsuchst die Ordnerstruktur
+        nach versteckten Dateien und Verzeichnissen."""
     )
 
     current_dir = "/root"
@@ -814,10 +824,10 @@ def computer_entsperren():
             if len(hashcat_in) > 1:
                 file = hashcat_in[1]
                 if current_dir == "/root/Downloads" and file == ".passwort.txt":
-                    say("""Vergleiche Hashes mit Hash in .passwort.txt...""")
+                    say("""vergleicht Hash in Datei [file] mit Hashtabelle in Documents/hash_list.txt""")
                     time.sleep(5.0)
                     say("""Hash gefunden!""")
-                    say("""[hash] = [passwort im klartext]""")
+                    say("""[781c15abfae7bda64ba65728f73b2b3c] = [30JahreBSI1991!]""")
                 else:
                     say(
                         """Fehler: Datei ist nicht verschlüsselt. Haben Sie die
@@ -835,7 +845,8 @@ def computer_entsperren():
                     )
                 elif "/root/" + dir in dir_system.keys() and current_dir == "/root":
                     current_dir = "/root/" + dir
-                elif dir in dir_system.keys() and current_dir != "/root"
+                elif dir in dir_system.keys() and current_dir != "/root":
+                    current_dir = dir
                 else:
                     say("""Fehler: Verzeichnis {} nicht gefunden""".format(dir))
             else:
