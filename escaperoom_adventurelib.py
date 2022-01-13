@@ -102,6 +102,9 @@ def look_around_room1():
 can_check_sim_slot = False
 sim_schrank_offen = False
 can_use_pin = False
+klappe_offen = False
+zugriff_computer = False
+status_gesehen = False
 
 ########################
 # RAUM 1: KONTROLLRAUM #
@@ -224,6 +227,7 @@ def look_around_room2():
     Zettel auf einem Tisch in der Nähe. Die Ventile scheinen beschriftet zu
     sein. Bestimmt muss eine Reihenfolge eingehalten werden.""")
 
+
 def ueberleitung_room2():
     time.sleep(6.0)
     say("""---------------------------------------------------------------------------------""")
@@ -240,21 +244,24 @@ def ueberleitung_room2():
     say("""""")
     set_context("room2")
 
+
 @when("zettel anschauen", context="room2")
 def zettel_anschauen():
-	say("""Lila – L\n
+    say("""Lila – L\n
 	Rot – R\n
 	Blau – B\n
 	Schwarz – S\n
 	Grün – G""")
 
+
 @when("ventile anschauen", context="room2")
 def ventile_anschauen():
-	say("""Lila Ventil ist mit I beschriftet\n
+    say("""Lila Ventil ist mit I beschriftet\n
 	Rotes Ventil ist mit II beschriftet\n
 	Blaues Ventil ist mit III beschriftet\n
 	Schwarzes Ventil ist mit IV beschriftet\n
 	Grünes Ventil ist mit V beschriftet""")
+
 
 @when("zu den ventilen gehen", context="room2")  # gehen
 @when("zu ventilen gehen", context="room2")
@@ -271,7 +278,8 @@ def zu_ventilen():
     # if current_room == room2:
     counter = 20
     while True:
-        input_1 = input("Reihenfolge der Ventile eingeben (um weitere Hinweise zu suchen [zurück]): ")
+        input_1 = input(
+            "Reihenfolge der Ventile eingeben (um weitere Hinweise zu suchen [zurück]): ")
         if input_1 == "35124":
             say(
                 """Das muss die richtige Reihenfolge gewesen sein. Doch die Ventile lassen sich nicht drehen. Du brauchst
@@ -291,7 +299,7 @@ def zu_ventilen():
                 return
                 # TODO gehe wieder zu Raum 1
         if input_1 == "zurück" or input_1 == "exit":
-        	return
+            return
         else:
             if counter > 15:
                 counter = counter - 1
@@ -478,6 +486,7 @@ def look_around_room4():
     say("""An der gegenüberliegenden Wand des Serverracks steht ein Lagerspind mit einem Zahlenschloss, das anscheinend bei der
     letzten Benutzung nicht richtig verschlossen wurde.""")
 
+
 def ueberleitung_raum4():
     time.sleep(6.0)
     say("""---------------------------------------------------------------------------------""")
@@ -569,6 +578,7 @@ def spind_oeffnen():
     RAM,Lüfter, Netzteile, alte Festplatten und so weiter. Doch dann sticht dir ein kleiner Karton mit der Aufschrift „SIM-Karten“
     ins Auge. \n
     An der Innenseite der Spindtür entdeckst du einen QR-Code. Ob der wohl was damit zu tun hat? """)
+
 
 
 @when("sim karte nehmen", context="room4")  # nehmen
@@ -719,7 +729,9 @@ def hamming_code():
 
 
 def raum4Ende():
-    print("raum 4 ende beschreibung")
+    say("""Hier kommt eine Überleitung zu Raum 5""")
+    # TODO
+    set_context("room5")
 
 
 ################
@@ -869,7 +881,10 @@ def computer_entsperren():
 @when("schau um", context="room6")
 @when("schau dich um", context="room6")
 def look_around_room6():
-    say("Hinweiszettel Raum 6")
+    say("""umschauen standardtext""")
+    print(status_gesehen)
+    if status_gesehen:
+        say("""Hinweiszettel Raum 6""")
 
 
 def ueberleitung_raum6():
@@ -881,10 +896,84 @@ def ueberleitung_raum6():
     mit USB.""")
     set_context("room6")
 
+@when("brecheisen benutzen", context="room6")
+def brecheisen_benutzen2():
+    global klappe_offen
+    klappe_offen = True
+    say("""""")
 
+@when("tastatur benutzen", context="room6")
+def tastatur_benutzen():
+    if klappe_offen:
+        input_tastatur = input("Passwort eingeben: ")
+        while(True):
+            if input_tastatur == "30JahreBSI1991!":
+                say("""""")
+                global zugriff_computer 
+                zugriff_computer = True
+                return
+            elif input_tastatur == "exit":
+                return
+            else: 
+                say("""Falsches Passwort. Tippe "exit" um abzubrechen.""")
+    else:
+        say("""""")
+
+@when("firewall schließen", context="room6")
+def firewall_schliessen():
+    if zugriff_computer:
+        while(True):
+            input_loesung = input("Richtigen Satz eingeben: ")
+            if input_loesung == "IT-GRUNDSCHUTZ: DEN EINSTIEG MEISTERN UND SICHERHEITSKONZEPTE MIT MEHRWERT NUTZEN" or input_loesung == "IT-Grundschutz: Den Einstieg meistern und Sicherheitskonzepte mit Mehrwert nutzein":
+                abspann()
+            elif input_loesung == "exit":
+                return
+            else: 
+                say("""Falsch. Tippe "exit" um abzubrechen.""")
+            
+@when("status firewall", context="room6")
+def status_firewall():
+    if zugriff_computer:
+        global status_gesehen
+        status_gesehen = True
+        print(status_gesehen)
+        print(r"""
+__________________________________________________________________________
+|               |               |                       |               |
+|               |       -       |                       |       :       |
+|_______________|_______________|_______________________|_______________|_
+|                       |                          |                    |
+|       DEN             |                          |                    |
+|_______________________|__________________________|____________________|_
+|                               |                                       |
+|               UND             |                                       |
+|_______________________________|_______________________________________|_
+|               |                       |               |               |
+|       MIT     |                       |               |       !       |
+|_______________|_______________________|_______________|_______________|_
+
+                """)
+
+def loesung_firewall():   
+    print(r"""
+__________________________________________________________________________
+|               |               |                       |               |
+|       IT      |       -       |       Grundschutz     |       :       |
+|_______________|_______________|_______________________|_______________|_
+|                       |                          |                    |
+|       DEN             |       EINSTIEG           |       MEISTERN     |
+|_______________________|__________________________|____________________|_
+|                               |                                       |
+|               UND             |       SICHERHEITSKONZEPTE             |
+|_______________________________|_______________________________________|_
+|               |                       |               |               |
+|       MIT     |       MEHRWERT        |       NUTZEN  |       !       |
+|_______________|_______________________|_______________|_______________|_
+
+            """)
 def abspann():
     say("""IT Grundschutz Abspann""")
-
+    sys.exit()
 
 # Debug #
 
