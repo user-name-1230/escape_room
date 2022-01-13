@@ -44,6 +44,7 @@
 # if Hinweise Maschinenraum & Sicherheitstür geöffnet == true, dann Option Maschinenraum
 # später dann auch die anderen Räume
 # if Hinweis Flur == true, dann Option Flur
+# if Hinweis Lagerraum == true, dann Option Lagerraum
 #
 # Sicherheitsausrüstung
 # Text
