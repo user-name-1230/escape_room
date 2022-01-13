@@ -1,6 +1,7 @@
 from PIL import Image
 import time
 from adventurelib import Room, when, say, start, Bag, Item, set_context
+import sys
 
 room1 = Room("""Beschreibung des Kontrollraums""")
 room2 = Room("""Beschreibung des Maschinenraums""")
@@ -273,10 +274,10 @@ def ueberleitung_room2():
 def zettel_anschauen():
     say(
         """Lila – L\n
-	Rot – R\n
-	Blau – B\n
-	Schwarz – S\n
-	Grün – G"""
+        Rot – R\n
+        Blau – B\n
+        Schwarz – S\n
+        Grün – G"""
     )
 
 
@@ -284,10 +285,10 @@ def zettel_anschauen():
 def ventile_anschauen():
     say(
         """Lila Ventil ist mit I beschriftet\n
-	Rotes Ventil ist mit II beschriftet\n
-	Blaues Ventil ist mit III beschriftet\n
-	Schwarzes Ventil ist mit IV beschriftet\n
-	Grünes Ventil ist mit V beschriftet"""
+        Rotes Ventil ist mit II beschriftet\n
+        Blaues Ventil ist mit III beschriftet\n
+        Schwarzes Ventil ist mit IV beschriftet\n
+        Grünes Ventil ist mit V beschriftet"""
     )
 
 
@@ -758,11 +759,11 @@ def pin_eingeben():
     if can_use_pin:
         say(
             """Sehr gut. Du hast es geschafft, die SIM-Karte zu entsperren. Auf deinem Smartphone-Display erscheint direkt das
-    	Dashboard der Intranet-Seite des Kraftwerks. In einer Liste am Rand werden alle Computer im Netzwerk angezeigt. Das sieht
-    	schlecht aus. Alle PCs sind mit einem Schloss-Symbol versehen. Das kann nichts Gutes bedeuten. Du scrollst durch die
-    	Liste. Doch was ist das? Kurz vor Ende der Liste ist tatsächlich noch ein PC aufgeführt, der noch nicht mit einem Schloss
-    	Symbol versehen ist. Das ist es! Du klickst darauf, um dir mehr Details ansehen zu können. Dabei steht sogar eine
-    	Raumnummer. „Ich kann Sie dort hinführen!“, sagt der Kraftwerkchef aufgeregt."""
+            Dashboard der Intranet-Seite des Kraftwerks. In einer Liste am Rand werden alle Computer im Netzwerk angezeigt. Das sieht
+            schlecht aus. Alle PCs sind mit einem Schloss-Symbol versehen. Das kann nichts Gutes bedeuten. Du scrollst durch die
+            Liste. Doch was ist das? Kurz vor Ende der Liste ist tatsächlich noch ein PC aufgeführt, der noch nicht mit einem Schloss
+            Symbol versehen ist. Das ist es! Du klickst darauf, um dir mehr Details ansehen zu können. Dabei steht sogar eine
+            Raumnummer. „Ich kann Sie dort hinführen!“, sagt der Kraftwerkchef aufgeregt."""
         )
         hamming_code()
     else:
@@ -1012,19 +1013,19 @@ def status_firewall():
         print(status_gesehen)
         print(
             r"""
-__________________________________________________________________________
++---------------+---------------+-----------------------+---------------+
 |               |               |                       |               |
 |               |       -       |                       |       :       |
-|_______________|_______________|_______________________|_______________|_
+|---------------+-------+-------+------------------+----+---------------|
 |                       |                          |                    |
 |       DEN             |                          |                    |
-|_______________________|__________________________|____________________|_
+|-----------------------+-------+------------------+--------------------|
 |                               |                                       |
 |               UND             |                                       |
-|_______________________________|_______________________________________|_
+|---------------+---------------+-------+---------------+---------------|
 |               |                       |               |               |
 |       MIT     |                       |               |       !       |
-|_______________|_______________________|_______________|_______________|_
++---------------+-----------------------+---------------+---------------+
 
                 """
         )
@@ -1033,19 +1034,19 @@ __________________________________________________________________________
 def loesung_firewall():
     print(
         r"""
-__________________________________________________________________________
++---------------+---------------+-----------------------+---------------+
 |               |               |                       |               |
 |       IT      |       -       |       Grundschutz     |       :       |
-|_______________|_______________|_______________________|_______________|_
+|---------------+-------+-------+------------------+----+---------------|
 |                       |                          |                    |
 |       DEN             |       EINSTIEG           |       MEISTERN     |
-|_______________________|__________________________|____________________|_
+|-----------------------+-------+------------------+--------------------|
 |                               |                                       |
 |               UND             |       SICHERHEITSKONZEPTE             |
-|_______________________________|_______________________________________|_
+|---------------+---------------+-------+---------------+---------------|
 |               |                       |               |               |
 |       MIT     |       MEHRWERT        |       NUTZEN  |       !       |
-|_______________|_______________________|_______________|_______________|_
++---------------+-----------------------+---------------+---------------+
 
             """
     )
