@@ -1,0 +1,45 @@
+# Logik - Raum 4#
+# Texte kommen von Lukas und die Beschreibungen
+# bei jedem Ort optionen auflisten?
+# wir brauchen wohl für jeden Schrank, Tür, Ort eine ID, damit nur dort die Spezial Aktionen funktionieren
+#
+# Umgebungsvariablen
+# Zähler Türen getestet im Flur == 0
+# Hinweis Lagerraum false
+# 5G SIM eingelegt false
+# Lagerspind offen false
+# Hinweis Raumnummer false
+# 
+# Optionen
+# umschauen
+# gehe zu, schaue an
+# verlasse Raum
+# Inventar
+# Herr Solar
+# wenn SIM-Lagerspind offen = true, dann SIM-Karte
+#
+# umschauen
+# leeres Serverrack
+# Werkzeugtasche
+# Lagerspind
+# Wenn Lagerspind offen = true, dann Zettel mit QR
+#
+# leeres Serverrack
+# Text ausgeschlachtetes Serverrack, keine Interaktionen Möglichkeiten
+#
+# Werkzeugtasche
+# schaue an, durchsuche
+# Text, nur nutzlose Dinge gefunden
+#
+# Lagerspind
+# anschauen, öffnen
+# anschauen: nochmal Text vom Spind
+# öffnen: Text Inhalt, Lagerspind offen = true
+# nehme SIM Karte -> Inventar
+# benutze SIM-Karte mit Smartphone, Fehler kann SIM-Karten-Schacht mit der Hand nicht öffnen, brauche etwas spitzes dünnes, wie ein Haarnadel -> can ask faeser = true
+# benutze Haarnadel (mit SIM-Karten-Slot), Text, 5G SIM eingelegt = true
+#
+# Zettel mit QR
+# nehmen -> Inventar
+# anschauen, betrachten, --> Anzeige QR-Code
+# 
