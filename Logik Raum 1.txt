@@ -33,8 +33,8 @@
 # bei Dingen im Inventar:
 # Möglichkeite es zu benutzen: Aber immer hier wohl nicht sinnvoll, außer bei bestimmten Fällen
 # anschauen: kurzer Text
-# Smartphone: wenn 5G Karte im Inventar = true, dann siehst du den SIM Karten Slot -> ins Inventar
-# Sim Karten Slot: Optionen: Öffnen -> geht nicht
+# Smartphone: wenn 5G Karte im Inventar = true, dann SIM Karten Slot -> im Inventar
+# Sim Karten Slot: Optionen: Öffnen -> Fehler kann SIM-Karten-Schacht mit der Hand nicht öffnen, brauche etwas spitzes dünnes, wie ein Haarnadel 
 # 
 #
 # verlasse Raum
