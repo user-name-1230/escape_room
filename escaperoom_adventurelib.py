@@ -53,6 +53,9 @@ def look_around_room1():
 can_check_sim_slot = False
 sim_schrank_offen = False
 can_use_pin = False
+klappe_offen = False
+zugriff_computer = False
+status_gesehen = False
 
 ########################
 # RAUM 1: KONTROLLRAUM #
@@ -420,26 +423,17 @@ def schrank_oeffnen():
     print("sim schrank geöffnet")
 
 
-@when("sim karte nehmen", context="room4")		#nehmen
-@when("sim-karte nehmen", context="room4")
 @when("sim nehmen", context="room4")
 @when("nehme sim karte", context="room4")
-@when("nehme sim-karte", context="room4")
 @when("nehme sim", context="room4")
 @when("nehme die sim karte", context="room4")
-@when("nehme die sim-karte", context="room4")	
 @when("nehme die sim", context="room4")
 @when("nehm sim karte", context="room4")
-@when("nehm sim-karte", context="room4")
 @when("nehm sim", context="room4")
 @when("nehm die sim karte", context="room4")
-@when("nehm die sim-karte", context="room4")	
 @when("nehm die sim", context="room4")
 @when("nimm sim karte", context="room4")		#nimm
-@when("nimm sim-karte", context="room4")
 @when("nimm sim", context="room4")
-@when("nimm die sim karte", context="room4")
-@when("nimm die sim-karte", context="room4")
 @when("nimm die sim", context="room4")
 def sim_karte_nehmen():
     if  not sim_schrank_offen:
@@ -530,15 +524,94 @@ def raum4Ende():
 @when("schau um", context="room6")
 @when("schau dich um", context="room6")
 def look_around_room6():
-    say("Hinweiszettel Raum 6")
+    say("""umschauen standardtext""")
+    print(status_gesehen)
+    if status_gesehen:
+        say("""Hinweiszettel Raum 6""")
 
 def ueberleitung_raum6():
     print("ueberleitung raum 6")
     set_context("room6")
 
+@when("brecheisen benutzen", context="room6")
+def brecheisen_benutzen2():
+    global klappe_offen
+    klappe_offen = True
+    say("""""")
+
+@when("tastatur benutzen", context="room6")
+def tastatur_benutzen():
+    if klappe_offen:
+        input_tastatur = input("Passwort eingeben: ")
+        while(True):
+            if input_tastatur == "30JahreBSI1991!":
+                say("""""")
+                global zugriff_computer 
+                zugriff_computer = True
+                return
+            elif input_tastatur == "exit":
+                return
+            else: 
+                say("""Falsches Passwort. Tippe "exit" um abzubrechen.""")
+    else:
+        say("""""")
+
+@when("firewall schließen", context="room6")
+def firewall_schliessen():
+    if zugriff_computer:
+        while(True):
+            input_loesung = input("Richtigen Satz eingeben: ")
+            if input_loesung == "IT-GRUNDSCHUTZ: DEN EINSTIEG MEISTERN UND SICHERHEITSKONZEPTE MIT MEHRWERT NUTZEN" or input_loesung == "IT-Grundschutz: Den Einstieg meistern und Sicherheitskonzepte mit Mehrwert nutzein":
+                abspann()
+            elif input_loesung == "exit":
+                return
+            else: 
+                say("""Falsch. Tippe "exit" um abzubrechen.""")
+            
+@when("status firewall", context="room6")
+def status_firewall():
+    if zugriff_computer:
+        global status_gesehen
+        status_gesehen = True
+        print(status_gesehen)
+        print(r"""
+__________________________________________________________________________
+|               |               |                       |               |
+|               |       -       |                       |       :       |
+|_______________|_______________|_______________________|_______________|_
+|                       |                          |                    |
+|       DEN             |                          |                    |
+|_______________________|__________________________|____________________|_
+|                               |                                       |
+|               UND             |                                       |
+|_______________________________|_______________________________________|_
+|               |                       |               |               |
+|       MIT     |                       |               |       !       |
+|_______________|_______________________|_______________|_______________|_
+
+                """)
+
+def loesung_firewall():   
+    print(r"""
+__________________________________________________________________________
+|               |               |                       |               |
+|       IT      |       -       |       Grundschutz     |       :       |
+|_______________|_______________|_______________________|_______________|_
+|                       |                          |                    |
+|       DEN             |       EINSTIEG           |       MEISTERN     |
+|_______________________|__________________________|____________________|_
+|                               |                                       |
+|               UND             |       SICHERHEITSKONZEPTE             |
+|_______________________________|_______________________________________|_
+|               |                       |               |               |
+|       MIT     |       MEHRWERT        |       NUTZEN  |       !       |
+|_______________|_______________________|_______________|_______________|_
+
+            """)
 def abspann():
     say("""IT Grundschutz Abspann""")
-
+    sys.exit()
+ 
 # Debug #
 
 @when("debugraum")
