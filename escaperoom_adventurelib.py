@@ -1,3 +1,35 @@
+# TODO
+# Texte in der Einleitung langsamer machen
+# Mehr Sätze
+# Umlaute
+# Ausrüstung / Kontrollrechner anschauen / benutzen / neustarten
+# Inventar anschauen
+# Sicherheitstür geht von alleine auf? (counter!)
+
+# ventile / pumpenventile
+# Mehr möglichkeiten
+# Ventileingaben besser machen
+# Brechstange wird automatisch benutzt
+
+# Bild muss geschlossen werden
+# Fotos / Pinnwand anschauen
+# Hinweis auf L
+# Hinweis auf Karte für Lösung
+# "Benutze" öfter
+# in raum gehen weglassen
+# Spind öffnen
+# haarnadel benutzen
+# simslot öffnen
+# pin eingeben
+# Überleitung zu Raum 5
+
+# exit in cmd
+# ls richtig einrücken
+# Überleitung in Raum 6
+# NICHT STRG-C DRÜCKEN
+
+# Hinweis zum Lückentext
+# lower()
 from PIL import Image
 import time
 from adventurelib import Room, when, say, start, Bag, Item, set_context
@@ -155,13 +187,14 @@ Du kannst mit [quit] das AKW verlassen (Spiel beenden)"""
 def brecheisen_nehmen():
     # Brecheisen in Raum 1 nehmen
     if check_sicherheitsausruestung == True:
-    	if "brecheisen" not in inventory:
-    		say("""„Das könnte eventuell noch nützlich sein“, sagst du und packst das Brecheisen direkt ein.""")
-    		inventory.add(crowbar)
-    	else:
-    		say("""Du hast das Brecheisen schon genommen.""")
-    else: 
-    	say("""Du solltest dich zuerst noch ein wenig umsehen.""")
+        if "brecheisen" not in inventory:
+            say("""„Das könnte eventuell noch nützlich sein“, sagst du und packst das Brecheisen direkt ein.""")
+            inventory.add(crowbar)
+        else:
+            say("""Du hast das Brecheisen schon genommen.""")
+    else:
+        say("""Du solltest dich zuerst noch ein wenig umsehen.""")
+
 
 @when("benutze brecheisen", context="room1")  # brecheisen, benutzen
 @when("benutz brecheisen", context="room1")
@@ -189,15 +222,16 @@ def brecheisen_benutzen():
             if room1.action_counter == 2:
                 ueberleitung_room2()
 
+
 @when("sicherheitsausruestung anschauen", context="room1")
 def sicherheitsausruestung_anschauen():
-	if inventory.find("brecheisen") is None:
-		global check_sicherheitsausruestung
-		check_sicherheitsausruestung = True
-		say("""In der Sicherheitsausrüstung findest du ein Brecheisen.""")
-	else:
-		say("""Du hast die Sicherheitsausrüstung bereits durchsucht""")
-	
+    if inventory.find("brecheisen") is None:
+        global check_sicherheitsausruestung
+        check_sicherheitsausruestung = True
+        say("""In der Sicherheitsausrüstung findest du ein Brecheisen.""")
+    else:
+        say("""Du hast die Sicherheitsausrüstung bereits durchsucht""")
+
 
 @when("computer neustarten", context="room1")  # neustarten
 @when("starte computer neu", context="room1")
@@ -231,15 +265,18 @@ def computer_neustarten():
         if room1.action_counter == 2:
             ueberleitung_room2()
 
-@when("sicherheitstuer anschauen", context="room1") #sollte beim zweiten mal umschauen da sein
+
+# sollte beim zweiten mal umschauen da sein
+@when("sicherheitstuer anschauen", context="room1")
 def sicherheitstuer_anschauen():
-	say("""Du rüttelst an der Tür, doch sie bewegt sich keinen Zentimeter. Direkt neben der Tür befindet sich ein Tastenfeld
+    say("""Du rüttelst an der Tür, doch sie bewegt sich keinen Zentimeter. Direkt neben der Tür befindet sich ein Tastenfeld
 	und darüber eine Kamera. Du drückst die Grüne Starttaste und die Kamera beginnt mit einem Scan von deinem Gesicht. Du
 	erschrickst. Auf dem Display erscheint in roter Schrift „Zugriff verweigert“. „Das Gesicht des Chefs sollte
 	funktionieren!“, denkst du dir, erinnerst dich aber, dass dieser ohnmächtig geworden ist. Du nimmst dein Smartphone in
 	die Hand und hältst ein Bild von Herrn Solar in die Kamera. „Guten Tag Herr Solar! Bitte geben Sie Ihren PIN ein!“,
 	ertönt eine roboterartige Stimme aus dem Terminal und das Display zeigt: * * * * * *. „Mist, wo krieg ich denn jetzt den
 	PIN her?“, fragst du dich und schaust dich noch einmal um.""")
+
 
 @when("tasten drücken", context="room1")
 @when("drücke tasten", context="room1")
@@ -313,17 +350,17 @@ def ventile_anschauen():
     img.show()
 
 
-#@when("zu den ventilen gehen", context="room2")  # gehen
-#@when("zu ventilen gehen", context="room2")
-#@when("gehe zu ventilen", context="room2")
-#@when("geh zu ventilen", context="room2")
-#@when("gehe zu den ventilen", context="room2")
-#@when("geh zu den ventilen", context="room2")
-#@when("laufe zu ventilen", context="room2")  # laufen
-#@when("lauf zu ventilen", context="room2")
-#@when("laufe zu den ventilen", context="room2")
-#@when("lauf zu den ventilen", context="room2")
-#@when("zu ventilen laufen", context="room2")
+# @when("zu den ventilen gehen", context="room2")  # gehen
+# @when("zu ventilen gehen", context="room2")
+# @when("gehe zu ventilen", context="room2")
+# @when("geh zu ventilen", context="room2")
+# @when("gehe zu den ventilen", context="room2")
+# @when("geh zu den ventilen", context="room2")
+# @when("laufe zu ventilen", context="room2")  # laufen
+# @when("lauf zu ventilen", context="room2")
+# @when("laufe zu den ventilen", context="room2")
+# @when("lauf zu den ventilen", context="room2")
+# @when("zu ventilen laufen", context="room2")
 @when("ventile drehen", context="room2")
 @when("drehen ventile", context="room2")
 def zu_ventilen():
@@ -870,14 +907,14 @@ def computer_entsperren():
         "/root/Desktop": ["run_hl3.sh", "reactorcontrol.sh"],
     }
     helpmessage = """Verfügbare Kommandos: \n
-            help - zeigt diese Hilfe an
+            help - zeigt diese Hilfe an \n
             ls - listet Dateien im aktuellen Verzeichnis \n
             cd [dir] - wechselt ins Verzeichnis [dir] \n
             hashcat [file] - vergleicht Hash in Datei [file] mit Hashes der Wörter in Documents/password_list.txt  \n
             [command] --help - zeigt die Hilfe des jeweiligen Programms an"""
 
     say(helpmessage)
-    # what a terrible day to have eyes...
+    # what a terrible day to have eyes
     while True:
         command = input(current_dir + " # ")
         if command == "exit":
@@ -918,7 +955,7 @@ def computer_entsperren():
             hashcat_in = command.split()
             if len(hashcat_in) > 1:
                 file = hashcat_in[1]
-                if current_dir == "/root/Downloads" and file == ".passwort.txt":
+                if current_dir == "/root/Downloads" and file == ".hash.txt":
                     say(
                         """Vergleicht Hash in Datei [file] mit Hashes der Wörter in Documents/password_list.txt"""
                     )
@@ -997,17 +1034,16 @@ def brecheisen_benutzen2():
 def tastatur_benutzen():
     if klappe_offen:
         while(True):
-        	input_tastatur = input("Passwort eingeben: ")
-        	if input_tastatur == "30JahreBSI1991!":
-        		say("""""")
-        		global zugriff_computer 
-        		zugriff_computer = True
-        		return
-        	elif input_tastatur == "exit":
-        		return
-        	else: 
-        		say("""Falsches Passwort. Tippe "exit" um abzubrechen.""")
-
+            input_tastatur = input("Passwort eingeben: ")
+            if input_tastatur == "30JahreBSI1991!":
+                say("""""")
+                global zugriff_computer
+                zugriff_computer = True
+                return
+            elif input_tastatur == "exit":
+                return
+            else:
+                say("""Falsches Passwort. Tippe "exit" um abzubrechen.""")
 
 
 @when("firewall schließen", context="room6")
@@ -1036,7 +1072,6 @@ def status_firewall():
         print(
             r"""
 +---------------+---------------+-----------------------+---------------+
->>>>>>> d649273dec64d94da551749c95fe080f7fb6042b
 |               |               |                       |               |
 |               |       -       |                       |       :       |
 |---------------+-------+-------+------------------+----+---------------|
