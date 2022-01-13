@@ -82,15 +82,15 @@ can_use_pin = False
 ########################
 # RAUM 1: KONTROLLRAUM #
 ########################
-<<<<<<< HEAD
 # Einleitung Raum 1:
 time.sleep(6.0)
 say("""----------------------------------------------------------------------------------""")
-say("""Du befindest dich nun im Kontrollraum. Die Menge an Schaltern, Hebeln und erschlägt dich fast und es fällt dir schwer deine Panik in den Griff zu bekommen. Du versuchst dich zu sammeln und deine Möglichkeiten abzuwägen: \n 
+say("""Du befindest dich nun im Kontrollraum. Die Menge an Schaltern, Hebeln und erschlägt dich fast und es fällt dir schwer deine Panik in den Griff zu bekommen. Du versuchst dich zu sammeln und deine Möglichkeiten abzuwägen: \n
 Du kannst dich im Raum [umschauen]\n
 Du kannst Dinge im Raum [anschauen], [nehmen] und [benutzen]\n
 Du kannst dein aktuelles [Inventar] anschauen\n
 Du kannst dir [Hilfe] suchen, wenn du nicht weiterkommst""")
+
 
 @when("das brecheisen nehmen", context="room1")  # brecheisen, nehmen
 @when("brecheisen nehmen", context="room1")
@@ -197,12 +197,13 @@ def look_around_room2():
     say("""Du entdeckst die Pumpenventile der riesigen Kühlpumpen und einen Zettel auf einem Tisch in der Nähe. Die Ventile scheinen beschriftet zu sein. Bestimmt muss eine Reihenfolge eingehalten werden.""")
 
 
-def ueberleitung_room2(): 
-	time.sleep(6.0)   						 		      	
-	say("""---------------------------------------------------------------------------------""")
-	say("""Sehr gut. Du konntest die Sicherheitstür öffnen und rennst so schnell du kannst los. Dabei folgst du stur dem Warnsignal, welches dich direkt zum Maschinenraum führt, während es immer lauter wird. \n Beim Betreten des Raums nimmst du eine Durchsage einer Computerstimme aus den Lautsprechern wahr: „Noch 20 Minuten bis zur Kernschmelze!“ Die vielen blinkenden Lichter vor Ort werden alle von dem immer noch rot-pulsierenden Licht überdeckt. Das laute Brummen der großen Maschinen ist ohrenbetäubend. Mittig im Raum stehen 5 riesige Pumpen. „Das müssen sie sein!“ Vorsichtshalber ziehst du das Netzwerkkabel des Kontrollrechners des Kühlsystems. Die Hacker dürften jetzt wenigstens keinen Zugriff mehr darauf haben. Was nun?""")
-	say("""""")
-	set_context("room2")
+def ueberleitung_room2():
+    time.sleep(6.0)
+    say("""---------------------------------------------------------------------------------""")
+    say("""Sehr gut. Du konntest die Sicherheitstür öffnen und rennst so schnell du kannst los. Dabei folgst du stur dem Warnsignal, welches dich direkt zum Maschinenraum führt, während es immer lauter wird. \n Beim Betreten des Raums nimmst du eine Durchsage einer Computerstimme aus den Lautsprechern wahr: „Noch 20 Minuten bis zur Kernschmelze!“ Die vielen blinkenden Lichter vor Ort werden alle von dem immer noch rot-pulsierenden Licht überdeckt. Das laute Brummen der großen Maschinen ist ohrenbetäubend. Mittig im Raum stehen 5 riesige Pumpen. „Das müssen sie sein!“ Vorsichtshalber ziehst du das Netzwerkkabel des Kontrollrechners des Kühlsystems. Die Hacker dürften jetzt wenigstens keinen Zugriff mehr darauf haben. Was nun?""")
+    say("""""")
+    set_context("room2")
+
 
 @when("zu den ventilen gehen", context="room2")  # gehen
 @when("zu ventilen gehen", context="room2")
@@ -300,7 +301,7 @@ def look_around_room3():
 
 
 def ueberleitung_room3():
-    time.sleep(6.0)   						 		     	
+    time.sleep(6.0)
     say("""---------------------------------------------------------------------------------""")
     say("""Doch von dem lauten Geräusch scheint der Kraftwerk-Chef wieder aufgewacht zu sein. Er kommt schweren Schrittes auf dich zugelaufen und versucht dir winkend und mit letztem Atem keuchend mitzuteilen, dass die Pumpen nur über den Haupt-Kontrollrechner gestartet werden können.\n
     Du musst also unbedingt einen Weg finden, den Rechner zu entsperren. Doch wie sollst du das bloß anstellen? Vielleicht sind noch nicht alle Rechner mit der Ransomware infiziert. Du musst einen Rechner finden, der noch nicht betroffen ist, vielleicht hilft dir das weiter.\n
@@ -417,7 +418,7 @@ def look_around_room4():
 
 
 def ueberleitung_raum4():
-    time.sleep(6.0)   						 		     	
+    time.sleep(6.0)
     say("""---------------------------------------------------------------------------------""")
     say("""Du scheinst in eine Art Lagerraum gekommen zu sein mit allerlei technischen Geräten, die ihre beste Zeit hinter sich haben. In der Ecke steht ein leeres Serverrack und daneben eine Werkzeugtasche, die allerdings nur nutzlose Werkzeuge enthält. Mal sehen, was du noch so entdecken kannst, was dir weiterhelfen könnte.""")
     set_context("room4")
@@ -795,7 +796,7 @@ def look_around_room6():
 
 
 def ueberleitung_raum6():
-    time.sleep(6.0)   						 		     	
+    time.sleep(6.0)
     say("""---------------------------------------------------------------------------------""")
     say("""Ihr seid alle zurück im Kontrollraum angekommen. Du rennst zum Rechner. Verdammt…wo ist die Tastatur? Du findest keine Eingabemöglichkeit. Die Tastaturen der anderen Rechner würden nicht funktionieren. Die sind alle mit USB.""")
     set_context("room6")
