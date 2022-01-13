@@ -37,8 +37,6 @@ def zeige_inventar():
         print(f'*{item}')
 
 # Look Around #
-
-
 @when("umschauen", context="room1")
 @when("schaue um", context="room1")
 @when("schau dich um", context="room1")
@@ -54,6 +52,7 @@ def look_around_room1():
 # Global Vars #
 can_check_sim_slot = False
 sim_schrank_offen = False
+can_use_pin = False
 
 ########################
 # RAUM 1: KONTROLLRAUM #
@@ -481,6 +480,8 @@ def sim_slot_oeffnen():
         if inventory.find("simkarte") is not None:
             if inventory.find("haarnadel") is not None:
                 print("erfolgreich geöffnet")
+                global can_use_pin
+                can_use_pin = True
             else:
                 print("Kann nicht per Hand geöffnet werden")
         else:
@@ -498,12 +499,17 @@ def faeser_haarnadel():
 def show_qr():
     img = Image.open("qr.png")
     img.show()
-    hamming_code()
+    
+@when("pin eingeben", context="room4")
+def pin_eingeben():
+    if can_use_pin:
+        hamming_code()
+    else:
+        print("SIM karte noch nicht hinzugefügt")
 
 def hamming_code():
     while(True):
-        input_2 = input(
-            "Bei der Übertragung der binären Nachricht kam es zu einem Fehler, Nachricht korrigieren und in Dezimal umwandeln für den PIN: ")
+        input_2 = input("PIN eingeben: ")
         if input_2 == "1234":
             print("PIN korrekt")
             raum4Ende()
@@ -511,13 +517,29 @@ def hamming_code():
         else:
             print("Falscher PIN, bitte noch einmal versuchen.")
 
-
 def raum4Ende():
     print("raum 4 ende beschreibung")
 
 
 
-# debug #
+########################
+# RAUM 6: KONTROLLRAUM #
+########################
+
+@when("umschauen", context="room6")
+@when("schau um", context="room6")
+@when("schau dich um", context="room6")
+def look_around_room6():
+    say("Hinweiszettel Raum 6")
+
+def ueberleitung_raum6():
+    print("ueberleitung raum 6")
+    set_context("room6")
+
+def abspann():
+    say("""IT Grundschutz Abspann""")
+
+# Debug #
 
 @when("debugraum")
 def debug():
