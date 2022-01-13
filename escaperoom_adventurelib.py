@@ -17,12 +17,8 @@ set_context("room1")
 crowbar = Item("brecheisen")
 smartphone = Item("smartphone")
 hairpin = Item("haarnadel")
-sim = Item("sim")
+sim = Item("simkarte")
 inventory = Bag()
-
-can_check_sim_slot = False
-can_ask_faeser = False
-sim_schrank_offen = False
 
 @when("inventar")
 @when("inventar zeigen")
@@ -55,6 +51,7 @@ def look_around_room1():
 
 # Global Vars #
 can_check_sim_slot = False
+sim_schrank_offen = False
 
 ########################
 # RAUM 1: KONTROLLRAUM #
@@ -146,7 +143,11 @@ def look_around_room2():
 def ueberleitung_room2():
     print("""Du betrittst den Maschinenraum voller blinkender Lichter und lauten Maschinen.
     In der Mitte des Raumes stehen 5 große Pumpen. Die Pumpen haben Ventile mit Farben darauf. \n
-    I->Lila \n II->Rot \n III->Blau \n IV->Schwarz \n V->Blau""")
+    I->Lila \n
+    II->Rot \n
+    III->Blau \n
+    IV->Schwarz \n
+    V->Blau""")
     set_context("room2")
 
 
@@ -247,6 +248,7 @@ def tuer_anschauen():
 
 @when("öffne tür mit FORM", context="room3")
 @when("öffne die tür mit FORM", context="room3")
+@when("tür öffnen mit FORM", context="room3")
 @when("tür mit FORM öffnen", context="room3")
 @when("die tür mit FORM öffnen", context="room3")
 @when("FORM tür öffnen", context="room3")
@@ -270,6 +272,7 @@ def tuer_oeffnen_unklar():
     say("""Ich weiß nicht, welche Tür du meinst""")
 
 
+@when("gehe in den raum", context="room3")
 @when("gehe in raum", context="room3")
 @when("gehe in den raum", context="room3")
 @when("in raum gehen", context="room3")
@@ -278,27 +281,28 @@ def tuer_oeffnen_unklar():
 @when("gehe durch die tür", context="room3")
 @when("durch tür gehen", context="room3")
 @when("durch die tür gehen", context="room3")
+@when("geh in den raum", context="room3")
+@when("geh in raum", context="room3")
+@when("in raum gehen", context="room3")
+@when("in den raum gehen", context="room3")
+@when("raum betreten", context="room3")
+@when("den raum betreten", context="room3")
+@when("betrete raum", context="room3")
+@when("betrete den raum", context="room3")
 def gehe_in_lagerraum():
     print("""Du betrittst den Raum hinter der soeben geöffneten Tür.""")
     ueberleitung_raum4()
 
 
-@when("debug")
-def debug():
-    # debug
-    # say(str(room1))
-    # say(str(room1.has_crowbar))
-    global current_room
-    current_room == 4
 
 #####################
 # RAUM 4: LAGERRAUM #
 #####################
 
 
-@when("umschauen")
-@when("schau um")
-@when("schau dich um")
+@when("umschauen", context="room4")
+@when("schau um", context="room4")
+@when("schau dich um", context="room4")
 def look_around_room4():
     say("""Du siehst einen Schrank mit SIM Karten drinnen. Zudem siehst du einen Lagerschrank mit 3 Abteilen und eine Werkzeugkiste. Zudem hat Ministerin Faeser ein Haarnadel dabei. etc.""")
 
@@ -310,17 +314,17 @@ def ueberleitung_raum4():
 
 @when("oberes abteil angucken", context="room4")
 def oberes_abteil():
-    print("beschreibung")
+    print("oberes abteil beschreibung")
 
 
 @when("mittleres abteil angucken", context="room4")
 def mittleres_abteil():
-    print("beschreibung")
+    print("mittleres abteil beschreibung")
 
 
 @when("unteres abteil angucken", context="room4")
 def unteres_abteil():
-    print("beschreibung")
+    print("unteres abteil beschreibung")
 
 
 @when("rechner anmachen", context="room4")
@@ -335,52 +339,43 @@ def werkzeugkiste_oeffnen():
 
 @when("schrank öffnen", context="room4")
 def schrank_oeffnen():
+    global sim_schrank_offen 
     sim_schrank_offen = True
     print("sim schrank geöffnet")
 
 
 @when("sim karte nehmen", context="room4")
 def sim_karte_nehmen():
-    if sim_schrank_offen == True:
+    if  sim_schrank_offen == False:
+        print("nicht offen")
+    if  sim_schrank_offen == True:
         print("sim karte genommen")
-        inventory.add("sim")
-
-
-@when("sim karten slot öffnen", context="room4")
-def sim_kartenslot_oeffnen():
-    if inventory.find("sim") is not None:
-        print("sim slot geöffnet")
-
+        inventory.add(sim)
 
 @when("smartphone anschauen", context="room4")
 def smartphone_anschauen():
     print("smartphone angeschaut")
+    global can_check_sim_slot 
     can_check_sim_slot = True
-
 
 @when("sim schacht öffnen", context="room4")
 @when("sim slot öffnen", context="room4")
 def sim_slot_oeffnen():
-    if inventory.find("sim") is not None:
-        if inventory.find("haarnadel") is None:
-            print("Erfolglos mit der Hand versucht zu öffnen")
+    if can_check_sim_slot == True:
+        if inventory.find("simkarte") is not None:
+            if inventory.find("haarnadel") is not None:
+                print("erfolgreich geöffnet")
+            else:
+                print("Kann nicht per Hand geöffnet werden")
         else:
-            print("erfolgreich geöffnet")
+            print("SIM Karte nicht im Inventar")
     else:
-        print("SIM Karte nicht im Inventar")
+        print("du musst noch dein handy anschauen")
 
-
-@when("haarnadel nehmen", context="room4")
 @when("faeser nach haarnadel fragen", context="room4")
 def faeser_haarnadel():
-    print("...brauchst pin....siehst qr code")
+    print("...")
     inventory.add(hairpin)
-
-
-@when("faeser nach haarnadel fragen", context="room4")
-def faeser_haarnadel():
-    print("...brauchst pin....siehst qr code")
-
 
 @when("qr code anzeigen", context="room4")
 @when("qr code anschauen", context="room4")
@@ -388,7 +383,6 @@ def show_qr():
     img = Image.open("qr.png")
     img.show()
     hamming_code()
-
 
 def hamming_code():
     while(True):
@@ -404,6 +398,11 @@ def hamming_code():
 
 def raum4Ende():
     print("raum 4 ende beschreibung")
+
+@when("debug")
+def debugr4():
+    set_context("room4")
+
 
 
 ## start ###
