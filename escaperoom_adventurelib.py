@@ -818,7 +818,8 @@ def computer_entsperren():
                     )
                 elif "/root/" + dir in dir_system.keys() and current_dir == "/root":
                     current_dir = "/root/" + dir
-                elif dir in dir_system.keys() and current_dir != "/root"
+                elif dir in dir_system.keys() and current_dir != "/root":
+                    current_dir = dir
                 else:
                     say("""Fehler: Verzeichnis {} nicht gefunden""".format(dir))
             else:
