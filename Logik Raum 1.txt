@@ -32,6 +32,10 @@
 # zum Start: Smartphone, Kali-Linux USB-Stick, zusammen gerollte USB-Tastatur
 # bei Dingen im Inventar:
 # Möglichkeite es zu benutzen: Aber immer hier wohl nicht sinnvoll, außer bei bestimmten Fällen
+# anschauen: kurzer Text
+# Smartphone: wenn 5G Karte im Inventar = true, dann siehst du den SIM Karten Slot -> ins Inventar
+# Sim Karten Slot: Optionen: Öffnen -> geht nicht
+# 
 #
 # verlasse Raum
 # Optionen aufzählen
