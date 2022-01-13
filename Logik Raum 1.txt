@@ -43,6 +43,7 @@
 # falls gewählte Option aktueller Standort: da bin ich doch schon
 # if Hinweise Maschinenraum & Sicherheitstür geöffnet == true, dann Option Maschinenraum
 # später dann auch die anderen Räume
+# if Hinweis Flur == true, dann Option Flur
 #
 # Sicherheitsausrüstung
 # Text
@@ -65,16 +66,19 @@
 #
 # Herr Solar
 # betrachten, wenn problem Gesichtsscan = true, dann auch fotografieren -> Foto Herr Solar = true
-# Text zu ohnmächtig
+# Text zu ohnmächtig wenn Herr Solar wach = false
+# Text zu wach durcheinander, ansprechbar, wenn Herr Solar wach = true
 # wenn Herr Solar wach == true, dann rede mit möglich
 # rede mit Optionen:
 # Problem Eingabe am Kontrollrechner -> Hinweis Wartungsklappe = true
+# 
 #
 # Ministerin Faeser
 # Text Hochsteckfrisur
 # rede mit
 # Optionen:
 # keine, wenn can_ask_faeser = True , dann Haarnadel -> ins Inventar
+# wenn Ventil Reihenfolge probiert, dann Option: Pumpenventile: Hinweise auf Alphabet, meist sind es doch einfache Dinge, abcde...
 #
 # Fernsehteam
 # rede mit
