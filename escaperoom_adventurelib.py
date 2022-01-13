@@ -15,6 +15,7 @@ set_context("room1")
 print("cmds for debug: debugraum, debugitem")
 
 # Einleitungsstory
+say("""----------------------------------------------------------------------------------""")
 say("""Einleitung: \n
 Zur feierlichen Abschaltung des letzten deutschen AKWs sind hochrangige Gäste eingeladen. Unter anderem das BMI und somit Ministerin Schrader. Du, als technischer Sachverständiger und IT-Spezialist darfst die Ministerin begleiten, welche den roten Knopf zur Abschaltung drücken soll. Der AKW-Chef Herr Solar führt Ministerin Schrader, das Fernsehteam und dich durch die Anlage. Nach einigen Minuten gelangt ihr in das Herzstück des AKWs – den Kontrollraum – welches sich hinter einer meterdicken Sicherheitstür befindet.""")
 say("""""")
@@ -69,9 +70,7 @@ def look_around_room1():
     if inventory.find("brecheisen") is None:
         say("""Du siehst den Kontrollrechner und Sicherheitsausrüstung in der Ecke.""")
     else:
-        say(
-            """Hier ist eine Beschreibung des Kontrollraums ohne hängendem Brecheisen"""
-        )
+        say("""Du siehst den Kontrollrechner.""")
 
 
 # Global Vars #
@@ -82,15 +81,16 @@ can_use_pin = False
 ########################
 # RAUM 1: KONTROLLRAUM #
 ########################
-<<<<<<< HEAD
 # Einleitung Raum 1:
 time.sleep(6.0)
 say("""----------------------------------------------------------------------------------""")
-say("""Du befindest dich nun im Kontrollraum. Die Menge an Schaltern, Hebeln und erschlägt dich fast und es fällt dir schwer deine Panik in den Griff zu bekommen. Du versuchst dich zu sammeln und deine Möglichkeiten abzuwägen: \n 
+say("""Du befindest dich nun im Kontrollraum. Die Menge an Schaltern, Hebeln und erschlägt dich fast und es fällt dir schwer deine
+Panik in den Griff zu bekommen. Du versuchst dich zu sammeln und deine Möglichkeiten abzuwägen: \n 
 Du kannst dich im Raum [umschauen]\n
 Du kannst Dinge im Raum [anschauen], [nehmen] und [benutzen]\n
 Du kannst dein aktuelles [Inventar] anschauen\n
-Du kannst dir [Hilfe] suchen, wenn du nicht weiterkommst""")
+Du kannst dir [help] suchen, wenn du nicht weiterkommst\n
+Du kannst mit [exit] das AKW verlassen (Spiel beenden)""")
 
 @when("das brecheisen nehmen", context="room1")  # brecheisen, nehmen
 @when("brecheisen nehmen", context="room1")
@@ -163,8 +163,8 @@ def brecheisen_benutzen():
 def computer_neustarten():
     say(
         """Du startest den Kontrollrechner neu.
-    Der Bildschirm wird schwarz, nach einiger Zeit taucht der Totenkopf wieder auf.
-            Das hat leider nichts gebracht."""
+        Der Bildschirm wird schwarz, nach einiger Zeit taucht der Totenkopf wieder auf.
+        Das hat leider nichts gebracht."""
     )
 
     if room1.action_counter < 2:
@@ -177,8 +177,7 @@ def computer_neustarten():
 @when("drücke tasten", context="room1")
 def tasten_druecken():
     say(
-        """Du versuchst verschiedenste Tastenkombinationen, doch der Totenkopf bleibt.
-            Selbst Strg+Alt+Entf hilft nicht weiter. """
+        """Du versuchst verschiedenste Tastenkombinationen, doch der Totenkopf bleibt. Selbst Strg+Alt+Entf hilft nicht weiter. """
     )
 
     if room1.action_counter < 2:
@@ -194,15 +193,38 @@ def tasten_druecken():
 @when("schaue um", context="room2")
 @when("schau dich um", context="room2")
 def look_around_room2():
-    say("""Du entdeckst die Pumpenventile der riesigen Kühlpumpen und einen Zettel auf einem Tisch in der Nähe. Die Ventile scheinen beschriftet zu sein. Bestimmt muss eine Reihenfolge eingehalten werden.""")
+    say("""Du entdeckst die Pumpenventile der riesigen Kühlpumpen und einen Zettel auf einem Tisch in der Nähe. Die Ventile
+    scheinen beschriftet zu sein. Bestimmt muss eine Reihenfolge eingehalten werden.""")
 
 
 def ueberleitung_room2(): 
 	time.sleep(6.0)   						 		      	
 	say("""---------------------------------------------------------------------------------""")
-	say("""Sehr gut. Du konntest die Sicherheitstür öffnen und rennst so schnell du kannst los. Dabei folgst du stur dem Warnsignal, welches dich direkt zum Maschinenraum führt, während es immer lauter wird. \n Beim Betreten des Raums nimmst du eine Durchsage einer Computerstimme aus den Lautsprechern wahr: „Noch 20 Minuten bis zur Kernschmelze!“ Die vielen blinkenden Lichter vor Ort werden alle von dem immer noch rot-pulsierenden Licht überdeckt. Das laute Brummen der großen Maschinen ist ohrenbetäubend. Mittig im Raum stehen 5 riesige Pumpen. „Das müssen sie sein!“ Vorsichtshalber ziehst du das Netzwerkkabel des Kontrollrechners des Kühlsystems. Die Hacker dürften jetzt wenigstens keinen Zugriff mehr darauf haben. Was nun?""")
+	say("""Sehr gut. Du konntest die Sicherheitstür öffnen und rennst so schnell du kannst los. Dabei folgst du stur dem
+	Warnsignal, welches dich direkt zum Maschinenraum führt, während es immer lauter wird. \n Beim Betreten des Raums nimmst
+	du eine Durchsage einer Computerstimme aus den Lautsprechern wahr: „Noch 20 Minuten bis zur Kernschmelze!“ Die vielen
+	blinkenden Lichter vor Ort werden alle von dem immer noch rot-pulsierenden Licht überdeckt. Das laute Brummen der großen
+	Maschinen ist ohrenbetäubend. Mittig im Raum stehen 5 riesige Pumpen. „Das müssen sie sein!“ Vorsichtshalber ziehst du das
+	Netzwerkkabel des Kontrollrechners des Kühlsystems. Die Hacker dürften jetzt wenigstens keinen Zugriff mehr darauf haben.
+	Was nun?""")
 	say("""""")
 	set_context("room2")
+
+@when("zettel anschauen", context="room2")
+def zettel_anschauen():
+	say("""Lila – L\n
+	Rot – R\n
+	Blau – B\n
+	Schwarz – S\n
+	Grün – G""")
+
+@when("ventile anschauen", context="room2")
+def ventile_anschauen():
+	say("""Lila Ventil ist mit I beschriftet\n
+	Rotes Ventil ist mit II beschriftet\n
+	Blaues Ventil ist mit III beschriftet\n
+	Schwarzes Ventil ist mit IV beschriftet\n
+	Grünes Ventil ist mit V beschriftet""")
 
 @when("zu den ventilen gehen", context="room2")  # gehen
 @when("zu ventilen gehen", context="room2")
@@ -219,14 +241,17 @@ def zu_ventilen():
     # if current_room == room2:
     counter = 20
     while True:
-        input_1 = input("Reihenfolge der Ventile eingeben: ")
+        input_1 = input("Reihenfolge der Ventile eingeben (um weitere Hinweise zu suchen [zurück]): ")
         if input_1 == "35124":
             say(
-                """Es scheint die richtige Reihenfolge zu sein, jedoch lassen sich die Pumpenventile nicht drehen."""
+                """Das muss die richtige Reihenfolge gewesen sein. Doch die Ventile lassen sich nicht drehen. Du brauchst
+                irgendetwas, womit du mehr Kraft aufbringen kannst. Eine Art Hebel."""
             )
             if inventory.find("brecheisen") is not None:
                 say(
-                    """Du benutzt das Brecheisen um die Ventile zu drehen, aber selbst das hilft nicht."""
+                    """Die Ventile lassen sich nun drehen. Doch was ist das!? Ein lautes Knarzen übertönt plötzlich das Warnsignal
+                    und alle Pumpen gehen wieder aus. Na toll…erneut hörst du eine Durchsage aus den Lautsprechern: „Noch 15
+                    Minuten bis zur Kernschmelze!“"""
                 )
                 time.sleep(4.0)
                 room2Ende()
@@ -235,6 +260,8 @@ def zu_ventilen():
                 say("""Du benötigst einen Gegenstand um die Ventile zu drehen.""")
                 return
                 # TODO gehe wieder zu Raum 1
+        if input_1 == "zurück" or input_1 == "exit":
+        	return
         else:
             if counter > 15:
                 counter = counter - 1
@@ -302,9 +329,16 @@ def look_around_room3():
 def ueberleitung_room3():
     time.sleep(6.0)   						 		     	
     say("""---------------------------------------------------------------------------------""")
-    say("""Doch von dem lauten Geräusch scheint der Kraftwerk-Chef wieder aufgewacht zu sein. Er kommt schweren Schrittes auf dich zugelaufen und versucht dir winkend und mit letztem Atem keuchend mitzuteilen, dass die Pumpen nur über den Haupt-Kontrollrechner gestartet werden können.\n
-    Du musst also unbedingt einen Weg finden, den Rechner zu entsperren. Doch wie sollst du das bloß anstellen? Vielleicht sind noch nicht alle Rechner mit der Ransomware infiziert. Du musst einen Rechner finden, der noch nicht betroffen ist, vielleicht hilft dir das weiter.\n
-    Herr Solar scheint einen Gedankenblitz zu haben: „Wir haben neulich mit anderen Kraftwerken zusammen ein 5G-Campusnetz aufgebaut, das alle verfügbaren Geräte in unserem Netzwerk auflisten kann. Dazu braucht man nur eine passende SIM-Karte. Jedoch hab ich leider vergessen, wo genau die SIM-Karten gelagert werden. Es muss irgendwo hier drüben sein.“, sagt er und führt dich in einen langen, kargen Flur mit sieben Türen.""")
+    say("""Doch von dem lauten Geräusch scheint der Kraftwerk-Chef wieder aufgewacht zu sein. Er kommt schweren Schrittes auf dich
+    zugelaufen und versucht dir winkend und mit letztem Atem keuchend mitzuteilen, dass die Pumpen nur über den Haupt
+    Kontrollrechner gestartet werden können.\n
+    Du musst also unbedingt einen Weg finden, den Rechner zu entsperren. Doch wie sollst du das bloß anstellen? Vielleicht sind
+    noch nicht alle Rechner mit der Ransomware infiziert. Du musst einen Rechner finden, der noch nicht betroffen ist, vielleicht
+    hilft dir das weiter.\n
+    Herr Solar scheint einen Gedankenblitz zu haben: „Wir haben neulich mit anderen Kraftwerken zusammen ein 5G-Campusnetz
+    aufgebaut, das alle verfügbaren Geräte in unserem Netzwerk auflisten kann. Dazu braucht man nur eine passende SIM-Karte.
+    Jedoch hab ich leider vergessen, wo genau die SIM-Karten gelagert werden. Es muss irgendwo hier drüben sein.“, sagt er und
+    führt dich in einen langen, kargen Flur mit sieben Türen.""")
     set_context("room3")
 
 
@@ -412,14 +446,17 @@ def gehe_in_lagerraum():
 @when("schau dich um", context="room4")
 def look_around_room4():
     say(
-        """Du siehst einen Schrank mit SIM Karten drinnen. Zudem siehst du einen Lagerschrank mit 3 Abteilen und eine Werkzeugkiste. Zudem hat Ministerin Faeser ein Haarnadel dabei. etc."""
+        """Du siehst einen Schrank mit SIM Karten drinnen. Zudem siehst du einen Lagerschrank mit 3 Abteilen und eine
+        Werkzeugkiste. Zudem hat Ministerin Faeser ein Haarnadel dabei. etc."""
     )
 
 
 def ueberleitung_raum4():
     time.sleep(6.0)   						 		     	
     say("""---------------------------------------------------------------------------------""")
-    say("""Du scheinst in eine Art Lagerraum gekommen zu sein mit allerlei technischen Geräten, die ihre beste Zeit hinter sich haben. In der Ecke steht ein leeres Serverrack und daneben eine Werkzeugtasche, die allerdings nur nutzlose Werkzeuge enthält. Mal sehen, was du noch so entdecken kannst, was dir weiterhelfen könnte.""")
+    say("""Du scheinst in eine Art Lagerraum gekommen zu sein mit allerlei technischen Geräten, die ihre beste Zeit hinter sich
+    haben. In der Ecke steht ein leeres Serverrack und daneben eine Werkzeugtasche, die allerdings nur nutzlose Werkzeuge enthält.
+    Mal sehen, was du noch so entdecken kannst, was dir weiterhelfen könnte.""")
     set_context("room4")
 
 
@@ -796,7 +833,8 @@ def look_around_room6():
 def ueberleitung_raum6():
     time.sleep(6.0)   						 		     	
     say("""---------------------------------------------------------------------------------""")
-    say("""Ihr seid alle zurück im Kontrollraum angekommen. Du rennst zum Rechner. Verdammt…wo ist die Tastatur? Du findest keine Eingabemöglichkeit. Die Tastaturen der anderen Rechner würden nicht funktionieren. Die sind alle mit USB.""")
+    say("""Ihr seid alle zurück im Kontrollraum angekommen. Du rennst zum Rechner. Verdammt…wo ist die Tastatur? Du findest keine
+    Eingabemöglichkeit. Die Tastaturen der anderen Rechner würden nicht funktionieren. Die sind alle mit USB.""")
     set_context("room6")
 
 
