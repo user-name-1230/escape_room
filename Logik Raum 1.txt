@@ -50,7 +50,6 @@
 # aktuelle Option: Kontrollraum, im Raum bleiben
 # falls gewählte Option aktueller Standort: da bin ich doch schon
 # if Hinweise Maschinenraum & Sicherheitstür geöffnet == true, dann Option Maschinenraum
-# später dann auch die anderen Räume
 # if Hinweis Flur == true, dann Option Flur
 # if Hinweis Lagerraum == true, dann Option Lagerraum
 # if Hinweis Raumnummer2 = true, dann Option Büro
@@ -65,14 +64,14 @@
 # Text 1
 # Text 2 dazu wenn Hinweis Wartungsklappe == true, Du entdeckst eine Wartungsklappe auf der Unterseite des Schreibtisches
 # Optionen:
-# drücke Power-Putton, Reset-Button
-# Rechner neugestartet = true
-# betrachte Power-Button, Reset-Button, DIN-AT-Buchse -> Textanwort
-# später betrachte Wartungsklappe dazu
+# drücke Power-Putton, Reset-Button, Text herunter bzw hoch fahren
+# Rechner neugestartet = true, Text keine Eingabemöglichkeit
+# betrachte Power-Button, Reset-Button, DIN-AT-Buchse -> Textantwort
+# wenn Hinweis Wartungsklappe = true: betrachte Wartungsklappe
 # öffne Wartungsklappe, geht nicht Fehlermeldung zu wenig Kraft
 # benutze Brecheisen mit Wartungsklappe, sie öffnet sich, Tastatur dahinter
 # ersetzte Wartungsklappe durch Tastatur
-# benutze Tastatur: wenn passwort eingegeben = false dann (zur finalen Eingabe des Passwortes): bei falscher Eingabe, weiterhin Anzeige Passwortfeld
+# benutze Tastatur: wenn passwort eingegeben = false, dann (zur finalen Eingabe des Passwortes): bei falscher Eingabe, weiterhin Anzeige Passwortfeld
 # bei richtiger Eingabe Text aus Raum 6 -> passwort eingegeben = true
 # wenn passwort eingegeben = true: Option benutze Kontrollrechner
 # benutze Tastatur oder benutze Kontrollrechner: wenn passwort eingegeben = true, Text und Firewall ASCII, abbrechen mit a, wenn gelöst -> firewall geloest = true, Text + Ende
@@ -80,28 +79,27 @@
 #
 # Herr Solar
 # betrachten, wenn problem Gesichtsscan = true, dann auch fotografieren -> Foto Herr Solar = true
-# Text zu ohnmächtig wenn Herr Solar wach = false
-# Text zu wach durcheinander, ansprechbar, wenn Herr Solar wach = true
+# wenn Herr Solar wach == false: Text zu ohnmächtig 
+# wenn Herr Solar wach == true: Text zu wach durcheinander, ansprechbar, 
 # wenn Herr Solar wach == true, dann rede mit möglich
 # rede mit Optionen:
 # Problem Eingabe am Kontrollrechner -> Hinweis Wartungsklappe = true
-# Wenn Zähler Türen getestet im Flur >= 2, dann Hinweise auf richtige Tür
-# Der Organisator des letzten Betriebsausflugs ist ein Fan GPS-Symbolen auf Karten
-# Wenn Hinweis Raumnummer = true, dann diese Option, -> Hinweis Raumnummer2 = true
+# Wenn Zähler Türen getestet im Flur >= 2, dann Hinweise auf richtige Tür: Der Organisator des letzten Betriebsausflugs ist ein Fan GPS-Symbolen auf Karten
+# Wenn Hinweis Raumnummer == true, dann diese Option, -> Hinweis Raumnummer2 = true
 # 
 #
 # Ministerin Faeser
 # Text Hochsteckfrisur
 # rede mit
 # Optionen:
-# keine, wenn can_ask_faeser = True , dann Haarnadel -> ins Inventar
-# wenn Ventil Reihenfolge probiert, dann Option: Pumpenventile: Hinweise auf Alphabet, meist sind es doch einfache Dinge, abcde...
+# keine, wenn can_ask_faeser = True , dann Option: Haarnadel -> ins Inventar
+# wenn Ventil Reihenfolge probiert == true, dann Option: Pumpenventile: Hinweise auf Alphabet, meist sind es doch einfache Dinge, abcde...
 #
 # Fernsehteam
 # rede mit
 # Optionen:
 # Herr Solar -> Text über Scooter
-# wenn Rechner neugestartet true -> Option: Kühlsystem -> Hinweis Maschinenraum = true
+# wenn Rechner neugestartet == true -> Option: Kühlsystem -> Hinweis Maschinenraum = true
 # 
 # Poster an der Wand
 # betrachte:
