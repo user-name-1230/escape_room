@@ -13,6 +13,7 @@
 # öffne Tür (direkter sprung zum Tür öffnen)
 # verlasse Raum
 # Inventar
+# Herr Solar
 #
 # umschauen
 # Pinnwand
@@ -47,4 +48,4 @@
 # anschauen, Tür mit dem Symbol ...
 # öffnen -> Zähler Türen getestet im Flur == 0 und Hinweis Lagerraum = true
 # Text
-' automatisch neuer Standort Raum4, Lagerraum
+# automatisch neuer Standort Raum4, Lagerraum, Text Herr Solar folgt dir aus Neugierde
