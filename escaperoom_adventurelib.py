@@ -28,6 +28,8 @@ sim_schrank_offen = False
 @when("inventar zeigen")
 @when("zeige inventar")
 @when("inventar anzeigen")
+@when("öffne inventar")
+@when("inventar öffnen")
 def zeige_inventar():
     print("Du hast: ")
     if not inventory:
@@ -58,10 +60,14 @@ can_check_sim_slot = False
 # RAUM 1: KONTROLLRAUM #
 ########################
 
-
+@when("das brecheisen nehmen", context="room1")
 @when("brecheisen nehmen", context="room1")
 @when("nimm brecheisen", context="room1")
 @when("nimm das brecheisen", context="room1")
+@when("die brechstange nehmen", context="room1")
+@when("brechstange nehmen", context="room1")
+@when("nimm die brechstange", context="room1")
+@when("nimm brechstange", context="room1")
 def brecheisen_nehmen():
     # Brecheisen in Raum 1 nehmen
     if "brecheisen" not in inventory:
@@ -72,6 +78,9 @@ def brecheisen_nehmen():
 
 
 @when("brecheisen benutzen", context="room1")
+@when("brecheisen nutzen", context="room1")
+@when("brechstange benutzen", context="room1")
+@when("brechstange nutzen", context="room1")
 def brecheisen_benutzen():
     if inventory.find("brecheisen") is None:
         say("Du hast kein Brecheisen.")
@@ -111,6 +120,7 @@ def computer_neustarten():
 
 @when("tasten drücken", context="room1")
 @when("drücke tasten", context="room1")
+@when("auf tastatur rumdrücken", context="room1")
 def tasten_druecken():
     say("""Du versuchst verschiedenste Tastenkombinationen, doch der Totenkopf bleibt.
             Selbst Strg+Alt+Entf hilft nicht weiter. """)
@@ -143,6 +153,10 @@ def ueberleitung_room2():
 @when("zu den ventilen gehen", context="room2")
 @when("zu ventilen gehen", context="room2")
 @when("gehe zu ventilen", context="room2")
+@when("gehe zu den ventilen", context="room2")
+@when("laufe zu ventilen", context="room2")
+@when("laufe zu den ventilen", context="room2")
+@when("zu ventilen laufen", context="room2")
 def zu_ventilen():
     # if current_room == room2:
     counter = 20
@@ -204,7 +218,11 @@ def ueberleitung_room3():
 
 
 @when("pinnwand anschauen", context="room3")
+@when("pinnwand angucken", context="room3")
 @when("schaue pinnwand an", context="room3")
+@when("gucke pinnwand an", context="room3")
+@when("pinnwand betrachten", context="room3")
+@when("betrachte pinnwand", context="room3")
 def pinnwand_anschauen():
     say("""Auf der Pinnwand hängen 6 Fotos von den Mitarbeitern des AKWs bei verschiedenen deutschen Sehenswürdigkeiten""")
     pinnwand = Image.open("pinnwand.jpg")
@@ -212,15 +230,27 @@ def pinnwand_anschauen():
 
 
 @when("türen anschauen", context="room3")
+@when("schaue türen an", context="room3")
 @when("tür anschauen", context="room3")
 @when("schaue tür an", context="room3")
-@when("schaue türen an", context="room3")
+@when("türen angucken", context="room3")
+@when("gucke türen an", context="room3")
+@when("tür angucken", context="room3")
+@when("gucke tür an", context="room3")
+@when("tür betrachten", context="room3")
+@when("betrachte tür", context="room3")
+@when("türen betrachten", context="room3")
+@when("betrachte türen ", context="room3")
 def tuer_anschauen():
     say("""Einige Türen scheinen verschlossen zu sein. Keine Zeit zu verlieren, du musst die richtige finden!""")
 
 
 @when("öffne tür mit FORM", context="room3")
+@when("öffne die tür mit FORM", context="room3")
 @when("tür mit FORM öffnen", context="room3")
+@when("die tür mit FORM öffnen", context="room3")
+@when("FORM tür öffnen", context="room3")
+@when("öffne FORM tür", context="room3")
 def tuer_oeffnen(form):
     if form not in ("welle", "stern", "plus", "fünfeck", "dach", "minus", "dreieck"):
         say("""Eine Tür mit diesem Symbol gibt es nicht.""")
@@ -241,7 +271,13 @@ def tuer_oeffnen_unklar():
 
 
 @when("gehe in raum", context="room3")
+@when("gehe in den raum", context="room3")
 @when("in raum gehen", context="room3")
+@when("in den raum gehen", context="room3")
+@when("gehe durch tür", context="room3")
+@when("gehe durch die tür", context="room3")
+@when("durch tür gehen", context="room3")
+@when("durch die tür gehen", context="room3")
 def gehe_in_lagerraum():
     print("""Du betrittst den Raum hinter der soeben geöffneten Tür.""")
     ueberleitung_raum4()
