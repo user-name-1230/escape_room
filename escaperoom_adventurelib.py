@@ -17,23 +17,48 @@ print("cmds for debug: debugraum, debugitem")
 # Einleitungsstory
 say("""----------------------------------------------------------------------------------""")
 say("""Einleitung: \n
-Zur feierlichen Abschaltung des letzten deutschen AKWs sind hochrangige Gäste eingeladen. Unter anderem das BMI und somit Ministerin Schrader. Du, als technischer Sachverständiger und IT-Spezialist darfst die Ministerin begleiten, welche den roten Knopf zur Abschaltung drücken soll. Der AKW-Chef Herr Solar führt Ministerin Schrader, das Fernsehteam und dich durch die Anlage. Nach einigen Minuten gelangt ihr in das Herzstück des AKWs – den Kontrollraum – welches sich hinter einer meterdicken Sicherheitstür befindet.""")
+Zur feierlichen Abschaltung des letzten deutschen AKWs sind hochrangige Gäste
+eingeladen. Unter anderem das BMI und somit Ministerin Schrader. Du, als
+technischer Sachverständiger und IT-Spezialist darfst die Ministerin begleiten,
+welche den roten Knopf zur Abschaltung drücken soll. Der AKW-Chef Herr Solar
+führt Ministerin Schrader, das Fernsehteam und dich durch die Anlage. Nach
+einigen Minuten gelangt ihr in das Herzstück des AKWs – den Kontrollraum –
+welches sich hinter einer meterdicken Sicherheitstür befindet.""")
 say("""""")
 time.sleep(6.0)
-say("""Ihr begebt euch gemeinsam zum Abschaltterminal. Über ein Mikrofon zählt Herr Solar den Countdown herunter. Die Journalisten außerhalb des Kraftwerks lauschen gespannt mit. Ministerin Schrader hat bereits die Hand auf dem großen roten Knopf. 5...4...3...2……...plötzlich völlige Dunkelheit.""")
+say("""Ihr begebt euch gemeinsam zum Abschaltterminal. Über ein Mikrofon zählt
+Herr Solar den Countdown herunter. Die Journalisten außerhalb des Kraftwerks
+lauschen gespannt mit. Ministerin Schrader hat bereits die Hand auf dem großen
+roten Knopf. 5...4...3...2……...plötzlich völlige Dunkelheit.""")
 say("""""")
 time.sleep(6.0)
-say("""Ihr hört ein lautes Surren und Klicken. Nach einer gefühlten Ewigkeit geht ein rot-pulsierendes Notlicht an und im Kontrollraum verhallt das Warnsignal aus dem Maschinenraum. Die Sicherheitstür wird mit einem Knall verriegelt. Der Bildschirm des Kontrollrechners leuchtet auf und ein Totenkopf erscheint mit folgender Mitteilung:
-"Die Evil Corp hat soeben das Kraftwerk übernommen. Wir haben das Kühlsystem der Brennstäbe gehackt und die Pumpen heruntergefahren.“""")
+say("""Ihr hört ein lautes Surren und Klicken. Nach einer gefühlten Ewigkeit
+geht ein rot-pulsierendes Notlicht an und im Kontrollraum verhallt das
+Warnsignal aus dem Maschinenraum. Die Sicherheitstür wird mit einem Knall
+verriegelt. Der Bildschirm des Kontrollrechners leuchtet auf und ein Totenkopf
+erscheint mit folgender Mitteilung: "Die Evil Corp hat soeben das Kraftwerk
+übernommen. Wir haben das Kühlsystem der Brennstäbe gehackt und die Pumpen
+heruntergefahren.“""")
 say("""""")
 time.sleep(6.0)
 say("""Ein Countdown startet: 30:00, 29:59, 29:58, ....""")
 say("""""")
 time.sleep(6.0)
-say("""„Zur Entsperrung der Anlage müssen sie nur einen kleinen Betrag von 100.000.000 Dogecoin auf die Wallet-Adresse besser.aBSIchern überweisen.“""")
+say("""„Zur Entsperrung der Anlage müssen sie nur einen kleinen Betrag von
+100.000.000 Dogecoin auf die Wallet-Adresse besser.aBSIchern überweisen.“""")
 say("""""")
 time.sleep(6.0)
-say("""Unter der Mitteilung erscheint ein Eingabefeld, welches mit Passwort beschriftet ist. Na toll…Ransomware. Der Chef des Kraftwerks ist erschüttert und erklärt, dass es zu einer Kettenreaktion und letzten Endes zur Kernschmelze kommen wird, wenn die Kühlung länger als 30 Minuten stillsteht. Danach fällt er vor Schreck in Ohnmacht. Ministerin Schrader greift sofort zum Telefon um den Kanzler zu fragen, ob die Bezahlung eine Option darstellt. Aber sie hat keinen Empfang. Die Wände des Kontrollraums sind zu dick. Das Fernsehteam steht ratlos in der Ecke des Raumes. Du möchtest nicht warten und glaubst auch nicht, dass eine Bezahlung des Lösegelds wirksam ist. Also suchst du als einziger Anwesender mit breitem IT-Wissen - denn du hast ja DACS studiert ;) - nach einer Lösung.""")
+say("""Unter der Mitteilung erscheint ein Eingabefeld, welches mit Passwort
+beschriftet ist. Na toll…Ransomware. Der Chef des Kraftwerks ist erschüttert und
+erklärt, dass es zu einer Kettenreaktion und letzten Endes zur Kernschmelze
+kommen wird, wenn die Kühlung länger als 30 Minuten stillsteht. Danach fällt er
+vor Schreck in Ohnmacht. Ministerin Schrader greift sofort zum Telefon um den
+Kanzler zu fragen, ob die Bezahlung eine Option darstellt. Aber sie hat keinen
+Empfang. Die Wände des Kontrollraums sind zu dick. Das Fernsehteam steht ratlos
+in der Ecke des Raumes. Du möchtest nicht warten und glaubst auch nicht, dass
+eine Bezahlung des Lösegelds wirksam ist. Also suchst du als einziger Anwesender
+mit breitem IT-Wissen - denn du hast ja DACS studiert ;) - nach einer
+Lösung.""")
 
 
 # Inventar #
@@ -84,13 +109,15 @@ can_use_pin = False
 # Einleitung Raum 1:
 time.sleep(6.0)
 say("""----------------------------------------------------------------------------------""")
-say("""Du befindest dich nun im Kontrollraum. Die Menge an Schaltern, Hebeln und erschlägt dich fast und es fällt dir schwer deine
-Panik in den Griff zu bekommen. Du versuchst dich zu sammeln und deine Möglichkeiten abzuwägen: \n 
+say("""Du befindest dich nun im Kontrollraum. Die Menge an Schaltern, Hebeln und
+erschlägt dich fast und es fällt dir schwer deine Panik in den Griff zu
+bekommen. Du versuchst dich zu sammeln und deine Möglichkeiten abzuwägen: \n
 Du kannst dich im Raum [umschauen]\n
 Du kannst Dinge im Raum [anschauen], [nehmen] und [benutzen]\n
 Du kannst dein aktuelles [Inventar] anschauen\n
 Du kannst dir [help] suchen, wenn du nicht weiterkommst\n
 Du kannst mit [exit] das AKW verlassen (Spiel beenden)""")
+
 
 @when("das brecheisen nehmen", context="room1")  # brecheisen, nehmen
 @when("brecheisen nehmen", context="room1")
@@ -193,22 +220,25 @@ def tasten_druecken():
 @when("schaue um", context="room2")
 @when("schau dich um", context="room2")
 def look_around_room2():
-    say("""Du entdeckst die Pumpenventile der riesigen Kühlpumpen und einen Zettel auf einem Tisch in der Nähe. Die Ventile
-    scheinen beschriftet zu sein. Bestimmt muss eine Reihenfolge eingehalten werden.""")
+    say("""Du entdeckst die Pumpenventile der riesigen Kühlpumpen und einen
+    Zettel auf einem Tisch in der Nähe. Die Ventile scheinen beschriftet zu
+    sein. Bestimmt muss eine Reihenfolge eingehalten werden.""")
 
-
-def ueberleitung_room2(): 
-	time.sleep(6.0)   						 		      	
-	say("""---------------------------------------------------------------------------------""")
-	say("""Sehr gut. Du konntest die Sicherheitstür öffnen und rennst so schnell du kannst los. Dabei folgst du stur dem
-	Warnsignal, welches dich direkt zum Maschinenraum führt, während es immer lauter wird. \n Beim Betreten des Raums nimmst
-	du eine Durchsage einer Computerstimme aus den Lautsprechern wahr: „Noch 20 Minuten bis zur Kernschmelze!“ Die vielen
-	blinkenden Lichter vor Ort werden alle von dem immer noch rot-pulsierenden Licht überdeckt. Das laute Brummen der großen
-	Maschinen ist ohrenbetäubend. Mittig im Raum stehen 5 riesige Pumpen. „Das müssen sie sein!“ Vorsichtshalber ziehst du das
-	Netzwerkkabel des Kontrollrechners des Kühlsystems. Die Hacker dürften jetzt wenigstens keinen Zugriff mehr darauf haben.
-	Was nun?""")
-	say("""""")
-	set_context("room2")
+def ueberleitung_room2():
+    time.sleep(6.0)
+    say("""---------------------------------------------------------------------------------""")
+    say("""Sehr gut. Du konntest die Sicherheitstür öffnen und rennst so schnell
+    du kannst los. Dabei folgst du stur dem Warnsignal, welches dich direkt zum
+    Maschinenraum führt, während es immer lauter wird. \n Beim Betreten des
+    Raums nimmst du eine Durchsage einer Computerstimme aus den Lautsprechern
+    wahr: „Noch 20 Minuten bis zur Kernschmelze!“ Die vielen blinkenden Lichter
+    vor Ort werden alle von dem immer noch rot-pulsierenden Licht überdeckt. Das
+    laute Brummen der großen Maschinen ist ohrenbetäubend. Mittig im Raum stehen
+    5 riesige Pumpen. „Das müssen sie sein!“ Vorsichtshalber ziehst du das
+    Netzwerkkabel des Kontrollrechners des Kühlsystems. Die Hacker dürften jetzt
+    wenigstens keinen Zugriff mehr darauf haben. Was nun?""")
+    say("""""")
+    set_context("room2")
 
 @when("zettel anschauen", context="room2")
 def zettel_anschauen():
@@ -327,18 +357,22 @@ def look_around_room3():
 
 
 def ueberleitung_room3():
-    time.sleep(6.0)   						 		     	
+    time.sleep(6.0)
     say("""---------------------------------------------------------------------------------""")
-    say("""Doch von dem lauten Geräusch scheint der Kraftwerk-Chef wieder aufgewacht zu sein. Er kommt schweren Schrittes auf dich
-    zugelaufen und versucht dir winkend und mit letztem Atem keuchend mitzuteilen, dass die Pumpen nur über den Haupt
-    Kontrollrechner gestartet werden können.\n
-    Du musst also unbedingt einen Weg finden, den Rechner zu entsperren. Doch wie sollst du das bloß anstellen? Vielleicht sind
-    noch nicht alle Rechner mit der Ransomware infiziert. Du musst einen Rechner finden, der noch nicht betroffen ist, vielleicht
-    hilft dir das weiter.\n
-    Herr Solar scheint einen Gedankenblitz zu haben: „Wir haben neulich mit anderen Kraftwerken zusammen ein 5G-Campusnetz
-    aufgebaut, das alle verfügbaren Geräte in unserem Netzwerk auflisten kann. Dazu braucht man nur eine passende SIM-Karte.
-    Jedoch hab ich leider vergessen, wo genau die SIM-Karten gelagert werden. Es muss irgendwo hier drüben sein.“, sagt er und
-    führt dich in einen langen, kargen Flur mit sieben Türen.""")
+    say("""Doch von dem lauten Geräusch scheint der Kraftwerk-Chef wieder
+    aufgewacht zu sein. Er kommt schweren Schrittes auf dich zugelaufen und
+    versucht dir winkend und mit letztem Atem keuchend mitzuteilen, dass die
+    Pumpen nur über den Haupt-Kontrollrechner gestartet werden können.\n Du
+    musst also unbedingt einen Weg finden, den Rechner zu entsperren. Doch wie
+    sollst du das bloß anstellen? Vielleicht sind noch nicht alle Rechner mit
+    der Ransomware infiziert. Du musst einen Rechner finden, der noch nicht
+    betroffen ist, vielleicht hilft dir das weiter.\n Herr Solar scheint einen
+    Gedankenblitz zu haben: „Wir haben neulich mit anderen Kraftwerken zusammen
+    ein 5G-Campusnetz aufgebaut, das alle verfügbaren Geräte in unserem Netzwerk
+    auflisten kann. Dazu braucht man nur eine passende SIM-Karte. Jedoch hab ich
+    leider vergessen, wo genau die SIM-Karten gelagert werden. Es muss irgendwo
+    hier drüben sein.“, sagt er und führt dich in einen langen, kargen Flur mit
+    sieben Türen.""")
     set_context("room3")
 
 
@@ -351,9 +385,7 @@ def ueberleitung_room3():
 @when("pinnwand betrachten", context="room3")  # betrachten
 @when("betrachte pinnwand", context="room3")
 def pinnwand_anschauen():
-    say(
-        """Auf der Pinnwand hängen 6 Fotos von den Mitarbeitern des AKWs bei verschiedenen deutschen Sehenswürdigkeiten"""
-    )
+    say("""Auf der Pinnwand hängen 6 Fotos von den Mitarbeitern des AKWs bei verschiedenen deutschen Sehenswürdigkeiten""")
     pinnwand = Image.open("pinnwand.jpg")
     pinnwand.show()
 
@@ -375,9 +407,7 @@ def pinnwand_anschauen():
 @when("türen betrachten", context="room3")
 @when("betrachte türen ", context="room3")
 def tuer_anschauen():
-    say(
-        """Einige Türen scheinen verschlossen zu sein. Keine Zeit zu verlieren, du musst die richtige finden!"""
-    )
+    say("""Einige Türen scheinen verschlossen zu sein. Keine Zeit zu verlieren, du musst die richtige finden!""")
 
 
 @when("öffne tür mit FORM", context="room3")  # öffnen
@@ -445,18 +475,18 @@ def gehe_in_lagerraum():
 @when("schau um", context="room4")
 @when("schau dich um", context="room4")
 def look_around_room4():
-    say(
-        """Du siehst einen Schrank mit SIM Karten drinnen. Zudem siehst du einen Lagerschrank mit 3 Abteilen und eine
-        Werkzeugkiste. Zudem hat Ministerin Faeser ein Haarnadel dabei. etc."""
-    )
-
+    say("""Du siehst einen Schrank mit SIM Karten drinnen. Zudem siehst du einen
+    Lagerschrank mit 3 Abteilen und eine Werkzeugkiste. Zudem hat Ministerin
+    Faeser ein Haarnadel dabei. etc.""")
 
 def ueberleitung_raum4():
-    time.sleep(6.0)   						 		     	
+    time.sleep(6.0)
     say("""---------------------------------------------------------------------------------""")
-    say("""Du scheinst in eine Art Lagerraum gekommen zu sein mit allerlei technischen Geräten, die ihre beste Zeit hinter sich
-    haben. In der Ecke steht ein leeres Serverrack und daneben eine Werkzeugtasche, die allerdings nur nutzlose Werkzeuge enthält.
-    Mal sehen, was du noch so entdecken kannst, was dir weiterhelfen könnte.""")
+    say("""Du scheinst in eine Art Lagerraum gekommen zu sein mit allerlei
+    technischen Geräten, die ihre beste Zeit hinter sich haben. In der Ecke
+    steht ein leeres Serverrack und daneben eine Werkzeugtasche, die allerdings
+    nur nutzlose Werkzeuge enthält. Mal sehen, was du noch so entdecken kannst,
+    was dir weiterhelfen könnte.""")
     set_context("room4")
 
 
@@ -589,7 +619,8 @@ def smartphone_anschauen():
 
 @when("sim schacht öffnen", context="room4")  # sim schacht, öffnen
 @when("öffne sim schacht", context="room4")
-@when("sim karten schacht öffnen", context="room4")  # sim karten schacht, öffnen
+# sim karten schacht, öffnen
+@when("sim karten schacht öffnen", context="room4")
 @when("öffne sim karten schacht", context="room4")
 @when("sim slot öffnen", context="room4")  # sim slot, öffnen
 @when("öffne sim slot", context="room4")
@@ -726,8 +757,9 @@ def computer_entsperren():
         "/root/Dokumente": [
             "quartalsbericht_2021_q4.pdf",
             "auswertung_mitarbeiterbefragung.pptx",
+            "hash_list.txt"
         ],
-        "/root/Downloads": [".passwort.txt"],
+        "/root/Downloads": [".hash.txt"],
         "/root/Bilder": ["reaktor_schema.jpg"],
         "/root/Videos": [""],
         "/root/Musik": ["never_gonna_give_you_up.mp3"],
@@ -738,7 +770,7 @@ def computer_entsperren():
             help - zeigt diese Hilfe an
             ls - listet Dateien im aktuellen Verzeichnis \n
             cd [dir] - wechselt ins Verzeichnis [dir] \n
-            hashcat - entschlüsselt Passwörter \n
+            hashcat [file] - vergleicht Hash in Datei [file] mit Hashtabelle in Documents/hash_list.txt  \n
             [command] --help - zeigt die Hilfe des jeweiligen Programms an"""
 
     say(helpmessage)
@@ -753,10 +785,8 @@ def computer_entsperren():
             if len(ls_in) > 1:
                 arg = ls_in[1]
                 if arg == "--help":
-                    say(
-                        """ls - listet Dateien im aktuellen Verzeichnis \n
-                    ls -a - listet Dateien inklusive versteckter Dateien auf"""
-                    )
+                    say("""ls - listet Dateien im aktuellen Verzeichnis \n
+                    ls -a - listet Dateien inklusive versteckter Dateien auf""")
                 elif arg == "-a":
                     list_all = True
                 else:
@@ -781,17 +811,19 @@ def computer_entsperren():
             say(helpmessage)
         elif command.__contains__("hashcat"):
             hashcat_in = command.split()
-            file = hashcat_in[1]
-            if current_dir == "/root/Downloads" and file == ".passwort.txt":
-                say("""Vergleiche Hashes mit Hash in .passwort.txt...""")
-                time.sleep(5.0)
-                say("""Hash gefunden!""")
-                say("""[hash] = [passwort im klartext]""")
+            if len(hashcat_in) > 1:
+                file = hashcat_in[1]
+                if current_dir == "/root/Downloads" and file == ".passwort.txt":
+                    say("""Vergleiche Hashes mit Hash in .passwort.txt...""")
+                    time.sleep(5.0)
+                    say("""Hash gefunden!""")
+                    say("""[hash] = [passwort im klartext]""")
+                else:
+                    say(
+                        """Fehler: Datei ist nicht verschlüsselt. Haben Sie die
+                    richtige Datei ausgewählt?""")
             else:
-                say(
-                    """Fehler: Datei ist nicht verschlüsselt. Haben Sie die
-                richtige Datei ausgewählt?"""
-                )
+                say("""Fehler: Kommando ungültig""")
         elif command.__contains__("cd"):
             cd_in = command.split()
             if len(cd_in) > 1:
@@ -801,14 +833,13 @@ def computer_entsperren():
                         """cd [dir] - wechselt ins Verzeichnis [dir] \n
                     cd - (ohne Eingabe) wechselt ins Home-Verzeichnis des aktuellen Nutzers"""
                     )
-                elif "/root/" + dir in dir_system.keys():
+                elif "/root/" + dir in dir_system.keys() and current_dir == "/root":
                     current_dir = "/root/" + dir
+                elif dir in dir_system.keys() and current_dir != "/root"
                 else:
                     say("""Fehler: Verzeichnis {} nicht gefunden""".format(dir))
             else:
                 current_dir = "/root"
-        elif command == "pwd":
-            say(current_dir)
 
         else:
             say(
@@ -831,10 +862,12 @@ def look_around_room6():
 
 
 def ueberleitung_raum6():
-    time.sleep(6.0)   						 		     	
+    time.sleep(6.0)
     say("""---------------------------------------------------------------------------------""")
-    say("""Ihr seid alle zurück im Kontrollraum angekommen. Du rennst zum Rechner. Verdammt…wo ist die Tastatur? Du findest keine
-    Eingabemöglichkeit. Die Tastaturen der anderen Rechner würden nicht funktionieren. Die sind alle mit USB.""")
+    say("""Ihr seid alle zurück im Kontrollraum angekommen. Du rennst zum
+    Rechner. Verdammt…wo ist die Tastatur? Du findest keine Eingabemöglichkeit.
+    Die Tastaturen der anderen Rechner würden nicht funktionieren. Die sind alle
+    mit USB.""")
     set_context("room6")
 
 
@@ -881,3 +914,7 @@ def debug2():
 
 ## start ###
 start()
+
+
+def no_command_matches(command):
+    print("Das habe ich nicht verstanden")
