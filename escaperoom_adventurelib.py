@@ -466,8 +466,18 @@ def smartphone_anschauen():
     global can_check_sim_slot 
     can_check_sim_slot = True
 
-@when("sim schacht öffnen", context="room4")
-@when("sim slot öffnen", context="room4")
+@when("sim schacht öffnen", context="room4")		#sim schacht, öffnen
+@when("öffne sim schacht", context="room4")
+@when("sim karten schacht öffnen", context="room4")	#sim karten schacht, öffnen
+@when("öffne sim karten schacht", context="room4")
+@when("sim slot öffnen", context="room4")		#sim slot, öffnen
+@when("öffne sim slot", context="room4")
+@when("sim karten slot öffnen", context="room4")	#sim karten slot, öffnen
+@when("öffne sim karten slot", context="room4")
+@when("sim tray öffnen", context="room4")		#sim tray, öffnen
+@when("öffne sim tray", context="room4")
+@when("sim karten tray öffnen", context="room4")	#sim karten tray, öffnen
+@when("öffne sim karten tray", context="room4")
 def sim_slot_oeffnen():
     if can_check_sim_slot:
         if inventory.find("simkarte") is not None:
@@ -483,17 +493,47 @@ def sim_slot_oeffnen():
         print("du musst noch dein handy anschauen")
 
 @when("faeser nach haarnadel fragen", context="room4")
+@when("frage faeser nach haarnadel", context="room4")
 def faeser_haarnadel():
     print("...")
     inventory.add(hairpin)
 
-@when("qr code anzeigen", context="room4")
-@when("qr code anschauen", context="room4")
+@when("qr code anzeigen", context="room4")		#qr code, anzeigen
+@when("zeige qr code an", context="room4")
+@when("zeig qr code an", context="room4")
+@when("qr code anschauen", context="room4")		#qr code, anschauen
+@when("schaue qr code an", context="room4")
+@when("schau qr code an", context="room4")
+@when("qrcode anzeigen", context="room4")		#qrcode, anzeigen
+@when("zeige qrcode an", context="room4")
+@when("zeig qrcode an", context="room4")
+@when("qrcode anschauen", context="room4")		#qrcode, anschauen
+@when("schaue qrcode an", context="room4")
+@when("schau qrcode an", context="room4")
+@when("qr anzeigen", context="room4")			#qr, anzeigen
+@when("zeige qr an", context="room4")
+@when("zeig qr an", context="room4")
+@when("qr anschauen", context="room4")		#qr, anschauen
+@when("schaue qr an", context="room4")
+@when("schau qr an", context="room4")
 def show_qr():
     img = Image.open("qr.png")
     img.show()
     
-@when("pin eingeben", context="room4")
+@when("pin eingeben", context="room4")		#eingeben
+@when("eingabe pin", context="room4")
+@when("eingabe vom pin", context="room4")
+@when("pin bestaetigen", context="room4")		#bestätigen
+@when("bestaetigen mit pin", context="room4")
+@when("bestaetige mit pin", context="room4")
+@when("nutze pin", context="room4")			#benutzen
+@when("nutz pin", context="room4")
+@when("nutze den pin", context="room4")
+@when("nutz den pin", context="room4")
+@when("benutze pin", context="room4")
+@when("benutz pin", context="room4")
+@when("benutze den pin", context="room4")
+@when("benutz den pin", context="room4")
 def pin_eingeben():
     if can_use_pin:
         hamming_code()
