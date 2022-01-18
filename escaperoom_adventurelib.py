@@ -67,7 +67,7 @@ say(
     """Ihr begebt euch gemeinsam zum Abschaltterminal. Über ein Mikrofon zählt
 Herr Solar den Countdown herunter. Die Journalisten außerhalb des Kraftwerks
 lauschen gespannt mit. Ministerin Schrader hat bereits die Hand auf dem großen
-roten Knopf. 5...4...3...2……...plötzlich völlige Dunkelheit."""
+roten Knopf. 5...4...3...2........plötzlich völlige Dunkelheit."""
 )
 say("""""")
 time.sleep(6.0)
@@ -1000,15 +1000,6 @@ def computer_entsperren():
 ########################
 
 
-@when("umschauen", context="room6")
-@when("schau um", context="room6")
-@when("schau dich um", context="room6")
-def look_around_room6():
-    say("""umschauen standardtext""")
-    if status_gesehen:
-        say("""Hinweiszettel Raum 6""")
-
-
 def ueberleitung_raum6():
     time.sleep(6.0)
     say(
@@ -1016,27 +1007,66 @@ def ueberleitung_raum6():
     )
     say(
         """Ihr seid alle zurück im Kontrollraum angekommen. Du rennst zum
-    Rechner. Verdammt…wo ist die Tastatur? Du findest keine Eingabemöglichkeit.
-    Die Tastaturen der anderen Rechner würden nicht funktionieren. Die sind alle
-    mit USB."""
+    Rechner. Verdammt...wo ist die Tastatur? Du findest keine Eingabemöglichkeit.
+    Die Tastaturen der anderen Rechner würden nicht funktionieren. Die haben alle
+    einen USB-Anschluss."""
     )
     set_context("room6")
 
 
+@when("umschauen", context="room6")
+@when("schau um", context="room6")
+@when("schau dich um", context="room6")
+def look_around_room6():
+    say(
+        """Ihr schaut euch fragend um. Der Kraftwerkchef kommt auf euch zu und
+    fragt nach dem Status. Ihr erläutert ihm kurz das Problem und er zeigt auf
+    eine Wartungsklappe neben dem Kontrollpult. Dort muss eine Tastatur drin
+    sein, die mit dem alten DIN-AT-Anschluss kompatibel ist. Doch die Klappe
+    ist so verrostet, dass du sie mit bloßen Händen nicht aufbekommt."""
+    )
+    if status_gesehen:
+        say("""Hinweiszettel Raum 6""")
+
+
 @when("brecheisen benutzen", context="room6")
+@when("mit brecheisen öffnen", context="room6")
+@when("brecheisen anwenden", context="room6")
+@when("brecheisen verwenden", context="room6")
 def brecheisen_benutzen2():
     global klappe_offen
     klappe_offen = True
-    say("""""")
+    say(
+        """Gut, dass du das Brecheisen vom Anfang noch dabei hattest. Du brichst
+    die Klappe auf und dahinter versteckt sich tatsächlich eine passende
+    Tastatur."""
+    )
 
 
 @when("tastatur benutzen", context="room6")
+@when("tastatur anstecken", context="room6")
+@when("tastatur einstecken", context="room6")
+@when("tastatur verwenden", context="room6")
+@when("tastatur anstöpseln", context="room6")
+@when("stecke tastatur an", context="room6")
+@when("stecke tastatur ein", context="room6")
+@when("passwort eintippen", context="room6")
+@when("passwort eingeben", context="room6")
 def tastatur_benutzen():
     if klappe_offen:
-        while(True):
+        while (True):
             input_tastatur = input("Passwort eingeben: ")
             if input_tastatur == "30JahreBSI1991!":
-                say("""""")
+                say(
+                    """Du steckst die Tastatur an den alten Kontrollrechner an
+                und tippst das Passwort ein: 3…0…J…a…h…r…e…B…S…I…1…9…9…1…!
+                ENTER!
+                Der Totenkopf verschwindet. Du hast es geschafft. Doch dir fällt
+                etwas ein: „Wir müssen irgendetwas tun, um die Hacker aus dem
+                System zu werfen und das System besser.aBSIchern!“, rufst du.
+                Du wendest dich wieder dem Kontrollrechner zu um dir den Status
+                der Firewall anzuschauen."""
+                )
                 global zugriff_computer
                 zugriff_computer = True
                 return
@@ -1047,25 +1077,13 @@ def tastatur_benutzen():
 
 
 @when("firewall schließen", context="room6")
-def firewall_schliessen():
-    if zugriff_computer:
-        while True:
-            input_loesung = input("Richtigen Satz eingeben: ")
-            if (
-                input_loesung
-                == "IT-GRUNDSCHUTZ: DEN EINSTIEG MEISTERN UND SICHERHEITSKONZEPTE MIT MEHRWERT NUTZEN"
-                or input_loesung
-                == "IT-Grundschutz: Den Einstieg meistern und Sicherheitskonzepte mit Mehrwert nutzein"
-            ):
-                abspann()
-            elif input_loesung == "exit":
-                return
-            else:
-                say("""Falsch. Tippe "exit" um abzubrechen.""")
-
-
+@when("firewall anschauen", context="room6")
 @when("status firewall", context="room6")
-def status_firewall():
+@when("lücken schließen", context="room6")
+@when("status der firewall anschauen", context="room6")
+@when("status der firewall anzeigen", context="room6")
+@when("firewall reparieren", context="room6")
+def firewall_schliessen():
     if zugriff_computer:
         global status_gesehen
         status_gesehen = True
@@ -1087,9 +1105,28 @@ def status_firewall():
 
                 """
         )
+        say(
+            """Ohje…jede Menge Lücken! Wir müssen irgendetwas tun, um die Lücken
+            zu schließen:"""
+        )
+        while (True):
+            input_loesung = input("Richtigen Satz eingeben: ")
+            if (
+                input_loesung
+                == "IT-GRUNDSCHUTZ: DEN EINSTIEG MEISTERN UND SICHERHEITSKONZEPTE MIT MEHRWERT NUTZEN"
+                or input_loesung
+                == "IT-Grundschutz: Den Einstieg meistern und Sicherheitskonzepte mit Mehrwert nutzein"
+            ):
+                print_loesung_firewall()
+                abspann()
+            elif input_loesung == "exit":
+                return
+            else:
+                say("""Falsch. Tippe "exit" um abzubrechen.""")
 
 
-def loesung_firewall():
+
+def print_loesung_firewall():
     print(
         r"""
 +---------------+---------------+-----------------------+---------------+
