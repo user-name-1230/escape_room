@@ -1,0 +1,285 @@
+# Logik - Gesamt
+# Texte kommen von Lukas und die Beschreibungen
+# bei jedem Ort optionen auflisten?, also help von Raum-ID abhängig machen
+# wir brauchen wohl für jeden Schrank, Tür, Ort eine ID, damit nur dort die Spezial Aktionen funktionieren
+# bei Raumbeschreibungen vielleicht die nutzbaren Dinge in [] schreiben, zB [Fernsehteam]
+#
+#### Umgebungsvariablen ####
+#
+# Raum 1 - Kontrollraum - Runde 1
+# Rechner neugestartet false
+# Hinweis Maschinenraum false
+# Sicherheitstür geöffnet false
+# Herr Solar wach false
+# Problem Gesichtsscan false
+#
+# Raum 2 - Maschinenraum
+# Ventil Reihenfolge probiert false
+# Ventil Reihenfolge richtg false
+# Hinweis Flur false
+#
+# Raum 3 - Flur
+# Zähler Türen getestet im Flur == 0
+# Hinweis Lagerraum false
+#
+# Raum 4 - Lagerraum
+# Lagerspind offen false
+# can ask faeser false
+# 5G SIM eingelegt false
+# 5G Pin eingabe korreckt false
+# Hinweis Raumnummer false
+# Hinweis Büro false
+#
+# Raum 5 - Büro
+# --- keine Variablen
+#
+# Raum 6 - Kontrollraum - Runde 2
+# Hinweis Wartungsklappe false
+# passwort eingegeben false
+# firewall geloest false
+#
+#
+#
+#### Aktionen ####
+# möglichst wenige, auch keine Aliase,
+# bei falschen Verben diese Liste darstellen
+# für jeden Gegenstand einen Text für jeden Befehl erstellen
+## überall ##
+#
+# Optionen
+# umschauen
+# rede mit 
+# betrachte
+# verlasse Raum
+# öffne (hier kontrolle, ob schon offen ist)
+# benutze
+# benutze (mit) oder besser kombiniere??? oder verwende mit (Beispiel: verwende mit Brechstange Kontrollrechner)
+# Inventar
+#
+# verlasse Raum
+# Optionen aufzählen
+# aktuelle Option: Kontrollraum, im Raum bleiben
+# falls gewählte Option aktueller Standort: da bin ich doch schon
+# if Hinweise Maschinenraum & Sicherheitstür geöffnet == true, dann Option Maschinenraum
+# if Hinweis Flur == true, dann Option Flur
+# if Hinweis Lagerraum == true, dann Option Lagerraum
+# if Hinweis Büro = true, dann Option Büro
+#
+# Inventar
+# du betrachtest deine Sachen:
+# zum Start: Smartphone, Kali-Linux USB-Stick, zusammen gerollte USB-Tastatur
+#
+# bei Dingen im Inventar:
+# Möglichkeiten es zu benutzen: Aber immer Text: "Hier wohl nicht sinnvoll", außer bei bestimmten Fällen
+# anschauen: kurzer Text
+# Smartphone (benutzen):
+## wenn Sicherheitstür geöffnet == false, dann Text "Du hast keinen Empfang, aber die Kamera funktioniert noch".
+## (benutzen mit) dann Text: "aus Sicherheitsgründen darf man im Kraftwerk nicht fotografieren"
+## (benutzen mit Herr Solar) wenn Sicherheitstür geöffnet == false & Problem Gesichtsscan == true, dann Foto von Herr Solar ins Inventar.
+## wenn 5G Karte im Inventar == true, dann Option: Öffne Smartphone
+## Öffne Smartphone -> Fehler kann SIM-Karten-Schacht mit der Hand nicht öffnen, brauche etwas spitzes dünnes, wie ein Haarnadel
+## wenn 5G SIM eingelegt == false & Foto Herr Solar = false: Fotografieren
+## wenn 5G SIM eingelegt == false & Foto Herr Solar = true: Bild Herr Solar anzeigen
+## wenn 5G SIM eingelegt == true & 5G Pin eingabe korreckt = false, dann benutzen: SIM-Pin eingeben: mit a abbrechen, wenn richtig, dann 5G Pin eingabe korreckt = true und Text Dashboard, Hinweis Raumnummer = true
+## wenn 5G SIM eingelegt == true & 5G Pin eingabe korreckt = true, dann benutzen: Text Dashboard
+# Foto von Herrn Solar (benutzen) -> Text: "Die ist ein Foto von Herrn Solar, sein Gesicht ist gut zu erkennen"
+# Foto von Herrn Solar (benutzen mit Sicherheitstür) & Sicherheitstür geöffnet == false: Text: "Du hälst das Foto von Herrn Solar vor die Kamera. Es vergehen unzählige Sekunden...Ob es funktioniert?..."
+#
+#
+#
+## Raum 1 & Raum 6 ##
+# 
+# umschauen
+# Kontrollrechner
+# Sicherheitsausrüstung
+# Herr Solar
+# Ministerin Britney Schrader
+# Fernsehteam
+# Sicherheitstür
+# Poster an der Wand
+# wenn passwort eingegeben = true: Zettel am Kontrollpult (Hinweis für Firewall)
+#
+#
+#
+# Sicherheitsausrüstung
+# Text
+# Brecheisen, 
+# nehmen, nimm
+# ins Inventar
+#
+# Kontrollrechner
+# Text 1
+# Text 2 dazu wenn Hinweis Wartungsklappe == true, Du entdeckst eine Wartungsklappe auf der Unterseite des Schreibtisches
+# Optionen:
+# drücke Power-Putton, Reset-Button, Text herunter bzw hoch fahren
+# Rechner neugestartet = true, Text keine Eingabemöglichkeit
+# betrachte Power-Button, Reset-Button, DIN-AT-Buchse -> Textantwort
+# wenn Hinweis Wartungsklappe = true: betrachte Wartungsklappe
+# öffne Wartungsklappe, geht nicht Fehlermeldung zu wenig Kraft
+# benutze Brecheisen mit Wartungsklappe, sie öffnet sich, Tastatur dahinter
+# ersetzte Wartungsklappe durch Tastatur
+# benutze Tastatur: wenn passwort eingegeben = false, dann (zur finalen Eingabe des Passwortes): bei falscher Eingabe, weiterhin Anzeige Passwortfeld
+# bei richtiger Eingabe Text aus Raum 6 -> passwort eingegeben = true
+# wenn passwort eingegeben = true: Option benutze Kontrollrechner
+# benutze Tastatur oder benutze Kontrollrechner: wenn passwort eingegeben = true, Text und Firewall ASCII, abbrechen mit a, wenn gelöst -> firewall geloest = true, Text + Ende
+# 
+#
+# Herr Solar
+# betrachten, wenn problem Gesichtsscan = true, dann auch fotografieren -> Foto Herr Solar ins Inventar
+# wenn Herr Solar wach == false: Text zu ohnmächtig 
+# wenn Herr Solar wach == true: Text zu wach durcheinander, ansprechbar, 
+# wenn Herr Solar wach == true, dann rede mit möglich
+# rede mit Optionen:
+# Problem Eingabe am Kontrollrechner -> Hinweis Wartungsklappe = true
+# Wenn Zähler Türen getestet im Flur >= 2, dann Hinweise auf richtige Tür: Der Organisator des letzten Betriebsausflugs ist malt gerne mittels GPS-Routen Symbole auf OpenStreetMap.
+# Wenn Hinweis Raumnummer == true, dann diese Option, -> Hinweis Büro = true
+# 
+#
+# Ministerin Faeser
+# Text Hochsteckfrisur
+# rede mit
+# Optionen:
+# keine, wenn can_ask_faeser = True , dann Option: Haarnadel -> ins Inventar
+# wenn Ventil Reihenfolge probiert == true, dann Option: Pumpenventile: Hinweise auf Alphabet, meist sind es doch einfache Dinge, abcde...
+# hier vielleicht noch weitere Hilfen einbauen...
+#
+# Fernsehteam
+# rede mit
+# Optionen:
+# Herr Solar -> Text über Scooter
+# wenn Rechner neugestartet == true -> Option: Kühlsystem -> Hinweis Maschinenraum = true
+# 
+# Poster an der Wand
+# betrachte:
+# Text, wichtige Daten Scooter
+#
+# Sicherheitstür
+# Text
+# öffne Tür -> verschlossen
+# Drücke Start-Taste
+# Optionen: eigenes Gesicht -> Text -> Problem Gesichtsscan = true
+# wenn Foto Herr Solar im Inventar -> Option Foto auf Handy zeigen oder Handy benutzen mit Kamera
+# Foto wird erkannt, Text, PIN-Abfrage
+# richtiger PIN 160364, sonst zurück zum Gesichtsscan
+# Tür öffnet sich -> Sicherheitstür geöffnet = true
+# 
+# wenn passwort eingegeben = true: Zettel am Kontrollpult
+# anschauen -> Text
+# nehmen -> Inventar
+#
+## Raum 2 - Maschinenraum##
+#
+# umschauen
+# Pumpenventile
+# Zettel
+#
+# Zettel
+# anschauen, nehmen
+#
+# Pumpenventile
+# anschauen, -> Bild + Beschreibungen
+# benutzen, drehen,
+# Reihenfolge abfragen (1, 2, 3, 4, 5):
+# bei falsch, Text falsche Reihenfolge, Hinweise auf beispiel geben zB 12345 -> Ventil Reihenfolge probiert = true
+# bei richtig -> Ventil Reihenfolge richtig = true
+# Text, dreht sich nicht, Hebel notwendig
+# Wenn Ventil Reihenfolge richtig == true, dann benutze Brecheisen mit Pumpenventile möglich
+# nach benutzung, Text, Herr Solar wach = true,
+# Text mit Herrn Solar & Hinweis Flur = true,
+# automatisch neuer Standort: Flur
+# 
+## Raum 3 - Flur##
+#
+# Herr Solar sollte vielleicht zu schwach sein und zurück in Kontrollraum gehen und sich hinsetzen, mach die Logik einfacher
+#
+# zusätzliche Optionen
+#
+# öffne Tür (direkter sprung zum Tür öffnen)
+# (Herr Solar)
+#
+# umschauen
+# Pinnwand
+# Karte von Deutschland
+# Tür Welle
+# Tür Plus
+# Tür Minus
+# Tür Fünfeck
+# Tür Größer als
+# Tür Dreieck
+# Tür Stern
+#
+# Pinnwand: Text + Bild
+#
+# Karte von Deutschland: Bild mit markanten Städten, auch weiteren als die gesuchten
+#
+# Tür Welle oder Tür Fünfeck oder Tür Größer als
+# anschauen, Tür mit dem Symbol ...
+# öffnen
+# Das scheint die falsche Tür zu sein. Leider lässt sie sich nicht öffnen.
+# Zähler Türen geöffnet +1
+#
+# Tür Plus oder Tür Minus oder Dreieck
+# anschauen, Tür mit dem Symbol ...
+# öffnen
+# Die Tür ist offen. Du schaust dich im Raum um, doch kannst nichts entdecken, was dir irgendwie weiterhilft. Schade…du hast wertvolle Zeit verloren.
+# Zähler Türen geöffnet +1
+#
+# Wenn Zähler == 2, dann Zwischentext
+# vielleicht sollte ich nicht wahllos herum probieren, irgendwas will mir die Pinnwand doch sicherlich sagen ;-)
+# 
+# Wenn Zähler == 4, dann Zwischentext
+# vielleicht sollte ich nicht wahllos herum probieren, vielleicht sollte ich einmal Herrn Solar fragen
+#
+# Tür Stern
+# anschauen, Tür mit dem Symbol ...
+# öffnen -> Zähler Türen getestet im Flur == 0 und Hinweis Lagerraum = true
+# Text
+# automatisch neuer Standort Raum4, Lagerraum, (Text Herr Solar folgt dir aus Neugierde) oder er ist im Kontrollraum
+#
+## Raum 4 - Lagerraum ##
+#
+# zusätzliche Optionen
+# Wenn Lagerspind offen == true, SIM-Karte
+# (Herr Solar)
+#
+# umschauen
+# leeres Serverrack
+# Werkzeugtasche
+# Lagerspind
+# Wenn Lagerspind offen == true, dann Zettel mit QR
+# Wenn Lagerspind offen == true, SIM-Karte
+#
+# leeres Serverrack
+# Text ausgeschlachtetes Serverrack, keine Interaktionen möglich
+#
+# Werkzeugtasche
+# schaue an, durchsuche
+# Text, nur nutzlose Dinge gefunden
+#
+# Lagerspind
+# anschauen, öffnen
+# anschauen: nochmal Text vom Spind
+# öffnen: Text Inhalt, Lagerspind offen = true
+# nehme SIM Karte -> Inventar
+# benutze SIM-Karte mit Smartphone, Fehler kann SIM-Karten-Schacht mit der Hand nicht öffnen, brauche etwas spitzes dünnes, wie ein Haarnadel -> can ask faeser = true
+# benutze Haarnadel (mit Smartphone), Text, 5G SIM eingelegt = true
+#
+# Zettel mit QR
+# nehmen -> Inventar
+# anschauen, betrachten, --> Anzeige QR-Code
+#
+## Raum 5 - Büro ##
+#
+# zusätzliche Optionen
+# potentiell nicht betroffener PC
+# (Herr Solar)
+#
+# umschauen
+# potentiell nicht betroffener PC
+#
+# potentiell nicht betroffener PC
+# anschauen, schau an
+# Text
+# mehr Text
+# Komanndozeile öffnet sich, bei Lösung: Passwort ins Inventar
+# schaue an Passwort: 30JahreBSI1991!
