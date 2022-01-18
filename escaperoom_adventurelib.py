@@ -149,7 +149,7 @@ sim_schrank_offen = False
 can_use_pin = False
 klappe_offen = False
 zugriff_computer = False
-status_gesehen = False
+firewall_gesehen = False
 check_sicherheitsausruestung = False
 
 ########################
@@ -1018,15 +1018,32 @@ def ueberleitung_raum6():
 @when("schau um", context="room6")
 @when("schau dich um", context="room6")
 def look_around_room6():
-    say(
-        """Ihr schaut euch fragend um. Der Kraftwerkchef kommt auf euch zu und
-    fragt nach dem Status. Ihr erläutert ihm kurz das Problem und er zeigt auf
-    eine Wartungsklappe neben dem Kontrollpult. Dort muss eine Tastatur drin
-    sein, die mit dem alten DIN-AT-Anschluss kompatibel ist. Doch die Klappe
-    ist so verrostet, dass du sie mit bloßen Händen nicht aufbekommt."""
+    if firewall_gesehen:
+        say(
+            """In einer Ecke des Kontrollpultes liegt ein Zettel. Vielleicht
+        hilft dir dieser ja weiter."""
+        )
+    else:
+        say(
+            """Ihr schaut euch fragend um. Der Kraftwerkchef kommt auf euch zu und
+        fragt nach dem Status. Ihr erläutert ihm kurz das Problem und er zeigt auf
+        eine Wartungsklappe neben dem Kontrollpult. Dort muss eine Tastatur drin
+        sein, die mit dem alten DIN-AT-Anschluss kompatibel ist. Doch die Klappe
+        ist so verrostet, dass du sie mit bloßen Händen nicht aufbekommt."""
+        )
+
+@when("zettel nehmen", context="room6")
+@when("zettel anschauen", context="room6")
+@when("zettel anzeigen", context="room6")
+def zettel_anschauen2():
+    say("""
+    ORP.3.A7                |   5\n
+    APP.3.4         | 2.2   |   14\n
+    ISMS.1.A11              |   4\n
+    OPS.1.1.4.A14           |   5\n
+    SYS.2.1.A1              |   5"""
     )
-    if status_gesehen:
-        say("""Hinweiszettel Raum 6""")
+
 
 
 @when("brecheisen benutzen", context="room6")
@@ -1085,8 +1102,8 @@ def tastatur_benutzen():
 @when("firewall reparieren", context="room6")
 def firewall_schliessen():
     if zugriff_computer:
-        global status_gesehen
-        status_gesehen = True
+        global firewall_gesehen
+        firewall_gesehen = True
         print(
             r"""
 +---------------+---------------+-----------------------+---------------+
@@ -1110,7 +1127,7 @@ def firewall_schliessen():
             zu schließen:"""
         )
         while (True):
-            input_loesung = input("Richtigen Satz eingeben: ")
+            input_loesung = input("Richtigen Satz eingeben (""exit"" um zurückzugehen): ")
             if (
                 input_loesung
                 == "IT-GRUNDSCHUTZ: DEN EINSTIEG MEISTERN UND SICHERHEITSKONZEPTE MIT MEHRWERT NUTZEN"
@@ -1122,7 +1139,7 @@ def firewall_schliessen():
             elif input_loesung == "exit":
                 return
             else:
-                say("""Falsch. Tippe "exit" um abzubrechen.""")
+                say("""Das ist leider die falsche Antwort. Die Firewall ist immer noch offen. Hast du eventuell etwas überesehen?""")
 
 
 
@@ -1148,7 +1165,31 @@ def print_loesung_firewall():
 
 
 def abspann():
-    say("""IT Grundschutz Abspann""")
+    say(
+        """Super. Du hast die Angreifer ausgesperrt und die Lücken in der
+    Firewall geschlossen. Ab hier übernimmt der Kraftwerkchef. In letzter
+    Sekunde fährt er über den Kontrollrechner die Pumpen des Kühlsystems wieder
+    hoch. Das rote Notlicht erlischt und das Warnsignal aus dem Maschinenraum
+    ist auch nicht mehr zu hören. GESCHAFFT!"""
+    )
+    say(
+        """Glückwunsch!\n
+    Du hast die Welt vor einer Katastrophe gerettet und der Evil Corp erfolgreich
+    die Stirn geboten!!!\n
+    Du bist an diesem Tage wahrlich ein Volksheld und alle Anwesenden sind
+    begeistert von deiner herausragenden Leistung.\n
+    Zur Feier des Tages gibst du noch allen die Bedeutung der IT-Sicherheit in
+    kritischen Infrastrukturen mit auf den Weg und, dass deine Reaktionen auf
+    den Angriff mit sorgfältigen Präventionsmaßnahmen nach IT-Grundschutz gar
+    nicht nötig gewesen wären.\n
+    Natürlich wurde der Vorfall auch beim BSI-Lagezentrum gemeldet.\n
+    \n
+    Leider ist damit dann auch das Abenteuer vorbei.\n
+    Wir bedanken uns ganz herzlich für deine Teilnahme und hoffen, das
+    Textadventure hat dir gefallen.\n
+    \n
+    Das DACS-Praktikantenteam"""
+    )
     sys.exit()
 
 
