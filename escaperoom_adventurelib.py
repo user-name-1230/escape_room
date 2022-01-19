@@ -49,67 +49,62 @@ print("cmds for debug: debugraum, debugitem")
 
 # Einleitungsstory
 say(
-    """Tippe "Start" ein, um zu beginnen: \n"""
-    )
-
-@when("start", context="room1")
-def start():
-    say(
-    """----------------------------------------------------------------------------------"""
-    )
-    say(
-        """Einleitung: \n
-    Zur feierlichen Abschaltung des letzten deutschen AKWs sind hochrangige Gäste
-    eingeladen. Unter anderem das BMI und somit Ministerin Schrader. Du, als
-    technischer Sachverständiger und IT-Spezialist darfst die Ministerin begleiten,
-    welche den roten Knopf zur Abschaltung drücken soll. Der AKW-Chef Herr Solar
-    führt Ministerin Schrader, das Fernsehteam und dich durch die Anlage. Nach
-    einigen Minuten gelangt ihr in das Herzstück des AKWs – den Kontrollraum –
-    welches sich hinter einer meterdicken Sicherheitstür befindet."""
-    )
-    say("""""")
-    time.sleep(6.0)
-    say(
-        """Ihr begebt euch gemeinsam zum Abschaltterminal. Über ein Mikrofon zählt
-    Herr Solar den Countdown herunter. Die Journalisten außerhalb des Kraftwerks
-    lauschen gespannt mit. Ministerin Schrader hat bereits die Hand auf dem großen
-    roten Knopf. 5...4...3...2........plötzlich völlige Dunkelheit."""
-    )
-    say("""""")
-    time.sleep(6.0)
-    say(
-        """Ihr hört ein lautes Surren und Klicken. Nach einer gefühlten Ewigkeit
-    geht ein rot-pulsierendes Notlicht an und im Kontrollraum verhallt das
-    Warnsignal aus dem Maschinenraum. Die Sicherheitstür wird mit einem Knall
-    verriegelt. Der Bildschirm des Kontrollrechners leuchtet auf und ein Totenkopf
-    erscheint mit folgender Mitteilung: "Die Evil Corp hat soeben das Kraftwerk
-    übernommen. Wir haben das Kühlsystem der Brennstäbe gehackt und die Pumpen
-    heruntergefahren.“"""
-    )
-    say("""""")
-    time.sleep(6.0)
-    say("""Ein Countdown startet: 30:00, 29:59, 29:58, ....""")
-    say("""""")
-    time.sleep(6.0)
-    say(
-        """„Zur Entsperrung der Anlage müssen sie nur einen kleinen Betrag von
-    100.000.000 Dogecoin auf die Wallet-Adresse besser.aBSIchern überweisen.“"""
-    )
-    say("""""")
-    time.sleep(6.0)
-    say(
-        """Unter der Mitteilung erscheint ein Eingabefeld, welches mit Passwort
-    beschriftet ist. Na toll…Ransomware. Der Chef des Kraftwerks ist erschüttert und
-    erklärt, dass es zu einer Kettenreaktion und letzten Endes zur Kernschmelze
-    kommen wird, wenn die Kühlung länger als 30 Minuten stillsteht. Danach fällt er
-    vor Schreck in Ohnmacht. Ministerin Schrader greift sofort zum Telefon um den
-    Kanzler zu fragen, ob die Bezahlung eine Option darstellt. Aber sie hat keinen
-    Empfang. Die Wände des Kontrollraums sind zu dick. Das Fernsehteam steht ratlos
-    in der Ecke des Raumes. Du möchtest nicht warten und glaubst auch nicht, dass
-    eine Bezahlung des Lösegelds wirksam ist. Also suchst du als einziger Anwesender
-    mit breitem IT-Wissen - denn du hast ja DACS studiert ;) - nach einer
-    Lösung."""
-    )
+"""----------------------------------------------------------------------------------"""
+)
+say(
+    """Einleitung: \n
+Zur feierlichen Abschaltung des letzten deutschen AKWs sind hochrangige Gäste
+eingeladen. Unter anderem das BMI und somit Ministerin Schrader. Du, als
+technischer Sachverständiger und IT-Spezialist darfst die Ministerin begleiten,
+welche den roten Knopf zur Abschaltung drücken soll. Der AKW-Chef Herr Solar
+führt Ministerin Schrader, das Fernsehteam und dich durch die Anlage. Nach
+einigen Minuten gelangt ihr in das Herzstück des AKWs – den Kontrollraum –
+welches sich hinter einer meterdicken Sicherheitstür befindet."""
+)
+say("""""")
+time.sleep(6.0)
+say(
+    """Ihr begebt euch gemeinsam zum Abschaltterminal. Über ein Mikrofon zählt
+Herr Solar den Countdown herunter. Die Journalisten außerhalb des Kraftwerks
+lauschen gespannt mit. Ministerin Schrader hat bereits die Hand auf dem großen
+roten Knopf. 5...4...3...2........plötzlich völlige Dunkelheit."""
+)
+say("""""")
+time.sleep(6.0)
+say(
+    """Ihr hört ein lautes Surren und Klicken. Nach einer gefühlten Ewigkeit
+geht ein rot-pulsierendes Notlicht an und im Kontrollraum verhallt das
+Warnsignal aus dem Maschinenraum. Die Sicherheitstür wird mit einem Knall
+verriegelt. Der Bildschirm des Kontrollrechners leuchtet auf und ein Totenkopf
+erscheint mit folgender Mitteilung: "Die Evil Corp hat soeben das Kraftwerk
+übernommen. Wir haben das Kühlsystem der Brennstäbe gehackt und die Pumpen
+heruntergefahren.“"""
+)
+say("""""")
+time.sleep(6.0)
+say("""Ein Countdown startet: 30:00, 29:59, 29:58, ....""")
+say("""""")
+time.sleep(6.0)
+say(
+    """„Zur Entsperrung der Anlage müssen sie nur einen kleinen Betrag von
+100.000.000 Dogecoin auf die Wallet-Adresse besser.aBSIchern überweisen.“"""
+)
+say("""""")
+time.sleep(6.0)
+say(
+    """Unter der Mitteilung erscheint ein Eingabefeld, welches mit Passwort
+beschriftet ist. Na toll…Ransomware. Der Chef des Kraftwerks ist erschüttert und
+erklärt, dass es zu einer Kettenreaktion und letzten Endes zur Kernschmelze
+kommen wird, wenn die Kühlung länger als 30 Minuten stillsteht. Danach fällt er
+vor Schreck in Ohnmacht. Ministerin Schrader greift sofort zum Telefon um den
+Kanzler zu fragen, ob die Bezahlung eine Option darstellt. Aber sie hat keinen
+Empfang. Die Wände des Kontrollraums sind zu dick. Das Fernsehteam steht ratlos
+in der Ecke des Raumes. Du möchtest nicht warten und glaubst auch nicht, dass
+eine Bezahlung des Lösegelds wirksam ist. Also suchst du als einziger Anwesender
+mit breitem IT-Wissen - denn du hast ja DACS studiert ;) - nach einer
+Lösung."""
+)
+ueberleitung_room1()
 
 
 # Inventar #
@@ -136,18 +131,6 @@ def zeige_inventar():
         print(f"*{item}")
 
 
-# Look Around #
-@when("umschauen", context="room1")
-@when("schaue um", context="room1")
-@when("schau dich um", context="room1")
-def look_around_room1():
-    # umschauen in Raum 1
-    # TODO
-    if inventory.find("brecheisen") is None:
-        say("""Du siehst den Kontrollrechner und Sicherheitsausrüstung in der Ecke.""")
-    else:
-        say("""Du siehst den Kontrollrechner.""")
-
 
 # Global Vars #
 can_check_sim_slot = False
@@ -162,20 +145,35 @@ check_sicherheitsausruestung = False
 # RAUM 1: KONTROLLRAUM #
 ########################
 # Einleitung Raum 1:
-time.sleep(6.0)
-say(
-    """----------------------------------------------------------------------------------"""
-)
-say(
-    """Du befindest dich nun im Kontrollraum. Die Menge an Schaltern, Hebeln und
-erschlägt dich fast und es fällt dir schwer deine Panik in den Griff zu
-bekommen. Du versuchst dich zu sammeln und deine Möglichkeiten abzuwägen: \n
-Du kannst dich im Raum [umschauen]\n
-Du kannst Dinge im Raum [anschauen], [nehmen] und [benutzen]\n
-Du kannst dein aktuelles [Inventar] anschauen\n
-Du kannst dir [help] suchen, wenn du nicht weiterkommst\n
-Du kannst mit [quit] das AKW verlassen (Spiel beenden)"""
-)
+def ueberleitung_room1():
+    time.sleep(6.0)
+    say(
+        """----------------------------------------------------------------------------------"""
+    )
+    say(
+        """Du befindest dich nun im Kontrollraum. Die Menge an Schaltern, Hebeln und
+    erschlägt dich fast und es fällt dir schwer deine Panik in den Griff zu
+    bekommen. Du versuchst dich zu sammeln und deine Möglichkeiten abzuwägen: \n
+    Du kannst dich im Raum [umschauen]\n
+    Du kannst Dinge im Raum [anschauen], [nehmen] und [benutzen]\n
+    Du kannst dein aktuelles [Inventar] anschauen\n
+    Du kannst dir [help] suchen, wenn du nicht weiterkommst\n
+    Du kannst mit [quit] das AKW verlassen (Spiel beenden)"""
+    )
+
+
+# Look Around #
+@when("umschauen", context="room1")
+@when("schaue um", context="room1")
+@when("schau dich um", context="room1")
+def look_around_room1():
+    # umschauen in Raum 1
+    # TODO
+    if inventory.find("brecheisen") is None:
+        say("""Du siehst den Kontrollrechner und Sicherheitsausrüstung in der Ecke.""")
+    else:
+        say("""Du siehst den Kontrollrechner.""")
+
 
 
 @when("das brecheisen nehmen", context="room1")  # brecheisen, nehmen
