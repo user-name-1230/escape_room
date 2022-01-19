@@ -1,10 +1,12 @@
 # TODO
-# Personen vom Raum 1
+# Personen vom Raum 1, Tastatur am Kontrollrechner
+# Verwenden mit Brecheisen mit allem möglichen für die Neugierde der Spieler, teilweise erledigt
+# Verwendung Smartphone, Foto Herr Solar und dem restlichem Inventar
 # Raum 2-6
 # Fehlermeldungen bei unbekannten Befehlen
 # help Befehl deaktivieren? siehe ganz unten
-# Beschreibung Räume, über Einleitungsstory
-# Problem Leerzeile bei Ausgabe von benutze_reset_button und benutze_power_button, erfolgreicher PIN Eingabe
+# Beschreibung Räume, über Einleitungsstory, noch wichtig? kann das weg?
+# Problem Leerzeile bei Ausgabe von benutze_reset_button und benutze_power_button, erfolgreicher PIN Eingabe, wenn das letzte Zeichen in der Zeile zu schmal ist, klappt wohl der automatische Umbruch nicht
 # Geschlecht Protagonist, gendern, so lassen oder neutral schreiben
 
 from PIL import Image
@@ -36,33 +38,24 @@ def no_command_matches(command):
 
 @when ("hilfe")
 def zeige_befehle():
-    print("Folge Befehle sind möglich:\n[hilfe] [umschauen] [anschauen] [nehmen] [benutzen] [öffnen] [Verwende mit]\n[Inventar] [Raum verlassen]\n\n[help] (sehr große Hilfe) [quit]\nauf Groß- und Kleinschreibung wird kein Wert gelegt ;-)\nAber dafür auf die genaue Schreibweise der [Objekte].")
+    print("\nFolge Befehle sind möglich:\n[hilfe] [umschauen] [anschauen] [nehmen] [benutzen] [öffnen] [verwende mit]\n[Inventar] [Raum verlassen]\n\n[help] (sehr große Hilfe)\n[quit] (zum Beenden des Spiels)\n\nauf Groß- und Kleinschreibung wird keinen Wert gelegt ;-)\nAber dafür auf die genaue Schreibweise der Befehle und Objekte!")
 # Befehle: umschauen anschauen nehmen benutzen öffnen 'verwende mit' Inventar help quit 'Raum verlassen'
 
-@when ("nehmen")
-@when("nimm")
-def nehmen():
-    print("Was möchtest du nehmen?")
-
-@when ("benutzen")
-@when("benutze")
-def benutzen():
-    print("Was möchtest du benutzen?")
-
-@when ("anschauen")
-@when("schaue an")
-def anschauen():
-    print("Was möchtest du anschauen?")
-
-@when ("öffnen")
-@when("öffne")
-def oeffnen():
-    print("Was möchtest du öffnen?")
+@when ("nehmen", action = "nehmen")
+@when("nimm", action = "nehmen")
+@when ("benutzen", action = "benutzen")
+@when("benutze", action = "benutzen")
+@when ("anschauen", action = "anschauen")
+@when("schaue an", action = "anschauen")
+@when ("öffnen", action = "öffnen")
+@when("öffne", action = "öffnen")
+def standard_aktion(action):
+    print(f"Was möchtest du {action}?")
 
 @when ("verwende mit")
 @when("verwenden mit")
 def verwende_mit():
-    print("Was möchtest womit verwenden?")
+    print("Was möchtest du womit verwenden?")
     print("zB verwende Smartphone mit dir")
 
 
@@ -122,23 +115,23 @@ def zeige_inventar():
 @when("anschauen smartphone")
 @when("smartphone anschauen")
 def zeige_smartphone():
-    print("Die ist dein Smartphone")
+    print("Die ist dein Smartphone.")
 
 @when("smartphone benutzen")
 @when("benutzen smartphone")
 @when("benutze smartphone")
 def benutze_smartphone():
     if (room_number == 1):
-        print("Du hast keinen Empfang, aber die Kamera funktioniert noch")
+        print("Du hast keinen Empfang, aber die Kamera funktioniert noch.")
     else:
-        print("Du versuchst deine bessere Hälfte anzurufen, um sie vor der Kernschmelze zu warnen. Aber du erreichst nur die Mailbox")
+        print("Du versuchst deine bessere Hälfte anzurufen, um sie vor der Kernschmelze zu warnen. Aber du erreichst nur die Mailbox.")
 
 @when("smartphone öffnen")
 @when("öffnen smartphone")
 @when("öffne smartphone")
 def oeffne_smartphone():
     if (sicherheitstuer_offen == False): # diese Bedingung ist nur ein Platzhalter. Hier soll später die Haarnadel rein
-        print("Du kannst das Smartphone nicht öffnen")
+        print("Du kannst das Smartphone nicht öffnen.")
 
 @when("nimm smartphone")
 @when("nehmen smartphone")
@@ -157,7 +150,7 @@ def verwende_smartphone():
 @when("verwende mit smartphone dir")
 @when("verwende smartphone mit dir")
 def verwende_smartphone_mit_dir():
-    print("Du machst ein Selfie von dir")
+    print("Du machst ein Selfie von dir.")
 
 
 
@@ -174,77 +167,34 @@ room5 = Room("""Beschreibung des Büros""")
 print("cmds for debug: debugraum, debugitem")
 
 # Einleitungsstory
-say(
-    """----------------------------------------------------------------------------------"""
-)
-say(
-    """Einleitung: \n
-Zur feierlichen Abschaltung des letzten deutschen AKWs sind hochrangige Gäste
-eingeladen. Unter anderem das BMI und somit [Ministerin Schrader]. Du, als
-technischer Sachverständiger und IT-Spezialist darfst die Ministerin begleiten,
-welche den roten Knopf zur Abschaltung drücken soll. Der AKW-Chef [Herr Solar]
-führt [Ministerin Schrader], das [Fernsehteam] und dich durch die Anlage. Nach
-einigen Minuten gelangt ihr in das Herzstück des AKWs – den [Kontrollraum] –
-welches sich hinter einer meterdicken [Sicherheitstür] befindet."""
-)
+say("""----------------------------------------------------------------------------------""")
+say("""Einleitung:""")
+say(""" Zur feierlichen Abschaltung des letzten deutschen AKWs sind hochrangige Gäste eingeladen. Unter anderem das BMI und somit [Ministerin Schrader]. Du, als technischer Sachverständiger und IT-Spezialist darfst die Ministerin begleiten, welche den roten Knopf zur Abschaltung drücken soll. Der AKW-Chef [Herr Solar] führt [Ministerin Schrader], das [Fernsehteam] und dich durch die Anlage. Nach einigen Minuten gelangt ihr in das Herzstück des AKWs – den [Kontrollraum] – welches sich hinter einer meterdicken [Sicherheitstür] befindet.""")
 input("...")
-say(
-    """Ihr begebt euch gemeinsam zum Abschaltterminal. Über ein Mikrofon zählt
-[Herr Solar] den Countdown herunter. Die Journalisten außerhalb des Kraftwerks
-lauschen gespannt mit. [Ministerin Schrader] hat bereits die Hand auf dem großen
-roten Knopf. 5...4...3...2...plötzlich völlige Dunkelheit."""
-)
+say("""Ihr begebt euch gemeinsam zum Abschaltterminal. Über ein Mikrofon zählt [Herr Solar] den Countdown herunter. Die Journalisten außerhalb des Kraftwerks lauschen gespannt mit. [Ministerin Schrader] hat bereits die Hand auf dem großen roten Knopf. 5...4...3...2...plötzlich völlige Dunkelheit.""")
 input("...")
-say(
-    """Ihr hört ein lautes Surren und Klicken. Nach einer gefühlten Ewigkeit
-geht ein rot-pulsierendes Notlicht an und im [Kontrollraum] verhallt das
-Warnsignal aus dem [Maschinenraum]. Die [Sicherheitstür] wird mit einem Knall
-verriegelt. Der Bildschirm des Kontrollrechners leuchtet auf und ein Totenkopf
-erscheint mit folgender Mitteilung: "Die Evil Corp hat soeben das Kraftwerk
-übernommen. Wir haben das Kühlsystem der Brennstäbe gehackt und die Pumpen
-heruntergefahren.“"""
-)
+say("""Ihr hört ein lautes Surren und Klicken. Nach einer gefühlten Ewigkeit geht ein rot-pulsierendes Notlicht an und im [Kontrollraum] verhallt das Warnsignal aus dem [Maschinenraum]. Die [Sicherheitstür] wird mit einem Knall verriegelt. Der Bildschirm des Kontrollrechners leuchtet auf und ein Totenkopf erscheint mit folgender Mitteilung: "Die Evil Corp hat soeben das Kraftwerk übernommen. Wir haben das Kühlsystem der Brennstäbe gehackt und die Pumpen heruntergefahren.“""")
 input("...")
 say("""Ein Countdown startet: 30:00, 29:59, 29:58, ....""")
 input("...")
-say(
-    """„Zur Entsperrung der Anlage müssen sie nur einen kleinen Betrag von
-100.000.000 Dogecoin auf die Wallet-Adresse besser.aBSIchern überweisen.“"""
-)
+say("""„Zur Entsperrung der Anlage müssen sie nur einen kleinen Betrag von 100.000.000 Dogecoin auf die Wallet-Adresse besser.aBSIchern überweisen.“""")
 input("...")
-say(
-    """Unter der Mitteilung erscheint ein Eingabefeld, welches mit Passwort
-beschriftet ist. Na toll...Ransomware. Der Chef des Kraftwerks ist erschüttert und
-erklärt, dass es zu einer Kettenreaktion und letzten Endes zur Kernschmelze
-kommen wird, wenn die Kühlung länger als 30 Minuten stillsteht. Danach fällt er
-vor Schreck in Ohnmacht. [Ministerin Schrader] greift sofort zum Telefon, um den
-Kanzler zu fragen, ob die Bezahlung eine Option darstellt. Aber sie hat keinen
-Empfang. Die Wände des Kontrollraums sind zu dick. Das [Fernsehteam] steht ratlos
-in der Ecke des Raumes. Du möchtest nicht warten und glaubst auch nicht, dass
-eine Bezahlung des Lösegelds wirksam ist. Also suchst du als einziger Anwesender
-mit breitem IT-Wissen - denn du hast ja DACS studiert ;) - nach einer
-Lösung."""
-)
+say("""Unter der Mitteilung erscheint ein Eingabefeld, welches mit Passwort beschriftet ist. Na toll...Ransomware. Der Chef des Kraftwerks ist erschüttert und erklärt, dass es zu einer Kettenreaktion und letzten Endes zur Kernschmelze kommen wird, wenn die Kühlung länger als 30 Minuten stillsteht. Danach fällt er vor Schreck in Ohnmacht. [Ministerin Schrader] greift sofort zum Telefon, um den Kanzler zu fragen, ob die Bezahlung eine Option darstellt. Aber sie hat keinen Empfang. Die Wände des Kontrollraums sind zu dick. Das [Fernsehteam] steht ratlos in der Ecke des Raumes. Du möchtest nicht warten und glaubst auch nicht, dass eine Bezahlung des Lösegelds wirksam ist. Also suchst du als einziger Anwesender mit breitem IT-Wissen - denn du hast ja DACS studiert ;) - nach einer Lösung.""")
 input("...")
 
 ########################
 # RAUM 1: KONTROLLRAUM #
 ########################
 # Einleitung Raum 1:
+say("""----------------------------------------------------------------------------------""")
 say(
-    """----------------------------------------------------------------------------------"""
-)
-say(
-    """Du befindest dich nun im [Kontrollraum]. Die Menge an Schaltern, Hebeln und
-erschlägt dich fast und es fällt dir schwer deine Panik in den Griff zu
-bekommen. Du versuchst dich zu sammeln und deine Möglichkeiten abzuwägen: \n
-Du kannst dich im Raum [umschauen]\n
-Du kannst Dinge im Raum [anschauen], [nehmen] und [benutzen]\n
-Du kannst dein aktuelles [Inventar] anschauen\n
-Du kannst dir [help] suchen, wenn du nicht weiterkommst, aber Vorsicht, dies ist eine sehr große Hilfe!\n
-Du kannst mit [quit] das AKW verlassen (Spiel beenden)\n
-Objekte in [eckigen Klammern] bieten Interaktionen. Vorsicht hier kommt es auf die genaue Schreibweise an."""
-
+    """Du befindest dich nun im [Kontrollraum]. Die Menge an Schaltern, Hebeln und erschlägt dich fast und es fällt dir schwer deine Panik in den Griff zu bekommen. Du versuchst dich zu sammeln und deine Möglichkeiten abzuwägen: \n
+Du kannst dich im Raum [umschauen].\n
+Du kannst Dinge im Raum [anschauen], [nehmen], [öffnen] und [benutzen].\n
+Du kannst dein aktuelles [Inventar] anschauen.\n
+Du kannst dir [hilfe] suchen, wenn du nicht weiterkommst.\n
+Du kannst den [Raum verlassen] oder mit [quit] das AKW verlassen (Spiel beenden).\n
+Objekte in [eckigen Klammern] bieten Interaktionen. Vorsicht, hier kommt es auf die genaue Schreibweise an."""
 )
 
 # Look Around #
@@ -254,20 +204,11 @@ Objekte in [eckigen Klammern] bieten Interaktionen. Vorsicht hier kommt es auf d
 def look_around_room1():
     # umschauen in Raum 1
     if sicherheitstuer_offen == False:
-        say("""Du befindest dich nun im Kontrollraum. Die Menge an Schaltern, Hebeln und 
-        erschlägt dich fast, dazwischen erblickst du ein [Poster] an der Wand. 
-        Du siehst den [Kontrollrechner], [Sicherheitsausrüstung] in der Ecke und die verschlossene [Sicherheitstür]. 
-        Des Weiteren erblickst du [Ministerin Schrader], die den ohnmächtigen [Herr Solar] in die stabile Seitenlage gebracht hat, und in einer weiteren Ecke das [Fernsehteam].""")
+        say("""Du befindest dich nun im Kontrollraum. Die Menge an Schaltern, Hebeln und erschlägt dich fast, dazwischen erblickst du ein [Poster] an der Wand. Du siehst den [Kontrollrechner], [Sicherheitsausrüstung] in der Ecke und die verschlossene [Sicherheitstür]. Des Weiteren erblickst du [Ministerin Schrader], die den ohnmächtigen [Herr Solar] in die stabile Seitenlage gebracht hat, und in einer weiteren Ecke das [Fernsehteam].""")
     elif ransomware_passwort_eingegeben == False:
-        say("""Du befindest dich nun im Kontrollraum. Die Menge an Schaltern, Hebeln und 
-        erschlägt dich fast, dazwischen erblickst du ein [Poster] an der Wand. 
-        Du siehst den [Kontrollrechner], [Sicherheitsausrüstung] in der Ecke und die offene [Sicherheitstür]. 
-        Des Weiteren erblickst du [Ministerin Schrader], die den ohnmächtigen [Herr Solar] in die stabile Seitenlage gebracht hat, und in einer weiteren Ecke das [Fernsehteam].""")
+        say("""Du befindest dich nun im Kontrollraum. Die Menge an Schaltern, Hebeln und erschlägt dich fast, dazwischen erblickst du ein [Poster] an der Wand. Du siehst den [Kontrollrechner], [Sicherheitsausrüstung] in der Ecke und die offene [Sicherheitstür]. Des Weiteren erblickst du [Ministerin Schrader], die den ohnmächtigen [Herr Solar] in die stabile Seitenlage gebracht hat, und in einer weiteren Ecke das [Fernsehteam].""")
     else:
-        say("""Du befindest dich nun im Kontrollraum. Die Menge an Schaltern, Hebeln und 
-        erschlägt dich fast, dazwischen erblickst du ein [Poster] an der Wand. 
-        Du siehst den [Kontrollrechner], bei dem ein [Zettel] auf der Rückseite des Terminals klebt, [Sicherheitsausrüstung] in der Ecke und die offene [Sicherheitstür]. 
-        Des Weiteren erblickst du [Ministerin Schrader], die den ohnmächtigen [Herr Solar] in die stabile Seitenlage gebracht hat, und in einer weiteren Ecke das [Fernsehteam].""")
+        say("""Du befindest dich nun im Kontrollraum. Die Menge an Schaltern, Hebeln und erschlägt dich fast, dazwischen erblickst du ein [Poster] an der Wand. Du siehst den [Kontrollrechner], bei dem ein [Zettel] auf der Rückseite des Terminals klebt, [Sicherheitsausrüstung] in der Ecke und die offene [Sicherheitstür]. Des Weiteren erblickst du [Ministerin Schrader], die den ohnmächtigen [Herr Solar] in die stabile Seitenlage gebracht hat, und in einer weiteren Ecke das [Fernsehteam].""")
 
 ### Gegenstände Raum 1 ###
 
@@ -382,6 +323,47 @@ def benutze_brecheisen():
 @when("öffne brecheisen")
 def oeffne_brecheisen():
     print("Du kannst das Brecheisen nicht öffnen!")
+
+@when("benutze brecheisen mit OBJEKT")
+@when("verwende brecheisen mit OBJEKT")
+def verwende_brecheisen(objekt):
+    global room_number
+    global hinweis_wartungsklappe
+    global wartungsklappe_offen
+    global brecheisen_schienbein
+    if (inventory.find("brecheisen") is not None):
+        if (objekt == "kontrollrechner" and room_number == 1) or (objekt == "computer" and room_number == 1):
+            say("""Du schlägst mit dem Brecheisen auf den Kontrollrechner ein. Aber er bekommt nicht einmal einen kleinen Kratzer, da er aus Adamantium besteht.""")
+        elif (objekt == "sicherheitstür" and room_number == 1):
+            say("""Du schlägst mit dem Brecheisen auf die Sicherheitstür ein. Diese besteht aus meterdicken Stahl und du kratzt somit nur an der Oberfläche.""")
+        elif (objekt == "wartungsklappe" and hinweis_wartungsklappe == True and room_number == 1):
+            say("""Du hebelst mit dem Brecheisen die Wartungsklappe auf. Dahinter verbirgt sich eine [Tastatur].""")
+            wartungsklappe_offen = True
+        elif (objekt == "reset button" and room_number == 1):
+            say("""Als Fingerübung drückst du mit Hilfe des Brecheisen den Reset Button.""")
+            benutze_reset_button()
+        elif (objekt == "power button" and room_number == 1):
+            say("""Als Fingerübung drückst du mit Hilfe des Brecheisen den Power Button.""")
+            benutze_power_button()
+        elif (objekt == "sicherheitsausrüstung" and room_number == 1):
+            say("""Du möchtest das Brecheisen nicht zurück legen, denn es fühlt sich so gut in deiner Hand an.""")
+        elif (objekt == "kamera" and room_number == 1):
+            say("""Es macht keinen Sinn, die Kamera zu zerstören.""")
+        elif (objekt == "tastenfeld" and room_number == 1):
+            say("""Du findest keinen Angriffspunkt für das Brecheisen, um es aufzuhebeln.""")
+        elif (objekt == "din at buchse" and room_number == 1):
+            say("""Somit wird es auch nicht zu einem USB-C Anschluss mit USB 3.2 Gen 2x2 ;-)""")
+        elif (objekt == "dir"):
+            say("""In das Land der Träume zu flüchten, ist keine Lösung.""")
+        else:
+            if (brecheisen_schienbein == False):
+                say("""Du kannst nicht wahllos mit dem Brecheisen herumfuchteln, sonst verletzt du dich noch.""")
+            else:
+                say("""Du kannst nicht wahllos mit dem Brecheisen herumfuchteln, sonst verletzt du dich erneut ;-)""")
+    else:
+        print("Welches Brecheisen?")
+
+
 
 # Kontrollrechner anschauen nehmen benutzen öffnen, kein verwende mit
 # Power Button, Reset Button, DIN AT Buchse
@@ -610,7 +592,7 @@ def nehme_kamera():
 @when("öffne kamera", context="room1")
 @when("öffnen kamera", context="room1")
 def oeffne_kamera():
-    print("Du kannst ide Kamera nicht öffnen.")
+    print("Du kannst die Kamera nicht öffnen.")
 
 @when("kamera benutzen", context="room1")
 @when("benutze kamera", context="room1")
