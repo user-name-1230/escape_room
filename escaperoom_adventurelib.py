@@ -49,7 +49,7 @@ print("cmds for debug: debugraum, debugitem")
 
 # Einleitungsstory
 say(
-    """Tippe "Start" ein, um zu beginnen: """
+    """Tippe "Start" ein, um zu beginnen: \n"""
     )
 
 @when("start", context="room1")
