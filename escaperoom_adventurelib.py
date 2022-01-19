@@ -49,7 +49,7 @@ print("cmds for debug: debugraum, debugitem")
 
 # Einleitungsstory
 say(
-    """----------------------------------------------------------------------------------"""
+"""----------------------------------------------------------------------------------"""
 )
 say(
     """Einleitung: \n
@@ -104,6 +104,7 @@ eine Bezahlung des Lösegelds wirksam ist. Also suchst du als einziger Anwesende
 mit breitem IT-Wissen - denn du hast ja DACS studiert ;) - nach einer
 Lösung."""
 )
+ueberleitung_room1()
 
 
 # Inventar #
@@ -130,18 +131,6 @@ def zeige_inventar():
         print(f"*{item}")
 
 
-# Look Around #
-@when("umschauen", context="room1")
-@when("schaue um", context="room1")
-@when("schau dich um", context="room1")
-def look_around_room1():
-    # umschauen in Raum 1
-    # TODO
-    if inventory.find("brecheisen") is None:
-        say("""Du siehst den Kontrollrechner und Sicherheitsausrüstung in der Ecke.""")
-    else:
-        say("""Du siehst den Kontrollrechner.""")
-
 
 # Global Vars #
 can_check_sim_slot = False
@@ -156,20 +145,35 @@ check_sicherheitsausruestung = False
 # RAUM 1: KONTROLLRAUM #
 ########################
 # Einleitung Raum 1:
-time.sleep(6.0)
-say(
-    """----------------------------------------------------------------------------------"""
-)
-say(
-    """Du befindest dich nun im Kontrollraum. Die Menge an Schaltern, Hebeln und
-erschlägt dich fast und es fällt dir schwer deine Panik in den Griff zu
-bekommen. Du versuchst dich zu sammeln und deine Möglichkeiten abzuwägen: \n
-Du kannst dich im Raum [umschauen]\n
-Du kannst Dinge im Raum [anschauen], [nehmen] und [benutzen]\n
-Du kannst dein aktuelles [Inventar] anschauen\n
-Du kannst dir [help] suchen, wenn du nicht weiterkommst\n
-Du kannst mit [quit] das AKW verlassen (Spiel beenden)"""
-)
+def ueberleitung_room1():
+    time.sleep(6.0)
+    say(
+        """----------------------------------------------------------------------------------"""
+    )
+    say(
+        """Du befindest dich nun im Kontrollraum. Die Menge an Schaltern, Hebeln und
+    erschlägt dich fast und es fällt dir schwer deine Panik in den Griff zu
+    bekommen. Du versuchst dich zu sammeln und deine Möglichkeiten abzuwägen: \n
+    Du kannst dich im Raum [umschauen]\n
+    Du kannst Dinge im Raum [anschauen], [nehmen] und [benutzen]\n
+    Du kannst dein aktuelles [Inventar] anschauen\n
+    Du kannst dir [help] suchen, wenn du nicht weiterkommst\n
+    Du kannst mit [quit] das AKW verlassen (Spiel beenden)"""
+    )
+
+
+# Look Around #
+@when("umschauen", context="room1")
+@when("schaue um", context="room1")
+@when("schau dich um", context="room1")
+def look_around_room1():
+    # umschauen in Raum 1
+    # TODO
+    if inventory.find("brecheisen") is None:
+        say("""Du siehst den Kontrollrechner und Sicherheitsausrüstung in der Ecke.""")
+    else:
+        say("""Du siehst den Kontrollrechner.""")
+
 
 
 @when("das brecheisen nehmen", context="room1")  # brecheisen, nehmen
