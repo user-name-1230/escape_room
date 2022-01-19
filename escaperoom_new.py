@@ -1,7 +1,11 @@
 # TODO
+# Personen vom Raum 1
+# Raum 2-6
 # Fehlermeldungen bei unbekannten Befehlen
 # help Befehl deaktivieren? siehe ganz unten
 # Beschreibung Räume, über Einleitungsstory
+# Problem Leerzeile bei Ausgabe von benutze_reset_button und benutze_power_button, erfolgreicher PIN Eingabe
+# Geschlecht Protagonist, gendern, so lassen oder neutral schreiben
 
 from PIL import Image
 import time
@@ -14,15 +18,12 @@ sicherheitstuer_offen = False
 ransomware_passwort_eingegeben = False
 check_sicherheitsausruestung = False
 brecheisen_schienbein = False
-
-# unbenutzt...aus alter Version
-can_check_sim_slot = False
-sim_schrank_offen = False
-can_use_pin = False
-klappe_offen = False
-zugriff_computer = False
-status_gesehen = False
-
+hinweis_wartungsklappe = False
+wartungsklappe_offen = False
+kontrollrechner_neugestartet = False
+gesichtsscan_erforderlich = False
+problem_gesichtsscan = False
+gesichtsscan_erfolgreich = False
 
 
 ### allgemeine Befehle ### fuer jeden Raum
@@ -35,7 +36,7 @@ def no_command_matches(command):
 
 @when ("hilfe")
 def zeige_befehle():
-    print("Folge Befehle sind möglich:\n[hilfe] [umschauen] [anschauen] [nehmen] [benutzen] [öffnen] [Verwende mit]\n[Inventar] [Raum verlassen]\n\n[help] (sehr große Hilfe) [quit]\nauf Groß- und Kleinschreibung wird kein Wert gelegt ;-)")
+    print("Folge Befehle sind möglich:\n[hilfe] [umschauen] [anschauen] [nehmen] [benutzen] [öffnen] [Verwende mit]\n[Inventar] [Raum verlassen]\n\n[help] (sehr große Hilfe) [quit]\nauf Groß- und Kleinschreibung wird kein Wert gelegt ;-)\nAber dafür auf die genaue Schreibweise der [Objekte].")
 # Befehle: umschauen anschauen nehmen benutzen öffnen 'verwende mit' Inventar help quit 'Raum verlassen'
 
 @when ("nehmen")
@@ -66,6 +67,8 @@ def verwende_mit():
 
 
 @when("raum verlassen") ## aktuell nur Maschinenraum
+@when("verlasse raum")
+@when("verlassen raum")
 def raum_verlassen():
     global room_number
     global sicherheitstuer_offen
@@ -90,8 +93,9 @@ def raum_verlassen():
 
 ### Inventar ###
 # Liste möglicher Items
-brecheisen = Item("brecheisen")
-smartphone = Item("smartphone")
+brecheisen = Item("ein Brecheisen", "brecheisen")
+smartphone = Item("dein Smartphone", "smartphone")
+foto_herr_solar = Item("ein Foto vom Gesicht von Herr Solar", "foto_herr_solar")
 # ab hier unbenutze Items
 haarnadel = Item("haarnadel")
 simkarte = Item("simkarte")
@@ -133,7 +137,7 @@ def benutze_smartphone():
 @when("öffnen smartphone")
 @when("öffne smartphone")
 def oeffne_smartphone():
-    if (sicherheitstuer_offen == False):
+    if (sicherheitstuer_offen == False): # diese Bedingung ist nur ein Platzhalter. Hier soll später die Haarnadel rein
         print("Du kannst das Smartphone nicht öffnen")
 
 @when("nimm smartphone")
@@ -238,7 +242,9 @@ Du kannst dich im Raum [umschauen]\n
 Du kannst Dinge im Raum [anschauen], [nehmen] und [benutzen]\n
 Du kannst dein aktuelles [Inventar] anschauen\n
 Du kannst dir [help] suchen, wenn du nicht weiterkommst, aber Vorsicht, dies ist eine sehr große Hilfe!\n
-Du kannst mit [quit] das AKW verlassen (Spiel beenden)\n"""
+Du kannst mit [quit] das AKW verlassen (Spiel beenden)\n
+Objekte in [eckigen Klammern] bieten Interaktionen. Vorsicht hier kommt es auf die genaue Schreibweise an."""
+
 )
 
 # Look Around #
@@ -260,9 +266,8 @@ def look_around_room1():
     else:
         say("""Du befindest dich nun im Kontrollraum. Die Menge an Schaltern, Hebeln und 
         erschlägt dich fast, dazwischen erblickst du ein [Poster] an der Wand. 
-        Du siehst den [Kontrollrechner], bei dem ein [Zettel] am Kontrollpult klebt, [Sicherheitsausrüstung] in der Ecke und die offene [Sicherheitstür]. 
+        Du siehst den [Kontrollrechner], bei dem ein [Zettel] auf der Rückseite des Terminals klebt, [Sicherheitsausrüstung] in der Ecke und die offene [Sicherheitstür]. 
         Des Weiteren erblickst du [Ministerin Schrader], die den ohnmächtigen [Herr Solar] in die stabile Seitenlage gebracht hat, und in einer weiteren Ecke das [Fernsehteam].""")
-        
 
 ### Gegenstände Raum 1 ###
 
@@ -319,6 +324,7 @@ def nehme_sicherheitsausruestung():
 
 @when("sicherheitsausrüstung benutzen", context="room1")
 @when("benutze sicherheitsausrüstung", context="room1")
+@when("benutzen sicherheitsausrüstung", context="room1")
 def benutze_sicherheitsausruestung():
     print("Du kannst die Sicherheitsausrüstung nicht benutzen!")
 
@@ -328,6 +334,7 @@ def oeffne_sicherheitsausruestung():
     print("Du kannst die Sicherheitsausrüstung nicht öffnen!")
 
 #Brecheisen Inventar anschauen nehmen benutzen öffnen, noch kein verwende mit (kommt später)
+# Verwendung mit Kontrollrechner, Sicherheitstür, Pumpenventile, ...., Personen ;-)
 
 @when("schaue brecheisen an")
 @when("brecheisen")
@@ -357,6 +364,7 @@ def nehme_brecheisen():
 
 @when("brecheisen benutzen")
 @when("benutze brecheisen")
+@when("benutzen brecheisen")
 def benutze_brecheisen():
     global brecheisen_schienbein
     if (inventory.find("brecheisen") is not None):
@@ -375,6 +383,267 @@ def benutze_brecheisen():
 def oeffne_brecheisen():
     print("Du kannst das Brecheisen nicht öffnen!")
 
+# Kontrollrechner anschauen nehmen benutzen öffnen, kein verwende mit
+# Power Button, Reset Button, DIN AT Buchse
+
+@when("schaue kontrollrechner an", context="room1")
+@when("kontrollrechner", context="room1")
+@when("anschauen kontrollrechner", context="room1")
+@when("schaue computer an", context="room1")
+@when("computer", context="room1")
+@when("anschauen computer", context="room1")
+def zeige_kontrollrechner():
+    global hinweis_wartungsklappe
+    say("""Der Bildschirm zeigt weiterhin den Totenkopf und die Nachricht der Erpresser. Du entdeckst ein Terminal mit Anschlüssen und einigen Knöpfen. Darunter ein [Power Button], ein [Reset Button] und eine [DIN AT Buchse].""")
+    if (hinweis_wartungsklappe == True):
+        say("""Bei genauerer Betrachtung findest du unter dem Terminal eine [Wartungsklappe]""")
+
+@when("kontrollrechner nehmen", context="room1")
+@when("nimm kontrollrechner", context="room1")
+@when("nehme kontrollrechner", context="room1")
+@when("nehmen kontrollrechner", context="room1")
+@when("computer nehmen", context="room1")
+@when("nimm computer", context="room1")
+@when("nehme computer", context="room1")
+@when("nehmen computer", context="room1")
+def nehme_kontrollrechner():
+    print("Du kannst den Kontrollrechner nicht nehmen!")
+
+@when("kontrollrechner benutzen", context="room1")
+@when("benutze kontrollrechner", context="room1")
+@when("benutzen kontrollrechner", context="room1")
+@when("computer benutzen", context="room1")
+@when("benutze computer", context="room1")
+@when("benutzen computer", context="room1")
+def benutze_kontrollrechner():
+    global wartungsklappe_offen
+    if (wartungsklappe_offen == False):
+        print("Du kannst dden Kontrollrechner nicht benutzen. Du findest kein Eingabegerät.")
+    else:
+        print("Du benutzt den Kontrollrechner")
+        # ersetzen def benutze_Tastatur wenn vorhanden
+
+@when("kontrollrechner öffnen", context="room1")
+@when("öffne kontrollrechner", context="room1")
+@when("öffnen kontrollrechner", context="room1")
+@when("computer öffnen", context="room1")
+@when("öffne computer", context="room1")
+@when("öffnen computer", context="room1")
+def oeffne_kontrollrechner():
+    global hinweis_wartungsklappe
+    if (hinweis_wartungsklappe == True):
+        print("Die Wartungsklappe klemmt, du kannst sie mit bloßen Händen nicht öffnen")
+    else:
+        print("Du kannst den Kontrollrechner nicht öffnen!")
+
+# DIN AT Buchse anschauen nehmen benutzen öffnen, kein verwende mit
+
+@when("schaue din at buchse an", context="room1")
+@when("din at buchse", context="room1")
+@when("anschauen din at buchse", context="room1")
+@when("din at buchse nehmen", context="room1")
+@when("nimm din at buchse", context="room1")
+@when("nehme din at buchse", context="room1")
+@when("nehmen din at buchse", context="room1")
+@when("din at buchse benutzen", context="room1")
+@when("benutze din at buchse", context="room1")
+@when("benutzen din at buchse", context="room1")
+@when("din at buchse öffnen", context="room1")
+@when("öffne din at buchse", context="room1")
+@when("öffnen din at buchse", context="room1")
+def din_at_buchse():
+    print("Solch einen vorsintflutlichen Anschluß hast du lange nicht mehr gesehen. Der ist wohl zu nix zu gebrauchen.")
+
+# Power Button anschauen nehmen benutzen öffnen, kein verwende mit
+
+@when("schaue power button an", context="room1")
+@when("power button", context="room1")
+@when("anschauen power button", context="room1")
+def zeige_power_button():
+    print("Dies ist ein [Power Button]. Dieser sollte den [Kontrollrechner] an- bzw. ausschalten.")
+
+@when("power button nehmen", context="room1")
+@when("nimm power button", context="room1")
+@when("nehme power button", context="room1")
+@when("nehmen power button", context="room1")
+@when("power button öffnen", context="room1")
+@when("öffne power button", context="room1")
+@when("öffnen power button", context="room1")
+def power_button():
+    print("Das funktioniert nicht mit dem [Power Button].")
+
+@when("power button benutzen", context="room1")
+@when("benutze power button", context="room1")
+@when("benutzen power button", context="room1")
+def benutze_power_button():
+    global kontrollrechner_neugestartet
+    kontrollrechner_neugestartet = True
+    say("""Du drückst auf den [Power Button], aber nichts passiert. Also versuchst du es ein zweites Mal, nur länger. Nach gefühlten 10 Sekunden wird der Bildschirm schwarz, nur um gleich wieder zu erhellen. Der Rechner fährt wieder hoch, BIOS-Meldungen erscheinen auf dem Bildschirm, ein Windows 95 – Startsound ertönt und die Erpresserbotschaft erscheint direkt wieder nach dem Bootvorgang. „Das bringt nichts!“, denkst du dir und überlegst, was du tun sollst.""")
+
+# Reset Button anschauen nehmen benutzen öffnen, kein verwende mit
+
+@when("schaue reset button an", context="room1")
+@when("reset button", context="room1")
+@when("anschauen reset button", context="room1")
+def zeige_reset_button():
+    print("Dies ist ein [Reset Button]. Dieser sollte den [Kontrollrechner] neustarten.")
+
+@when("reset button nehmen", context="room1")
+@when("nimm reset button", context="room1")
+@when("nehme reset button", context="room1")
+@when("nehmen reset button", context="room1")
+@when("reset button öffnen", context="room1")
+@when("öffne reset button", context="room1")
+@when("öffnen reset button", context="room1")
+def reset_button():
+    print("Das funktioniert nicht mit dem [Reset Button].")
+
+@when("reset button benutzen", context="room1")
+@when("benutze reset button", context="room1")
+@when("benutzen reset button", context="room1")
+def benutze_reset_button():
+    global kontrollrechner_neugestartet
+    kontrollrechner_neugestartet = True
+    say("""Du drückst auf den [Reset Button]. Der Rechner startet neu, BIOS-Meldungen erscheinen auf dem Bildschirm, ein Windows 95 – Startsound ertönt und die Erpresserbotschaft erscheint direkt wieder nach dem Bootvorgang. „Das bringt nichts!“, denkst du dir und überlegst, was du tun sollst.""")
+
+# Sicherheitstür anschauen nehmen benutzen öffnen, kein verwende mit
+# Tastenfeld Kamera
+
+@when("schaue sicherheitstür an", context="room1")
+@when("sicherheitstür", context="room1")
+@when("anschauen sicherheitstür", context="room1")
+def zeige_sicherheitstuer():
+    global sicherheitstuer_offen
+    if (sicherheitstuer_offen == True):
+        print("Die Sicherheitstür ist offen. Du kannst den Raum verlassen.")
+    else:
+        say("""Du entdeckst die riesige meterdicke Sicherheitstür. Direkt neben der Tür befindet sich ein [Tastenfeld] und darüber eine [Kamera].""")
+
+@when("sicherheitstür nehmen", context="room1")
+@when("nimm sicherheitstür", context="room1")
+@when("nehme sicherheitstür", context="room1")
+@when("nehmen sicherheitstür", context="room1")
+def nehme_sicherheitstuer():
+    print("Du kannst die Sicherheitstür nicht nehmen.")
+
+@when("sicherheitstür benutzen", context="room1")
+@when("benutze sicherheitstür", context="room1")
+@when("benutzen sicherheitstür", context="room1")
+def benutze_sicherheitstuer():
+    print("Du kann die Sicherheitstür nicht benutzen. Versuche das Tastenfeld ;-)")
+
+@when("sicherheitstür öffnen", context="room1")
+@when("öffne sicherheitstür", context="room1")
+@when("öffnen sicherheitstür", context="room1")
+def oeffne_sicherheitstuer():
+    global sicherheitstuer_offen
+    if (sicherheitstuer_offen == True):
+        print("Die Sicherheitstür ist schon offen.")
+    else:
+        print("Du rüttelst an der Tür, doch sie bewegt sich keinen Zentimeter.")
+
+# Tastenfeld anschauen nehmen benutzen öffnen, kein verwende mit
+
+@when("schaue tastenfeld an", context="room1")
+@when("tastenfeld", context="room1")
+@when("anschauen tastenfeld", context="room1")
+def zeige_tastenfeld():
+    print("Die ist ein Tastenfeld mit den Zahlen 0-9, 'Abbruch' und 'Start'")
+
+@when("tastenfeld nehmen", context="room1")
+@when("nimm tastenfeld", context="room1")
+@when("nehme tastenfeld", context="room1")
+@when("nehmen tastenfeld", context="room1")
+def nehme_tastenfeld():
+    print("Du kannst das Tastenfeld nicht nehmen.")
+
+@when("tastenfeld öffnen", context="room1")
+@when("öffne tastenfeld", context="room1")
+@when("öffnen tastenfeld", context="room1")
+def oeffne_tastenfeld():
+    print("Du kannst das Tastenfeld nicht öffnen.")
+
+@when("tastenfeld benutzen", context="room1")
+@when("benutze tastenfeld", context="room1")
+@when("benutzen tastenfeld", context="room1")
+def benutze_tastenfeld():
+    global sicherheitstuer_offen
+    global gesichtsscan_erforderlich
+    global gesichtsscan_erfolgreich
+    if (sicherheitstuer_offen == True):
+        print("Die Sicherheitstür ist schon offen. Du brauchst das Tastenfeld niht mehr zu benutzen.")
+    elif (gesichtsscan_erfolgreich == True):
+        say("""Das Display zeigt immer noch: * * * * * *.""")
+        pin = input("PIN: ******: ")
+        if (pin == "160364"):
+            print("Eingabe korrekt")
+            sicherheitstuer_offen = True
+            print("Du hörst ein Klacken und die Sicherheitstür öffnet sich mit einem leisen Surren.")
+        elif (pin == "abbruch" or pin == "Abbruch"):
+            print("Du verlässt die Eingabe und überlegst woher du den PIN bekommen könntest.")
+        else:
+            print("'Fehler: eingabe falsch'")
+            gesichtsscan_erfolgreich = False
+            print("'Bitte Gesicht scannen'")
+            gesichtsscan_erforderlich = True
+            say("""„Mist, wo krieg ich denn jetzt den PIN her?“, fragst du dich und überlegst.""")
+    else:
+        print("Du drückst die Grüne Starttaste und die Meldung: 'Bitte Gesicht scannen' erscheint.")
+        gesichtsscan_erforderlich = True
+
+# Kamera anschauen nehmen benutzen öffnen, kein verwende mit
+
+@when("schaue kamera an", context="room1")
+@when("kamera", context="room1")
+@when("anschauen kamera", context="room1")
+def zeige_kamera():
+    print("Du siehst ein Kameraobjekt. Wozu das wohl da ist?")
+
+@when("kamera nehmen", context="room1")
+@when("nimm kamera", context="room1")
+@when("nehme kamera", context="room1")
+@when("nehmen kamera", context="room1")
+def nehme_kamera():
+    print("Du kannst die Kamera nicht nehmen.")
+
+@when("kamera öffnen", context="room1")
+@when("öffne kamera", context="room1")
+@when("öffnen kamera", context="room1")
+def oeffne_kamera():
+    print("Du kannst ide Kamera nicht öffnen.")
+
+@when("kamera benutzen", context="room1")
+@when("benutze kamera", context="room1")
+@when("benutzen kamera", context="room1")
+def benutze_kamera():
+    global sicherheitstuer_offen
+    global problem_gesichtsscan
+    global gesichtsscan_erfolgreich
+    global gesichtsscan_erforderlich
+    if (sicherheitstuer_offen == True):
+        print("Die Sicherheitstür ist schon offen. Du brauchst das Tastenfeld nicht mehr zu benutzen.")
+    elif (gesichtsscan_erfolgreich == True):
+        print("Das Gesichtsscan war erfolgreich. Ich sollte den PIN auf dem Tastenfeld eingeben.")
+    elif (gesichtsscan_erforderlich == False):
+        print("Wozu soll ich die Kamera benutzen?")
+    else:
+        while 1:
+            print("Du hast folgende Optionen. Bitte Nummer wählen:")
+            print("(1) eigenes Gesicht scannen")
+            if (inventory.find("foto_herr_solar") is not None):
+                print("(2) Foto vom Herrn Solar auf Smartphone benutzen")
+            option = input("")
+            if (option == "2"):
+                say("""„Guten Tag Herr Solar! Bitte geben Sie Ihren PIN ein!“, ertönt eine roboterartige Stimme aus dem Terminal. Dir fällt ein Stein vom Herzen, dass dieses System so alt ist, dass solch einfache Präsentationsangriffe funktionieren.""")
+                gesichtsscan_erfolgreich = True
+                gesichtsscan_erforderlich = False
+                break
+            if (option == "1"):
+                print("Fehler: Gesicht unbekannt.")
+                problem_gesichtsscan = True
+                gesichtsscan_erforderlich = False
+                print("Wessen Gesicht könnte wohl im System hinterlegt sein?")
+                break
 
 ### Ende der Raume ### nun nur noch Debug und der Start-Aufruf
 
@@ -410,7 +679,7 @@ def debug():
 @when("debugitem")
 def debug2():
     print("ITEMNAMEN GENAU EINGEBEN!")
-    print("brecheisen, smartphone, haarnadel, simkarte")
+    print("brecheisen, smartphone, haarnadel, simkarte, foto_herr_solar")
     debug_input = input("Welches ITEM hinzufügen: ")
     if debug_input == "brecheisen":
         inventory.add(brecheisen)
@@ -420,6 +689,8 @@ def debug2():
         inventory.add(haarnadel)
     elif debug_input == "simkarte":
         inventory.add(simkarte)
+    elif debug_input == "foto_herr_solar":
+        inventory.add(foto_herr_solar)
 
 
 ## start ###
@@ -431,7 +702,4 @@ room_number = 1
 
 start()
 # start(help = False) um den Help Befehl auszuschalten
-
-
-
 
