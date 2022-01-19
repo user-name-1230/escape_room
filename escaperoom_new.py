@@ -334,6 +334,7 @@ def oeffne_sicherheitsausruestung():
 @when("anschauen brecheisen")
 def zeige_brecheisen():
     global check_sicherheitsausruestung
+    global room_number
     if ((check_sicherheitsausruestung == True and room_number == 1) or inventory.find("brecheisen") is not None):
         print("Dies ist ein Brecheisen")
     else:
@@ -344,6 +345,7 @@ def zeige_brecheisen():
 @when("nehme brecheisen", context="room1")
 @when("nehmen brecheisen", context="room1")
 def nehme_brecheisen():
+    global check_sicherheitsausruestung
     if (inventory.find("brecheisen") is not None):
         print("Das Brecheisen befindet sich schon in deinem Inventar")
     elif (check_sicherheitsausruestung == True):
@@ -370,7 +372,7 @@ def benutze_brecheisen():
 
 @when("brecheisen öffnen")
 @when("öffne brecheisen")
-def oeffne_sicherheitsausruestung():
+def oeffne_brecheisen():
     print("Du kannst das Brecheisen nicht öffnen!")
 
 
@@ -381,6 +383,7 @@ def oeffne_sicherheitsausruestung():
 
 @when("debugraum")
 def debug():
+    global room_number
     print("RAUMNAMEN GENAU EINGEBEN!")
     print("1,2,3,4,5,6")
     debug_input = input("In welchen Raum springen? ")
