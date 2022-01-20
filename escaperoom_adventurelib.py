@@ -967,14 +967,14 @@ def computer_entsperren():
                 file = hashcat_in[1]
                 if current_dir == "/root/Downloads" and file == ".hash.txt":
                     say(
-                        """vergleicht Hash in Datei [file] mit Hashes der Wörter in /root/Dokumente/password_list.txt"""
+                        """Hash wird verglichen..."""
                     )
                     time.sleep(5.0)
                     say("""Hash gefunden!""")
                     say("""[781c15abfae7bda64ba65728f73b2b3c] = [30JahreBSI1991!]""")
                 else:
                     say(
-                        """Fehler: Datei ist nicht verschlüsselt. Haben Sie die
+                        """Fehler: Datei enthält keine Hash-Werte. Haben Sie die
                     richtige Datei ausgewählt?"""
                     )
             else:
@@ -985,8 +985,8 @@ def computer_entsperren():
                 dir = cd_in[1]
                 if dir == "--help":
                     say(
-                        """cd [dir] - wechselt ins Verzeichnis [dir] \n
-                    cd - (ohne Eingabe) wechselt ins Home-Verzeichnis des aktuellen Nutzers"""
+                        """cd [dir] -   wechselt ins Verzeichnis [dir] \n
+                    cd         -    (ohne Eingabe) wechselt ins Home-Verzeichnis des aktuellen Nutzers"""
                     )
                 elif "/root/" + dir in dir_system.keys() and current_dir == "/root":
                     current_dir = "/root/" + dir
