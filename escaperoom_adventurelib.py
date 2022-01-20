@@ -886,6 +886,11 @@ def look_around_room5():
 
 
 @when("computer anschauen", context="room5")
+@when("computer benutzen", context="room5")
+@when("computer verwenden", context="room5")
+@when("pc anschauen", context="room5")
+@when("pc benutzen", context="room5")
+@when("pc verwenden", context="room5")
 def computer_entsperren():
     # abandon all hope, ye who enters here
     say(
@@ -900,8 +905,9 @@ def computer_entsperren():
     dir_system = {
         "/root/Dokumente": [
             "quartalsbericht_2021_q4.pdf",
-            "auswertung_mitarbeiterbefragung.pptx",
-            "hash_list.txt",
+            "auswertung_druckprofile_kuehlpumpen.xlsx",
+            "reaktor_temperatur_log.log"
+            "password_list.txt",
         ],
         "/root/Downloads": [".hash.txt"],
         "/root/Bilder": ["reaktor_schema.jpg"],
@@ -911,14 +917,14 @@ def computer_entsperren():
         "/root/Desktop": ["run_hl3.sh", "reactorcontrol.sh"],
     }
     helpmessage = """Verfügbare Kommandos: \n
-            help - zeigt diese Hilfe an \n
-            ls - listet Dateien im aktuellen Verzeichnis \n
-            cd [dir] - wechselt ins Verzeichnis [dir] \n
-            hashcat [file] - vergleicht Hash in Datei [file] mit Hashes der Wörter in Documents/password_list.txt  \n
-            [command] --help - zeigt die Hilfe des jeweiligen Programms an"""
+            help                -   zeigt diese Hilfeseite an \n
+            ls                  -   listet Dateien im aktuellen Verzeichnis auf \n
+            cd [dir]            -   wechselt ins Verzeichnis [dir] \n
+            hashcat [file]      -   vergleicht Hash in Datei [file] mit Hashes der Wörter in /root/Dokumente/password_list.txt  \n
+            [command] --help    -   zeigt die Hilfeseite des Kommandos [command] an"""
 
     say(helpmessage)
-    # what a terrible day to have eyes
+    # what a terrible day to have eyes...lol
     while True:
         command = input(current_dir + " # ")
         if command == "exit":
@@ -930,8 +936,8 @@ def computer_entsperren():
                 arg = ls_in[1]
                 if arg == "--help":
                     say(
-                        """ls - listet Dateien im aktuellen Verzeichnis \n
-                    ls -a - listet Dateien inklusive versteckter Dateien auf"""
+                        """ls       -   listet Dateien im aktuellen Verzeichnis auf \n
+                    ls -a   -   listet Dateien inklusive versteckter Dateien auf"""
                     )
                 elif arg == "-a":
                     list_all = True
@@ -961,7 +967,7 @@ def computer_entsperren():
                 file = hashcat_in[1]
                 if current_dir == "/root/Downloads" and file == ".hash.txt":
                     say(
-                        """Vergleicht Hash in Datei [file] mit Hashes der Wörter in Documents/password_list.txt"""
+                        """vergleicht Hash in Datei [file] mit Hashes der Wörter in /root/Dokumente/password_list.txt"""
                     )
                     time.sleep(5.0)
                     say("""Hash gefunden!""")
