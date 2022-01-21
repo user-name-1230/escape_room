@@ -1,5 +1,5 @@
 # TODO
-# Personen vom Raum 1, Herr Solar und Fernsehteam
+# Personen vom Raum 1, Fernsehteam
 # ??? Mehr Daten hinter Poster ????
 # Gespräche Schrader erweitern, als Hilfestellung
 # Tastatur am Kontrollrechner, noch keine Abfrage, ob Passwort schon eingeben wurde, dann zu Rätsel Firewall
@@ -15,6 +15,7 @@
 # Problem Leerzeile bei Ausgabe von benutze_reset_button und benutze_power_button, erfolgreicher PIN Eingabe, wenn das letzte Zeichen in der Zeile zu schmal ist, klappt wohl der automatische Umbruch nicht
 # Geschlecht Protagonist, gendern, so lassen oder neutral schreiben
 # Einbauen reden mit, aktuell nur Personen im Kontrollraum, soll das so bleiben? Würde den Code vereinfachen
+# als Gag [rede mit] Gegenständen einbauen?
 
 from PIL import Image
 import time
@@ -35,19 +36,20 @@ problem_gesichtsscan = False
 gesichtsscan_erfolgreich = False
 problem_smartphone_oeffnen = False
 herr_solar_wach = False
+hinweis_maschinenraum = False
 
 
 ### allgemeine Befehle ### fuer jeden Raum
 
 def no_command_matches(command):
     print("Das habe ich nicht verstanden")
-    # das funktioinert leider nicht. Hinweise auf Befehl: [Hilfe] hinzufügen
+    # das funktioniert leider nicht. Hinweise auf Befehl: [Hilfe] hinzufügen
     # siehe https://adventurelib.readthedocs.io/en/stable/customising.html
 
 
 @when("hilfe")
 def zeige_befehle():
-    print("\nFolge Befehle sind möglich:\n[hilfe] [umschauen] [anschauen] [nehmen] [benutzen] [öffnen] [verwende mit]\n[Inventar] [Raum verlassen]\n\n[help] (sehr große Hilfe)\n[quit] (zum Beenden des Spiels)\n\nauf Groß- und Kleinschreibung wird keinen Wert gelegt ;-)\nAber dafür auf die genaue Schreibweise der Befehle und Objekte!")
+    print("\nFolge Befehle sind möglich:\n[hilfe] [umschauen] [anschauen] [nehmen] [benutzen] [öffnen] [verwende mit] [rede mit]\n[Inventar] [Raum verlassen]\n\n[help] (sehr große Hilfe)\n[quit] (zum Beenden des Spiels)\n\nauf Groß- und Kleinschreibung wird keinen Wert gelegt ;-)\nAber dafür auf die genaue Schreibweise der Befehle und Objekte!")
 # Befehle: umschauen anschauen nehmen benutzen öffnen 'verwende mit' Inventar help quit 'Raum verlassen'
 
 @when("nehmen", action = "nehmen")
@@ -92,7 +94,8 @@ def raum_verlassen():
         else:
             print("Du gehst in den Raum")
             room_number = wohin
-# umschauen einbauen, als Hinweis in welchem Raum jetzt
+# Überleitungen einbauen
+# set context einbauen
 
 ### Inventar ###
 # Liste möglicher Items (Bezeichnung bei Inventaraufruf, Aliase für den internen Zugriff)
@@ -914,10 +917,61 @@ def rede_solar():
                 say("""Du möchtest nicht reden. Dann vielleicht ein anderes Mal.""")
                 break
             if (option == "bedienung"):
-                say("""Du fragst ihn, wie denn der [Kontrollrechner] bedient wird, so ganz ohne Eingabegeräte. Er weiß es leider auch nicht. Dafür erinnert er sich an ein Gespräche mit dem Bediener. Dieser hatte über Knieschmerzen geklagt, weil er immer unter das Terminal vom Kontrollrechner kriechen musste.""")
+                say("""Du fragst ihn, wie denn der [Kontrollrechner] bedient wird, so ganz ohne Eingabegeräte. Er weiß es leider auch nicht. Dafür erinnert er sich an ein Gespräche mit dem Bediener. Dieser hatte über Knieschmerzen geklagt, weil er immer unter das Terminal vom Kontrollrechner kriechen musste, wenn der Touchscreen ausfiel.""")
                 hinweis_wartungsklappe = True
                 break
 
+# Fernsehteam anschauen nehmen benutzen/reden öffnen, kein verwende mit
+# Hinweis Scooter
+# Hinweis Maschinenraum
+
+@when("fernsehteam anschauen", context="room1")
+@when("schaue fernsehteam an", context="room1")
+@when("fernsehteam", context="room1")
+def zeige_fernsehteam():
+    print("In der steht das Fernsehteam gelangweilt herum. Du kannst mit ihnen [reden].")
+
+@when("fernsehteam nehmen", action = "nehmen", context="room1")
+@when("nimm fernsehteam", action = "nehmen", context="room1")
+@when("nehmen fernsehteam", action = "nehmen", context="room1")
+@when("nehme fernsehteam", action = "nehmen", context="room1")
+@when("fernsehteam öffnen", action = "öffnen", context="room1")
+@when("öffnen fernsehteam", action = "öffnen", context="room1")
+@when("öffne fernsehteam", action = "öffnen", context="room1")
+def fernsehteam(action):
+    print(f"Du kannst das [Fernsehteam] nicht {action}!")
+
+@when("fernsehteam reden", context="room1")
+@when("rede fernsehteam", context="room1")
+@when("rede mit fernsehteam", context="room1")
+@when("reden fernsehteam", context="room1")
+@when("fernsehteam benutzen", context="room1")
+@when("benutze fernsehteam", context="room1")
+@when("benutzen fernsehteam", context="room1")
+def rede_fernsehteam():
+    global kontrollrechner_neugestartet
+    global sicherheitstuer_offen
+    global hinweis_maschinenraum
+    print("Du beginnst ein Gespräch mit dem [Fernsehteam]")
+    while 1:
+            print("Du hast folgende Optionen:")
+            print("- Über [nichts] reden")
+            if (sicherheitstuer_offen == False):
+                print("- Herr [Solar]")
+            if (kontrollrechner_neugestartet == True and hinweis_maschinenraum == False):
+                print("- Problem mit den [Pumpen]")
+            option = input("")
+            if (option == "nichts"):
+                say("""Du möchtest nicht reden. Dann vielleicht ein anderes Mal.""")
+                break
+            if (option == "solar"):
+                say("""Ihr kommt ins Gespräch über den AKW Chef. Das Team hat auf dem Weg durch das Kraftwerk lange mit ihm gesprochen. Dabei hat er viel von Sooter erzählt und das er wohl deren größter Fan ist, was ja auch kein Wunder ist. Denn er ist am gleichen Tag geboren wie deren Frontmann.""")
+                break
+            if (option == "pumpen"):
+                say("""Du fragst nach einer Idee, wie man die Pumpen wieder starten könnte. Ein Neustart des Kontrollrechners hat leider nicht funktioniert. Dieser zeigt immer noch nur die Erpresserbotschaft an. Das Team hat schon viel gedreht und viele Filme geschaut. Im Film wird meist im Notfall in den Maschinenraum gegangen und alles von Hand gesteuert.""")
+                say(""""Gute Idee" denkst du, auf zum Maschinenraum!""")
+                hinweis_maschinenraum = True
+                break
 
 
 
