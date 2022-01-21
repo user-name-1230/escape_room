@@ -1,15 +1,16 @@
 # TODO
 # Personen vom Raum 1, Herr Solar und Fernsehteam
+# ??? Mehr Daten hinter Poster ????
 # Gespräche Schrader erweitern, als Hilfestellung
 # Tastatur am Kontrollrechner, noch keine Abfrage, ob Passwort schon eingeben wurde, dann zu Rätsel Firewall
 # Tastatur Passwort abfrage einbauen
 # [Zettel] mit Hinweisen für Firewall einbauen, kommt bei umschauen, wenn Passwort erfolgreich eingegeben wurde
 # Verwenden mit Brecheisen mit allem möglichen für die Neugierde der Spieler, teilweise erledigt
 # Verwendung Smartphone, Foto Herr Solar und dem restlichem Inventar
-# Inventar Haarnadel. Foto Herr Solar einbauen
+# Inventar Haarnadel. Foto Herr Solar, simkarte einbauen, also deren Verwendungsoptionen
 # Raum 2-6
-# Fehlermeldungen bei unbekannten Befehlen
-# help Befehl deaktivieren? siehe ganz unten
+# Fehlermeldungen bei unbekannten Befehlen ändern, auf Deutsch und auf [hilfe] hinweisen
+# help Befehl deaktivieren? siehe ganz unten, bei den ganzen Befehlen ist die Übersicht sowieso weg, dann auch bei [hilfe] und zum Start den Hinweis darauf entfernen
 # Beschreibung Räume, über Einleitungsstory, noch wichtig? kann das weg?
 # Problem Leerzeile bei Ausgabe von benutze_reset_button und benutze_power_button, erfolgreicher PIN Eingabe, wenn das letzte Zeichen in der Zeile zu schmal ist, klappt wohl der automatische Umbruch nicht
 # Geschlecht Protagonist, gendern, so lassen oder neutral schreiben
@@ -98,8 +99,7 @@ brecheisen = Item("ein Brecheisen", "brecheisen")
 smartphone = Item("dein Smartphone", "smartphone")
 foto_herr_solar = Item("ein Foto vom Gesicht von [Herr Solar]", "foto_herr_solar")
 haarnadel = Item("eine Haarnadel von [Ministerin Schrader]", "haarnadel")
-# ab hier unbenutze Items
-simkarte = Item("simkarte")
+simkarte = Item("eine 5G SIM-Karte für das AKW-Netz", "simkarte")
 inventory = Bag()
 
 # Inventar Grundlagen
@@ -139,9 +139,11 @@ def benutze_smartphone():
 @when("öffne smartphone")
 def oeffne_smartphone():
     global problem_smartphone_oeffnen
-    if (sicherheitstuer_offen == False): # diese Bedingung ist nur ein Platzhalter. Hier soll später die Haarnadel rein
-        print("Du kannst das Smartphone nicht öffnen.")
+    if (inventory.find("simkarte") is not None):
+        print("Du kannst das Smartphone nicht öffnen. Etwas langes Spitzes könnte helfen")
         problem_smartphone_oeffnen = True
+    else:
+        print("Wozu solltest du das Smartphone öffnen?")
 
 @when("nimm smartphone")
 @when("nehmen smartphone")
@@ -690,7 +692,7 @@ def benutze_kamera():
                 print("Wessen Gesicht könnte wohl im System hinterlegt sein?")
                 break
 
-### Gegenstände Raum 1 ###
+### Personen Raum 1 ###
 # rede mit ist gleich benutzen
 # Ministerin Schrader, Herr Solar, Fernsehteam
 # alle Funktionen mit context="room1", falls die noch in andere Räume wandern, dann bitte anpassen
@@ -713,27 +715,27 @@ def zeige_schrader():
         say("""Nun fallen dir die feinen Haarnadeln in ihrer Frisur auf. Vielleicht könntest du eine bekommen?""")
     say("""Du kannst mit [Ministerin Schrader reden].""")
 
-@when("ministerin schrader nehmen", action = "nehmen")
-@when("nimm ministerin schrader", action = "nehmen")
-@when("nehmen ministerin schrader", action = "nehmen")
-@when("nehme ministerin schrader", action = "nehmen")
-@when("ministerin schrader öffnen", action = "öffnen")
-@when("öffnen ministerin schrader", action = "öffnen")
-@when("öffne ministerin schrader", action = "öffnen")
-@when("ministerin nehmen", action = "nehmen")
-@when("nimm ministerin", action = "nehmen")
-@when("nehmen ministerin", action = "nehmen")
-@when("nehme ministerin", action = "nehmen")
-@when("ministerin öffnen", action = "öffnen")
-@when("öffnen ministerin", action = "öffnen")
-@when("öffne ministerin", action = "öffnen")
-@when("schrader nehmen", action = "nehmen")
-@when("nimm schrader", action = "nehmen")
-@when("nehmen schrader", action = "nehmen")
-@when("nehme schrader", action = "nehmen")
-@when("schrader öffnen", action = "öffnen")
-@when("öffnen schrader", action = "öffnen")
-@when("öffne schrader", action = "öffnen")
+@when("ministerin schrader nehmen", action = "nehmen", context="room1")
+@when("nimm ministerin schrader", action = "nehmen", context="room1")
+@when("nehmen ministerin schrader", action = "nehmen", context="room1")
+@when("nehme ministerin schrader", action = "nehmen", context="room1")
+@when("ministerin schrader öffnen", action = "öffnen", context="room1")
+@when("öffnen ministerin schrader", action = "öffnen", context="room1")
+@when("öffne ministerin schrader", action = "öffnen", context="room1")
+@when("ministerin nehmen", action = "nehmen", context="room1")
+@when("nimm ministerin", action = "nehmen", context="room1")
+@when("nehmen ministerin", action = "nehmen", context="room1")
+@when("nehme ministerin", action = "nehmen", context="room1")
+@when("ministerin öffnen", action = "öffnen", context="room1")
+@when("öffnen ministerin", action = "öffnen", context="room1")
+@when("öffne ministerin", action = "öffnen", context="room1")
+@when("schrader nehmen", action = "nehmen", context="room1")
+@when("nimm schrader", action = "nehmen", context="room1")
+@when("nehmen schrader", action = "nehmen", context="room1")
+@when("nehme schrader", action = "nehmen", context="room1")
+@when("schrader öffnen", action = "öffnen", context="room1")
+@when("öffnen schrader", action = "öffnen", context="room1")
+@when("öffne schrader", action = "öffnen", context="room1")
 def schrader(action):
     print(f"Du kannst [Ministerin Schrader] nicht {action}!")
 
