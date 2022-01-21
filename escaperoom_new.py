@@ -348,12 +348,14 @@ def verwende_brecheisen(objekt):
     global brecheisen_schienbein
     if (inventory.find("brecheisen") is not None):
         if (objekt == "kontrollrechner" and room_number == 1) or (objekt == "computer" and room_number == 1):
-            say("""Du schlägst mit dem Brecheisen auf den Kontrollrechner ein. Aber er bekommt nicht einmal einen kleinen Kratzer, da er aus Adamantium besteht.""")
+            say("""Du schlägst mit dem [Brecheisen] auf den [Kontrollrechner] ein. Aber er bekommt nicht einmal einen kleinen Kratzer, da er aus Adamantium besteht.""")
         elif (objekt == "sicherheitstür" and room_number == 1):
-            say("""Du schlägst mit dem Brecheisen auf die Sicherheitstür ein. Diese besteht aus meterdicken Stahl und du kratzt somit nur an der Oberfläche.""")
-        elif (objekt == "wartungsklappe" and hinweis_wartungsklappe == True and room_number == 1):
-            say("""Du hebelst mit dem Brecheisen die Wartungsklappe auf. Dahinter verbirgt sich eine [Tastatur].""")
+            say("""Du schlägst mit dem [Brecheisen] auf die [Sicherheitstür] ein. Diese besteht aus meterdicken Stahl und du kratzt somit nur an der Oberfläche.""")
+        elif (objekt == "wartungsklappe" and hinweis_wartungsklappe == True and room_number == 1 and wartungsklappe_offen == False):
+            say("""Du hebelst mit dem [Brecheisen] die [Wartungsklappe] auf. Dahinter verbirgt sich eine [Tastatur].""")
             wartungsklappe_offen = True
+        elif (objekt == "wartungsklappe" and room_number == 1 and wartungsklappe_offen == True):
+            say("""Du hast die [Wartungsklappe] schon aufgehebelt. Noch offener wird es nicht!""")
         elif (objekt == "reset button" and room_number == 1):
             say("""Als Fingerübung drückst du mit Hilfe des Brecheisen den Reset Button.""")
             benutze_reset_button()
@@ -381,7 +383,7 @@ def verwende_brecheisen(objekt):
 
 
 # Kontrollrechner anschauen nehmen benutzen öffnen, kein verwende mit
-# Power Button, Reset Button, DIN AT Buchse
+# Power Button, Reset Button, DIN AT Buchse, Wartungsklappe, Tastatur
 
 @when("schaue kontrollrechner an", context="room1")
 @when("kontrollrechner", context="room1")
@@ -391,9 +393,12 @@ def verwende_brecheisen(objekt):
 @when("anschauen computer", context="room1")
 def zeige_kontrollrechner():
     global hinweis_wartungsklappe
+    global wartungsklappe_offen
     say("""Der Bildschirm zeigt weiterhin den Totenkopf und die Nachricht der Erpresser. Du entdeckst ein Terminal mit Anschlüssen und einigen Knöpfen. Darunter ein [Power Button], ein [Reset Button] und eine [DIN AT Buchse].""")
-    if (hinweis_wartungsklappe == True):
+    if (hinweis_wartungsklappe == True and wartungsklappe_offen == False):
         say("""Bei genauerer Betrachtung findest du unter dem Terminal eine [Wartungsklappe]""")
+    if (wartungsklappe_offen == True):
+        say("""Bei genauerer Betrachtung findest du unter dem Terminal eine [Tastatur]""")
 
 @when("kontrollrechner nehmen", context="room1")
 @when("nimm kontrollrechner", context="room1")
@@ -428,8 +433,11 @@ def benutze_kontrollrechner():
 @when("öffnen computer", context="room1")
 def oeffne_kontrollrechner():
     global hinweis_wartungsklappe
-    if (hinweis_wartungsklappe == True):
-        print("Die [Wartungsklappe] klemmt, du kannst sie mit bloßen Händen nicht öffnen")
+    global wartungsklappe_offen
+    if (hinweis_wartungsklappe == True and wartungsklappe_offen == False):
+        print("Die [Wartungsklappe] klemmt, du kannst sie mit bloßen Händen nicht öffnen.")
+    elif (wartungsklappe_offen == True):
+        print("Du hast die [Wartungsklappe] schon geöffnet.")
     else:
         print("Du kannst den [Kontrollrechner] nicht öffnen!")
 
@@ -553,6 +561,49 @@ def beutze_tastatur():
         print("Welche Tastatur?")
 
 
+# Wartungsklappe anschauen nehmen benutzen öffnen, kein verwende mit
+
+@when("schaue wartungsklappe an", context="room1")
+@when("wartungsklappe", context="room1")
+@when("anschauen wartungsklappe", context="room1")
+@when("schaue klappe an", context="room1")
+@when("klappe", context="room1")
+@when("anschauen klappe", context="room1")
+def zeige_wartungsklappe():
+    global hinweis_wartungsklappe
+    global wartungsklappe_offen
+    if (hinweis_wartungsklappe == True and wartungsklappe_offen == False):
+        say("""Unter dem Terminal findest du eine alte rostige [Wartungsklappe]. Mal sehen, was sich dahinter verbirgt.""")
+    elif (wartungsklappe_offen == True):
+        say("""Hinter der alten rostigen Wartungsklappe findest du eine [Tastatur]. Mal sehen, ob sie noch funktioniert.""")
+    else:
+        print("Welche Wartungsklappe?")
+
+@when("wartungsklappe benutzen", context="room1")
+@when("benutze wartungsklappe", context="room1")
+@when("benutzen wartungsklappe", context="room1")
+@when("wartungsklappe öffnen", context="room1")
+@when("öffne wartungsklappe", context="room1")
+@when("öffnen wartungsklappe", context="room1")
+@when("klappe öffnen", context="room1")
+@when("öffne klappe", context="room1")
+@when("öffnen klappe", context="room1")
+def oeffne_wartungsklappe():
+    global hinweis_wartungsklappe
+    global wartungsklappe_offen
+    if (hinweis_wartungsklappe == True and wartungsklappe_offen == False):
+        print("Die [Wartungsklappe] klemmt, du kannst sie mit bloßen Händen nicht öffnen.")
+    elif (wartungsklappe_offen == True):
+        print("Du hast die [Wartungsklappe] schon geöffnet.")
+    else:
+        print("Welche Wartungsklappe?")
+
+@when("wartungsklappe nehmen", context="room1")
+@when("nimm wartungsklappe", context="room1")
+@when("nehme wartungsklappe", context="room1")
+@when("nehmen wartungsklappe", context="room1")
+def nehme_wartungsklappe():
+    print("Du kannst die Sicherheitstür nicht nehmen.")
 
 # Sicherheitstür anschauen nehmen benutzen öffnen, kein verwende mit
 # Tastenfeld Kamera
@@ -847,6 +898,8 @@ def solar(action):
 @when("benutzen solar", context="room1")
 def rede_solar():
     global herr_solar_wach
+    global hinweis_wartungsklappe
+    global wartungsklappe_offen
     if (herr_solar_wach == False):
         print("Er ist derzeit ohnmächtig. Er reagiert nicht auf deine Worte.")
     else:
@@ -854,10 +907,19 @@ def rede_solar():
         while 1:
             print("Du hast folgende Optionen:")
             print("- Über [nichts] reden")
+            if (wartungsklappe_offen == False):
+                print("- [Bedienung] Kontrollrechner ohne Eingabegerät")
             option = input("")
             if (option == "nichts"):
                 say("""Du möchtest nicht reden. Dann vielleicht ein anderes Mal.""")
                 break
+            if (option == "bedienung"):
+                say("""Du fragst ihn, wie denn der [Kontrollrechner] bedient wird, so ganz ohne Eingabegeräte. Er weiß es leider auch nicht. Dafür erinnert er sich an ein Gespräche mit dem Bediener. Dieser hatte über Knieschmerzen geklagt, weil er immer unter das Terminal vom Kontrollrechner kriechen musste.""")
+                hinweis_wartungsklappe = True
+                break
+
+
+
 
 ### Ende Raum 1 ####
 
