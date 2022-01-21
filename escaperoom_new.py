@@ -1,7 +1,9 @@
 # TODO
-# Personen vom Raum 1,
+# Personen vom Raum 1
+# Gespräche Schrader erweitern
 # Tastatur am Kontrollrechner, noch keine Abfrage, ob Passwort schon eingeben wurde, dann zu Rätsel Firewall
 # Tastatur Passwort abfrage einbauen
+# [Zettel] mit Hinweisen für Firewall einbauen, kommt bei umschauen, wenn Passwort erfolgreich eingegeben wurde
 # Verwenden mit Brecheisen mit allem möglichen für die Neugierde der Spieler, teilweise erledigt
 # Verwendung Smartphone, Foto Herr Solar und dem restlichem Inventar
 # Raum 2-6
@@ -29,6 +31,7 @@ kontrollrechner_neugestartet = False
 gesichtsscan_erforderlich = False
 problem_gesichtsscan = False
 gesichtsscan_erfolgreich = False
+problem_smartphone_oeffnen = False
 
 
 ### allgemeine Befehle ### fuer jeden Raum
@@ -39,23 +42,24 @@ def no_command_matches(command):
     # siehe https://adventurelib.readthedocs.io/en/stable/customising.html
 
 
-@when ("hilfe")
+@when("hilfe")
 def zeige_befehle():
     print("\nFolge Befehle sind möglich:\n[hilfe] [umschauen] [anschauen] [nehmen] [benutzen] [öffnen] [verwende mit]\n[Inventar] [Raum verlassen]\n\n[help] (sehr große Hilfe)\n[quit] (zum Beenden des Spiels)\n\nauf Groß- und Kleinschreibung wird keinen Wert gelegt ;-)\nAber dafür auf die genaue Schreibweise der Befehle und Objekte!")
 # Befehle: umschauen anschauen nehmen benutzen öffnen 'verwende mit' Inventar help quit 'Raum verlassen'
 
-@when ("nehmen", action = "nehmen")
+@when("nehmen", action = "nehmen")
 @when("nimm", action = "nehmen")
-@when ("benutzen", action = "benutzen")
+@when("nehme", action = "nehmen")
+@when("benutzen", action = "benutzen")
 @when("benutze", action = "benutzen")
-@when ("anschauen", action = "anschauen")
+@when("anschauen", action = "anschauen")
 @when("schaue an", action = "anschauen")
-@when ("öffnen", action = "öffnen")
+@when("öffnen", action = "öffnen")
 @when("öffne", action = "öffnen")
 def standard_aktion(action):
     print(f"Was möchtest du {action}?")
 
-@when ("verwende mit")
+@when("verwende mit")
 @when("verwenden mit")
 def verwende_mit():
     print("Was möchtest du womit verwenden?")
@@ -91,9 +95,9 @@ def raum_verlassen():
 # Liste möglicher Items
 brecheisen = Item("ein Brecheisen", "brecheisen")
 smartphone = Item("dein Smartphone", "smartphone")
-foto_herr_solar = Item("ein Foto vom Gesicht von Herr Solar", "foto_herr_solar")
+foto_herr_solar = Item("ein Foto vom Gesicht von [Herr Solar]", "foto_herr_solar")
+haarnadel = Item("eine Haarnadel von [Ministerin Schrader]", "haarnadel")
 # ab hier unbenutze Items
-haarnadel = Item("haarnadel")
 simkarte = Item("simkarte")
 inventory = Bag()
 
@@ -133,8 +137,10 @@ def benutze_smartphone():
 @when("öffnen smartphone")
 @when("öffne smartphone")
 def oeffne_smartphone():
+    global problem_smartphone_oeffnen
     if (sicherheitstuer_offen == False): # diese Bedingung ist nur ein Platzhalter. Hier soll später die Haarnadel rein
         print("Du kannst das Smartphone nicht öffnen.")
+        problem_smartphone_oeffnen = True
 
 @when("nimm smartphone")
 @when("nehmen smartphone")
@@ -206,9 +212,11 @@ Objekte in [eckigen Klammern] bieten Interaktionen. Vorsicht, hier kommt es auf 
 @when("schau dich um", context="room1")
 def look_around_room1():
     # umschauen in Raum 1
-    if sicherheitstuer_offen == False:
+    global sicherheitstuer_offen
+    global ransomware_passwort_eingegeben
+    if (sicherheitstuer_offen == False):
         say("""Du befindest dich nun im Kontrollraum. Die Menge an Schaltern, Hebeln und erschlägt dich fast, dazwischen erblickst du ein [Poster] an der Wand. Du siehst den [Kontrollrechner], [Sicherheitsausrüstung] in der Ecke und die verschlossene [Sicherheitstür]. Des Weiteren erblickst du [Ministerin Schrader], die den ohnmächtigen [Herr Solar] in die stabile Seitenlage gebracht hat, und in einer weiteren Ecke das [Fernsehteam].""")
-    elif ransomware_passwort_eingegeben == False:
+    elif (ransomware_passwort_eingegeben == False):
         say("""Du befindest dich nun im Kontrollraum. Die Menge an Schaltern, Hebeln und erschlägt dich fast, dazwischen erblickst du ein [Poster] an der Wand. Du siehst den [Kontrollrechner], [Sicherheitsausrüstung] in der Ecke und die offene [Sicherheitstür]. Des Weiteren erblickst du [Ministerin Schrader], die den ohnmächtigen [Herr Solar] in die stabile Seitenlage gebracht hat, und in einer weiteren Ecke das [Fernsehteam].""")
     else:
         say("""Du befindest dich nun im Kontrollraum. Die Menge an Schaltern, Hebeln und erschlägt dich fast, dazwischen erblickst du ein [Poster] an der Wand. Du siehst den [Kontrollrechner], bei dem ein [Zettel] auf der Rückseite des Terminals klebt, [Sicherheitsausrüstung] in der Ecke und die offene [Sicherheitstür]. Des Weiteren erblickst du [Ministerin Schrader], die den ohnmächtigen [Herr Solar] in die stabile Seitenlage gebracht hat, und in einer weiteren Ecke das [Fernsehteam].""")
@@ -392,7 +400,7 @@ def zeige_kontrollrechner():
 @when("nehme computer", context="room1")
 @when("nehmen computer", context="room1")
 def nehme_kontrollrechner():
-    print("Du kannst den Kontrollrechner nicht nehmen!")
+    print("Du kannst den [Kontrollrechner] nicht nehmen!")
 
 @when("kontrollrechner benutzen", context="room1")
 @when("benutze kontrollrechner", context="room1")
@@ -417,9 +425,9 @@ def benutze_kontrollrechner():
 def oeffne_kontrollrechner():
     global hinweis_wartungsklappe
     if (hinweis_wartungsklappe == True):
-        print("Die Wartungsklappe klemmt, du kannst sie mit bloßen Händen nicht öffnen")
+        print("Die [Wartungsklappe] klemmt, du kannst sie mit bloßen Händen nicht öffnen")
     else:
-        print("Du kannst den Kontrollrechner nicht öffnen!")
+        print("Du kannst den [Kontrollrechner] nicht öffnen!")
 
 # DIN AT Buchse anschauen nehmen benutzen öffnen, kein verwende mit
 
@@ -492,6 +500,7 @@ def benutze_reset_button():
     say("""Du drückst auf den [Reset Button]. Der Rechner startet neu, BIOS-Meldungen erscheinen auf dem Bildschirm, ein Windows 95 – Startsound ertönt und die Erpresserbotschaft erscheint direkt wieder nach dem Bootvorgang. „Das bringt nichts!“, denkst du dir und überlegst, was du tun sollst.""")
 
 # Tastatur anschauen nehmen benutzen öffnen, kein verwende mit
+# TODO erweitern auf Eingabe Passwort und Eingabe Firewall
 
 @when("schaue tastatur an", context="room1")
 @when("tastatur", context="room1")
@@ -522,12 +531,20 @@ def tastatur():
 @when("tastatur benutzen", context="room1")
 def beutze_tastatur():
     global wartungsklappe_offen
+    global ransomware_passwort_eingegeben
 # Abfrage Passwort einbauen und Abfrage Firewall
-    if (wartungsklappe_offen == True):
+    if (wartungsklappe_offen == True and ransomware_passwort_eingegeben == False):
         print("Der Bildschirm zeigt weiterhin den Totenkopf und die Nachricht der Erpresser.")
         print("Unter der Mitteilung erscheint ein Eingabefeld, welches mit Passwort beschriftet ist.")
         print("Du benutzt die [Tastatur] an den alten [Kontrollrechner] und tippst das Passwort ein:")
         print("Sorry hier fehlt noch die Abfrage...")
+# Passwort abfrage aufrufen
+    elif (ransomware_passwort_eingegeben == True):
+        print("Nun möchtest du das System absichern und suchst nach der Firewall.")
+        print("Du findest deren Einstellungen und entdeckst ein Problem:")
+        print("Die Firewall hat auffällig viele Lücken, kannst du sie alle schließen?")
+        print("Irgendwo in der Nähe muss es doch einen Hinweis geben ;-)")
+# Rästsel Firewall aufrufen
     else:
         print("Welche Tastatur?")
 
@@ -671,6 +688,109 @@ def benutze_kamera():
                 gesichtsscan_erforderlich = False
                 print("Wessen Gesicht könnte wohl im System hinterlegt sein?")
                 break
+
+### Gegenstände Raum 1 ###
+# rede mit ist gleich benutzen
+# Ministerin Schrader, Herr Solar, Fernsehteam
+# alle Funktionen mit context="room1", falls die noch in andere Räume wandern, dann bitte anpassen
+
+# Ministerin Schrader anschauen nehmen benutzen/reden öffnen, kein verwende mit
+
+@when("ministerin schrader anschauen", context="room1")
+@when("schaue ministerin schrader an", context="room1")
+@when("ministerin schrader", context="room1")
+@when("schrader anschauen", context="room1")
+@when("schaue schrader an", context="room1")
+@when("schrader", context="room1")
+@when("ministerin anschauen", context="room1")
+@when("schaue ministerin an", context="room1")
+@when("ministerin", context="room1")
+def zeige_schrader():
+    global problem_smartphone_oeffnen
+    say("""Dies ist [Ministerin Schrader] vom BMI. Sie sollte heute das letzte deutsche AKW abschalten. Dieses feierliche Ereigniss sollte vom [Fernsehteam] für die Nachrichten festgehalten werden. Dazu hat sie sich extra eine Hochsteckfrisur stylen lassen. Als Ministerin ist sie eine intelligente Person und kann dir sicherlich bei dem einen oder anderen Problem weiterhelfen ;-)""")
+    if (problem_smartphone_oeffnen == True and inventory.find("haarnadel") is None):
+        say("""Nun fallen dir die feinen Haarnadeln in ihrer Frisur auf. Vielleicht könntest du eine bekommen?""")
+    say("""Du kannst mit [Ministerin Schrader reden].""")
+
+@when("ministerin schrader nehmen", action = "nehmen")
+@when("nimm ministerin schrader", action = "nehmen")
+@when("nehmen ministerin schrader", action = "nehmen")
+@when("nehme ministerin schrader", action = "nehmen")
+@when("ministerin schrader öffnen", action = "öffnen")
+@when("öffnen ministerin schrader", action = "öffnen")
+@when("öffne ministerin schrader", action = "öffnen")
+@when("ministerin nehmen", action = "nehmen")
+@when("nimm ministerin", action = "nehmen")
+@when("nehmen ministerin", action = "nehmen")
+@when("nehme ministerin", action = "nehmen")
+@when("ministerin öffnen", action = "öffnen")
+@when("öffnen ministerin", action = "öffnen")
+@when("öffne ministerin", action = "öffnen")
+@when("schrader nehmen", action = "nehmen")
+@when("nimm schrader", action = "nehmen")
+@when("nehmen schrader", action = "nehmen")
+@when("nehme schrader", action = "nehmen")
+@when("schrader öffnen", action = "öffnen")
+@when("öffnen schrader", action = "öffnen")
+@when("öffne schrader", action = "öffnen")
+def schrader(action):
+    print(f"Du kannst [Ministerin Schrader] nicht {action}!")
+
+@when("ministerin schrader reden", context="room1")
+@when("rede ministerin schrader", context="room1")
+@when("rede mit ministerin schrader", context="room1")
+@when("reden ministerin schrader", context="room1")
+@when("ministerin reden", context="room1")
+@when("rede ministerin", context="room1")
+@when("rede mit ministerin", context="room1")
+@when("reden ministerin", context="room1")
+@when("schrader reden", context="room1")
+@when("rede schrader", context="room1")
+@when("rede mit schrader", context="room1")
+@when("reden schrader", context="room1")
+@when("ministerin schrader benutzen", context="room1")
+@when("benutze ministerin schrader", context="room1")
+@when("benutzen ministerin schrader", context="room1")
+@when("ministerin benutzen", context="room1")
+@when("benutze ministerin", context="room1")
+@when("benutzen ministerin", context="room1")
+@when("schrader benutzen", context="room1")
+@when("benutze schrader", context="room1")
+@when("benutzen schrader", context="room1")
+def rede_schrader():
+    global sicherheitstuer_offen
+    global problem_gesichtsscan
+    global gesichtsscan_erfolgreich
+    global kontrollrechner_neugestartet
+    print("Du beginnst ein Gespräch mit [Ministerin Schrader]")
+    while 1:
+            print("Du hast folgende Optionen:")
+            print("Über [nichts] reden")
+            if (sicherheitstuer_offen == False and problem_gesichtsscan == True and gesichtsscan_erfolgreich == False):
+                print("[Gesichtsscan]")
+            if (sicherheitstuer_offen == False and gesichtsscan_erfolgreich == True):
+                print("[PIN] Herr Solar")
+            if (kontrollrechner_neugestartet == False):
+                print("[Ransomware]")
+            option = input("")
+            if (option == "nichts"):
+                say("""Du möchtest nicht reden. Dann vielleicht ein anderes Mal.""")
+                break
+            if (option == "gesichtsscan"):
+                say("""Vielleicht kann man dieses uralte System mit einem Präsentationsangriff (Foto) überlisten?""")
+                break
+            if (option == "pin"):
+                say("""Den PIN von Herrn Solar weiß ich auch nicht. Aber meistens wird ja eine Zahlenkombination benutzt, die man nicht vergisst, wie ein Geburtstag.""")
+                break
+            if (option == "ransomware"):
+                say("""Wie kann man nur ein AKW überfallen und Lösegeld verlangen? Haben die nicht an die Folgen gedacht??? Vielleicht ist die Ransomeware nicht persistent und liegt nur im RAM. Dann würde eine Neustart des Computers helfen.""")
+                break
+
+# hier Haarnadel einbauen
+# Hilfen einbauen, wenn man nicht weiter kommt.
+
+
+### Ende Raum 1 ####
 
 ### Ende der Raume ### nun nur noch Debug und der Start-Aufruf
 
