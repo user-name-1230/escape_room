@@ -177,7 +177,7 @@ room4 = Room("""Beschreibung des Lagerraums""")
 room5 = Room("""Beschreibung des Büros""")
 
 # Debug Infos #
-print("cmds for debug: debugraum, debugitem")
+print("cmds for debug: debugraum, debugitem, debugstatus")
 
 # Einleitungsstory
 say("""----------------------------------------------------------------------------------""")
@@ -907,6 +907,20 @@ def debug2():
         inventory.add(simkarte)
     elif debug_input == "foto_herr_solar":
         inventory.add(foto_herr_solar)
+
+@when("debugstatus")
+def debug3():
+    global herr_solar_wach
+    print("STATUS GENAU EINGEBEN!")
+    print("herr_solar_wach")
+    debug_input = input("Welche STATUS ändern: ")
+    if debug_input == "herr_solar_wach":
+        if (herr_solar_wach == False):
+            herr_solar_wach = True
+            print("Herr Solar ist nun wach")
+        else:
+            herr_solar_wach = False
+            print("Herr Solar ist wieder ohnmächtig")
 
 
 ## start ###
