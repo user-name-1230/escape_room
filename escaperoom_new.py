@@ -1,5 +1,7 @@
 # TODO
-# Personen vom Raum 1, Tastatur am Kontrollrechner
+# Personen vom Raum 1,
+# Tastatur am Kontrollrechner, noch keine Abfrage, ob Passwort schon eingeben wurde, dann zu Rätsel Firewall
+# Tastatur Passwort abfrage einbauen
 # Verwenden mit Brecheisen mit allem möglichen für die Neugierde der Spieler, teilweise erledigt
 # Verwendung Smartphone, Foto Herr Solar und dem restlichem Inventar
 # Raum 2-6
@@ -8,6 +10,7 @@
 # Beschreibung Räume, über Einleitungsstory, noch wichtig? kann das weg?
 # Problem Leerzeile bei Ausgabe von benutze_reset_button und benutze_power_button, erfolgreicher PIN Eingabe, wenn das letzte Zeichen in der Zeile zu schmal ist, klappt wohl der automatische Umbruch nicht
 # Geschlecht Protagonist, gendern, so lassen oder neutral schreiben
+# Einbauen reden mit, aktuell nur Personen im Kontrollraum, soll das so bleiben? Würde den Code vereinfachen
 
 from PIL import Image
 import time
@@ -400,10 +403,10 @@ def nehme_kontrollrechner():
 def benutze_kontrollrechner():
     global wartungsklappe_offen
     if (wartungsklappe_offen == False):
-        print("Du kannst dden Kontrollrechner nicht benutzen. Du findest kein Eingabegerät.")
+        print("Du kannst den [Kontrollrechner] nicht benutzen. Du findest kein Eingabegerät.")
     else:
-        print("Du benutzt den Kontrollrechner")
-        # ersetzen def benutze_Tastatur wenn vorhanden
+        beutze_tastatur()
+
 
 @when("kontrollrechner öffnen", context="room1")
 @when("öffne kontrollrechner", context="room1")
@@ -487,6 +490,48 @@ def benutze_reset_button():
     global kontrollrechner_neugestartet
     kontrollrechner_neugestartet = True
     say("""Du drückst auf den [Reset Button]. Der Rechner startet neu, BIOS-Meldungen erscheinen auf dem Bildschirm, ein Windows 95 – Startsound ertönt und die Erpresserbotschaft erscheint direkt wieder nach dem Bootvorgang. „Das bringt nichts!“, denkst du dir und überlegst, was du tun sollst.""")
+
+# Tastatur anschauen nehmen benutzen öffnen, kein verwende mit
+
+@when("schaue tastatur an", context="room1")
+@when("tastatur", context="room1")
+@when("anschauen tastatur", context="room1")
+def zeige_tastatur():
+    global wartungsklappe_offen
+    if (wartungsklappe_offen == True):
+        print("Dies ist die [Tastatur] vom [kontrollrechner]. Damit kannst du ihn bedienen.")
+    else:
+        print("Welche Tastatur?")
+
+@when("tastatur nehmen", context="room1")
+@when("nimm tastatur", context="room1")
+@when("nehme tastatur", context="room1")
+@when("nehmen tastatur", context="room1")
+@when("tastatur öffnen", context="room1")
+@when("öffne tastatur", context="room1")
+@when("öffnen tastatur", context="room1")
+def tastatur():
+    global wartungsklappe_offen
+    if (wartungsklappe_offen == True):
+        print("Das funktioniert nicht mit der [Tastatur].")
+    else:
+        print("Welche Tastatur?")
+
+@when("benutzen tastatur", context="room1")
+@when("benutze tastatur", context="room1")
+@when("tastatur benutzen", context="room1")
+def beutze_tastatur():
+    global wartungsklappe_offen
+# Abfrage Passwort einbauen und Abfrage Firewall
+    if (wartungsklappe_offen == True):
+        print("Der Bildschirm zeigt weiterhin den Totenkopf und die Nachricht der Erpresser.")
+        print("Unter der Mitteilung erscheint ein Eingabefeld, welches mit Passwort beschriftet ist.")
+        print("Du benutzt die [Tastatur] an den alten [Kontrollrechner] und tippst das Passwort ein:")
+        print("Sorry hier fehlt noch die Abfrage...")
+    else:
+        print("Welche Tastatur?")
+
+
 
 # Sicherheitstür anschauen nehmen benutzen öffnen, kein verwende mit
 # Tastenfeld Kamera
