@@ -1,11 +1,12 @@
 # TODO
-# Personen vom Raum 1
-# Gespräche Schrader erweitern
+# Personen vom Raum 1, Herr Solar und Fernsehteam
+# Gespräche Schrader erweitern, als Hilfestellung
 # Tastatur am Kontrollrechner, noch keine Abfrage, ob Passwort schon eingeben wurde, dann zu Rätsel Firewall
 # Tastatur Passwort abfrage einbauen
 # [Zettel] mit Hinweisen für Firewall einbauen, kommt bei umschauen, wenn Passwort erfolgreich eingegeben wurde
 # Verwenden mit Brecheisen mit allem möglichen für die Neugierde der Spieler, teilweise erledigt
 # Verwendung Smartphone, Foto Herr Solar und dem restlichem Inventar
+# Inventar Haarnadel. Foto Herr Solar einbauen
 # Raum 2-6
 # Fehlermeldungen bei unbekannten Befehlen
 # help Befehl deaktivieren? siehe ganz unten
@@ -92,7 +93,7 @@ def raum_verlassen():
 # umschauen einbauen, als Hinweis in welchem Raum jetzt
 
 ### Inventar ###
-# Liste möglicher Items
+# Liste möglicher Items (Bezeichnung bei Inventaraufruf, Aliase für den internen Zugriff)
 brecheisen = Item("ein Brecheisen", "brecheisen")
 smartphone = Item("dein Smartphone", "smartphone")
 foto_herr_solar = Item("ein Foto vom Gesicht von [Herr Solar]", "foto_herr_solar")
@@ -762,16 +763,19 @@ def rede_schrader():
     global problem_gesichtsscan
     global gesichtsscan_erfolgreich
     global kontrollrechner_neugestartet
+    global problem_smartphone_oeffnen
     print("Du beginnst ein Gespräch mit [Ministerin Schrader]")
     while 1:
             print("Du hast folgende Optionen:")
-            print("Über [nichts] reden")
+            print("- Über [nichts] reden")
             if (sicherheitstuer_offen == False and problem_gesichtsscan == True and gesichtsscan_erfolgreich == False):
-                print("[Gesichtsscan]")
+                print("- [Gesichtsscan]")
             if (sicherheitstuer_offen == False and gesichtsscan_erfolgreich == True):
-                print("[PIN] Herr Solar")
+                print("- [PIN] Herr Solar")
             if (kontrollrechner_neugestartet == False):
-                print("[Ransomware]")
+                print("- [Ransomware]")
+            if (problem_smartphone_oeffnen == True and inventory.find("haarnadel") is None):
+                print("- [Haarnadel]")
             option = input("")
             if (option == "nichts"):
                 say("""Du möchtest nicht reden. Dann vielleicht ein anderes Mal.""")
@@ -785,9 +789,11 @@ def rede_schrader():
             if (option == "ransomware"):
                 say("""Wie kann man nur ein AKW überfallen und Lösegeld verlangen? Haben die nicht an die Folgen gedacht??? Vielleicht ist die Ransomeware nicht persistent und liegt nur im RAM. Dann würde eine Neustart des Computers helfen.""")
                 break
-
-# hier Haarnadel einbauen
-# Hilfen einbauen, wenn man nicht weiter kommt.
+            if (option == "haarnadel"):
+                say("""Du fragst sie, ob du dir ihre Haarnadel kurz ausleihen kannst. Sie nickt aufgeregt und übergibt sie dir schnell.""")
+                inventory.add(haarnadel)
+                break
+# weitere Hilfen einbauen, wenn man nicht weiter kommt.
 
 
 ### Ende Raum 1 ####
