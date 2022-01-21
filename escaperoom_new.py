@@ -34,6 +34,7 @@ gesichtsscan_erforderlich = False
 problem_gesichtsscan = False
 gesichtsscan_erfolgreich = False
 problem_smartphone_oeffnen = False
+herr_solar_wach = False
 
 
 ### allgemeine Befehle ### fuer jeden Raum
@@ -773,7 +774,7 @@ def rede_schrader():
             if (sicherheitstuer_offen == False and problem_gesichtsscan == True and gesichtsscan_erfolgreich == False):
                 print("- [Gesichtsscan]")
             if (sicherheitstuer_offen == False and gesichtsscan_erfolgreich == True):
-                print("- [PIN] Herr Solar")
+                print("- [PIN] von Herr Solar")
             if (kontrollrechner_neugestartet == False):
                 print("- [Ransomware]")
             if (problem_smartphone_oeffnen == True and inventory.find("haarnadel") is None):
@@ -797,6 +798,66 @@ def rede_schrader():
                 break
 # weitere Hilfen einbauen, wenn man nicht weiter kommt.
 
+# Herr Solar anschauen nehmen benutzen/reden öffnen, kein verwende mit
+
+@when("herr solar anschauen", context="room1")
+@when("schaue herr solar an", context="room1")
+@when("herr solar", context="room1")
+@when("solar anschauen", context="room1")
+@when("schaue solar an", context="room1")
+@when("solar", context="room1")
+def zeige_solar():
+    global herr_solar_wach
+    print("Dies ist Herr Solar, der Chef vom hiesigen AKW.")
+    if (herr_solar_wach == False):
+        say("""Er ist derzeit ohnmächtig. [Ministerin Schrader] hat ihn in die stabile Seitenlage gebracht. Mehr kannst du aktuell auch nichts weiteres für ihn tun, aber vielleicht kannst du ihn irgendwie wecken.""")
+    else:
+        say("""Er ist inzwischen wach und sitzt sichtlich erschöpft auf dem Stuhl vor dem [Kontrollrechner] und schaut fassungslos auf die Erpresserbotschaft. Er ist noch etwas zerstreut, aber du kannst mit [Herr Solar reden].""")
+
+@when("herr solar nehmen", action = "nehmen", context="room1")
+@when("nimm herr solar", action = "nehmen", context="room1")
+@when("nehmen herr solar", action = "nehmen", context="room1")
+@when("nehme herr solar", action = "nehmen", context="room1")
+@when("herr solar öffnen", action = "öffnen", context="room1")
+@when("öffnen herr solar", action = "öffnen", context="room1")
+@when("öffne herr solar", action = "öffnen", context="room1")
+@when("solar nehmen", action = "nehmen", context="room1")
+@when("nimm solar", action = "nehmen", context="room1")
+@when("nehmen solar", action = "nehmen", context="room1")
+@when("nehme solar", action = "nehmen", context="room1")
+@when("solar öffnen", action = "öffnen", context="room1")
+@when("öffnen solar", action = "öffnen", context="room1")
+@when("öffne solar", action = "öffnen", context="room1")
+def solar(action):
+    print(f"Du kannst [Herr Solar] nicht {action}!")
+
+@when("herr solar reden", context="room1")
+@when("rede herr solar", context="room1")
+@when("rede mit herr solar", context="room1")
+@when("reden herr solar", context="room1")
+@when("solar reden", context="room1")
+@when("rede solar", context="room1")
+@when("rede mit solar", context="room1")
+@when("reden solar", context="room1")
+@when("herr solar benutzen", context="room1")
+@when("benutze herr solar", context="room1")
+@when("benutzen herr solar", context="room1")
+@when("solar benutzen", context="room1")
+@when("benutze solar", context="room1")
+@when("benutzen solar", context="room1")
+def rede_solar():
+    global herr_solar_wach
+    if (herr_solar_wach == False):
+        print("Er ist derzeit ohnmächtig. Er reagiert nicht auf deine Worte.")
+    else:
+        print("Du beginnst ein Gespräch mit [Herr Solar]")
+        while 1:
+            print("Du hast folgende Optionen:")
+            print("- Über [nichts] reden")
+            option = input("")
+            if (option == "nichts"):
+                say("""Du möchtest nicht reden. Dann vielleicht ein anderes Mal.""")
+                break
 
 ### Ende Raum 1 ####
 
