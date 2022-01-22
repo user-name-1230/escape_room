@@ -4,7 +4,6 @@
 # Umlaute
 # Ausrüstung / Kontrollrechner anschauen / benutzen / neustarten
 # Inventar anschauen
-# Sicherheitstür geht von alleine auf? (counter!)
 
 # ventile / pumpenventile
 # Mehr möglichkeiten
@@ -49,14 +48,6 @@ def no_command_matches(command):
 adventurelib.no_command_matches = no_command_matches
 
 
-room1 = Room("""Beschreibung des Kontrollraums""")
-room2 = Room("""Beschreibung des Maschinenraums""")
-room3 = Room("""Beschreibung des Flurs""")
-room4 = Room("""Beschreibung des Lagerraums""")
-
-
-room1.has_crowbar = True
-room1.action_counter = 0
 
 # Startraum #
 set_context("room1")
