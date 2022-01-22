@@ -32,13 +32,28 @@
 # lower()
 from PIL import Image
 import time
+import random
 from adventurelib import Room, when, say, start, Bag, Item, set_context
+import adventurelib
 import sys
+
+
+def no_command_matches(command):
+    print(random.choice([
+        "Das habe ich nicht verstanden.",
+        f"Ich verstehe '{command}' leider nicht.",
+        "Tur mir leid, diese Aktion scheint nicht zur Verfügung zu stehen.",
+        f"Tut mir leid, die Aktion '{command}' scheint nicht zur Verfügung zu stehen."
+    ]))
+
+adventurelib.no_command_matches = no_command_matches
+
 
 room1 = Room("""Beschreibung des Kontrollraums""")
 room2 = Room("""Beschreibung des Maschinenraums""")
 room3 = Room("""Beschreibung des Flurs""")
 room4 = Room("""Beschreibung des Lagerraums""")
+
 
 room1.has_crowbar = True
 room1.action_counter = 0
@@ -62,7 +77,6 @@ einigen Minuten gelangt ihr in das Herzstück des AKWs – den Kontrollraum –
 welches sich hinter einer meterdicken Sicherheitstür befindet."""
 )
 say("""""")
-time.sleep(6.0)
 say(
     """Ihr begebt euch gemeinsam zum Abschaltterminal. Über ein Mikrofon zählt
 Herr Solar den Countdown herunter. Die Journalisten außerhalb des Kraftwerks
@@ -70,7 +84,6 @@ lauschen gespannt mit. Ministerin Schrader hat bereits die Hand auf dem großen
 roten Knopf. 5...4...3...2........plötzlich völlige Dunkelheit."""
 )
 say("""""")
-time.sleep(6.0)
 say(
     """Ihr hört ein lautes Surren und Klicken. Nach einer gefühlten Ewigkeit
 geht ein rot-pulsierendes Notlicht an und im Kontrollraum verhallt das
@@ -81,16 +94,13 @@ erscheint mit folgender Mitteilung: "Die Evil Corp hat soeben das Kraftwerk
 heruntergefahren.“"""
 )
 say("""""")
-time.sleep(6.0)
 say("""Ein Countdown startet: 30:00, 29:59, 29:58, ....""")
 say("""""")
-time.sleep(6.0)
 say(
     """„Zur Entsperrung der Anlage müssen sie nur einen kleinen Betrag von
 100.000.000 Dogecoin auf die Wallet-Adresse besser.aBSIchern überweisen.“"""
 )
 say("""""")
-time.sleep(6.0)
 say(
     """Unter der Mitteilung erscheint ein Eingabefeld, welches mit Passwort
 beschriftet ist. Na toll…Ransomware. Der Chef des Kraftwerks ist erschüttert und
@@ -104,7 +114,6 @@ eine Bezahlung des Lösegelds wirksam ist. Also suchst du als einziger Anwesende
 mit breitem IT-Wissen - denn du hast ja DACS studiert ;) - nach einer
 Lösung."""
 )
-ueberleitung_room1()
 
 
 # Inventar #
@@ -133,33 +142,42 @@ def zeige_inventar():
 
 
 # Global Vars #
+#Room 1 - Kontrollraum
+kontrollrechner_neugestartet = False
+sicherheitsausruestung_gesehen = False
+sicherheitstuer_gesehen = False
+#Room 4 - Lagerraum
 can_check_sim_slot = False
 sim_schrank_offen = False
 can_use_pin = False
+#Room 5 - Büro
+passwort_gefunden = False
+#Room 6 - Kontrollraum
 klappe_offen = False
-zugriff_computer = False
+kontrollrechner_entsperrt = False
 firewall_gesehen = False
-check_sicherheitsausruestung = False
+
+
 
 ########################
 # RAUM 1: KONTROLLRAUM #
 ########################
 # Einleitung Raum 1:
-def ueberleitung_room1():
-    time.sleep(6.0)
-    say(
-        """----------------------------------------------------------------------------------"""
-    )
-    say(
-        """Du befindest dich nun im Kontrollraum. Die Menge an Schaltern, Hebeln und
-    erschlägt dich fast und es fällt dir schwer deine Panik in den Griff zu
-    bekommen. Du versuchst dich zu sammeln und deine Möglichkeiten abzuwägen: \n
-    Du kannst dich im Raum [umschauen]\n
-    Du kannst Dinge im Raum [anschauen], [nehmen] und [benutzen]\n
-    Du kannst dein aktuelles [Inventar] anschauen\n
-    Du kannst dir [help] suchen, wenn du nicht weiterkommst\n
-    Du kannst mit [quit] das AKW verlassen (Spiel beenden)"""
-    )
+
+
+say(
+    """----------------------------------------------------------------------------------"""
+)
+say(
+    """Du befindest dich nun im Kontrollraum. Die Menge an Schaltern, Hebeln und
+Knöpfen erschlägt dich fast und es fällt dir schwer deine Panik in den Griff zu
+bekommen. Du versuchst dich zu sammeln und deine Möglichkeiten abzuwägen: \n
+Du kannst dich im Raum [umschauen]\n
+Du kannst Dinge im Raum [anschauen], [nehmen] und [benutzen], sowie Knöpfe [drücken]\n
+Du kannst dein aktuelles [Inventar] anschauen\n
+Du kannst dir [help] suchen, wenn du nicht weiterkommst\n
+Du kannst mit [quit] das AKW verlassen (Spiel beenden)"""
+)
 
 
 # Look Around #
@@ -169,10 +187,27 @@ def ueberleitung_room1():
 def look_around_room1():
     # umschauen in Raum 1
     # TODO
-    if inventory.find("brecheisen") is None:
-        say("""Du siehst den Kontrollrechner und Sicherheitsausrüstung in der Ecke.""")
-    else:
+    if (sicherheitsausruestung_gesehen and kontrollrechner_neugestartet and sicherheitstuer_gesehen):
+        say("""Du entdeckst ein Scooter-Poster an der Wand.""")
+
+    elif (sicherheitsausruestung_gesehen and kontrollrechner_neugestartet):
+        say("""Du entdeckst die riesige, meterdicke Sicherheitstür.""")
+
+    elif (sicherheitsausruestung_gesehen):
         say("""Du siehst den Kontrollrechner.""")
+
+    else:
+        say("""Du siehst den Kontrollrechner und Sicherheitsausrüstung in der Ecke.""")
+
+
+@when("sicherheitsausrüstung anschauen", context="room1")
+def sicherheitsausruestung_anschauen():
+    if inventory.find("brecheisen") is None:
+        global sicherheitsausruestung_gesehen
+        sicherheitsausruestung_gesehen = True
+        say("""In der Sicherheitsausrüstung findest du ein Brecheisen.""")
+    else:
+        say("""Du hast die Sicherheitsausrüstung bereits durchsucht""")
 
 
 
@@ -190,7 +225,7 @@ def look_around_room1():
 @when("nimm brechstange", context="room1")
 def brecheisen_nehmen():
     # Brecheisen in Raum 1 nehmen
-    if check_sicherheitsausruestung == True:
+    if sicherheitsausruestung_gesehen == True:
         if "brecheisen" not in inventory:
             say("""„Das könnte eventuell noch nützlich sein“, sagst du und packst das Brecheisen direkt ein.""")
             inventory.add(crowbar)
@@ -216,27 +251,26 @@ def brecheisen_benutzen():
     if inventory.find("brecheisen") is None:
         say("Du hast kein Brecheisen.")
     else:
-        say("""Vielleicht solltest du den Kontrollrechner lieber nicht zerstören...""")
-
-        if room1.action_counter < 2:
-            # Wenn wir später in Raum 2 zurückgehen,
-            # wollen wir mit dem action_counter
-            # nix mehr am Hut haben
-            room1.action_counter += 1
-            if room1.action_counter == 2:
-                ueberleitung_room2()
+        say(
+            """Vielleicht solltest du den Kontrollrechner damit lieber nicht
+            zerstören..."""
+        )
 
 
-@when("sicherheitsausruestung anschauen", context="room1")
-def sicherheitsausruestung_anschauen():
-    if inventory.find("brecheisen") is None:
-        global check_sicherheitsausruestung
-        check_sicherheitsausruestung = True
-        say("""In der Sicherheitsausrüstung findest du ein Brecheisen.""")
-    else:
-        say("""Du hast die Sicherheitsausrüstung bereits durchsucht""")
+
+@when("kontrollrechner anschauen", context="room1")
+def kontrollrechner_anschauen():
+    say(
+        """Der Bildschirm zeigt weiterhin den Totenkopf und die Nachricht der
+        Erpresser. Du entdeckst ein Terminal mit Anschlüssen und einigen Knöpfen.
+        Darunter ein Knopf auf dem "Reset" steht und eine Buchse, die mit
+        "DIN AT" beschriftet ist."""
+    )
 
 
+
+@when("reset drücken", context="room1")
+@when("knopf drücken", context="room1")
 @when("computer neustarten", context="room1")  # neustarten
 @when("starte computer neu", context="room1")
 @when("rechner neustarten", context="room1")
@@ -259,58 +293,97 @@ def sicherheitsausruestung_anschauen():
 @when("reboote kontrollrechner", context="room1")
 def computer_neustarten():
     say(
-        """Du startest den Kontrollrechner neu.
-        Der Bildschirm wird schwarz, nach einiger Zeit taucht der Totenkopf wieder auf.
-        Das hat leider nichts gebracht."""
+        """Der Rechner startet neu, BIOS-Meldungen erscheinen auf dem Bildschirm,
+        ein Windows 95 – Startsound ertönt und die Erpresserbotschaft erscheint
+        direkt wieder nach dem Bootvorgang.\n
+        „Das bringt nichts!“, denkst du dir und überlegst, was du tun sollst.
+        Über den Kontrollrechner lassen sich die Pumpen für das Kühlsystem
+        jedenfalls nicht mehr starten. Vielleicht hilft ein manueller Start der
+        Pumpen."""
     )
-
-    if room1.action_counter < 2:
-        room1.action_counter += 1
-        if room1.action_counter == 2:
-            ueberleitung_room2()
+    global kontrollrechner_neugestartet
+    kontrollrechner_neugestartet = True
 
 
-# sollte beim zweiten mal umschauen da sein
+@when("din at buchse anschauen", context="room1")
+@when("buchse anschauen", context="room1")
+@when("anschluss anschauen", context="room1")
+def buchse_anschauen():
+    say("""So etwas Veraltetes, fast schon Antikes hast du schon lange nicht
+        mehr gesehen. Leider hast du kein Eingabegerät zur Hand, das kompatibel
+        ist.""")
+
+
+
+@when("sicherheitstür anschauen", context="room1")
+@when("tür anschauen", context="room1")
 @when("sicherheitstuer anschauen", context="room1")
 def sicherheitstuer_anschauen():
-    say("""Du rüttelst an der Tür, doch sie bewegt sich keinen Zentimeter. Direkt neben der Tür befindet sich ein Tastenfeld
-	und darüber eine Kamera. Du drückst die Grüne Starttaste und die Kamera beginnt mit einem Scan von deinem Gesicht. Du
-	erschrickst. Auf dem Display erscheint in roter Schrift „Zugriff verweigert“. „Das Gesicht des Chefs sollte
-	funktionieren!“, denkst du dir, erinnerst dich aber, dass dieser ohnmächtig geworden ist. Du nimmst dein Smartphone in
-	die Hand und hältst ein Bild von Herrn Solar in die Kamera. „Guten Tag Herr Solar! Bitte geben Sie Ihren PIN ein!“,
-	ertönt eine roboterartige Stimme aus dem Terminal und das Display zeigt: * * * * * *. „Mist, wo krieg ich denn jetzt den
-	PIN her?“, fragst du dich und schaust dich noch einmal um.""")
+    if kontrollrechner_neugestartet:
+        say(
+            """Du rüttelst an der Tür, doch sie bewegt sich keinen Zentimeter. Direkt neben der Tür befindet sich ein Tastenfeld
+    	    und darüber eine Kamera. Du drückst die Grüne Starttaste und die Kamera beginnt mit einem Scan von deinem Gesicht. Du
+    	    erschrickst. Auf dem Display erscheint in roter Schrift „Zugriff verweigert“. „Das Gesicht des Chefs sollte
+    	    funktionieren!“, denkst du dir, erinnerst dich aber, dass dieser ohnmächtig geworden ist. Du nimmst dein Smartphone in
+    	    die Hand und hältst ein Bild von Herrn Solar in die Kamera. „Guten Tag Herr Solar! Bitte geben Sie Ihre PIN ein!“,
+    	    ertönt eine roboterartige Stimme aus dem Terminal und das Display zeigt: * * * * * *. „Mist, wo krieg ich denn jetzt den
+    	    PIN her?“, fragst du dich. Vielleicht schaust du dich einfach noch einmal um."""
+        )
+        global sicherheitstuer_gesehen
+        sicherheitstuer_gesehen = True
+    else:
+        say("""Die Tür scheint verschlossen zu sein. Vielleicht versuchst du
+            dein Glück erst mal am Kontrollrechner.""")
 
 
-@when("tasten drücken", context="room1")
-@when("drücke tasten", context="room1")
-def tasten_druecken():
-    say(
-        """Du versuchst verschiedenste Tastenkombinationen, doch der Totenkopf bleibt. Selbst Strg+Alt+Entf hilft nicht weiter."""
-    )
+@when("poster anschauen", context="room1")
+@when("scooter poster anschauen", context="room1")
+@when("scooter poster anschauen", context="room1")
+@when("poster ansehen", context="room1")
+def poster_anschauen():
+    say("""Das Poster trägt die Aufschrift „How much is the fish“. Es scheint
+        mit Klebestreifen befestigt worden zu sein. Von der Rückseite schimmert
+        Schrift durch das dünne Papier. Du hebst das Poster an und entdeckst
+        eine Widmung an Herrn Solar mit der Unterschrift von HP Baxxter und
+        einer kurzen Biografie des Künstlers unter anderem mit seinem
+        Geburtsdatum: 16. März 1964\n
+        Du erinnerst dich: Einer aus dem Kamerateam hat dir im Vorfeld erzählt,
+        dass Herr Solar ein riesen Fan der Techno- und EDM-Band sei und immer
+        wieder davon erzählte, dass er nur 5 Tage nach HP Baxxter Geburtstag hätte.""")
 
-    if room1.action_counter < 2:
-        room1.action_counter += 1
-        if room1.action_counter == 2:
+
+@when("pin eingeben", context="room1")
+@when("tür öffnen", context="room1")
+@when("code eingeben", context="room1")
+@when("zahl eingeben", context="room1")
+def pin_eingeben():
+    while True:
+        input_1 = input("PIN eingeben ([exit] um abzubrechen): ")
+        if (input_1 == "210364"):
+            say("""PIN wird überprüft...\n
+                """)
+            time.sleep(3.0)
+            say("""PIN korrekt!\n
+                Zugriff gewährt!""")
+            time.sleep(2.0)
             ueberleitung_room2()
+            return
+        elif (input_1 == "exit"):
+            return
+        else:
+            say("""PIN wird überprüft...\n
+                """)
+            time.sleep(3.0)
+            say("""PIN falsch!\n
+                Zugriff verweigert!""")
+
+
 
 
 #########################
 # RAUM 2: MASCHINENRAUM #
 #########################
-@when("umschauen", context="room2")
-@when("schaue um", context="room2")
-@when("schau dich um", context="room2")
-def look_around_room2():
-    say(
-        """Du entdeckst die Pumpenventile der riesigen Kühlpumpen und einen
-    Zettel auf einem Tisch in der Nähe. Die Ventile scheinen beschriftet zu
-    sein. Bestimmt muss eine Reihenfolge eingehalten werden."""
-    )
-
-
 def ueberleitung_room2():
-    time.sleep(6.0)
     say(
         """---------------------------------------------------------------------------------"""
     )
@@ -330,6 +403,17 @@ def ueberleitung_room2():
     set_context("room2")
 
 
+@when("umschauen", context="room2")
+@when("schaue um", context="room2")
+@when("schau dich um", context="room2")
+def look_around_room2():
+    say(
+        """Du entdeckst die Pumpenventile der riesigen Kühlpumpen und einen
+    Zettel auf einem Tisch in der Nähe. Die Ventile scheinen beschriftet zu
+    sein. Bestimmt muss eine Reihenfolge eingehalten werden."""
+    )
+
+
 @when("zettel anschauen", context="room2")
 def zettel_anschauen():
     say(
@@ -342,14 +426,8 @@ def zettel_anschauen():
 
 
 @when("ventile anschauen", context="room2")
+@when("pumpenventile anschauen", context="room2")
 def ventile_anschauen():
-    say(
-        """Lila Ventil ist mit I beschriftet\n
-        Rotes Ventil ist mit II beschriftet\n
-        Blaues Ventil ist mit III beschriftet\n
-        Schwarzes Ventil ist mit IV beschriftet\n
-        Grünes Ventil ist mit V beschriftet"""
-    )
     img = Image.open("ventile.jpg")
     img.show()
 
@@ -371,28 +449,21 @@ def zu_ventilen():
     # if current_room == room2:
     counter = 20
     while True:
-        input_1 = input(
-            "Reihenfolge der Ventile eingeben (um weitere Hinweise zu suchen [zurück]): "
+        input_2 = input(
+            "Reihenfolge der Ventile eingeben (um evtl. weitere Hinweise zu suchen [zurück]): "
         )
-        if input_1 == "35124":
+        if (input_2 == "35124" or
+        input_2 == "3,5,1,2,4" or
+        input_2 == "3, 5, 1, 2, 4" or
+        input_2 == "III, V, I, II, IV" or
+        input_2 == "III,V,I,II,IV"):
             say(
                 """Das muss die richtige Reihenfolge gewesen sein. Doch die Ventile lassen sich nicht drehen. Du brauchst
                 irgendetwas, womit du mehr Kraft aufbringen kannst. Eine Art Hebel."""
             )
-            if inventory.find("brecheisen") is not None:
-                say(
-                    """Die Ventile lassen sich nun drehen. Doch was ist das!? Ein lautes Knarzen übertönt plötzlich das Warnsignal
-                    und alle Pumpen gehen wieder aus. Na toll…erneut hörst du eine Durchsage aus den Lautsprechern: „Noch 15
-                    Minuten bis zur Kernschmelze!“"""
-                )
-                time.sleep(4.0)
-                room2Ende()
-                return
-            else:
-                say("""Du benötigst einen Gegenstand um die Ventile zu drehen.""")
-                return
+            return
                 # TODO gehe wieder zu Raum 1
-        if input_1 == "zurück" or input_1 == "exit":
+        if input_2 == "zurück" or input_2 == "exit":
             return
         else:
             if counter > 15:
@@ -400,17 +471,21 @@ def zu_ventilen():
             print("Noch", counter, "Minuten bis zur Kernschmelze")
 
 
-def room2Ende():
-    say(
-        """Das Kühlsystem fällt komplett aus. Noch 15 Minuten bis zur Kernschmelze.
-    Der AKW Chef wacht wieder auf und teilt mir mit, dass der Haupt-Kontrollrechner
-    entschlüsselt werden muss um diesen wieder hochzufahren. Du kommst auf die
-    Idee einen Rechner zu suchen welcher noch nicht von der Ransomware befallen wurde.
-    Der Kraftwerks-Chef erwähnt ein 5G-Campusnetz, welches alle verfübaren Geräte im Netzwerk auflistet.
-    Um Zugriff auf das Campusnetz zu bekommen, muss man eine zugehörige SIM-Karte benutzen.
-    Er weiß aber nicht mehr wo genau die SIM-Karten gelagert werden."""
-    )
-    ueberleitung_room3()
+@when("brecheisen benutzen", context="room2")
+def brecheisen_benutzen2():
+    if inventory.find("brecheisen") is not None:
+        say(
+            """Die Ventile lassen sich nun drehen. Doch was ist das!? Ein lautes Knarzen übertönt plötzlich das Warnsignal
+            und alle Pumpen gehen wieder aus. Na toll…erneut hörst du eine Durchsage aus den Lautsprechern: „Noch 15
+            Minuten bis zur Kernschmelze!“"""
+        )
+        time.sleep(4.0)
+        ueberleitung_room3()
+    else:
+        say(
+            """Du hast leider kein Brecheisen dabei."""
+        )
+
 
 
 ################
@@ -437,6 +512,30 @@ türen = Bag(
 )
 
 
+def ueberleitung_room3():
+    time.sleep(6.0)
+    say(
+        """---------------------------------------------------------------------------------"""
+    )
+    say(
+        """Doch von dem lauten Geräusch scheint der Kraftwerk-Chef wieder
+    aufgewacht zu sein. Er kommt schweren Schrittes auf dich zugelaufen und
+    versucht dir winkend und mit letztem Atem keuchend mitzuteilen, dass die
+    Pumpen nur über den Haupt-Kontrollrechner gestartet werden können.\n
+    Du musst also unbedingt einen Weg finden, den Rechner zu entsperren. Doch wie
+    sollst du das bloß anstellen? Vielleicht sind noch nicht alle Rechner mit
+    der Ransomware infiziert. Du musst einen Rechner finden, der noch nicht
+    betroffen ist, vielleicht hilft dir das weiter.\n Herr Solar scheint einen
+    Gedankenblitz zu haben: „Wir haben neulich mit anderen Kraftwerken zusammen
+    ein 5G-Campusnetz aufgebaut, das alle verfügbaren Geräte in unserem Netzwerk
+    auflisten kann. Dazu braucht man nur eine passende SIM-Karte. Jedoch hab ich
+    leider vergessen, wo genau die SIM-Karten gelagert werden. Es muss irgendwo
+    hier drüben sein.“, sagt er und führt dich in einen langen, kargen Flur mit
+    sieben Türen."""
+    )
+    set_context("room3")
+
+
 @when("umschauen", context="room3")
 @when("schaue um", context="room3")
 @when("schau dich um", context="room3")
@@ -459,29 +558,6 @@ def look_around_room3():
     img = Image.open("doors.png")
     img.show()
 
-
-def ueberleitung_room3():
-    time.sleep(6.0)
-    say(
-        """---------------------------------------------------------------------------------"""
-    )
-    say(
-        """Doch von dem lauten Geräusch scheint der Kraftwerk-Chef wieder
-    aufgewacht zu sein. Er kommt schweren Schrittes auf dich zugelaufen und
-    versucht dir winkend und mit letztem Atem keuchend mitzuteilen, dass die
-    Pumpen nur über den Haupt-Kontrollrechner gestartet werden können.\n Du
-    musst also unbedingt einen Weg finden, den Rechner zu entsperren. Doch wie
-    sollst du das bloß anstellen? Vielleicht sind noch nicht alle Rechner mit
-    der Ransomware infiziert. Du musst einen Rechner finden, der noch nicht
-    betroffen ist, vielleicht hilft dir das weiter.\n Herr Solar scheint einen
-    Gedankenblitz zu haben: „Wir haben neulich mit anderen Kraftwerken zusammen
-    ein 5G-Campusnetz aufgebaut, das alle verfügbaren Geräte in unserem Netzwerk
-    auflisten kann. Dazu braucht man nur eine passende SIM-Karte. Jedoch hab ich
-    leider vergessen, wo genau die SIM-Karten gelagert werden. Es muss irgendwo
-    hier drüben sein.“, sagt er und führt dich in einen langen, kargen Flur mit
-    sieben Türen."""
-    )
-    set_context("room3")
 
 
 @when("pinnwand anschauen", context="room3")  # anschauen
@@ -573,7 +649,7 @@ def gehe_in_lagerraum():
     # TODO: andere Türen machen
     if türen.find("stern").status:
         say("""Du betrittst den Raum hinter der soeben geöffneten Tür.""")
-        ueberleitung_raum4()
+        ueberleitung_room4()
     else:
         say("""Die Tür ist noch geschlossen.""")
 
@@ -581,19 +657,7 @@ def gehe_in_lagerraum():
 #####################
 # RAUM 4: LAGERRAUM #
 #####################
-
-
-@when("umschauen", context="room4")
-@when("schau um", context="room4")
-@when("schau dich um", context="room4")
-def look_around_room4():
-    say(
-        """An der gegenüberliegenden Wand des Serverracks steht ein Lagerspind mit einem Zahlenschloss, das anscheinend bei der
-    letzten Benutzung nicht richtig verschlossen wurde."""
-    )
-
-
-def ueberleitung_raum4():
+def ueberleitung_room4():
     time.sleep(6.0)
     say(
         """---------------------------------------------------------------------------------"""
@@ -606,6 +670,17 @@ def ueberleitung_raum4():
     was dir weiterhelfen könnte."""
     )
     set_context("room4")
+
+
+@when("umschauen", context="room4")
+@when("schau um", context="room4")
+@when("schau dich um", context="room4")
+def look_around_room4():
+    say(
+        """An der gegenüberliegenden Wand des Serverracks steht ein Lagerspind mit einem Zahlenschloss, das anscheinend bei der
+    letzten Benutzung nicht richtig verschlossen wurde."""
+    )
+
 
 
 @when("oberes abteil angucken", context="room4")  # angucken
@@ -858,7 +933,7 @@ def raum4Ende():
 ################
 
 
-def ueberleitung_raum5():
+def ueberleitung_room5():
     time.sleep(6.0)
     say(
         """---------------------------------------------------------------------------------"""
@@ -924,6 +999,7 @@ def computer_entsperren():
             [command] --help    -   zeigt die Hilfeseite des Kommandos [command] an"""
 
     say(helpmessage)
+    global passwort_gefunden
     # what a terrible day to have eyes...lol
     while True:
         command = input(current_dir + " # ")
@@ -972,6 +1048,7 @@ def computer_entsperren():
                     time.sleep(5.0)
                     say("""Hash gefunden!""")
                     say("""[781c15abfae7bda64ba65728f73b2b3c] = [30JahreBSI1991!]""")
+                    passwort_gefunden = True
                 else:
                     say(
                         """Fehler: Datei enthält keine Hash-Werte. Haben Sie die
@@ -1003,6 +1080,8 @@ def computer_entsperren():
             )
 
     say("""Du verlässt die Kommandozeile""")
+    if (passwort_gefunden):
+        ueberleitung_room6()
 
 
 ########################
@@ -1010,7 +1089,7 @@ def computer_entsperren():
 ########################
 
 
-def ueberleitung_raum6():
+def ueberleitung_room6():
     time.sleep(6.0)
     say(
         """---------------------------------------------------------------------------------"""
@@ -1060,7 +1139,7 @@ def zettel_anschauen2():
 @when("mit brecheisen öffnen", context="room6")
 @when("brecheisen anwenden", context="room6")
 @when("brecheisen verwenden", context="room6")
-def brecheisen_benutzen2():
+def brecheisen_benutzen3():
     global klappe_offen
     klappe_offen = True
     say(
@@ -1094,8 +1173,8 @@ def tastatur_benutzen():
                 Du wendest dich wieder dem Kontrollrechner zu um dir den Status
                 der Firewall anzuschauen."""
                 )
-                global zugriff_computer
-                zugriff_computer = True
+                global kontrollrechner_entsperrt
+                kontrollrechner_entsperrt = True
                 return
             elif input_tastatur == "exit":
                 return
@@ -1111,7 +1190,7 @@ def tastatur_benutzen():
 @when("status der firewall anzeigen", context="room6")
 @when("firewall reparieren", context="room6")
 def firewall_schliessen():
-    if zugriff_computer:
+    if kontrollrechner_entsperrt:
         global firewall_gesehen
         firewall_gesehen = True
         print(
@@ -1242,7 +1321,3 @@ def debug2():
 
 ## start ###
 start()
-
-
-def no_command_matches(command):
-    print("Das habe ich nicht verstanden")
