@@ -9,11 +9,9 @@ import random
 from adventurelib import Room, when, say, start, Bag, Item, set_context
 import adventurelib
 import sys
-from room_1 import *
-from room_2 import *
 from room_4 import *
-from room_5 import *
-from room_6 import *
+from inventory import *
+
 
 tür_welle = Item("welle")  # 1
 tür_welle.status = False
@@ -65,8 +63,7 @@ def ueberleitung_room3():
 def look_around_room3():
     # umschauen in Raum 3
     say(
-        """Du stehst in einem langen Flur mit 7 Türen.
-        Auf jeder Tür ist ein Symbol: \n
+        """Auf jeder der sieben Türen ist jeweils ein Symbol: \n
         - Welle \n
         - Stern \n
         - Plus \n
@@ -74,7 +71,7 @@ def look_around_room3():
         - Dach \n
         - Minus \n
         - Dreieck \n
-        Einige Türen scheinen verschlossen zu sein, aber alle durchzuprobieren kostet zu viel Zeit.\n
+        Einige Türen scheinen verschlossen, andere offen zu sein, aber alle Räume zu durchsuchen kostet zu viel Zeit.\n
         An einer Pinnwand hängen Fotos von einem Firmenausflug.
         """
     )
@@ -92,9 +89,6 @@ def look_around_room3():
 @when("pinnwand betrachten", context="room3")  # betrachten
 @when("betrachte pinnwand", context="room3")
 def pinnwand_anschauen():
-    say(
-        """Auf der Pinnwand hängen 6 Fotos von den Mitarbeitern des AKWs bei verschiedenen deutschen Sehenswürdigkeiten"""
-    )
     pinnwand = Image.open("pinnwand.jpg")
     pinnwand.show()
 

@@ -9,11 +9,8 @@ import random
 from adventurelib import Room, when, say, start, Bag, Item, set_context
 import adventurelib
 import sys
-from room_1 import *
-from room_2 import *
-from room_3 import *
-from room_4 import *
-from room_5 import *
+from inventory import *
+
 
 #global vars
 klappe_offen = False

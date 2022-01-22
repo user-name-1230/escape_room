@@ -9,11 +9,9 @@ import random
 from adventurelib import Room, when, say, start, Bag, Item, set_context
 import adventurelib
 import sys
-from room_1 import *
-from room_2 import *
-from room_3 import *
 from room_5 import *
-from room_6 import *
+from inventory import *
+
 
 #global vars
 can_check_sim_slot = False

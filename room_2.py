@@ -14,6 +14,8 @@ from room_3 import *
 from room_4 import *
 from room_5 import *
 from room_6 import *
+from inventory import *
+
 
 def ueberleitung_room2():
     say(
@@ -105,9 +107,9 @@ def zu_ventilen():
 
 @when("brecheisen benutzen", context="room2")
 def brecheisen_benutzen2():
-    if escaperoom_main.inventory.find("brecheisen") is not None:
+    if inventory.find("brecheisen") is not None:
         say(
-            """Die Ventile lassen sich nun drehen. Doch was ist das!? Ein lautes Knarzen übertönt plötzlich das Warnsignal
+            """Mit dem Brecheisen als Hebel lassen sich die Ventile nun drehen. Doch was ist das!? Ein lautes Knarzen übertönt plötzlich das Warnsignal
             und alle Pumpen gehen wieder aus. Na toll…erneut hörst du eine Durchsage aus den Lautsprechern: „Noch 15
             Minuten bis zur Kernschmelze!“"""
         )

@@ -10,11 +10,7 @@ from adventurelib import Room, when, say, start, Bag, Item, set_context
 import adventurelib
 import sys
 from room_2 import *
-from room_3 import *
-from room_4 import *
-from room_5 import *
-from room_6 import *
-import escaperoom_main
+from inventory import *
 
 #global vars
 kontrollrechner_neugestartet = False
@@ -59,8 +55,9 @@ def look_around_room1():
 
 
 @when("sicherheitsausrüstung anschauen", context="room1")
+@when("ausrüstung anschauen", context="room1")
 def sicherheitsausruestung_anschauen():
-    if escaperoom_main.inventory.find("brecheisen") is None:
+    if inventory.find("brecheisen") is None:
         global sicherheitsausruestung_gesehen
         sicherheitsausruestung_gesehen = True
         say("""In der Sicherheitsausrüstung findest du ein Brecheisen.""")
@@ -84,9 +81,9 @@ def sicherheitsausruestung_anschauen():
 def brecheisen_nehmen():
     # Brecheisen in Raum 1 nehmen
     if sicherheitsausruestung_gesehen == True:
-        if "brecheisen" not in escaperoom_main.inventory:
+        if "brecheisen" not in inventory:
             say("""„Das könnte eventuell noch nützlich sein“, sagst du und packst das Brecheisen direkt ein.""")
-            escaperoom_main.inventory.add(crowbar)
+            inventory.add(crowbar)
         else:
             say("""Du hast das Brecheisen schon genommen.""")
     else:
@@ -106,7 +103,7 @@ def brecheisen_nehmen():
 @when("brechstange benutzen", context="room1")  # brechstange, nutzen
 @when("brechstange nutzen", context="room1")
 def brecheisen_benutzen():
-    if escaperoom_main.inventory.find("brecheisen") is None:
+    if inventory.find("brecheisen") is None:
         say("Du hast kein Brecheisen.")
     else:
         say(
