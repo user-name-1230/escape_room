@@ -30,6 +30,7 @@
 # Hinweis zum Lückentext
 # lower()
 from PIL import Image
+from termcolor import colored
 import time
 import random
 from adventurelib import Room, when, say, start, Bag, Item, set_context
@@ -43,7 +44,7 @@ from room_4 import *
 from room_5 import *
 from room_6 import *
 
-
+print(colored("Test", "red"))
 
 def no_command_matches(command):
     print(random.choice([
