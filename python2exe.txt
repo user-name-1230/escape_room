@@ -1,0 +1,11 @@
+Es gibt Möglichkeiten aus unserem Python Skript ein exe Datei zu erstellen. Dies würde es viel einfacher machen, unseren Exit Room zu spielen.
+
+Beispiele wären:
+
+- Erstellung auf Windows, lauffähig auf Windows
+https://datatofish.com/executable-pyinstaller/
+https://www.geeksforgeeks.org/convert-python-script-to-exe-file/
+
+- Erstellung auf Linux, lauffähig auf ???
+https://pypi.org/project/auto-py-to-exe/
+https://towardsdatascience.com/how-to-easily-convert-a-python-script-to-an-executable-file-exe-4966e253c7e9

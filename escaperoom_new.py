@@ -1,5 +1,4 @@
 # TODO
-# Personen vom Raum 1, Herr Solar und Fernsehteam
 # ??? Mehr Daten hinter Poster ????
 # Gespräche Schrader erweitern, als Hilfestellung
 # Tastatur am Kontrollrechner, noch keine Abfrage, ob Passwort schon eingeben wurde, dann zu Rätsel Firewall
@@ -15,6 +14,8 @@
 # Problem Leerzeile bei Ausgabe von benutze_reset_button und benutze_power_button, erfolgreicher PIN Eingabe, wenn das letzte Zeichen in der Zeile zu schmal ist, klappt wohl der automatische Umbruch nicht
 # Geschlecht Protagonist, gendern, so lassen oder neutral schreiben
 # Einbauen reden mit, aktuell nur Personen im Kontrollraum, soll das so bleiben? Würde den Code vereinfachen
+# als Gag [rede mit] Gegenständen einbauen?
+# gibt es überhaupt einen Raum 6?
 
 from PIL import Image
 import time
@@ -35,19 +36,21 @@ problem_gesichtsscan = False
 gesichtsscan_erfolgreich = False
 problem_smartphone_oeffnen = False
 herr_solar_wach = False
+hinweis_maschinenraum = False
+erstes_mal_raum2 = True
 
 
 ### allgemeine Befehle ### fuer jeden Raum
 
 def no_command_matches(command):
     print("Das habe ich nicht verstanden")
-    # das funktioinert leider nicht. Hinweise auf Befehl: [Hilfe] hinzufügen
+    # das funktioniert leider nicht. Hinweise auf Befehl: [Hilfe] hinzufügen
     # siehe https://adventurelib.readthedocs.io/en/stable/customising.html
 
 
 @when("hilfe")
 def zeige_befehle():
-    print("\nFolge Befehle sind möglich:\n[hilfe] [umschauen] [anschauen] [nehmen] [benutzen] [öffnen] [verwende mit]\n[Inventar] [Raum verlassen]\n\n[help] (sehr große Hilfe)\n[quit] (zum Beenden des Spiels)\n\nauf Groß- und Kleinschreibung wird keinen Wert gelegt ;-)\nAber dafür auf die genaue Schreibweise der Befehle und Objekte!")
+    print("\nFolge Befehle sind möglich:\n[hilfe] [umschauen] [anschauen] [nehmen] [benutzen] [öffnen] [verwende mit] [rede mit]\n[Inventar] [Raum verlassen]\n\n[help] (sehr große Hilfe)\n[quit] (zum Beenden des Spiels)\n\nauf Groß- und Kleinschreibung wird keinen Wert gelegt ;-)\nAber dafür auf die genaue Schreibweise der Befehle und Objekte!")
 # Befehle: umschauen anschauen nehmen benutzen öffnen 'verwende mit' Inventar help quit 'Raum verlassen'
 
 @when("nehmen", action = "nehmen")
@@ -68,31 +71,56 @@ def verwende_mit():
     print("Was möchtest du womit verwenden?")
     print("zB verwende Smartphone mit dir")
 
-
-@when("raum verlassen") ## aktuell nur Maschinenraum
+# gibt es einen Raum 6?
+@when("raum verlassen") ## aktuell nur Kontrollraum und Maschinenraum
 @when("verlasse raum")
 @when("verlassen raum")
 def raum_verlassen():
+    global erstes_mal_raum2
+    global hinweis_maschinenraum
     global room_number
     global sicherheitstuer_offen
     if (room_number == 1 and sicherheitstuer_offen == False):
         print("Die Tür ist verschlossen. Du kannst den Raum nicht verlassen")
     else:
-        print("Du hast folgende Möglichkeiten:")
-        print("(1) Kontrollraum")
         while 1:
+            print("Du hast folgende Möglichkeiten:")
+            print("(1) Kontrollraum")
+            if (hinweis_maschinenraum == True):
+                print("(2) Maschinenraum")
             wohin = input("Wohin? Bitte Nummer eingeben:")
-            if (wohin == "1"):
+            if (wohin == "1" or wohin == "2" or wohin == "3" or wohin == "4" or wohin == "5"):
                 break
             else:
                 print("dies ist kein Raum, bitte Nummer eingeben, zB 1")
         wohin = int (wohin)
         if (wohin == room_number):
             print("Du befindest dich schon in diesem Raum!")
+        elif (wohin == 1):
+            room_number = 1
+            set_context("room1")
+            say("""Du gehst in den Kontrollraum.""")
+            input("...")
+            look_around_room1()
+        elif (wohin == 2 and hinweis_maschinenraum == True):
+            room_number = 2
+            set_context("room2")
+            if (inventory.find("foto_herr_solar") is not None):
+                print("Aus Gründen des Datenschutzes löschst du das Foto von Herrn Solar.")
+                inventory.take("foto_herr_solar")
+                input("...")
+            # Überleitungen Raum 2 beim ersten Besuch
+            if (erstes_mal_raum2 == True):
+                erstes_mal_raum2 = False
+                ueberleitung_room2()
+            else:
+                say("""Du gehst in den Maschinenraum.""")
+            input("...")
+            look_around_room2()
+# weitere elif für die anderen Räume einfügen, bitte mit Bedingung, damit man nicht vorwärts springen kann
         else:
-            print("Du gehst in den Raum")
-            room_number = wohin
-# umschauen einbauen, als Hinweis in welchem Raum jetzt
+            print("Vorwärtsspringen ist leider nicht erlaubt ;-)")
+
 
 ### Inventar ###
 # Liste möglicher Items (Bezeichnung bei Inventaraufruf, Aliase für den internen Zugriff)
@@ -159,12 +187,23 @@ def verwende_smartphone():
     print("Womit möchtest du das Smartphone verwenden")
     print("zB verwende Smartphone mit dir")
 
-@when("selfie")
-@when("verwende mit smartphone dir")
-@when("verwende smartphone mit dir")
-def verwende_smartphone_mit_dir():
-    print("Du machst ein Selfie von dir.")
-
+@when("benutze smartphone mit OBJEKT")
+@when("verwende smartphone mit OBJEKT")
+def verwende_smartphone(objekt):
+    global sicherheitstuer_offen
+    global problem_gesichtsscan
+    if (objekt == "dir"):
+        say("""Du machst ein Selfie von dir. Dir gefällt es nicht und somit löschst du es gleich wieder.""")
+    elif (objekt == "herr solar"):
+        if (sicherheitstuer_offen == True or problem_gesichtsscan == False):
+            print("Du brauchst kein Foto von ihm!")
+        elif (inventory.find("foto_herr_solar") is None):
+            say("""Du machst ein Foto von Herrn Solars Gesicht. Mal sehen, ob das funktioniert.""")
+            inventory.add(foto_herr_solar)
+        else:
+            say("""Du hast schon ein Foto von ihm.""")
+    else:
+        say("""Du darfst hier keine Fotos machen, dies ist ein Sicherheitsbereich!""")
 
 
 
@@ -219,11 +258,11 @@ def look_around_room1():
     global sicherheitstuer_offen
     global ransomware_passwort_eingegeben
     if (sicherheitstuer_offen == False):
-        say("""Du befindest dich nun im Kontrollraum. Die Menge an Schaltern, Hebeln und erschlägt dich fast, dazwischen erblickst du ein [Poster] an der Wand. Du siehst den [Kontrollrechner], [Sicherheitsausrüstung] in der Ecke und die verschlossene [Sicherheitstür]. Des Weiteren erblickst du [Ministerin Schrader], die den ohnmächtigen [Herr Solar] in die stabile Seitenlage gebracht hat, und in einer weiteren Ecke das [Fernsehteam].""")
+        say("""Du befindest dich nun im Kontrollraum. Die Menge an Schaltern, Hebeln und erschlägt dich fast, dazwischen erblickst du ein [Poster] an der Wand. Du siehst den [Kontrollrechner], eine [Sicherheitsausrüstung] in der Ecke und die verschlossene [Sicherheitstür]. Des Weiteren erblickst du [Ministerin Schrader], die den ohnmächtigen [Herr Solar] in die stabile Seitenlage gebracht hat, und in einer weiteren Ecke das [Fernsehteam].""")
     elif (ransomware_passwort_eingegeben == False):
-        say("""Du befindest dich nun im Kontrollraum. Die Menge an Schaltern, Hebeln und erschlägt dich fast, dazwischen erblickst du ein [Poster] an der Wand. Du siehst den [Kontrollrechner], [Sicherheitsausrüstung] in der Ecke und die offene [Sicherheitstür]. Des Weiteren erblickst du [Ministerin Schrader], die den ohnmächtigen [Herr Solar] in die stabile Seitenlage gebracht hat, und in einer weiteren Ecke das [Fernsehteam].""")
+        say("""Du befindest dich nun im Kontrollraum. Die Menge an Schaltern, Hebeln und erschlägt dich fast, dazwischen erblickst du ein [Poster] an der Wand. Du siehst den [Kontrollrechner], eine [Sicherheitsausrüstung] in der Ecke und die offene [Sicherheitstür]. Des Weiteren erblickst du [Ministerin Schrader], die den ohnmächtigen [Herr Solar] in die stabile Seitenlage gebracht hat, und in einer weiteren Ecke das [Fernsehteam].""")
     else:
-        say("""Du befindest dich nun im Kontrollraum. Die Menge an Schaltern, Hebeln und erschlägt dich fast, dazwischen erblickst du ein [Poster] an der Wand. Du siehst den [Kontrollrechner], bei dem ein [Zettel] auf der Rückseite des Terminals klebt, [Sicherheitsausrüstung] in der Ecke und die offene [Sicherheitstür]. Des Weiteren erblickst du [Ministerin Schrader], die den ohnmächtigen [Herr Solar] in die stabile Seitenlage gebracht hat, und in einer weiteren Ecke das [Fernsehteam].""")
+        say("""Du befindest dich nun im Kontrollraum. Die Menge an Schaltern, Hebeln und erschlägt dich fast, dazwischen erblickst du ein [Poster] an der Wand. Du siehst den [Kontrollrechner], bei dem ein [Zettel] auf der Rückseite des Terminals klebt, eine [Sicherheitsausrüstung] in der Ecke und die offene [Sicherheitstür]. Des Weiteren erblickst du [Ministerin Schrader], die den ohnmächtigen [Herr Solar] in die stabile Seitenlage gebracht hat, und in einer weiteren Ecke das [Fernsehteam].""")
 
 ### Gegenstände Raum 1 ###
 
@@ -724,7 +763,7 @@ def benutze_kamera():
     elif (gesichtsscan_erfolgreich == True):
         print("Das Gesichtsscan war erfolgreich. Ich sollte den PIN auf dem Tastenfeld eingeben.")
     elif (gesichtsscan_erforderlich == False):
-        print("Wozu soll ich die Kamera benutzen?")
+        print("Die Kamera ist scheinbar nicht aktiviert.")
     else:
         while 1:
             print("Du hast folgende Optionen. Bitte Nummer wählen:")
@@ -738,7 +777,7 @@ def benutze_kamera():
                 gesichtsscan_erforderlich = False
                 break
             if (option == "1"):
-                print("Fehler: Gesicht unbekannt.")
+                print("Fehler: Gesicht unbekannt. Vorgang wird abgebrochen!")
                 problem_gesichtsscan = True
                 gesichtsscan_erforderlich = False
                 print("Wessen Gesicht könnte wohl im System hinterlegt sein?")
@@ -820,8 +859,8 @@ def rede_schrader():
     global problem_smartphone_oeffnen
     print("Du beginnst ein Gespräch mit [Ministerin Schrader]")
     while 1:
-            print("Du hast folgende Optionen:")
-            print("- Über [nichts] reden")
+            print("\nDu hast folgende Optionen:")
+            print("- Über [nichts] reden (Gespräch beenden)")
             if (sicherheitstuer_offen == False and problem_gesichtsscan == True and gesichtsscan_erfolgreich == False):
                 print("- [Gesichtsscan]")
             if (sicherheitstuer_offen == False and gesichtsscan_erfolgreich == True):
@@ -832,21 +871,17 @@ def rede_schrader():
                 print("- [Haarnadel]")
             option = input("")
             if (option == "nichts"):
-                say("""Du möchtest nicht reden. Dann vielleicht ein anderes Mal.""")
+                say("""Du möchtest nicht weiter reden. Dann vielleicht ein anderes Mal.""")
                 break
             if (option == "gesichtsscan"):
                 say("""Vielleicht kann man dieses uralte System mit einem Präsentationsangriff (Foto) überlisten?""")
-                break
             if (option == "pin"):
                 say("""Den PIN von Herrn Solar weiß ich auch nicht. Aber meistens wird ja eine Zahlenkombination benutzt, die man nicht vergisst, wie ein Geburtstag.""")
-                break
             if (option == "ransomware"):
                 say("""Wie kann man nur ein AKW überfallen und Lösegeld verlangen? Haben die nicht an die Folgen gedacht??? Vielleicht ist die Ransomeware nicht persistent und liegt nur im RAM. Dann würde eine Neustart des Computers helfen.""")
-                break
             if (option == "haarnadel"):
                 say("""Du fragst sie, ob du dir ihre Haarnadel kurz ausleihen kannst. Sie nickt aufgeregt und übergibt sie dir schnell.""")
                 inventory.add(haarnadel)
-                break
 # weitere Hilfen einbauen, wenn man nicht weiter kommt.
 
 # Herr Solar anschauen nehmen benutzen/reden öffnen, kein verwende mit
@@ -905,23 +940,90 @@ def rede_solar():
     else:
         print("Du beginnst ein Gespräch mit [Herr Solar]")
         while 1:
-            print("Du hast folgende Optionen:")
-            print("- Über [nichts] reden")
+            print("\nDu hast folgende Optionen:")
+            print("- Über [nichts] reden (Gespräch beenden)")
             if (wartungsklappe_offen == False):
                 print("- [Bedienung] Kontrollrechner ohne Eingabegerät")
             option = input("")
             if (option == "nichts"):
-                say("""Du möchtest nicht reden. Dann vielleicht ein anderes Mal.""")
+                say("""Du möchtest nicht weiter reden. Dann vielleicht ein anderes Mal.""")
                 break
             if (option == "bedienung"):
-                say("""Du fragst ihn, wie denn der [Kontrollrechner] bedient wird, so ganz ohne Eingabegeräte. Er weiß es leider auch nicht. Dafür erinnert er sich an ein Gespräche mit dem Bediener. Dieser hatte über Knieschmerzen geklagt, weil er immer unter das Terminal vom Kontrollrechner kriechen musste.""")
+                say("""Du fragst ihn, wie denn der [Kontrollrechner] bedient wird, so ganz ohne Eingabegeräte. Er weiß es leider auch nicht. Dafür erinnert er sich an ein Gespräche mit dem Bediener. Dieser hatte über Knieschmerzen geklagt, weil er immer unter das Terminal vom Kontrollrechner kriechen musste, wenn der Touchscreen ausfiel.""")
                 hinweis_wartungsklappe = True
+
+# Fernsehteam anschauen nehmen benutzen/reden öffnen, kein verwende mit
+# Hinweis Scooter
+# Hinweis Maschinenraum
+
+@when("fernsehteam anschauen", context="room1")
+@when("schaue fernsehteam an", context="room1")
+@when("fernsehteam", context="room1")
+def zeige_fernsehteam():
+    print("In der steht das Fernsehteam gelangweilt herum. Du kannst mit ihnen [reden].")
+
+@when("fernsehteam nehmen", action = "nehmen", context="room1")
+@when("nimm fernsehteam", action = "nehmen", context="room1")
+@when("nehmen fernsehteam", action = "nehmen", context="room1")
+@when("nehme fernsehteam", action = "nehmen", context="room1")
+@when("fernsehteam öffnen", action = "öffnen", context="room1")
+@when("öffnen fernsehteam", action = "öffnen", context="room1")
+@when("öffne fernsehteam", action = "öffnen", context="room1")
+def fernsehteam(action):
+    print(f"Du kannst das [Fernsehteam] nicht {action}!")
+
+@when("fernsehteam reden", context="room1")
+@when("rede fernsehteam", context="room1")
+@when("rede mit fernsehteam", context="room1")
+@when("reden fernsehteam", context="room1")
+@when("fernsehteam benutzen", context="room1")
+@when("benutze fernsehteam", context="room1")
+@when("benutzen fernsehteam", context="room1")
+def rede_fernsehteam():
+    global kontrollrechner_neugestartet
+    global sicherheitstuer_offen
+    global hinweis_maschinenraum
+    print("Du beginnst ein Gespräch mit dem [Fernsehteam]")
+    while 1:
+            print("\nDu hast folgende Optionen:")
+            print("- Über [nichts] reden (Gespräch beenden)")
+            if (sicherheitstuer_offen == False):
+                print("- Herr [Solar]")
+            if (kontrollrechner_neugestartet == True and hinweis_maschinenraum == False):
+                print("- Problem mit den [Pumpen]")
+            option = input("")
+            if (option == "nichts"):
+                say("""Du möchtest nicht weiter reden. Dann vielleicht ein anderes Mal.""")
                 break
-
-
-
+            if (option == "solar"):
+                say("""Ihr kommt ins Gespräch über den AKW Chef. Das Team hat auf dem Weg durch das Kraftwerk lange mit ihm gesprochen. Dabei hat er viel von Sooter erzählt und das er wohl deren größter Fan ist, was ja auch kein Wunder ist. Denn er ist am gleichen Tag geboren wie deren Frontmann.""")
+            if (option == "pumpen"):
+                say("""Du fragst nach einer Idee, wie man die Pumpen wieder starten könnte. Ein Neustart des Kontrollrechners hat leider nicht funktioniert. Dieser zeigt immer noch nur die Erpresserbotschaft an. Das Team hat schon viel gedreht und viele Filme geschaut. Im Film wird meist im Notfall in den Maschinenraum gegangen und alles von Hand gesteuert.""")
+                say(""""Gute Idee" denkst du, auf zum Maschinenraum!""")
+                hinweis_maschinenraum = True
 
 ### Ende Raum 1 ####
+
+#########################
+# RAUM 2: MASCHINENRAUM #
+#########################
+@when("umschauen", context="room2")
+@when("schaue um", context="room2")
+@when("schau dich um", context="room2")
+def look_around_room2():
+    say("""Du befindest dich im Maschinenraum und entdeckst die Pumpenventile der riesigen Kühlpumpen und einen Zettel auf einem Tisch in der Nähe. Die Ventile scheinen beschriftet zu sein. Bestimmt muss eine Reihenfolge eingehalten werden.""")
+
+def ueberleitung_room2():
+    say("""---------------------------------------------------------------------------------""")
+    say("""Sehr gut. Du konntest die Sicherheitstür öffnen und rennst so schnell du kannst los. Dabei folgst du stur dem Warnsignal, welches dich direkt zum Maschinenraum führt, während es immer lauter wird.""")
+    input("...")
+    say("""Beim Betreten des Raums nimmst du eine Durchsage einer Computerstimme aus den Lautsprechern wahr: „Noch 20 Minuten bis zur Kernschmelze!“ Die vielen blinkenden Lichter vor Ort werden alle von dem immer noch rot-pulsierenden Licht überdeckt. Das laute Brummen der großen Maschinen ist ohrenbetäubend. Mittig im Raum stehen 5 riesige Pumpen. „Das müssen sie sein!“ Vorsichtshalber ziehst du das Netzwerkkabel des Kontrollrechners des Kühlsystems. Die Hacker dürften jetzt wenigstens keinen Zugriff mehr darauf haben. Was nun?""")
+    say("""""")
+
+
+
+
+
 
 ### Ende der Raume ### nun nur noch Debug und der Start-Aufruf
 
