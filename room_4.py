@@ -20,16 +20,13 @@ can_use_pin = False
 
 def ueberleitung_room4():
     time.sleep(6.0)
-    say(
-        """---------------------------------------------------------------------------------"""
-    )
-    say(
-        """Du scheinst in eine Art Lagerraum gekommen zu sein mit allerlei
+    say(colored("""---------------------------------------------------------------------------------""", "yellow"))
+    say(colored("""Du scheinst in eine Art Lagerraum gekommen zu sein mit allerlei
         technischen Geräten, die ihre beste Zeit hinter sich haben. In der Ecke
         steht ein leeres Serverrack und daneben eine Werkzeugtasche, die allerdings
         nur nutzlose Werkzeuge enthält. Mal sehen, was du noch so entdecken kannst,
-        was dir weiterhelfen könnte."""
-    )
+        was dir weiterhelfen könnte.""", "yellow"
+    ))
     set_context("room4")
 
 
@@ -37,54 +34,54 @@ def ueberleitung_room4():
 @when("schau um", context="room4")
 @when("schau dich um", context="room4")
 def look_around_room4():
-    say(
-        """An der gegenüberliegenden Wand des Serverracks steht ein Lagerspind mit einem Zahlenschloss, das anscheinend bei der
-        letzten Benutzung nicht richtig verschlossen wurde."""
-    )
+    say(colored("""An der gegenüberliegenden Wand des Serverracks steht ein
+        Lagerspind mit einem Zahlenschloss, das anscheinend bei der letzten
+        Benutzung nicht richtig verschlossen wurde.""", "yellow"
+    ))
 
 
 
-@when("oberes abteil angucken", context="room4")  # angucken
-@when("gucke oberes abteil an", context="room4")
-@when("guck oberes abteil an", context="room4")
-@when("abteil oben angucken", context="room4")
-@when("oberes abteil anschauen", context="room4")  # anschauen
-@when("schaue oberes abteil an", context="room4")
-@when("schau oberes abteil an", context="room4")
-@when("abteil oben anschauen", context="room4")
-@when("abteil oben betrachten", context="room4")  # betrachten
-@when("betrachte oberes abteil", context="room4")
-def oberes_abteil():
-    print("oberes abteil beschreibung")
-
-
-@when("mittleres abteil angucken", context="room4")  # angucken
-@when("gucke mittleres abteil an", context="room4")
-@when("guck mittleres abteil an", context="room4")
-@when("abteil mitte angucken", context="room4")
-@when("abteil in der mitte angucken", context="room4")
-@when("mittleres abteil anschauen", context="room4")  # anschauen
-@when("schaue mittleres abteil an", context="room4")
-@when("schau mittleres abteil an", context="room4")
-@when("abteil mitte anschauen", context="room4")
-@when("abteil in der mitte anschauen", context="room4")
-@when("abteil mitte betrachten", context="room4")  # betrachten
-@when("abteil in der mitte betrachten", context="room4")
-@when("betrachte mittleres abteil", context="room4")
-def mittleres_abteil():
-    print("mittleres abteil beschreibung")
-
-
-@when("unteres abteil angucken", context="room4")  # angucken
-@when("gucke unteres abteil an", context="room4")
-@when("abteil unten angucken", context="room4")
-@when("unteres abteil anschauen", context="room4")  # anschauen
-@when("schaue unteres abteil an", context="room4")
-@when("abteil unten anschauen", context="room4")
-@when("abteil unten betrachten", context="room4")  # betrachten
-@when("betrachte unteres abteil", context="room4")
-def unteres_abteil():
-    print("unteres abteil beschreibung")
+# @when("oberes abteil angucken", context="room4")  # angucken
+# @when("gucke oberes abteil an", context="room4")
+# @when("guck oberes abteil an", context="room4")
+# @when("abteil oben angucken", context="room4")
+# @when("oberes abteil anschauen", context="room4")  # anschauen
+# @when("schaue oberes abteil an", context="room4")
+# @when("schau oberes abteil an", context="room4")
+# @when("abteil oben anschauen", context="room4")
+# @when("abteil oben betrachten", context="room4")  # betrachten
+# @when("betrachte oberes abteil", context="room4")
+# def oberes_abteil():
+#     print("oberes abteil beschreibung")
+#
+#
+# @when("mittleres abteil angucken", context="room4")  # angucken
+# @when("gucke mittleres abteil an", context="room4")
+# @when("guck mittleres abteil an", context="room4")
+# @when("abteil mitte angucken", context="room4")
+# @when("abteil in der mitte angucken", context="room4")
+# @when("mittleres abteil anschauen", context="room4")  # anschauen
+# @when("schaue mittleres abteil an", context="room4")
+# @when("schau mittleres abteil an", context="room4")
+# @when("abteil mitte anschauen", context="room4")
+# @when("abteil in der mitte anschauen", context="room4")
+# @when("abteil mitte betrachten", context="room4")  # betrachten
+# @when("abteil in der mitte betrachten", context="room4")
+# @when("betrachte mittleres abteil", context="room4")
+# def mittleres_abteil():
+#     print("mittleres abteil beschreibung")
+#
+#
+# @when("unteres abteil angucken", context="room4")  # angucken
+# @when("gucke unteres abteil an", context="room4")
+# @when("abteil unten angucken", context="room4")
+# @when("unteres abteil anschauen", context="room4")  # anschauen
+# @when("schaue unteres abteil an", context="room4")
+# @when("abteil unten anschauen", context="room4")
+# @when("abteil unten betrachten", context="room4")  # betrachten
+# @when("betrachte unteres abteil", context="room4")
+# def unteres_abteil():
+#     print("unteres abteil beschreibung")
 
 
 @when("rechner anmachen", context="room4")  # rechner, anmachen
@@ -120,12 +117,13 @@ def werkzeugkiste_oeffnen():
 def spind_oeffnen():
     global sim_schrank_offen
     sim_schrank_offen = True
-    say(
-        """Du öffnest den Spind und schaust dir den Inhalt genau an. Zuerst siehst du nur alte Ersatzteile für Computer.
-        RAM,Lüfter, Netzteile, alte Festplatten und so weiter. Doch dann sticht dir ein kleiner Karton mit der Aufschrift „SIM-Karten“
-        ins Auge. \n
-        An der Innenseite der Spindtür entdeckst du einen QR-Code. Ob der wohl was damit zu tun hat? """
-    )
+    say(colored("""Du öffnest den Spind und schaust dir den Inhalt genau an.
+        Zuerst siehst du nur alte Ersatzteile für Computer. RAM, Lüfter,
+        Netzteile, alte Festplatten und so weiter. Doch dann sticht dir ein
+        kleiner Karton mit der Aufschrift „SIM-Karten“ ins Auge. \n
+        An der Innenseite der Spindtür entdeckst du einen QR-Code. Ob der wohl
+        was damit zu tun hat? """, "yellow"
+    ))
 
 
 @when("sim karte nehmen", context="room4")  # nehmen
@@ -146,11 +144,11 @@ def sim_karte_nehmen():
     if not sim_schrank_offen:
         print("nicht offen")
     if sim_schrank_offen:
-        say(
-            """Du nimmst dir eine Karte aus dem Karton. „Verdammt…wie soll ich denn jetzt den SIM-Slot an meinem Handy öffnen?“,
-            fragst du dich.\n
-            Du hörst schnelle Schritte auf dem Gang. Die Ministerin und das Fernsehteam betreten den Raum."""
-        )
+        say(colored("""Du nimmst dir eine Karte aus dem Karton. „Verdammt...wie
+            soll ich denn jetzt den SIM-Slot an meinem Handy öffnen?“, fragst du dich.\n
+            Du hörst schnelle Schritte auf dem Gang. Die Ministerin und das
+            Fernsehteam betreten den Raum.""", "yellow"
+        ))
         inventory.add(sim)
 
 
@@ -196,10 +194,10 @@ def sim_slot_oeffnen():
     if can_check_sim_slot:
         if inventory.find("simkarte") is not None:
             if inventory.find("haarnadel") is not None:
-                say(
-                    """Zum Glück ist die Nadel dünn genug, um den SIM-Slot zu öffnen. Du legst die SIM-Karte in dein Handy ein,
-                    worauf die Aufforderung „SIM-PIN eingeben“ angezeigt wird."""
-                )
+                say(colored("""Zum Glück ist die Nadel dünn genug, um den
+                    SIM-Slot zu öffnen. Du legst die SIM-Karte in dein Handy ein,
+                    worauf die Aufforderung „SIM-PIN eingeben“ angezeigt wird.""", "yellow"
+                ))
                 global can_use_pin
                 can_use_pin = True
             else:
@@ -213,10 +211,10 @@ def sim_slot_oeffnen():
 @when("schrader nach haarnadel fragen", context="room4")
 @when("frage schrader nach haarnadel", context="room4")
 def schrader_haarnadel():
-    say(
-        """Dir fällt sofort die feine Haarnadel der Ministerin ins Auge. Du fragst sie, ob du dir ihre Haarnadel kurz ausleihen
-        kannst. Sie nickt aufgeregt und übergibt sie dir schnell."""
-    )
+    say(colored("""Dir fällt sofort die feine Haarnadel der Ministerin ins Auge.
+        Du fragst sie, ob du dir ihre Haarnadel kurz ausleihen kannst. Sie nickt
+        aufgeregt und übergibt sie dir schnell.""", "yellow"
+    ))
     inventory.add(hairpin)
 
 
@@ -259,14 +257,17 @@ def show_qr():
 @when("benutz den pin", context="room4")
 def pin_eingeben():
     if can_use_pin:
-        say(
-            """Sehr gut. Du hast es geschafft, die SIM-Karte zu entsperren. Auf deinem Smartphone-Display erscheint direkt das
-            Dashboard der Intranet-Seite des Kraftwerks. In einer Liste am Rand werden alle Computer im Netzwerk angezeigt. Das sieht
-            schlecht aus. Alle PCs sind mit einem Schloss-Symbol versehen. Das kann nichts Gutes bedeuten. Du scrollst durch die
-            Liste. Doch was ist das? Kurz vor Ende der Liste ist tatsächlich noch ein PC aufgeführt, der noch nicht mit einem Schloss
-            Symbol versehen ist. Das ist es! Du klickst darauf, um dir mehr Details ansehen zu können. Dabei steht sogar eine
-            Raumnummer. „Ich kann Sie dort hinführen!“, sagt der Kraftwerkchef aufgeregt."""
-        )
+        say(colored("""Sehr gut. Du hast es geschafft, die SIM-Karte zu entsperren.
+            Auf deinem Smartphone-Display erscheint direkt das Dashboard der
+            Intranet-Seite des Kraftwerks. In einer Liste am Rand werden alle
+            Computer im Netzwerk angezeigt. Das sieht schlecht aus. Alle PCs
+            sind mit einem Schloss-Symbol versehen. Das kann nichts Gutes bedeuten.
+            Du scrollst durch die Liste. Doch was ist das? Kurz vor Ende der Liste
+            ist tatsächlich noch ein PC aufgeführt, der noch nicht mit einem Schloss
+            Symbol versehen ist. Das ist es! Du klickst darauf, um dir mehr Details
+            ansehen zu können. Dabei steht sogar eine Raumnummer. „Ich kann Sie
+            dort hinführen!“, sagt der Kraftwerkchef aufgeregt.""", "yellow"
+        ))
         hamming_code()
     else:
         print("SIM karte noch nicht hinzugefügt")
@@ -284,6 +285,6 @@ def hamming_code():
 
 
 def raum4Ende():
-    say("""Hier kommt eine Überleitung zu Raum 5""")
+    say(colored("""Hier kommt eine Überleitung zu Raum 5""", "yellow"))
     # TODO
     set_context("room5")

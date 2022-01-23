@@ -208,25 +208,22 @@ def poster_anschauen():
 @when("zahl eingeben", context="room1")
 def pin_eingeben():
     while True:
-        input_1 = input("PIN eingeben ([exit] um abzubrechen): ")
+        input_1 = input(colored("PIN eingeben ([exit] um abzubrechen): ", "grey", "on_green"))
         if (input_1 == "210364"):
-            say(colored("""PIN wird überprüft...\n
-                """, "yellow"
-            ))
+            say(colored("""PIN wird überprüft...""", "grey", "on_green"))
+            say("""""")
             time.sleep(3.0)
-            say(colored("""PIN korrekt!\n
-                Zugriff gewährt!""", "yellow"
-            ))
+            say(colored("""PIN korrekt!""", "grey", "on_green"))
+            say(colored("""Zugriff gewährt!""", "grey", "on_green"))
             time.sleep(2.0)
             ueberleitung_room2()
             return
         elif (input_1 == "exit"):
             return
         else:
-            say(colored("""PIN wird überprüft...\n
-                """, "yellow"
-            ))
+            say(colored("""PIN wird überprüft...""", "grey", "on_green"))
+            say("""""")
             time.sleep(3.0)
-            say(colored("""PIN falsch!\n
-                Zugriff verweigert!""", "yellow"
-            ))
+            say(colored("""PIN falsch!""", "grey", "on_green"))
+            say(colored("""Zugriff verweigert!""", "grey", "on_green"))
+            say("""""")

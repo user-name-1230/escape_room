@@ -34,11 +34,8 @@ türen = Bag(
 
 def ueberleitung_room3():
     time.sleep(6.0)
-    say(
-        """---------------------------------------------------------------------------------"""
-    )
-    say(
-        """Doch von dem lauten Geräusch scheint der Kraftwerk-Chef wieder
+    say(colored("""---------------------------------------------------------------------------------""", "yellow"))
+    say(colored("""Doch von dem lauten Geräusch scheint der Kraftwerk-Chef wieder
         aufgewacht zu sein. Er kommt schweren Schrittes auf dich zugelaufen und
         versucht dir winkend und mit letztem Atem keuchend mitzuteilen, dass die
         Pumpen nur über den Haupt-Kontrollrechner gestartet werden können.\n
@@ -51,8 +48,7 @@ def ueberleitung_room3():
         auflisten kann. Dazu braucht man nur eine passende SIM-Karte. Jedoch hab ich
         leider vergessen, wo genau die SIM-Karten gelagert werden. Es muss irgendwo
         hier drüben sein.“, sagt er und führt dich in einen langen, kargen Flur mit
-        sieben Türen."""
-    )
+        sieben Türen.""", "yellow"))
     set_context("room3")
 
 
@@ -61,10 +57,8 @@ def ueberleitung_room3():
 @when("schau dich um", context="room3")
 def look_around_room3():
     # umschauen in Raum 3
-    say(
-        """Auf den Türen entdeckst du seltsame Symbole. Was die wohl zu bedeuten
-        haben? An der Wand hängt außerdem eine Pinnwand mit Fotos."""
-    )
+    say(colored("""Auf den Türen entdeckst du seltsame Symbole. Was die wohl zu bedeuten
+        haben? An der Wand hängt außerdem eine Pinnwand mit Fotos.""", "yellow"))
 
 
 
@@ -100,18 +94,9 @@ def pinnwand_anschauen():
 @when("symbole anschauen", context="room3")
 @when("schaue symbole an", context="room3")
 def tueren_anschauen():
-    say(
-        """Auf jeder der sieben Türen ist jeweils ein Symbol: \n
-        - Welle \n
-        - Stern \n
-        - Plus \n
-        - Fünfeck \n
-        - Dach \n
-        - Minus \n
-        - Dreieck \n
+    say(colored("""Auf jeder der sieben Türen ist jeweils ein Symbol. \n
         Einige der Türen scheinen verschlossen, andere offen zu sein, aber alle
-        Räume zu durchsuchen kostet zu viel Zeit."""
-    )
+        Räume zu durchsuchen kostet zu viel Zeit.""", "yellow"))
     img = Image.open("doors.png")
     img.show()
 
@@ -129,33 +114,29 @@ def tueren_anschauen():
 @when("betrete raum mit FORM", context="room3") # betreten
 def tuer_oeffnen(form):
     if türen.find(form) is None:
-        say("""Eine Tür mit diesem Symbol gibt es nicht.""")
+        say(colored("""Eine Tür mit diesem Symbol gibt es nicht.""", "yellow"))
     elif form == "stern":
         #türen.find("stern").status = True
-        say(
-            """Du versuchst, die Tür mit dem Stern zu öffnen.\n
+        say(colored("""Du versuchst, die Tür mit dem Stern zu öffnen.\n
             Die Tür ist verschlossen, du siehst allerdings, dass der Schlüssel steckt.
-            Du schließt die Tür auf und betrittst den Raum."""
-        )
+            Du schließt die Tür auf und betrittst den Raum.""", "yellow"))
         ueberleitung_room4()
     elif türen.find(form).closed == True:
-        say(
+        say(colored(
             f"""Du versuchst, die Tür mit der Form {form} zu öffnen.\n
-            Das scheint die falsche Tür zu sein. Leider lässt sie sich nicht öffnen."""
-        )
+            Das scheint die falsche Tür zu sein. Leider lässt sie sich nicht öffnen.""", "yellow"))
     elif türen.find(form).closed == False:
-        say(
+        say(colored(
             f"""Du versuchst, die Tür mit der Form {form} zu öffnen.\n
             Die Tür ist offen. Du schaust dich im Raum um, doch kannst nichts
-            entdecken, was dir irgendwie weiterhilft. Schade...du hast wertvolle Zeit verloren."""
-        )
+            entdecken, was dir irgendwie weiterhilft. Schade...du hast wertvolle Zeit verloren.""", "yellow"))
         # TODO verschlossene Türen und leere Räume
 
 
 @when("öffne tür", context="room3")
 @when("tür öffnen", context="room3")
 def tuer_oeffnen_unklar():
-    say("""Ich weiß nicht, welche Tür du meinst""")
+    say(colored("""Ich weiß nicht, welche Tür du meinst""", "yellow"))
 
 
 # @when("gehe in den raum", context="room3")  # gehe,raum
@@ -179,7 +160,7 @@ def tuer_oeffnen_unklar():
 # def gehe_in_lagerraum():
 #     # TODO: andere Türen machen
 #     if türen.find("stern").status:
-#         say("""Du betrittst den Raum hinter der soeben geöffneten Tür.""")
+#         say(colored("""Du betrittst den Raum hinter der soeben geöffneten Tür.""", "yellow"))
 #         ueberleitung_room4()
 #     else:
-#         say("""Die Tür ist noch geschlossen.""")
+#         say(colored("""Die Tür ist noch geschlossen.""", "yellow"))
