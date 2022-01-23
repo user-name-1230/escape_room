@@ -1,4 +1,4 @@
-from adventurelib import Room, when, say, start, Bag, Item, set_context
+from adventurelib import when, Bag, Item
 
 # Inventar #
 crowbar = Item("brecheisen")

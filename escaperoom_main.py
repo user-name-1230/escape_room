@@ -124,10 +124,8 @@ ueberleitung_room1()
 
 
 @when("debugraum")
-def debug():
-    print("RAUMNAMEN GENAU EINGEBEN!")
-    print("1,2,3,4,5,6")
-    debug_input = input("In welchen Raum springen? ")
+def debug_room():
+    debug_input = input("In welchen Raum möchten Sie springen [1, 2, 3, 4, 5, 6]: ")
     if debug_input == "1":
         set_context("room1")
     elif debug_input == "2":
@@ -143,10 +141,8 @@ def debug():
 
 
 @when("debugitem")
-def debug2():
-    print("ITEMNAMEN GENAU EINGEBEN!")
-    print("brecheisen, smartphone, haarnadel, simkarte")
-    debug_input = input("Welches ITEM hinzufügen: ")
+def debug_item():
+    debug_input = input("Welches ITEM hinzufügen [brecheisen, smartphone, haarnadel, simkarte]: ")
     if debug_input == "brecheisen":
         inventory.add(crowbar)
     elif debug_input == "smartphone":
