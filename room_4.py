@@ -7,7 +7,6 @@ from PIL import Image
 import time
 import random
 from adventurelib import Room, when, say, start, Bag, Item, set_context
-import adventurelib
 import sys
 from room_5 import *
 from inventory import *
@@ -26,10 +25,10 @@ def ueberleitung_room4():
     )
     say(
         """Du scheinst in eine Art Lagerraum gekommen zu sein mit allerlei
-    technischen Geräten, die ihre beste Zeit hinter sich haben. In der Ecke
-    steht ein leeres Serverrack und daneben eine Werkzeugtasche, die allerdings
-    nur nutzlose Werkzeuge enthält. Mal sehen, was du noch so entdecken kannst,
-    was dir weiterhelfen könnte."""
+        technischen Geräten, die ihre beste Zeit hinter sich haben. In der Ecke
+        steht ein leeres Serverrack und daneben eine Werkzeugtasche, die allerdings
+        nur nutzlose Werkzeuge enthält. Mal sehen, was du noch so entdecken kannst,
+        was dir weiterhelfen könnte."""
     )
     set_context("room4")
 
@@ -40,7 +39,7 @@ def ueberleitung_room4():
 def look_around_room4():
     say(
         """An der gegenüberliegenden Wand des Serverracks steht ein Lagerspind mit einem Zahlenschloss, das anscheinend bei der
-    letzten Benutzung nicht richtig verschlossen wurde."""
+        letzten Benutzung nicht richtig verschlossen wurde."""
     )
 
 
@@ -123,9 +122,9 @@ def spind_oeffnen():
     sim_schrank_offen = True
     say(
         """Du öffnest den Spind und schaust dir den Inhalt genau an. Zuerst siehst du nur alte Ersatzteile für Computer.
-    RAM,Lüfter, Netzteile, alte Festplatten und so weiter. Doch dann sticht dir ein kleiner Karton mit der Aufschrift „SIM-Karten“
-    ins Auge. \n
-    An der Innenseite der Spindtür entdeckst du einen QR-Code. Ob der wohl was damit zu tun hat? """
+        RAM,Lüfter, Netzteile, alte Festplatten und so weiter. Doch dann sticht dir ein kleiner Karton mit der Aufschrift „SIM-Karten“
+        ins Auge. \n
+        An der Innenseite der Spindtür entdeckst du einen QR-Code. Ob der wohl was damit zu tun hat? """
     )
 
 
@@ -149,8 +148,8 @@ def sim_karte_nehmen():
     if sim_schrank_offen:
         say(
             """Du nimmst dir eine Karte aus dem Karton. „Verdammt…wie soll ich denn jetzt den SIM-Slot an meinem Handy öffnen?“,
-        fragst du dich.\n
-        Du hörst schnelle Schritte auf dem Gang. Die Ministerin und das Fernsehteam betreten den Raum."""
+            fragst du dich.\n
+            Du hörst schnelle Schritte auf dem Gang. Die Ministerin und das Fernsehteam betreten den Raum."""
         )
         inventory.add(sim)
 
@@ -199,7 +198,7 @@ def sim_slot_oeffnen():
             if inventory.find("haarnadel") is not None:
                 say(
                     """Zum Glück ist die Nadel dünn genug, um den SIM-Slot zu öffnen. Du legst die SIM-Karte in dein Handy ein,
-                worauf die Aufforderung „SIM-PIN eingeben“ angezeigt wird."""
+                    worauf die Aufforderung „SIM-PIN eingeben“ angezeigt wird."""
                 )
                 global can_use_pin
                 can_use_pin = True
@@ -216,7 +215,7 @@ def sim_slot_oeffnen():
 def schrader_haarnadel():
     say(
         """Dir fällt sofort die feine Haarnadel der Ministerin ins Auge. Du fragst sie, ob du dir ihre Haarnadel kurz ausleihen
-    kannst. Sie nickt aufgeregt und übergibt sie dir schnell."""
+        kannst. Sie nickt aufgeregt und übergibt sie dir schnell."""
     )
     inventory.add(hairpin)
 

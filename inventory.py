@@ -1,4 +1,5 @@
 from adventurelib import when, Bag, Item
+from termcolor import colored
 
 # Inventar #
 crowbar = Item("brecheisen")
@@ -16,9 +17,9 @@ inventory = Bag()
 @when("öffne inventar")  # öffnen
 @when("inventar öffnen")
 def zeige_inventar():
-    print("Du hast: ")
+    print(colored("Du hast: ", "green"))
     if not inventory:
-        print("nichts")
+        print(colored("nichts", "green"))
         return
     for item in inventory:
-        print(f"*{item}")
+        print(colored(f"*{item}", "green"))

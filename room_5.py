@@ -7,7 +7,6 @@ from PIL import Image
 import time
 import random
 from adventurelib import Room, when, say, start, Bag, Item, set_context
-import adventurelib
 import sys
 from room_6 import *
 from inventory import *
@@ -24,8 +23,8 @@ def ueberleitung_room5():
     )
     say(
         """Du läufst zusammen mit den anderen zu einer Art Büro-Abteil. Herr Solar geht voran. Ihr betretet ein Büro und schaut
-    euch kurz um. Das Büro ist bestückt mit mehreren Schreibtischen und PC-Arbeitsplätzen. Die meisten von ihnen zeigen die
-    gleiche Nachricht wie der Kontrollrechner und den Totenkopf auf dem Monitor oder sind ausgeschaltet. """
+        euch kurz um. Das Büro ist bestückt mit mehreren Schreibtischen und PC-Arbeitsplätzen. Die meisten von ihnen zeigen die
+        gleiche Nachricht wie der Kontrollrechner und den Totenkopf auf dem Monitor oder sind ausgeschaltet. """
     )
     set_context("room5")
 
@@ -97,7 +96,7 @@ def computer_entsperren():
                 if arg == "--help":
                     say(
                         """ls       -   listet Dateien im aktuellen Verzeichnis auf \n
-                    ls -a   -   listet Dateien inklusive versteckter Dateien auf"""
+                        ls -a   -   listet Dateien inklusive versteckter Dateien auf"""
                     )
                 elif arg == "-a":
                     list_all = True
@@ -136,7 +135,7 @@ def computer_entsperren():
                 else:
                     say(
                         """Fehler: Datei enthält keine Hash-Werte. Haben Sie die
-                    richtige Datei ausgewählt?"""
+                        richtige Datei ausgewählt?"""
                     )
             else:
                 say("""Fehler: Kommando ungültig""")
@@ -147,7 +146,7 @@ def computer_entsperren():
                 if dir == "--help":
                     say(
                         """cd [dir] -   wechselt ins Verzeichnis [dir] \n
-                    cd         -    (ohne Eingabe) wechselt ins Home-Verzeichnis des aktuellen Nutzers"""
+                        cd       -   (ohne Eingabe) wechselt ins Home-Verzeichnis des aktuellen Nutzers"""
                     )
                 elif "/root/" + dir in dir_system.keys() and current_dir == "/root":
                     current_dir = "/root/" + dir

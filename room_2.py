@@ -7,7 +7,6 @@ from PIL import Image
 import time
 import random
 from adventurelib import Room, when, say, start, Bag, Item, set_context
-import adventurelib
 import sys
 from room_1 import *
 from room_3 import *
@@ -23,15 +22,15 @@ def ueberleitung_room2():
     )
     say(
         """Sehr gut. Du konntest die Sicherheitstür öffnen und rennst so schnell
-    du kannst los. Dabei folgst du stur dem Warnsignal, welches dich direkt zum
-    Maschinenraum führt, während es immer lauter wird. \n Beim Betreten des
-    Raums nimmst du eine Durchsage einer Computerstimme aus den Lautsprechern
-    wahr: „Noch 20 Minuten bis zur Kernschmelze!“ Die vielen blinkenden Lichter
-    vor Ort werden alle von dem immer noch rot-pulsierenden Licht überdeckt. Das
-    laute Brummen der großen Maschinen ist ohrenbetäubend. Mittig im Raum stehen
-    5 riesige Pumpen. „Das müssen sie sein!“ Vorsichtshalber ziehst du das
-    Netzwerkkabel des Kontrollrechners des Kühlsystems. Die Hacker dürften jetzt
-    wenigstens keinen Zugriff mehr darauf haben. Was nun?"""
+        du kannst los. Dabei folgst du stur dem Warnsignal, welches dich direkt zum
+        Maschinenraum führt, während es immer lauter wird. \n Beim Betreten des
+        Raums nimmst du eine Durchsage einer Computerstimme aus den Lautsprechern
+        wahr: „Noch 20 Minuten bis zur Kernschmelze!“ Die vielen blinkenden Lichter
+        vor Ort werden alle von dem immer noch rot-pulsierenden Licht überdeckt. Das
+        laute Brummen der großen Maschinen ist ohrenbetäubend. Mittig im Raum stehen
+        5 riesige Pumpen. „Das müssen sie sein!“ Vorsichtshalber ziehst du das
+        Netzwerkkabel des Kontrollrechners des Kühlsystems. Die Hacker dürften jetzt
+        wenigstens keinen Zugriff mehr darauf haben. Was nun?"""
     )
     say("""""")
     set_context("room2")
@@ -43,8 +42,8 @@ def ueberleitung_room2():
 def look_around_room2():
     say(
         """Du entdeckst die Pumpenventile der riesigen Kühlpumpen und einen
-    Zettel auf einem Tisch in der Nähe. Die Ventile scheinen beschriftet zu
-    sein. Bestimmt muss eine Reihenfolge eingehalten werden."""
+        Zettel auf einem Tisch in der Nähe. Die Ventile scheinen beschriftet zu
+        sein. Bestimmt muss eine Reihenfolge eingehalten werden."""
     )
 
 

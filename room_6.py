@@ -7,7 +7,6 @@ from PIL import Image
 import time
 import random
 from adventurelib import Room, when, say, start, Bag, Item, set_context
-import adventurelib
 import sys
 from inventory import *
 
@@ -73,8 +72,8 @@ def brecheisen_benutzen3():
     klappe_offen = True
     say(
         """Gut, dass du das Brecheisen vom Anfang noch dabei hattest. Du brichst
-    die Klappe auf und dahinter versteckt sich tatsächlich eine passende
-    Tastatur."""
+        die Klappe auf und dahinter versteckt sich tatsächlich eine passende
+        Tastatur."""
     )
 
 
@@ -94,13 +93,13 @@ def tastatur_benutzen():
             if input_tastatur == "30JahreBSI1991!":
                 say(
                     """Du steckst die Tastatur an den alten Kontrollrechner an
-                und tippst das Passwort ein: 3…0…J…a…h…r…e…B…S…I…1…9…9…1…!
-                ENTER!
-                Der Totenkopf verschwindet. Du hast es geschafft. Doch dir fällt
-                etwas ein: „Wir müssen irgendetwas tun, um die Hacker aus dem
-                System zu werfen und das System besser.aBSIchern!“, rufst du.
-                Du wendest dich wieder dem Kontrollrechner zu um dir den Status
-                der Firewall anzuschauen."""
+                    und tippst das Passwort ein: 3…0…J…a…h…r…e…B…S…I…1…9…9…1…!
+                    ENTER!
+                    Der Totenkopf verschwindet. Du hast es geschafft. Doch dir fällt
+                    etwas ein: „Wir müssen irgendetwas tun, um die Hacker aus dem
+                    System zu werfen und das System besser.aBSIchern!“, rufst du.
+                    Du wendest dich wieder dem Kontrollrechner zu um dir den Status
+                    der Firewall anzuschauen."""
                 )
                 global kontrollrechner_entsperrt
                 kontrollrechner_entsperrt = True
@@ -185,27 +184,27 @@ def print_loesung_firewall():
 def abspann():
     say(
         """Super. Du hast die Angreifer ausgesperrt und die Lücken in der
-    Firewall geschlossen. Ab hier übernimmt der Kraftwerkchef. In letzter
-    Sekunde fährt er über den Kontrollrechner die Pumpen des Kühlsystems wieder
-    hoch. Das rote Notlicht erlischt und das Warnsignal aus dem Maschinenraum
-    ist auch nicht mehr zu hören. GESCHAFFT!"""
+        Firewall geschlossen. Ab hier übernimmt der Kraftwerkchef. In letzter
+        Sekunde fährt er über den Kontrollrechner die Pumpen des Kühlsystems wieder
+        hoch. Das rote Notlicht erlischt und das Warnsignal aus dem Maschinenraum
+        ist auch nicht mehr zu hören. GESCHAFFT!"""
     )
     say(
         """Glückwunsch!\n
-    Du hast die Welt vor einer Katastrophe gerettet und der Evil Corp erfolgreich
-    die Stirn geboten!!!\n
-    Du bist an diesem Tage wahrlich ein Volksheld und alle Anwesenden sind
-    begeistert von deiner herausragenden Leistung.\n
-    Zur Feier des Tages gibst du noch allen die Bedeutung der IT-Sicherheit in
-    kritischen Infrastrukturen mit auf den Weg und, dass deine Reaktionen auf
-    den Angriff mit sorgfältigen Präventionsmaßnahmen nach IT-Grundschutz gar
-    nicht nötig gewesen wären.\n
-    Natürlich wurde der Vorfall auch beim BSI-Lagezentrum gemeldet.\n
-    \n
-    Leider ist damit dann auch das Abenteuer vorbei.\n
-    Wir bedanken uns ganz herzlich für deine Teilnahme und hoffen, das
-    Textadventure hat dir gefallen.\n
-    \n
-    Das DACS-Praktikantenteam"""
+        Du hast die Welt vor einer Katastrophe gerettet und der Evil Corp erfolgreich
+        die Stirn geboten!!!\n
+        Du bist an diesem Tage wahrlich ein Volksheld und alle Anwesenden sind
+        begeistert von deiner herausragenden Leistung.\n
+        Zur Feier des Tages gibst du noch allen die Bedeutung der IT-Sicherheit in
+        kritischen Infrastrukturen mit auf den Weg und, dass deine Reaktionen auf
+        den Angriff mit sorgfältigen Präventionsmaßnahmen nach IT-Grundschutz gar
+        nicht nötig gewesen wären.\n
+        Natürlich wurde der Vorfall auch beim BSI-Lagezentrum gemeldet.\n
+        \n
+        Leider ist damit dann auch das Abenteuer vorbei.\n
+        Wir bedanken uns ganz herzlich für deine Teilnahme und hoffen, das
+        Textadventure hat dir gefallen.\n
+        \n
+        Das DACS-Praktikantenteam"""
     )
     sys.exit()

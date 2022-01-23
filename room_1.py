@@ -7,7 +7,6 @@ from PIL import Image
 import time
 import random
 from adventurelib import Room, when, say, start, Bag, Item, set_context
-import adventurelib
 import sys
 from room_2 import *
 from inventory import *
@@ -19,19 +18,16 @@ sicherheitstuer_gesehen = False
 
 
 def ueberleitung_room1():
-    say(
-        """----------------------------------------------------------------------------------"""
-    )
-    say(
-        """Du befindest dich nun im Kontrollraum. Die Menge an Schaltern, Hebeln und
-    Knöpfen erschlägt dich fast und es fällt dir schwer deine Panik in den Griff zu
-    bekommen. Du versuchst dich zu sammeln und deine Möglichkeiten abzuwägen: \n
-    Du kannst dich im Raum [umschauen]\n
-    Du kannst Dinge im Raum [anschauen], [nehmen] und [benutzen], sowie Knöpfe [drücken]\n
-    Du kannst dein aktuelles [Inventar] anschauen\n
-    Du kannst dir [help] suchen, wenn du nicht weiterkommst\n
-    Du kannst mit [quit] das AKW verlassen (Spiel beenden)"""
-    )
+    say(colored("""----------------------------------------------------------------------------------""", "yellow"))
+    say(colored("""Du befindest dich nun im Kontrollraum. Die Menge an Schaltern, Hebeln und
+        Knöpfen erschlägt dich fast und es fällt dir schwer deine Panik in den Griff zu
+        bekommen. Du versuchst dich zu sammeln und deine Möglichkeiten abzuwägen: \n
+        Du kannst dich im Raum [umschauen]\n
+        Du kannst Dinge im Raum [anschauen], [nehmen] und [benutzen], sowie Knöpfe [drücken]\n
+        Du kannst dein aktuelles [Inventar] anschauen\n
+        Du kannst dir [help] suchen, wenn du nicht weiterkommst\n
+        Du kannst mit [quit] das AKW verlassen (Spiel beenden)""", "yellow"
+    ))
 
 
 # Look Around #
@@ -42,16 +38,16 @@ def look_around_room1():
     # umschauen in Raum 1
     # TODO
     if (sicherheitsausruestung_gesehen and kontrollrechner_neugestartet and sicherheitstuer_gesehen):
-        say("""Du entdeckst ein Scooter-Poster an der Wand.""")
+        say(colored("""Du entdeckst ein Scooter-Poster an der Wand.""", "yellow"))
 
     elif (sicherheitsausruestung_gesehen and kontrollrechner_neugestartet):
-        say("""Du entdeckst die riesige, meterdicke Sicherheitstür.""")
+        say(colored("""Du entdeckst die riesige, meterdicke Sicherheitstür.""", "yellow"))
 
     elif (sicherheitsausruestung_gesehen):
-        say("""Du siehst den Kontrollrechner.""")
+        say(colored("""Du siehst den Kontrollrechner.""", "yellow"))
 
     else:
-        say("""Du siehst den Kontrollrechner und Sicherheitsausrüstung in der Ecke.""")
+        say(colored("""Du siehst den Kontrollrechner und Sicherheitsausrüstung in der Ecke.""", "yellow"))
 
 
 @when("sicherheitsausrüstung anschauen", context="room1")
@@ -60,9 +56,9 @@ def sicherheitsausruestung_anschauen():
     if inventory.find("brecheisen") is None:
         global sicherheitsausruestung_gesehen
         sicherheitsausruestung_gesehen = True
-        say("""In der Sicherheitsausrüstung findest du ein Brecheisen.""")
+        say(colored("""In der Sicherheitsausrüstung findest du ein Brecheisen.""", "yellow"))
     else:
-        say("""Du hast die Sicherheitsausrüstung bereits durchsucht""")
+        say(colored("""Du hast die Sicherheitsausrüstung bereits durchsucht""", "yellow"))
 
 
 
@@ -82,12 +78,12 @@ def brecheisen_nehmen():
     # Brecheisen in Raum 1 nehmen
     if sicherheitsausruestung_gesehen == True:
         if "brecheisen" not in inventory:
-            say("""„Das könnte eventuell noch nützlich sein“, sagst du und packst das Brecheisen direkt ein.""")
+            say(colored("""„Das könnte eventuell noch nützlich sein“, sagst du und packst das Brecheisen direkt ein.""", "yellow"))
             inventory.add(crowbar)
         else:
-            say("""Du hast das Brecheisen schon genommen.""")
+            say(colored("""Du hast das Brecheisen schon genommen.""", "yellow"))
     else:
-        say("""Du solltest dich zuerst noch ein wenig umsehen.""")
+        say(colored("""Du solltest dich zuerst noch ein wenig umsehen.""", "yellow"))
 
 
 @when("benutze brecheisen", context="room1")  # brecheisen, benutzen
@@ -104,23 +100,21 @@ def brecheisen_nehmen():
 @when("brechstange nutzen", context="room1")
 def brecheisen_benutzen():
     if inventory.find("brecheisen") is None:
-        say("Du hast kein Brecheisen.")
+        say(colored("""Du hast kein Brecheisen.""", "yellow"))
     else:
-        say(
-            """Vielleicht solltest du den Kontrollrechner damit lieber nicht
-            zerstören..."""
-        )
+        say(colored("""Vielleicht solltest du den Kontrollrechner damit lieber nicht
+            zerstören...""", "yellow"
+        ))
 
 
 
 @when("kontrollrechner anschauen", context="room1")
 def kontrollrechner_anschauen():
-    say(
-        """Der Bildschirm zeigt weiterhin den Totenkopf und die Nachricht der
+    say(colored("""Der Bildschirm zeigt weiterhin den Totenkopf und die Nachricht der
         Erpresser. Du entdeckst ein Terminal mit Anschlüssen und einigen Knöpfen.
         Darunter ein Knopf auf dem "Reset" steht und eine Buchse, die mit
-        "DIN AT" beschriftet ist."""
-    )
+        "DIN AT" beschriftet ist.""", "yellow"
+    ))
 
 
 
@@ -147,15 +141,14 @@ def kontrollrechner_anschauen():
 @when("kontrollrechner rebooten", context="room1")
 @when("reboote kontrollrechner", context="room1")
 def computer_neustarten():
-    say(
-        """Der Rechner startet neu, BIOS-Meldungen erscheinen auf dem Bildschirm,
+    say(colored("""Der Rechner startet neu, BIOS-Meldungen erscheinen auf dem Bildschirm,
         ein Windows 95 – Startsound ertönt und die Erpresserbotschaft erscheint
         direkt wieder nach dem Bootvorgang.\n
         „Das bringt nichts!“, denkst du dir und überlegst, was du tun sollst.
         Über den Kontrollrechner lassen sich die Pumpen für das Kühlsystem
         jedenfalls nicht mehr starten. Vielleicht hilft ein manueller Start der
-        Pumpen."""
-    )
+        Pumpen.""", "yellow"
+    ))
     global kontrollrechner_neugestartet
     kontrollrechner_neugestartet = True
 
@@ -164,9 +157,10 @@ def computer_neustarten():
 @when("buchse anschauen", context="room1")
 @when("anschluss anschauen", context="room1")
 def buchse_anschauen():
-    say("""So etwas Veraltetes, fast schon Antikes hast du schon lange nicht
+    say(colored("""So etwas Veraltetes, fast schon Antikes hast du schon lange nicht
         mehr gesehen. Leider hast du kein Eingabegerät zur Hand, das kompatibel
-        ist.""")
+        ist.""", "yellow"
+    ))
 
 
 
@@ -175,20 +169,20 @@ def buchse_anschauen():
 @when("sicherheitstuer anschauen", context="room1")
 def sicherheitstuer_anschauen():
     if kontrollrechner_neugestartet:
-        say(
-            """Du rüttelst an der Tür, doch sie bewegt sich keinen Zentimeter. Direkt neben der Tür befindet sich ein Tastenfeld
+        say(colored("""Du rüttelst an der Tür, doch sie bewegt sich keinen Zentimeter. Direkt neben der Tür befindet sich ein Tastenfeld
     	    und darüber eine Kamera. Du drückst die Grüne Starttaste und die Kamera beginnt mit einem Scan von deinem Gesicht. Du
     	    erschrickst. Auf dem Display erscheint in roter Schrift „Zugriff verweigert“. „Das Gesicht des Chefs sollte
     	    funktionieren!“, denkst du dir, erinnerst dich aber, dass dieser ohnmächtig geworden ist. Du nimmst dein Smartphone in
     	    die Hand und hältst ein Bild von Herrn Solar in die Kamera. „Guten Tag Herr Solar! Bitte geben Sie Ihre PIN ein!“,
     	    ertönt eine roboterartige Stimme aus dem Terminal und das Display zeigt: * * * * * *. „Mist, wo krieg ich denn jetzt den
-    	    PIN her?“, fragst du dich. Vielleicht schaust du dich einfach noch einmal um."""
-        )
+    	    PIN her?“, fragst du dich. Vielleicht schaust du dich einfach noch einmal um.""", "yellow"
+        ))
         global sicherheitstuer_gesehen
         sicherheitstuer_gesehen = True
     else:
-        say("""Die Tür scheint verschlossen zu sein. Vielleicht versuchst du
-            dein Glück erst mal am Kontrollrechner.""")
+        say(colored("""Die Tür scheint verschlossen zu sein. Vielleicht versuchst du
+            dein Glück erst mal am Kontrollrechner.""", "yellow"
+        ))
 
 
 @when("poster anschauen", context="room1")
@@ -196,7 +190,7 @@ def sicherheitstuer_anschauen():
 @when("scooter poster anschauen", context="room1")
 @when("poster ansehen", context="room1")
 def poster_anschauen():
-    say("""Das Poster trägt die Aufschrift „How much is the fish“. Es scheint
+    say(colored("""Das Poster trägt die Aufschrift „How much is the fish“. Es scheint
         mit Klebestreifen befestigt worden zu sein. Von der Rückseite schimmert
         Schrift durch das dünne Papier. Du hebst das Poster an und entdeckst
         eine Widmung an Herrn Solar mit der Unterschrift von HP Baxxter und
@@ -204,7 +198,8 @@ def poster_anschauen():
         Geburtsdatum: 16. März 1964\n
         Du erinnerst dich: Einer aus dem Kamerateam hat dir im Vorfeld erzählt,
         dass Herr Solar ein riesen Fan der Techno- und EDM-Band sei und immer
-        wieder davon erzählte, dass er nur 5 Tage nach HP Baxxter Geburtstag hätte.""")
+        wieder davon erzählte, dass er nur 5 Tage nach HP Baxxter Geburtstag hätte.""", "yellow"
+    ))
 
 
 @when("pin eingeben", context="room1")
@@ -215,19 +210,23 @@ def pin_eingeben():
     while True:
         input_1 = input("PIN eingeben ([exit] um abzubrechen): ")
         if (input_1 == "210364"):
-            say("""PIN wird überprüft...\n
-                """)
+            say(colored("""PIN wird überprüft...\n
+                """, "yellow"
+            ))
             time.sleep(3.0)
-            say("""PIN korrekt!\n
-                Zugriff gewährt!""")
+            say(colored("""PIN korrekt!\n
+                Zugriff gewährt!""", "yellow"
+            ))
             time.sleep(2.0)
             ueberleitung_room2()
             return
         elif (input_1 == "exit"):
             return
         else:
-            say("""PIN wird überprüft...\n
-                """)
+            say(colored("""PIN wird überprüft...\n
+                """, "yellow"
+            ))
             time.sleep(3.0)
-            say("""PIN falsch!\n
-                Zugriff verweigert!""")
+            say(colored("""PIN falsch!\n
+                Zugriff verweigert!""", "yellow"
+            ))
