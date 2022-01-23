@@ -34,10 +34,16 @@ def ueberleitung_room4():
 @when("schau um", context="room4")
 @when("schau dich um", context="room4")
 def look_around_room4():
-    say(colored("""An der gegenüberliegenden Wand des Serverracks steht ein
-        Lagerspind mit einem Zahlenschloss, das anscheinend bei der letzten
-        Benutzung nicht richtig verschlossen wurde.""", "yellow"
-    ))
+    if sim_schrank_offen:
+        say(colored("""Dir fällt sofort die feine Haarnadel der Ministerin ins
+            Auge. Du fragst sie, ob du dir ihre Haarnadel kurz ausleihen kannst.
+            Sie nickt aufgeregt und übergibt sie dir schnell.""", "yellow"
+        ))
+    else:
+        say(colored("""An der gegenüberliegenden Wand des Serverracks steht ein
+            Lagerspind mit einem Zahlenschloss, das anscheinend bei der letzten
+            Benutzung nicht richtig verschlossen wurde.""", "yellow"
+        ))
 
 
 
@@ -84,36 +90,37 @@ def look_around_room4():
 #     print("unteres abteil beschreibung")
 
 
-@when("rechner anmachen", context="room4")  # rechner, anmachen
-@when("mache rechner an", context="room4")
-@when("rechner starten", context="room4")  # rechner, starten
-@when("starte rechner", context="room4")
-@when("rechner anschalten", context="room4")  # rechner, anschalten
-@when("schalte rechner an", context="room4")
-@when("computer anmachen", context="room4")  # computer, anmachen
-@when("mache computer an", context="room4")
-@when("computer starten", context="room4")  # computer, starten
-@when("starte computer", context="room4")
-@when("computer anschalten", context="room4")  # computer, anschalten
-@when("schalte computer an", context="room4")
-@when("pc anmachen", context="room4")  # pc, anmachen
-@when("mache pc an", context="room4")
-@when("pc starten", context="room4")  # pc, starten
-@when("starte pc", context="room4")
-@when("pc anschalten", context="room4")  # pc, anschalten
-@when("schalte pc an", context="room4")
-def rechner_anmachen():
-    print("schon betroffen")
+# @when("rechner anmachen", context="room4")  # rechner, anmachen
+# @when("mache rechner an", context="room4")
+# @when("rechner starten", context="room4")  # rechner, starten
+# @when("starte rechner", context="room4")
+# @when("rechner anschalten", context="room4")  # rechner, anschalten
+# @when("schalte rechner an", context="room4")
+# @when("computer anmachen", context="room4")  # computer, anmachen
+# @when("mache computer an", context="room4")
+# @when("computer starten", context="room4")  # computer, starten
+# @when("starte computer", context="room4")
+# @when("computer anschalten", context="room4")  # computer, anschalten
+# @when("schalte computer an", context="room4")
+# @when("pc anmachen", context="room4")  # pc, anmachen
+# @when("mache pc an", context="room4")
+# @when("pc starten", context="room4")  # pc, starten
+# @when("starte pc", context="room4")
+# @when("pc anschalten", context="room4")  # pc, anschalten
+# @when("schalte pc an", context="room4")
+# def rechner_anmachen():
+#     print("schon betroffen")
 
 
-@when("werkzeugkiste öffnen", context="room4")  # öffnen
-@when("öffne werkzeugkiste", context="room4")
-def werkzeugkiste_oeffnen():
-    print("werkzeugkiste geöffnet, nichts drin")
+# @when("werkzeugkiste öffnen", context="room4")  # öffnen
+# @when("öffne werkzeugkiste", context="room4")
+# def werkzeugkiste_oeffnen():
+#     print("werkzeugkiste geöffnet, nichts drin")
 
 
-@when("spind öffnen", context="room4")  # öffnen
+@when("spind öffnen", context="room4") # öffnen
 @when("öffne spind", context="room4")
+@when("spind anschauen", context="room4") # anschauen
 def spind_oeffnen():
     global sim_schrank_offen
     sim_schrank_offen = True
