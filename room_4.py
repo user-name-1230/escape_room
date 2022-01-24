@@ -60,7 +60,7 @@ def look_around_room4():
                 "yellow",
             )
         )
-        inventory.add(inventory.hairpin)
+        inventory.add(hairpin)
     else:
         say(
             colored(
@@ -178,8 +178,6 @@ def spind_oeffnen():
 @when("nimm die sim karte", context="room4")
 @when("nimm die sim", context="room4")
 def sim_karte_nehmen():
-    if not sim_schrank_offen:
-        print("nicht offen")
     if sim_schrank_offen:
         say(
             colored(
@@ -190,7 +188,15 @@ def sim_karte_nehmen():
                 "yellow",
             )
         )
-        inventory.add(inventory.sim)
+        inventory.add(sim)
+    else:
+        say(
+            colored(
+                """Ich weiß nicht, welche SIM Karte du meinst. Schau eventuell
+                einmal im Spind nach.""",
+                "red",
+            )
+        )
 
 
 # @when("smartphone anschauen", context="room4")  # anschauen, smartphone
@@ -323,7 +329,7 @@ def pin_eingeben():
                 raum4Ende()
                 return
             else:
-                say(colored("""PIN falsch, bitte noch einmal versuchen.""", "gray", "on_white"))
+                say(colored("""PIN falsch, bitte noch einmal versuchen.""", "grey", "on_white"))
     else:
         say(colored("""Tut mir Leid, du musst die SIM-Karte erst in den SIM Slot einlegen""", "red"))
 
@@ -344,4 +350,4 @@ def raum4Ende():
             dort hinführen!“, sagt der Kraftwerkchef aufgeregt.""", "yellow"
         )
     )
-    ueberleitung_room5()
+    room_5.ueberleitung_room5()

@@ -10,6 +10,10 @@ import room_3
 from inventory import *
 from termcolor import colored
 
+#global vars
+ventile_gedreht = False
+zurueckgegangen = False
+
 
 def ueberleitung_room2():
     say(
@@ -42,14 +46,23 @@ def ueberleitung_room2():
 @when("schau dich um", context="room2")
 @when("umsehen", context="room2")
 def look_around_room2():
-    say(
-        colored(
-            """Du entdeckst die Pumpenventile der riesigen Kühlpumpen und einen
-            Zettel auf einem Tisch in der Nähe. Die Ventile scheinen beschriftet zu
-            sein. Bestimmt muss eine Reihenfolge eingehalten werden.""",
-            "yellow"
+    if ventile_gedreht:
+        say(
+            colored(
+                """Schade. Im Maschinenraum liegt leider nichts herum, was dir
+                weiterhelfen könnte.""",
+                "yellow"
+            )
         )
-    )
+    else:
+        say(
+            colored(
+                """Du entdeckst die Pumpenventile der riesigen Kühlpumpen und einen
+                Zettel auf einem Tisch in der Nähe. Die Ventile scheinen beschriftet zu
+                sein. Bestimmt muss eine Reihenfolge eingehalten werden.""",
+                "yellow"
+            )
+        )
 
 
 @when("zettel anschauen", context="room2")
@@ -103,17 +116,49 @@ def zu_ventilen():
                     "yellow"
                 )
             )
+            global ventile_gedreht
+            ventile_gedreht = True
             return
             # TODO gehe wieder zu Raum 1
         if input_2 == "zurück" or input_2 == "exit":
             return
         else:
-            if counter > 15:
+            if counter > 16:
                 counter = counter - 1
-            print(colored("Noch", counter, "Minuten bis zur Kernschmelze", "yellow"))
+            say(
+                colored(
+                    f"""Das war leider die falsche Reihenfolge...du hast wertvolle Zeit verloren!\n
+                    Noch {counter} Minuten bis zur Kernschmelze""",
+                    "yellow"
+                )
+            )
+            say("""""")
+
+
+@when("zurück gehen", context="room2")
+@when("zurück in kontrollraum gehen", context="room2")
+@when("in kontrollraum gehen", context="room2")
+@when("zu kontrollraum gehen", context="room2")
+@when("kontrollraum betreten", context="room2")
+@when("gehe zurück", context="room2")
+@when("gehe zurück in kontrollraum", context="room2")
+def go_room1():
+    say(
+        colored(
+            """Du bist zurück gegangen und befindest dich wieder im Kontrollraum.""",
+            "yellow"
+        )
+    )
+    set_context("room1")
+    global zurueckgegangen
+    zurueckgegangen = True
 
 
 @when("brecheisen benutzen", context="room2")
+@when("hebel benutzen", context="room2")
+@when("stange benutzen", context="room2")
+@when("hebel nehmen", context="room2")
+@when("stange nehmen", context="room2")
 def brecheisen_benutzen2():
     if inventory.find("brecheisen") is not None:
         say(

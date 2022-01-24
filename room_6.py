@@ -6,6 +6,7 @@
 import time
 from adventurelib import when, say, set_context
 import sys
+from termcolor import colored
 
 
 # global vars
@@ -15,7 +16,7 @@ firewall_gesehen = False
 
 
 def ueberleitung_room6():
-    time.sleep(6.0)
+    time.sleep(2.0)
     say(
         colored(
             """---------------------------------------------------------------------------------""",
@@ -50,7 +51,7 @@ def look_around_room6():
     else:
         say(
             colored(
-                """Ihr schaut euch fragend um. Der Kraftwerkchef kommt auf euch zu und
+                """Du schaust dich fragend um. Der Kraftwerkchef kommt auf euch zu und
                 fragt nach dem Status. Ihr erläutert ihm kurz das Problem und er zeigt auf
                 eine Wartungsklappe neben dem Kontrollpult. Dort muss eine Tastatur drin
                 sein, die mit dem alten DIN-AT-Anschluss kompatibel ist. Doch die Klappe
@@ -93,6 +94,7 @@ def brecheisen_benutzen3():
     )
 
 
+@when("tastatur nehmen", context="room6")
 @when("tastatur benutzen", context="room6")
 @when("tastatur anstecken", context="room6")
 @when("tastatur einstecken", context="room6")
@@ -109,10 +111,12 @@ def tastatur_benutzen():
             "yellow"
         )
     )
+    say("""""")
     if klappe_offen:
         while (True):
             input_tastatur = input(colored("Passwort eingeben: ", "white", "on_grey"))
             if input_tastatur == "30JahreBSI1991!":
+                say("""""")
                 say(
                     colored(
                         """Du tippst das Passwort ein: 3…0…J…a…h…r…e…B…S…I…1…9…9…1…!
