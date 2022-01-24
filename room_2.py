@@ -2,18 +2,13 @@
 # RAUM 2: MASCHINENRAUM #
 #########################
 
-#imports
+# imports
 from PIL import Image
 import time
-import random
-from adventurelib import Room, when, say, start, Bag, Item, set_context
-import sys
-from room_1 import *
-from room_3 import *
-from room_4 import *
-from room_5 import *
-from room_6 import *
-from inventory import *
+from adventurelib import when, say, set_context
+import room_3
+import inventory
+from termcolor import colored
 
 
 def ueberleitung_room2():
@@ -28,7 +23,7 @@ def ueberleitung_room2():
         5 riesige Pumpen. „Das müssen sie sein!“ Vorsichtshalber ziehst du das
         Netzwerkkabel des Kontrollrechners des Kühlsystems. Die Hacker dürften jetzt
         wenigstens keinen Zugriff mehr darauf haben. Was nun?""", "yellow"
-    ))
+                ))
     say("""""")
     set_context("room2")
 
@@ -40,7 +35,7 @@ def look_around_room2():
     say(colored("""Du entdeckst die Pumpenventile der riesigen Kühlpumpen und einen
         Zettel auf einem Tisch in der Nähe. Die Ventile scheinen beschriftet zu
         sein. Bestimmt muss eine Reihenfolge eingehalten werden.""", "yellow"
-    ))
+                ))
 
 
 @when("zettel anschauen", context="room2")
@@ -50,7 +45,7 @@ def zettel_anschauen():
         Blau – B\n
         Schwarz – S\n
         Grün – G""", "yellow"
-    ))
+                ))
 
 
 @when("ventile anschauen", context="room2")
@@ -80,17 +75,14 @@ def zu_ventilen():
     # if current_room == room2:
     counter = 20
     while True:
-        input_2 = input(colored("Reihenfolge der Ventile eingeben (um evtl. weitere Hinweise zu suchen [zurück]): ", "white"))
-        if (input_2 == "35124" or
-        input_2 == "3,5,1,2,4" or
-        input_2 == "3, 5, 1, 2, 4" or
-        input_2 == "III, V, I, II, IV" or
-        input_2 == "III,V,I,II,IV"):
+        input_2 = input(colored(
+            "Reihenfolge der Ventile eingeben (um evtl. weitere Hinweise zu suchen [zurück]): ", "white"))
+        if (input_2 == "35124" or input_2 == "3,5,1,2,4" or input_2 == "3, 5, 1, 2, 4" or input_2 == "III, V, I, II, IV" or input_2 == "III,V,I,II,IV"):
             say(colored("""Das muss die richtige Reihenfolge gewesen sein. Doch die Ventile lassen sich nicht drehen. Du brauchst
                 irgendetwas, womit du mehr Kraft aufbringen kannst. Eine Art Hebel.""", "yellow"
-            ))
+                        ))
             return
-                # TODO gehe wieder zu Raum 1
+            # TODO gehe wieder zu Raum 1
         if input_2 == "zurück" or input_2 == "exit":
             return
         else:
@@ -105,8 +97,8 @@ def brecheisen_benutzen2():
         say(colored("""Mit dem Brecheisen als Hebel lassen sich die Ventile nun drehen. Doch was ist das!? Ein lautes Knarzen übertönt plötzlich das Warnsignal
             und alle Pumpen gehen wieder aus. Na toll…erneut hörst du eine Durchsage aus den Lautsprechern: „Noch 15
             Minuten bis zur Kernschmelze!“""", "yellow"
-        ))
+                    ))
         time.sleep(4.0)
-        ueberleitung_room3()
+        room_3.ueberleitung_room3()
     else:
         say(colored("""Du hast leider kein Brecheisen dabei.""", "yellow"))

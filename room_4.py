@@ -2,17 +2,16 @@
 # RAUM 4: LAGERRAUM #
 #####################
 
-#imports
+# imports
 from PIL import Image
 import time
-import random
-from adventurelib import Room, when, say, start, Bag, Item, set_context
-import sys
-from room_5 import *
-from inventory import *
+from adventurelib import when, say, set_context
+import room_5
+import inventory
+from termcolor import colored
 
 
-#global vars
+# global vars
 can_check_sim_slot = False
 sim_schrank_offen = False
 can_use_pin = False
@@ -26,7 +25,7 @@ def ueberleitung_room4():
         steht ein leeres Serverrack und daneben eine Werkzeugtasche, die allerdings
         nur nutzlose Werkzeuge enthält. Mal sehen, was du noch so entdecken kannst,
         was dir weiterhelfen könnte.""", "yellow"
-    ))
+                ))
     set_context("room4")
 
 
@@ -38,13 +37,12 @@ def look_around_room4():
         say(colored("""Dir fällt sofort die feine Haarnadel der Ministerin ins
             Auge. Du fragst sie, ob du dir ihre Haarnadel kurz ausleihen kannst.
             Sie nickt aufgeregt und übergibt sie dir schnell.""", "yellow"
-        ))
+                    ))
     else:
         say(colored("""An der gegenüberliegenden Wand des Serverracks steht ein
             Lagerspind mit einem Zahlenschloss, das anscheinend bei der letzten
             Benutzung nicht richtig verschlossen wurde.""", "yellow"
-        ))
-
+                    ))
 
 
 # @when("oberes abteil angucken", context="room4")  # angucken
@@ -118,9 +116,9 @@ def look_around_room4():
 #     print("werkzeugkiste geöffnet, nichts drin")
 
 
-@when("spind öffnen", context="room4") # öffnen
+@when("spind öffnen", context="room4")  # öffnen
 @when("öffne spind", context="room4")
-@when("spind anschauen", context="room4") # anschauen
+@when("spind anschauen", context="room4")  # anschauen
 def spind_oeffnen():
     global sim_schrank_offen
     sim_schrank_offen = True
@@ -130,7 +128,7 @@ def spind_oeffnen():
         kleiner Karton mit der Aufschrift „SIM-Karten“ ins Auge. \n
         An der Innenseite der Spindtür entdeckst du einen QR-Code. Ob der wohl
         was damit zu tun hat? """, "yellow"
-    ))
+                ))
 
 
 @when("sim karte nehmen", context="room4")  # nehmen
@@ -155,8 +153,8 @@ def sim_karte_nehmen():
             soll ich denn jetzt den SIM-Slot an meinem Handy öffnen?“, fragst du dich.\n
             Du hörst schnelle Schritte auf dem Gang. Die Ministerin und das
             Fernsehteam betreten den Raum.""", "yellow"
-        ))
-        inventory.add(sim)
+                    ))
+        inventory.add(inventory.sim)
 
 
 @when("smartphone anschauen", context="room4")  # anschauen, smartphone
@@ -204,7 +202,7 @@ def sim_slot_oeffnen():
                 say(colored("""Zum Glück ist die Nadel dünn genug, um den
                     SIM-Slot zu öffnen. Du legst die SIM-Karte in dein Handy ein,
                     worauf die Aufforderung „SIM-PIN eingeben“ angezeigt wird.""", "yellow"
-                ))
+                            ))
                 global can_use_pin
                 can_use_pin = True
             else:
@@ -221,8 +219,8 @@ def schrader_haarnadel():
     say(colored("""Dir fällt sofort die feine Haarnadel der Ministerin ins Auge.
         Du fragst sie, ob du dir ihre Haarnadel kurz ausleihen kannst. Sie nickt
         aufgeregt und übergibt sie dir schnell.""", "yellow"
-    ))
-    inventory.add(hairpin)
+                ))
+    inventory.add(inventory.hairpin)
 
 
 @when("qr code anzeigen", context="room4")  # qr code, anzeigen
@@ -274,7 +272,7 @@ def pin_eingeben():
             Symbol versehen ist. Das ist es! Du klickst darauf, um dir mehr Details
             ansehen zu können. Dabei steht sogar eine Raumnummer. „Ich kann Sie
             dort hinführen!“, sagt der Kraftwerkchef aufgeregt.""", "yellow"
-        ))
+                    ))
         hamming_code()
     else:
         print("SIM karte noch nicht hinzugefügt")

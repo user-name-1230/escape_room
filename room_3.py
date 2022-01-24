@@ -2,14 +2,13 @@
 # RAUM 3: FLUR #
 ################
 
-#imports
+# imports
 from PIL import Image
 import time
-import random
-from adventurelib import Room, when, say, start, Bag, Item, set_context
-import sys
-from room_4 import *
-from inventory import *
+from adventurelib import when, say, Bag, Item, set_context
+import room_4
+# import inventory
+from termcolor import colored
 
 
 tür_welle = Item("welle")  # 1
@@ -61,7 +60,6 @@ def look_around_room3():
         haben? An der Wand hängt außerdem eine Pinnwand mit Fotos.""", "yellow"))
 
 
-
 @when("pinnwand anschauen", context="room3")  # anschauen
 @when("schaue pinnwand an", context="room3")
 @when("schau pinnwand an", context="room3")
@@ -101,31 +99,31 @@ def tueren_anschauen():
     img.show()
 
 
-@when("öffne tür FORM", context="room3") # öffnen
+@when("öffne tür FORM", context="room3")  # öffnen
 @when("öffne tür mit FORM", context="room3")
 @when("öffne die tür mit FORM", context="room3")
 @when("tür öffnen mit FORM", context="room3")
 @when("tür mit FORM öffnen", context="room3")
 @when("FORM tür öffnen", context="room3")
-@when("tür mit FORM beutzen", context="room3") # benutzen
+@when("tür mit FORM beutzen", context="room3")  # benutzen
 @when("benutze tür mit FORM", context="room3")
 @when("benutze die tür mit FORM", context="room3")
 @when("FORM tür benutzen", context="room3")
-@when("betrete raum mit FORM", context="room3") # betreten
+@when("betrete raum mit FORM", context="room3")  # betreten
 def tuer_oeffnen(form):
     if türen.find(form) is None:
         say(colored("""Eine Tür mit diesem Symbol gibt es nicht.""", "yellow"))
     elif form == "stern":
-        #türen.find("stern").status = True
+        # türen.find("stern").status = True
         say(colored("""Du versuchst, die Tür mit dem Stern zu öffnen.\n
             Die Tür ist verschlossen, du siehst allerdings, dass der Schlüssel steckt.
             Du schließt die Tür auf und betrittst den Raum.""", "yellow"))
-        ueberleitung_room4()
-    elif türen.find(form).closed == True:
+        room_4.ueberleitung_room4()
+    elif türen.find(form).closed:
         say(colored(
             f"""Du versuchst, die Tür mit der Form {form} zu öffnen.\n
             Das scheint die falsche Tür zu sein. Leider lässt sie sich nicht öffnen.""", "yellow"))
-    elif türen.find(form).closed == False:
+    elif türen.find(form).closed:
         say(colored(
             f"""Du versuchst, die Tür mit der Form {form} zu öffnen.\n
             Die Tür ist offen. Du schaust dich im Raum um, doch kannst nichts

@@ -2,16 +2,13 @@
 # RAUM 6: KONTROLLRAUM #
 ########################
 
-#imports
-from PIL import Image
+# imports
 import time
-import random
-from adventurelib import Room, when, say, start, Bag, Item, set_context
+from adventurelib import when, say, set_context
 import sys
-from inventory import *
 
 
-#global vars
+# global vars
 klappe_offen = False
 kontrollrechner_entsperrt = False
 firewall_gesehen = False
@@ -49,6 +46,7 @@ def look_around_room6():
         ist so verrostet, dass du sie mit bloßen Händen nicht aufbekommt."""
         )
 
+
 @when("zettel nehmen", context="room6")
 @when("zettel anschauen", context="room6")
 @when("zettel anzeigen", context="room6")
@@ -59,8 +57,7 @@ def zettel_anschauen2():
     ISMS.1.A11              |   4\n
     OPS.1.1.4.A14           |   5\n
     SYS.2.1.A1              |   5"""
-    )
-
+        )
 
 
 @when("brecheisen benutzen", context="room6")
@@ -144,12 +141,10 @@ def firewall_schliessen():
             zu schließen:"""
         )
         while (True):
-            input_loesung = input("Richtigen Satz eingeben (""exit"" um zurückzugehen): ")
+            input_loesung = input(
+                "Richtigen Satz eingeben (""exit"" um zurückzugehen): ")
             if (
-                input_loesung
-                == "IT-GRUNDSCHUTZ: DEN EINSTIEG MEISTERN UND SICHERHEITSKONZEPTE MIT MEHRWERT NUTZEN"
-                or input_loesung
-                == "IT-Grundschutz: Den Einstieg meistern und Sicherheitskonzepte mit Mehrwert nutzein"
+                input_loesung == "IT-GRUNDSCHUTZ: DEN EINSTIEG MEISTERN UND SICHERHEITSKONZEPTE MIT MEHRWERT NUTZEN" or input_loesung == "IT-Grundschutz: Den Einstieg meistern und Sicherheitskonzepte mit Mehrwert nutzein"
             ):
                 print_loesung_firewall()
                 abspann()
@@ -157,7 +152,6 @@ def firewall_schliessen():
                 return
             else:
                 say("""Das ist leider die falsche Antwort. Die Firewall ist immer noch offen. Hast du eventuell etwas überesehen?""")
-
 
 
 def print_loesung_firewall():

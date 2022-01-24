@@ -2,17 +2,14 @@
 # RAUM 5: BÜRO #
 ################
 
-#imports
-from PIL import Image
+# imports
 import time
-import random
-from adventurelib import Room, when, say, start, Bag, Item, set_context
-import sys
-from room_6 import *
-from inventory import *
+from adventurelib import when, say, set_context
+import room_6
+import inventory
 
 
-#global vars
+# global vars
 passwort_gefunden = False
 
 
@@ -164,4 +161,4 @@ def computer_entsperren():
 
     say("""Du verlässt die Kommandozeile""")
     if (passwort_gefunden):
-        ueberleitung_room6()
+        room_6.ueberleitung_room6()
