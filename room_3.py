@@ -33,21 +33,31 @@ türen = Bag(
 
 def ueberleitung_room3():
     time.sleep(6.0)
-    say(colored("""---------------------------------------------------------------------------------""", "yellow"))
-    say(colored("""Doch von dem lauten Geräusch scheint der Kraftwerk-Chef wieder
-        aufgewacht zu sein. Er kommt schweren Schrittes auf dich zugelaufen und
-        versucht dir winkend und mit letztem Atem keuchend mitzuteilen, dass die
-        Pumpen nur über den Haupt-Kontrollrechner gestartet werden können.\n
-        Du musst also unbedingt einen Weg finden, den Rechner zu entsperren. Doch wie
-        sollst du das bloß anstellen? Vielleicht sind noch nicht alle Rechner mit
-        der Ransomware infiziert. Du musst einen Rechner finden, der noch nicht
-        betroffen ist, vielleicht hilft dir das weiter.\n Herr Solar scheint einen
-        Gedankenblitz zu haben: „Wir haben neulich mit anderen Kraftwerken zusammen
-        ein 5G-Campusnetz aufgebaut, das alle verfügbaren Geräte in unserem Netzwerk
-        auflisten kann. Dazu braucht man nur eine passende SIM-Karte. Jedoch hab ich
-        leider vergessen, wo genau die SIM-Karten gelagert werden. Es muss irgendwo
-        hier drüben sein.“, sagt er und führt dich in einen langen, kargen Flur mit
-        sieben Türen.""", "yellow"))
+    say(
+        colored(
+            """---------------------------------------------------------------------------------""",
+            "yellow"
+        )
+    )
+    say(
+        colored(
+            """Doch von dem lauten Geräusch scheint der Kraftwerk-Chef wieder
+            aufgewacht zu sein. Er kommt schweren Schrittes auf dich zugelaufen und
+            versucht dir winkend und mit letztem Atem keuchend mitzuteilen, dass die
+            Pumpen nur über den Haupt-Kontrollrechner gestartet werden können.\n
+            Du musst also unbedingt einen Weg finden, den Rechner zu entsperren. Doch wie
+            sollst du das bloß anstellen? Vielleicht sind noch nicht alle Rechner mit
+            der Ransomware infiziert. Du musst einen Rechner finden, der noch nicht
+            betroffen ist, vielleicht hilft dir das weiter.\n Herr Solar scheint einen
+            Gedankenblitz zu haben: „Wir haben neulich mit anderen Kraftwerken zusammen
+            ein 5G-Campusnetz aufgebaut, das alle verfügbaren Geräte in unserem Netzwerk
+            auflisten kann. Dazu braucht man nur eine passende SIM-Karte. Jedoch hab ich
+            leider vergessen, wo genau die SIM-Karten gelagert werden. Es muss irgendwo
+            hier drüben sein.“, sagt er und führt dich in einen langen, kargen Flur mit
+            sieben Türen.""",
+            "yellow"
+        )
+    )
     set_context("room3")
 
 
@@ -56,8 +66,13 @@ def ueberleitung_room3():
 @when("schau dich um", context="room3")
 def look_around_room3():
     # umschauen in Raum 3
-    say(colored("""Auf den Türen entdeckst du seltsame Symbole. Was die wohl zu bedeuten
-        haben? An der Wand hängt außerdem eine Pinnwand mit Fotos.""", "yellow"))
+    say(
+        colored(
+            """Auf den Türen entdeckst du seltsame Symbole. Was die wohl zu bedeuten
+            haben? An der Wand hängt außerdem eine Pinnwand mit Fotos.""",
+            "yellow"
+        )
+    )
 
 
 @when("pinnwand anschauen", context="room3")  # anschauen
@@ -92,9 +107,14 @@ def pinnwand_anschauen():
 @when("symbole anschauen", context="room3")
 @when("schaue symbole an", context="room3")
 def tueren_anschauen():
-    say(colored("""Auf jeder der sieben Türen ist jeweils ein Symbol. \n
-        Einige der Türen scheinen verschlossen, andere offen zu sein, aber alle
-        Räume zu durchsuchen kostet zu viel Zeit.""", "yellow"))
+    say(
+        colored(
+            """Auf jeder der sieben Türen ist jeweils ein Symbol. \n
+            Einige der Türen scheinen verschlossen, andere offen zu sein, aber alle
+            Räume zu durchsuchen kostet zu viel Zeit.""",
+            "yellow"
+        )
+    )
     img = Image.open("doors.png")
     img.show()
 
@@ -115,19 +135,32 @@ def tuer_oeffnen(form):
         say(colored("""Eine Tür mit diesem Symbol gibt es nicht.""", "yellow"))
     elif form == "stern":
         # türen.find("stern").status = True
-        say(colored("""Du versuchst, die Tür mit dem Stern zu öffnen.\n
-            Die Tür ist verschlossen, du siehst allerdings, dass der Schlüssel steckt.
-            Du schließt die Tür auf und betrittst den Raum.""", "yellow"))
+        say(
+            colored(
+                """Du versuchst, die Tür mit dem Stern zu öffnen.\n
+                Die Tür ist verschlossen, du siehst allerdings, dass der Schlüssel steckt.
+                Du schließt die Tür auf und betrittst den Raum.""",
+                "yellow"
+            )
+        )
         room_4.ueberleitung_room4()
     elif türen.find(form).closed:
-        say(colored(
-            f"""Du versuchst, die Tür mit der Form {form} zu öffnen.\n
-            Das scheint die falsche Tür zu sein. Leider lässt sie sich nicht öffnen.""", "yellow"))
+        say(
+            colored(
+                f"""Du versuchst, die Tür mit der Form {form} zu öffnen.\n
+                Das scheint die falsche Tür zu sein. Leider lässt sie sich nicht öffnen.""",
+                "yellow"
+            )
+        )
     elif türen.find(form).closed:
-        say(colored(
-            f"""Du versuchst, die Tür mit der Form {form} zu öffnen.\n
-            Die Tür ist offen. Du schaust dich im Raum um, doch kannst nichts
-            entdecken, was dir irgendwie weiterhilft. Schade...du hast wertvolle Zeit verloren.""", "yellow"))
+        say(
+            colored(
+                f"""Du versuchst, die Tür mit der Form {form} zu öffnen.\n
+                Die Tür ist offen. Du schaust dich im Raum um, doch kannst nichts
+                entdecken, was dir irgendwie weiterhilft. Schade...du hast wertvolle Zeit verloren.""",
+                "yellow"
+            )
+        )
         # TODO verschlossene Türen und leere Räume
 
 

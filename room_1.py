@@ -16,16 +16,25 @@ sicherheitstuer_gesehen = False
 
 
 def ueberleitung_room1():
-    say(colored("""----------------------------------------------------------------------------------""", "yellow"))
-    say(colored("""Du befindest dich nun im Kontrollraum. Die Menge an Schaltern, Hebeln und
-        Knöpfen erschlägt dich fast und es fällt dir schwer deine Panik in den Griff zu
-        bekommen. Du versuchst dich zu sammeln und deine Möglichkeiten abzuwägen: \n
-        Du kannst dich im Raum [umschauen]\n
-        Du kannst Dinge im Raum [anschauen], [nehmen] und [benutzen], sowie Knöpfe [drücken]\n
-        Du kannst dein aktuelles [Inventar] anschauen\n
-        Du kannst dir [help] suchen, wenn du nicht weiterkommst\n
-        Du kannst mit [quit] das AKW verlassen (Spiel beenden)""", "yellow"
-                ))
+    say(
+        colored(
+            """----------------------------------------------------------------------------------""",
+            "yellow"
+        )
+    )
+    say(
+        colored(
+            """Du befindest dich nun im Kontrollraum. Die Menge an Schaltern, Hebeln und
+            Knöpfen erschlägt dich fast und es fällt dir schwer deine Panik in den Griff zu
+            bekommen. Du versuchst dich zu sammeln und deine Möglichkeiten abzuwägen: \n
+            Du kannst dich im Raum [umschauen]\n
+            Du kannst Dinge im Raum [anschauen], [nehmen] und [benutzen], sowie Knöpfe [drücken]\n
+            Du kannst dein aktuelles [Inventar] anschauen\n
+            Du kannst dir [help] suchen, wenn du nicht weiterkommst\n
+            Du kannst mit [quit] das AKW verlassen (Spiel beenden)""",
+            "yellow"
+        )
+    )
 
 
 # Look Around #
@@ -99,18 +108,26 @@ def brecheisen_benutzen():
     if inventory.find("brecheisen") is None:
         say(colored("""Du hast kein Brecheisen.""", "yellow"))
     else:
-        say(colored("""Vielleicht solltest du den Kontrollrechner damit lieber nicht
-            zerstören...""", "yellow"
-                    ))
+        say(
+            colored(
+                """Vielleicht solltest du den Kontrollrechner damit lieber nicht
+                zerstören...""",
+                "yellow"
+            )
+        )
 
 
 @when("kontrollrechner anschauen", context="room1")
 def kontrollrechner_anschauen():
-    say(colored("""Der Bildschirm zeigt weiterhin den Totenkopf und die Nachricht der
-        Erpresser. Du entdeckst ein Terminal mit Anschlüssen und einigen Knöpfen.
-        Darunter ein Knopf auf dem "Reset" steht und eine Buchse, die mit
-        "DIN AT" beschriftet ist.""", "yellow"
-                ))
+    say(
+        colored(
+            """Der Bildschirm zeigt weiterhin den Totenkopf und die Nachricht der
+            Erpresser. Du entdeckst ein Terminal mit Anschlüssen und einigen Knöpfen.
+            Darunter ein Knopf auf dem "Reset" steht und eine Buchse, die mit
+            "DIN AT" beschriftet ist.""",
+            "yellow"
+        )
+    )
 
 
 @when("reset drücken", context="room1")
@@ -136,14 +153,18 @@ def kontrollrechner_anschauen():
 @when("kontrollrechner rebooten", context="room1")
 @when("reboote kontrollrechner", context="room1")
 def computer_neustarten():
-    say(colored("""Der Rechner startet neu, BIOS-Meldungen erscheinen auf dem Bildschirm,
-        ein Windows 95 – Startsound ertönt und die Erpresserbotschaft erscheint
-        direkt wieder nach dem Bootvorgang.\n
-        „Das bringt nichts!“, denkst du dir und überlegst, was du tun sollst.
-        Über den Kontrollrechner lassen sich die Pumpen für das Kühlsystem
-        jedenfalls nicht mehr starten. Vielleicht hilft ein manueller Start der
-        Pumpen.""", "yellow"
-                ))
+    say(
+        colored(
+            """Der Rechner startet neu, BIOS-Meldungen erscheinen auf dem Bildschirm,
+            ein Windows 95 – Startsound ertönt und die Erpresserbotschaft erscheint
+            direkt wieder nach dem Bootvorgang.\n
+            „Das bringt nichts!“, denkst du dir und überlegst, was du tun sollst.
+            Über den Kontrollrechner lassen sich die Pumpen für das Kühlsystem
+            jedenfalls nicht mehr starten. Vielleicht hilft ein manueller Start der
+            Pumpen.""",
+            "yellow"
+        )
+    )
     global kontrollrechner_neugestartet
     kontrollrechner_neugestartet = True
 
@@ -152,10 +173,14 @@ def computer_neustarten():
 @when("buchse anschauen", context="room1")
 @when("anschluss anschauen", context="room1")
 def buchse_anschauen():
-    say(colored("""So etwas Veraltetes, fast schon Antikes hast du schon lange nicht
-        mehr gesehen. Leider hast du kein Eingabegerät zur Hand, das kompatibel
-        ist.""", "yellow"
-                ))
+    say(
+        colored(
+            """So etwas Veraltetes, fast schon Antikes hast du schon lange nicht
+            mehr gesehen. Leider hast du kein Eingabegerät zur Hand, das kompatibel
+            ist.""",
+            "yellow"
+        )
+    )
 
 
 @when("sicherheitstür anschauen", context="room1")
@@ -163,20 +188,28 @@ def buchse_anschauen():
 @when("sicherheitstuer anschauen", context="room1")
 def sicherheitstuer_anschauen():
     if kontrollrechner_neugestartet:
-        say(colored("""Du rüttelst an der Tür, doch sie bewegt sich keinen Zentimeter. Direkt neben der Tür befindet sich ein Tastenfeld
-            und darüber eine Kamera. Du drückst die Grüne Starttaste und die Kamera beginnt mit einem Scan von deinem Gesicht. Du
-            erschrickst. Auf dem Display erscheint in roter Schrift „Zugriff verweigert“. „Das Gesicht des Chefs sollte
-            funktionieren!“, denkst du dir, erinnerst dich aber, dass dieser ohnmächtig geworden ist. Du nimmst dein Smartphone in
-            die Hand und hältst ein Bild von Herrn Solar in die Kamera. „Guten Tag Herr Solar! Bitte geben Sie Ihre PIN ein!“,
-            ertönt eine roboterartige Stimme aus dem Terminal und das Display zeigt: * * * * * *. „Mist, wo krieg ich denn jetzt den
-            PIN her?“, fragst du dich. Vielleicht schaust du dich einfach noch einmal um.""", "yellow"
-                    ))
+        say(
+            colored(
+                """Du rüttelst an der Tür, doch sie bewegt sich keinen Zentimeter. Direkt neben der Tür befindet sich ein Tastenfeld
+                und darüber eine Kamera. Du drückst die Grüne Starttaste und die Kamera beginnt mit einem Scan von deinem Gesicht. Du
+                erschrickst. Auf dem Display erscheint in roter Schrift „Zugriff verweigert“. „Das Gesicht des Chefs sollte
+                funktionieren!“, denkst du dir, erinnerst dich aber, dass dieser ohnmächtig geworden ist. Du nimmst dein Smartphone in
+                die Hand und hältst ein Bild von Herrn Solar in die Kamera. „Guten Tag Herr Solar! Bitte geben Sie Ihre PIN ein!“,
+                ertönt eine roboterartige Stimme aus dem Terminal und das Display zeigt: * * * * * *. „Mist, wo krieg ich denn jetzt den
+                PIN her?“, fragst du dich. Vielleicht schaust du dich einfach noch einmal um.""",
+                "yellow"
+            )
+        )
         global sicherheitstuer_gesehen
         sicherheitstuer_gesehen = True
     else:
-        say(colored("""Die Tür scheint verschlossen zu sein. Vielleicht versuchst du
-            dein Glück erst mal am Kontrollrechner.""", "yellow"
-                    ))
+        say(
+            colored(
+                """Die Tür scheint verschlossen zu sein. Vielleicht versuchst du
+                dein Glück erst mal am Kontrollrechner.""",
+                "yellow"
+            )
+        )
 
 
 @when("poster anschauen", context="room1")
@@ -184,16 +217,20 @@ def sicherheitstuer_anschauen():
 @when("scooter poster anschauen", context="room1")
 @when("poster ansehen", context="room1")
 def poster_anschauen():
-    say(colored("""Das Poster trägt die Aufschrift „How much is the fish“. Es scheint
-        mit Klebestreifen befestigt worden zu sein. Von der Rückseite schimmert
-        Schrift durch das dünne Papier. Du hebst das Poster an und entdeckst
-        eine Widmung an Herrn Solar mit der Unterschrift von HP Baxxter und
-        einer kurzen Biografie des Künstlers unter anderem mit seinem
-        Geburtsdatum: 16. März 1964\n
-        Du erinnerst dich: Einer aus dem Kamerateam hat dir im Vorfeld erzählt,
-        dass Herr Solar ein riesen Fan der Techno- und EDM-Band sei und immer
-        wieder davon erzählte, dass er nur 5 Tage nach HP Baxxter Geburtstag hätte.""", "yellow"
-                ))
+    say(
+        colored(
+            """Das Poster trägt die Aufschrift „How much is the fish“. Es scheint
+            mit Klebestreifen befestigt worden zu sein. Von der Rückseite schimmert
+            Schrift durch das dünne Papier. Du hebst das Poster an und entdeckst
+            eine Widmung an Herrn Solar mit der Unterschrift von HP Baxxter und
+            einer kurzen Biografie des Künstlers unter anderem mit seinem
+            Geburtsdatum: 16. März 1964\n
+            Du erinnerst dich: Einer aus dem Kamerateam hat dir im Vorfeld erzählt,
+            dass Herr Solar ein riesen Fan der Techno- und EDM-Band sei und immer
+            wieder davon erzählte, dass er nur 5 Tage nach HP Baxxter Geburtstag hätte.""",
+            "yellow"
+        )
+    )
 
 
 @when("pin eingeben", context="room1")
