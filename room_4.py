@@ -7,7 +7,7 @@ from PIL import Image
 import time
 from adventurelib import when, say, set_context
 import room_5
-import inventory
+from inventory import *
 from termcolor import colored
 
 
@@ -41,6 +41,7 @@ def ueberleitung_room4():
 @when("umschauen", context="room4")
 @when("schau um", context="room4")
 @when("schau dich um", context="room4")
+@when("umsehen", context="room4")
 def look_around_room4():
     if can_use_pin:
         say(
@@ -50,7 +51,7 @@ def look_around_room4():
                 "yellow"
             )
         )
-    elif "simkarte" in inventory:
+    elif inventory.find("simkarte") is not None:
         say(
             colored(
                 """Dir fällt sofort die feine Haarnadel der Ministerin ins Auge.

@@ -6,7 +6,7 @@
 import time
 from adventurelib import when, say, set_context
 import room_6
-import inventory
+from inventory import *
 
 
 # global vars
@@ -35,6 +35,7 @@ def ueberleitung_room5():
 @when("umschauen", context="room5")
 @when("schau um", context="room5")
 @when("schau dich um", context="room5")
+@when("umsehen", context="room5")
 def look_around_room5():
     say(colored("""Schnell entdeckst du den potentiell nicht betroffenen PC im Raum.""", "yellow"))
 

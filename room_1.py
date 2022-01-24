@@ -7,7 +7,7 @@ from termcolor import colored
 import time
 from adventurelib import when, say
 import room_2
-import inventory
+from inventory import *
 
 # global vars
 kontrollrechner_neugestartet = False
@@ -41,6 +41,7 @@ def ueberleitung_room1():
 @when("umschauen", context="room1")
 @when("schaue um", context="room1")
 @when("schau dich um", context="room1")
+@when("umsehen", context="room1")
 def look_around_room1():
     # umschauen in Raum 1
     # TODO

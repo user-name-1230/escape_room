@@ -7,7 +7,7 @@ from PIL import Image
 import time
 from adventurelib import when, say, set_context
 import room_3
-import inventory
+from inventory import *
 from termcolor import colored
 
 
@@ -40,6 +40,7 @@ def ueberleitung_room2():
 @when("umschauen", context="room2")
 @when("schaue um", context="room2")
 @when("schau dich um", context="room2")
+@when("umsehen", context="room2")
 def look_around_room2():
     say(
         colored(

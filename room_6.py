@@ -37,6 +37,7 @@ def ueberleitung_room6():
 @when("umschauen", context="room6")
 @when("schau um", context="room6")
 @when("schau dich um", context="room6")
+@when("umsehen", context="room6")
 def look_around_room6():
     if firewall_gesehen:
         say(

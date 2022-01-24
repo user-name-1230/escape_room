@@ -64,6 +64,7 @@ def ueberleitung_room3():
 @when("umschauen", context="room3")
 @when("schaue um", context="room3")
 @when("schau dich um", context="room3")
+@when("umsehen", context="room3")
 def look_around_room3():
     # umschauen in Raum 3
     say(
