@@ -318,6 +318,7 @@ def pin_eingeben():
             input_2 = input(colored("PIN eingeben: ", "grey", "on_white"))
             if input_2 == "1234":
                 say(colored("""PIN akzeptiert!""", "grey", "on_white"))
+                time.sleep(2.0)
                 raum4Ende()
                 return
             else:
