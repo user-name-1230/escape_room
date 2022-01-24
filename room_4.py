@@ -19,13 +19,22 @@ can_use_pin = False
 
 def ueberleitung_room4():
     time.sleep(6.0)
-    say(colored("""---------------------------------------------------------------------------------""", "yellow"))
-    say(colored("""Du scheinst in eine Art Lagerraum gekommen zu sein mit allerlei
+    say(
+        colored(
+            """---------------------------------------------------------------------------------""",
+            "yellow",
+        )
+    )
+    say(
+        colored(
+            """Du scheinst in eine Art Lagerraum gekommen zu sein mit allerlei
         technischen Geräten, die ihre beste Zeit hinter sich haben. In der Ecke
         steht ein leeres Serverrack und daneben eine Werkzeugtasche, die allerdings
         nur nutzlose Werkzeuge enthält. Mal sehen, was du noch so entdecken kannst,
-        was dir weiterhelfen könnte.""", "yellow"
-                ))
+        was dir weiterhelfen könnte.""",
+            "yellow",
+        )
+    )
     set_context("room4")
 
 
@@ -33,16 +42,14 @@ def ueberleitung_room4():
 @when("schau um", context="room4")
 @when("schau dich um", context="room4")
 def look_around_room4():
-    if sim_schrank_offen:
-        say(colored("""Dir fällt sofort die feine Haarnadel der Ministerin ins
-            Auge. Du fragst sie, ob du dir ihre Haarnadel kurz ausleihen kannst.
-            Sie nickt aufgeregt und übergibt sie dir schnell.""", "yellow"
-                    ))
-    else:
-        say(colored("""An der gegenüberliegenden Wand des Serverracks steht ein
-            Lagerspind mit einem Zahlenschloss, das anscheinend bei der letzten
-            Benutzung nicht richtig verschlossen wurde.""", "yellow"
-                    ))
+    say(
+        colored(
+            """An der gegenüberliegenden Wand des Serverracks steht ein
+        Lagerspind mit einem Zahlenschloss, das anscheinend bei der letzten
+        Benutzung nicht richtig verschlossen wurde.""",
+            "yellow",
+        )
+    )
 
 
 # @when("oberes abteil angucken", context="room4")  # angucken
@@ -88,32 +95,32 @@ def look_around_room4():
 #     print("unteres abteil beschreibung")
 
 
-# @when("rechner anmachen", context="room4")  # rechner, anmachen
-# @when("mache rechner an", context="room4")
-# @when("rechner starten", context="room4")  # rechner, starten
-# @when("starte rechner", context="room4")
-# @when("rechner anschalten", context="room4")  # rechner, anschalten
-# @when("schalte rechner an", context="room4")
-# @when("computer anmachen", context="room4")  # computer, anmachen
-# @when("mache computer an", context="room4")
-# @when("computer starten", context="room4")  # computer, starten
-# @when("starte computer", context="room4")
-# @when("computer anschalten", context="room4")  # computer, anschalten
-# @when("schalte computer an", context="room4")
-# @when("pc anmachen", context="room4")  # pc, anmachen
-# @when("mache pc an", context="room4")
-# @when("pc starten", context="room4")  # pc, starten
-# @when("starte pc", context="room4")
-# @when("pc anschalten", context="room4")  # pc, anschalten
-# @when("schalte pc an", context="room4")
-# def rechner_anmachen():
-#     print("schon betroffen")
+@when("rechner anmachen", context="room4")  # rechner, anmachen
+@when("mache rechner an", context="room4")
+@when("rechner starten", context="room4")  # rechner, starten
+@when("starte rechner", context="room4")
+@when("rechner anschalten", context="room4")  # rechner, anschalten
+@when("schalte rechner an", context="room4")
+@when("computer anmachen", context="room4")  # computer, anmachen
+@when("mache computer an", context="room4")
+@when("computer starten", context="room4")  # computer, starten
+@when("starte computer", context="room4")
+@when("computer anschalten", context="room4")  # computer, anschalten
+@when("schalte computer an", context="room4")
+@when("pc anmachen", context="room4")  # pc, anmachen
+@when("mache pc an", context="room4")
+@when("pc starten", context="room4")  # pc, starten
+@when("starte pc", context="room4")
+@when("pc anschalten", context="room4")  # pc, anschalten
+@when("schalte pc an", context="room4")
+def rechner_anmachen():
+    print("schon betroffen")
 
 
-# @when("werkzeugkiste öffnen", context="room4")  # öffnen
-# @when("öffne werkzeugkiste", context="room4")
-# def werkzeugkiste_oeffnen():
-#     print("werkzeugkiste geöffnet, nichts drin")
+@when("werkzeugkiste öffnen", context="room4")  # öffnen
+@when("öffne werkzeugkiste", context="room4")
+def werkzeugkiste_oeffnen():
+    print("werkzeugkiste geöffnet, nichts drin")
 
 
 @when("spind öffnen", context="room4")  # öffnen
@@ -122,13 +129,17 @@ def look_around_room4():
 def spind_oeffnen():
     global sim_schrank_offen
     sim_schrank_offen = True
-    say(colored("""Du öffnest den Spind und schaust dir den Inhalt genau an.
+    say(
+        colored(
+            """Du öffnest den Spind und schaust dir den Inhalt genau an.
         Zuerst siehst du nur alte Ersatzteile für Computer. RAM, Lüfter,
         Netzteile, alte Festplatten und so weiter. Doch dann sticht dir ein
         kleiner Karton mit der Aufschrift „SIM-Karten“ ins Auge. \n
         An der Innenseite der Spindtür entdeckst du einen QR-Code. Ob der wohl
-        was damit zu tun hat? """, "yellow"
-                ))
+        was damit zu tun hat? """,
+            "yellow",
+        )
+    )
 
 
 @when("sim karte nehmen", context="room4")  # nehmen
@@ -149,11 +160,15 @@ def sim_karte_nehmen():
     if not sim_schrank_offen:
         print("nicht offen")
     if sim_schrank_offen:
-        say(colored("""Du nimmst dir eine Karte aus dem Karton. „Verdammt...wie
+        say(
+            colored(
+                """Du nimmst dir eine Karte aus dem Karton. „Verdammt...wie
             soll ich denn jetzt den SIM-Slot an meinem Handy öffnen?“, fragst du dich.\n
             Du hörst schnelle Schritte auf dem Gang. Die Ministerin und das
-            Fernsehteam betreten den Raum.""", "yellow"
-                    ))
+            Fernsehteam betreten den Raum.""",
+                "yellow",
+            )
+        )
         inventory.add(inventory.sim)
 
 
@@ -199,10 +214,14 @@ def sim_slot_oeffnen():
     if can_check_sim_slot:
         if inventory.find("simkarte") is not None:
             if inventory.find("haarnadel") is not None:
-                say(colored("""Zum Glück ist die Nadel dünn genug, um den
+                say(
+                    colored(
+                        """Zum Glück ist die Nadel dünn genug, um den
                     SIM-Slot zu öffnen. Du legst die SIM-Karte in dein Handy ein,
-                    worauf die Aufforderung „SIM-PIN eingeben“ angezeigt wird.""", "yellow"
-                            ))
+                    worauf die Aufforderung „SIM-PIN eingeben“ angezeigt wird.""",
+                        "yellow",
+                    )
+                )
                 global can_use_pin
                 can_use_pin = True
             else:
@@ -216,10 +235,14 @@ def sim_slot_oeffnen():
 @when("schrader nach haarnadel fragen", context="room4")
 @when("frage schrader nach haarnadel", context="room4")
 def schrader_haarnadel():
-    say(colored("""Dir fällt sofort die feine Haarnadel der Ministerin ins Auge.
+    say(
+        colored(
+            """Dir fällt sofort die feine Haarnadel der Ministerin ins Auge.
         Du fragst sie, ob du dir ihre Haarnadel kurz ausleihen kannst. Sie nickt
-        aufgeregt und übergibt sie dir schnell.""", "yellow"
-                ))
+        aufgeregt und übergibt sie dir schnell.""",
+            "yellow",
+        )
+    )
     inventory.add(inventory.hairpin)
 
 
@@ -262,7 +285,9 @@ def show_qr():
 @when("benutz den pin", context="room4")
 def pin_eingeben():
     if can_use_pin:
-        say(colored("""Sehr gut. Du hast es geschafft, die SIM-Karte zu entsperren.
+        say(
+            colored(
+                """Sehr gut. Du hast es geschafft, die SIM-Karte zu entsperren.
             Auf deinem Smartphone-Display erscheint direkt das Dashboard der
             Intranet-Seite des Kraftwerks. In einer Liste am Rand werden alle
             Computer im Netzwerk angezeigt. Das sieht schlecht aus. Alle PCs
@@ -271,8 +296,10 @@ def pin_eingeben():
             ist tatsächlich noch ein PC aufgeführt, der noch nicht mit einem Schloss
             Symbol versehen ist. Das ist es! Du klickst darauf, um dir mehr Details
             ansehen zu können. Dabei steht sogar eine Raumnummer. „Ich kann Sie
-            dort hinführen!“, sagt der Kraftwerkchef aufgeregt.""", "yellow"
-                    ))
+            dort hinführen!“, sagt der Kraftwerkchef aufgeregt.""",
+                "yellow",
+            )
+        )
         hamming_code()
     else:
         print("SIM karte noch nicht hinzugefügt")
