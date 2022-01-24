@@ -271,7 +271,7 @@ def show_qr():
 
 @when("pin eingeben", context="room4")  # eingeben
 @when("eingabe pin", context="room4")
-@when("eingabe vom pin", context="room4")
+@when("eingabe der pin", context="room4")
 @when("pin bestaetigen", context="room4")  # bestätigen
 @when("bestaetigen mit pin", context="room4")
 @when("bestaetige mit pin", context="room4")
@@ -285,9 +285,23 @@ def show_qr():
 @when("benutz den pin", context="room4")
 def pin_eingeben():
     if can_use_pin:
-        say(
-            colored(
-                """Sehr gut. Du hast es geschafft, die SIM-Karte zu entsperren.
+        while True:
+            input_2 = input("PIN eingeben: ")
+            if input_2 == "1234":
+                print("PIN korrekt")
+                raum4Ende()
+                return
+            else:
+                print("Falscher PIN, bitte noch einmal versuchen.")
+    else:
+        print("SIM karte noch nicht hinzugefügt")
+
+
+
+def raum4Ende():
+    say(
+        colored(
+            """Sehr gut. Du hast es geschafft, die SIM-Karte zu entsperren.
             Auf deinem Smartphone-Display erscheint direkt das Dashboard der
             Intranet-Seite des Kraftwerks. In einer Liste am Rand werden alle
             Computer im Netzwerk angezeigt. Das sieht schlecht aus. Alle PCs
@@ -296,27 +310,7 @@ def pin_eingeben():
             ist tatsächlich noch ein PC aufgeführt, der noch nicht mit einem Schloss
             Symbol versehen ist. Das ist es! Du klickst darauf, um dir mehr Details
             ansehen zu können. Dabei steht sogar eine Raumnummer. „Ich kann Sie
-            dort hinführen!“, sagt der Kraftwerkchef aufgeregt.""",
-                "yellow",
-            )
+            dort hinführen!“, sagt der Kraftwerkchef aufgeregt.""", "yellow"
         )
-        hamming_code()
-    else:
-        print("SIM karte noch nicht hinzugefügt")
-
-
-def hamming_code():
-    while True:
-        input_2 = input("PIN eingeben: ")
-        if input_2 == "1234":
-            print("PIN korrekt")
-            raum4Ende()
-            return
-        else:
-            print("Falscher PIN, bitte noch einmal versuchen.")
-
-
-def raum4Ende():
-    say(colored("""Hier kommt eine Überleitung zu Raum 5""", "yellow"))
-    # TODO
-    set_context("room5")
+    )
+    ueberleitung_room5()
