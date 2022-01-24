@@ -84,7 +84,7 @@ def brecheisen_benutzen3():
     klappe_offen = True
     say(
         colored(
-            """Gut, dass du das Brecheisen vom Anfang noch dabei hattest. Du brichst
+            """Gut, dass du das Brecheisen vom Anfang noch bei dir hast. Du brichst
             die Klappe auf und dahinter versteckt sich tatsächlich eine passende
             Tastatur.""",
             "yellow"
@@ -102,14 +102,19 @@ def brecheisen_benutzen3():
 @when("passwort eintippen", context="room6")
 @when("passwort eingeben", context="room6")
 def tastatur_benutzen():
+    say(
+        colored(
+            """Du steckst die Tastatur an den alten Kontrollrechner an.""",
+            "yellow"
+        )
+    )
     if klappe_offen:
         while (True):
             input_tastatur = input(colored("Passwort eingeben: ", "white", "on_grey"))
             if input_tastatur == "30JahreBSI1991!":
                 say(
                     colored(
-                        """Du steckst die Tastatur an den alten Kontrollrechner an
-                        und tippst das Passwort ein: 3…0…J…a…h…r…e…B…S…I…1…9…9…1…!
+                        """Du tippst das Passwort ein: 3…0…J…a…h…r…e…B…S…I…1…9…9…1…!
                         ENTER!
                         Der Totenkopf verschwindet. Du hast es geschafft. Doch dir fällt
                         etwas ein: „Wir müssen irgendetwas tun, um die Hacker aus dem
