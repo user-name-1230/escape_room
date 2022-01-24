@@ -48,6 +48,7 @@ print(colored("Test", "red"))
 say(colored("""Test say \n
             test""", "yellow"))
 
+
 def no_command_matches(command):
     print(colored(random.choice([
         "Das habe ich nicht verstanden.",
@@ -56,8 +57,8 @@ def no_command_matches(command):
         f"Tut mir leid, die Aktion '{command}' scheint nicht zur Verfügung zu stehen."
     ]), "red"))
 
-adventurelib.no_command_matches = no_command_matches
 
+adventurelib.no_command_matches = no_command_matches
 
 
 # Start #
@@ -73,13 +74,13 @@ say(colored("""Einleitung: \n
     führt Ministerin Schrader, das Fernsehteam und dich durch die Anlage. Nach
     einigen Minuten gelangt ihr in das Herzstück des AKWs – den Kontrollraum –
     welches sich hinter einer meterdicken Sicherheitstür befindet.""", "yellow"
-))
+            ))
 say("""""")
 say(colored("""Ihr begebt euch gemeinsam zum Abschaltterminal. Über ein Mikrofon zählt
     Herr Solar den Countdown herunter. Die Journalisten außerhalb des Kraftwerks
     lauschen gespannt mit. Ministerin Schrader hat bereits die Hand auf dem großen
     roten Knopf. 5...4...3...2........plötzlich völlige Dunkelheit.""", "yellow"
-))
+            ))
 say("""""")
 say(colored("""Ihr hört ein lautes Surren und Klicken. Nach einer gefühlten Ewigkeit
     geht ein rot-pulsierendes Notlicht an und im Kontrollraum verhallt das
@@ -88,13 +89,13 @@ say(colored("""Ihr hört ein lautes Surren und Klicken. Nach einer gefühlten Ew
     erscheint mit folgender Mitteilung: "Die Evil Corp hat soeben das Kraftwerk
     übernommen. Wir haben das Kühlsystem der Brennstäbe gehackt und die Pumpen
     heruntergefahren.“""", "yellow"
-))
+            ))
 say("""""")
 say(colored("""Ein Countdown startet: 30:00, 29:59, 29:58, ....""", "yellow"))
 say("""""")
 say(colored("""„Zur Entsperrung der Anlage müssen sie nur einen kleinen Betrag von
     100.000.000 Dogecoin auf die Wallet-Adresse besser.aBSIchern überweisen.“""", "yellow"
-))
+            ))
 say("""""")
 say(colored("""Unter der Mitteilung erscheint ein Eingabefeld, welches mit Passwort
     beschriftet ist. Na toll…Ransomware. Der Chef des Kraftwerks ist erschüttert und
@@ -107,10 +108,10 @@ say(colored("""Unter der Mitteilung erscheint ein Eingabefeld, welches mit Passw
     eine Bezahlung des Lösegelds wirksam ist. Also suchst du als einziger Anwesender
     mit breitem IT-Wissen - denn du hast ja DACS studiert ;) - nach einer
     Lösung.""", "yellow"
-))
+            ))
 
 
-#Start
+# Start
 set_context("room1")
 ueberleitung_room1()
 
@@ -120,7 +121,8 @@ ueberleitung_room1()
 
 @when("debugraum")
 def debug_room():
-    debug_input = input(colored("In welchen Raum möchten Sie springen [1, 2, 3, 4, 5, 6]: ", "cyan"))
+    debug_input = input(
+        colored("In welchen Raum möchten Sie springen [1, 2, 3, 4, 5, 6]: ", "cyan"))
     if debug_input == "1":
         set_context("room1")
     elif debug_input == "2":
@@ -137,7 +139,8 @@ def debug_room():
 
 @when("debugitem")
 def debug_item():
-    debug_input = input(colored("Welches ITEM hinzufügen [brecheisen, smartphone, haarnadel, simkarte]: ", "cyan"))
+    debug_input = input(colored(
+        "Welches ITEM hinzufügen [brecheisen, smartphone, haarnadel, simkarte]: ", "cyan"))
     if debug_input == "brecheisen":
         inventory.add(crowbar)
     elif debug_input == "smartphone":
