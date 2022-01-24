@@ -1,6 +1,6 @@
-# escape_room
+# escape_room (unfertig)
 
-* How to use:
+**How to use:**
 
 1. Ubuntu Testsitzung öffnen
 2. Strg + Alt + T
@@ -13,9 +13,9 @@
 9. python3 escaperoom_adventurelib.py
 
 
-# NICHT FERTIG
 
-* Todos:
+
+# Todos:
 - Textstil ändern
 - Dependencies packagen
 - Lauffähig auf Windows machen -> In BK-Client testen
