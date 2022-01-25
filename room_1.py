@@ -5,7 +5,7 @@
 # imports
 from termcolor import colored
 import time
-from adventurelib import when, say
+from adventurelib import when, say, set_context
 import room_2
 from inventory import *
 
@@ -45,7 +45,9 @@ def ueberleitung_room1():
 def look_around_room1():
     # umschauen in Raum 1
     # TODO
-    if (sicherheitsausruestung_gesehen and kontrollrechner_neugestartet and sicherheitstuer_gesehen):
+    if room_2.zurueckgegangen:
+        say(colored("""Du siehst die Sicherheitsausrüstung in der Ecke.""", "yellow"))
+    elif (sicherheitsausruestung_gesehen and kontrollrechner_neugestartet and sicherheitstuer_gesehen):
         say(colored("""Du entdeckst ein Scooter-Poster an der Wand.""", "yellow"))
 
     elif (sicherheitsausruestung_gesehen and kontrollrechner_neugestartet):
@@ -84,9 +86,9 @@ def sicherheitsausruestung_anschauen():
 def brecheisen_nehmen():
     # Brecheisen in Raum 1 nehmen
     if sicherheitsausruestung_gesehen:
-        if "brecheisen" not in inventory:
+        if inventory.find("brecheisen") is None:
             say(colored("""„Das könnte eventuell noch nützlich sein“, sagst du und packst das Brecheisen direkt ein.""", "yellow"))
-            inventory.add(inventory.crowbar)
+            inventory.add(crowbar)
         else:
             say(colored("""Du hast das Brecheisen schon genommen.""", "yellow"))
     else:
@@ -260,3 +262,28 @@ def pin_eingeben():
             say(colored("""PIN falsch!""", "grey", "on_green"))
             say(colored("""Zugriff verweigert!""", "grey", "on_green"))
             say("""""")
+
+
+@when("zurück gehen", context="room1")
+@when("zurück in maschinenraum gehen", context="room1")
+@when("in maschinenraum gehen", context="room1")
+@when("zu maschinenraum gehen", context="room1")
+@when("maschinenraum betreten", context="room1")
+@when("gehe zurück", context="room1")
+@when("gehe zurück in maschinenraum", context="room1")
+def go_room2():
+    if room_2.zurueckgegangen:
+        say(
+            colored(
+                """Du bist zurück gegangen und befindest dich wieder im Maschinenraum.""",
+                "yellow"
+            )
+        )
+        set_context("room2")
+    else:
+        say(
+            colored(
+                """Du hast keine Chance den Raum zu verlassen. Alle Türen sind verschlossen!""",
+                "yellow"
+            )
+        )

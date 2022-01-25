@@ -84,6 +84,14 @@ def look_around_room3():
 @when("pinnwand angucken", context="room3")
 @when("pinnwand betrachten", context="room3")  # betrachten
 @when("betrachte pinnwand", context="room3")
+@when("fotos anschauen", context="room3")  # anschauen
+@when("schaue fotos an", context="room3")
+@when("schau fotos an", context="room3")
+@when("gucke fotos an", context="room3")  # gucken
+@when("guck fotos an", context="room3")
+@when("fotos angucken", context="room3")
+@when("fotos betrachten", context="room3")  # betrachten
+@when("betrachte fotos", context="room3")
 def pinnwand_anschauen():
     pinnwand = Image.open("pictures/pinnwand.jpg")
     pinnwand.show()

@@ -7,6 +7,7 @@ import time
 from adventurelib import when, say, set_context
 import room_6
 from inventory import *
+from termcolor import colored
 
 
 # global vars
@@ -92,7 +93,7 @@ def computer_entsperren():
     global passwort_gefunden
     # what a terrible day to have eyes...lol
     while True:
-        command = input(current_dir + " # ")
+        command = input(colored(f"{current_dir} # ", "green", "on_grey"))
         if command == "exit":
             break
         elif command.__contains__("ls"):
@@ -103,8 +104,10 @@ def computer_entsperren():
                 if arg == "--help":
                     say(
                         colored(
-                            """ls       -   listet Dateien im aktuellen Verzeichnis auf \n
-                            ls -a   -   listet Dateien inklusive versteckter Dateien auf""",
+                            """ls listet Dateien im aktuellen Verzeichnis auf:\n
+                            ls           -   listet Dateien im aktuellen Verzeichnis auf \n
+                            ls -a       -   listet Dateien inklusive versteckter Dateien auf \n
+                            ls --help   -   zeigt diese Hilfeseite an""",
                             "green", "on_grey"
                         )
                     )
@@ -134,7 +137,16 @@ def computer_entsperren():
             hashcat_in = command.split()
             if len(hashcat_in) > 1:
                 file = hashcat_in[1]
-                if current_dir == "/root/Downloads" and file == ".hash.txt":
+                if file == "--help":
+                    say(
+                        colored(
+                            """hashcat vergleicht einen Hashwert in einer Datei mit Hashes der Wörter in /root/Dokumente/password_list.txt \n
+                            hashcat [file]  -   vergleicht Hash in Datei [file] mit Hashes der Wörter in /root/Dokumente/password_list.txt \n
+                            hashcat --help  -   zeigt diese Hilfeseite an""",
+                            "green", "on_grey"
+                        )
+                    )
+                elif (current_dir == "/root/Downloads" and file == ".hash.txt") or (file == "/Downloads/.hash.txt"):
                     say(
                         colored(
                             """Hash wird verglichen...""",
@@ -162,11 +174,14 @@ def computer_entsperren():
                 if dir == "--help":
                     say(
                         colored(
-                            """cd [dir] -   wechselt ins Verzeichnis [dir] \n
+                            """Mit cd wechselt man das aktuelle in das angegebene Verzeichnis:
+                            cd [dir] -   wechselt ins Verzeichnis [dir] \n
                             cd       -   (ohne Eingabe) wechselt ins Home-Verzeichnis des aktuellen Nutzers""",
                             "green", "on_grey"
                         )
                     )
+                elif dir == "..":
+                    current_dir = "/root"
                 elif "/root/" + dir in dir_system.keys() and current_dir == "/root":
                     current_dir = "/root/" + dir
                 elif dir in dir_system.keys() and current_dir != "/root":
