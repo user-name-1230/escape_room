@@ -46,18 +46,18 @@ def look_around_room1():
     # umschauen in Raum 1
     # TODO
     if room_2.zurueckgegangen:
-        say(colored("""Du siehst die Sicherheitsausrüstung in der Ecke.""", "yellow"))
+        say(colored("""Du siehst die Tasche mit Sicherheitsausrüstung in der Ecke liegen.""", "yellow"))
     elif (sicherheitsausruestung_gesehen and kontrollrechner_neugestartet and sicherheitstuer_gesehen):
-        say(colored("""Du entdeckst ein Scooter-Poster an der Wand.""", "yellow"))
+        say(colored("""Dir fällt ein auffälliges Poster ins Auge, welches an der Wand gegenüber des Kontrollrechners hängt.""", "yellow"))
 
     elif (sicherheitsausruestung_gesehen and kontrollrechner_neugestartet):
-        say(colored("""Du entdeckst die riesige, meterdicke Sicherheitstür.""", "yellow"))
+        say(colored("""Du blickst auf die riesige, meterdicke Sicherheitstür.""", "yellow"))
 
     elif (sicherheitsausruestung_gesehen):
         say(colored("""Du siehst den Kontrollrechner.""", "yellow"))
 
     else:
-        say(colored("""Du siehst den Kontrollrechner und Sicherheitsausrüstung in der Ecke.""", "yellow"))
+        say(colored("""Du siehst den Kontrollrechner und entdeckst eine Tasche mit Sicherheitsausrüstung in der Ecke.""", "yellow"))
 
 
 @when("sicherheitsausrüstung anschauen", context="room1")
