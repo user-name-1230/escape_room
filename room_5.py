@@ -15,7 +15,7 @@ passwort_gefunden = False
 
 
 def ueberleitung_room5():
-    time.sleep(6.0)
+    time.sleep(1.0)
     say(
         colored(
             """---------------------------------------------------------------------------------""",
@@ -25,8 +25,8 @@ def ueberleitung_room5():
     say(
         colored(
             """Du läufst zusammen mit den anderen zu einer Art Büro-Abteil. Herr Solar geht voran. Ihr betretet ein Büro und schaut
-            euch kurz um. Das Büro ist bestückt mit mehreren Schreibtischen und PC-Arbeitsplätzen. Die meisten von ihnen zeigen die
-            gleiche Nachricht wie der Kontrollrechner und den Totenkopf auf dem Monitor oder sind ausgeschaltet. """,
+            euch kurz um. Der Raum ist bestückt mit mehreren Schreibtischen und PC-Arbeitsplätzen. Die meisten von ihnen zeigen die
+            gleiche Nachricht wie der Kontrollrechner und den Totenkopf auf dem Monitor oder sind ausgeschaltet.""",
             "yellow"
         )
     )
@@ -40,12 +40,6 @@ def ueberleitung_room5():
 def look_around_room5():
     say(colored("""Schnell entdeckst du den potentiell nicht betroffenen PC im Raum.""", "yellow"))
 
-
-# @when("computer des managers anschauen", context="room5")
-# def nicht_befallenen_computer_anschauen():
-#    say(
-#        """Der Bildschirm zeigt ein Anmeldefenster mit einem Passwortfeld. Dir fällt direkt auf, dass auf dem Computer das Betriebssystem Kali Linux installiert ist. Du schaust dich kurz um und entdeckst, dass am Monitor ein Zettel hängt mit der Aufschrift „Passwort“. „Wie blöd!“, denkst du dir, „aber gut für mich!“. Du loggst dich ein und öffnest direkt die Kommandozeile. Mit ein paar Befehlen hast du Zugriff auf den Kontrollrechner bekommen und durchsuchst die Ordnerstruktur nach versteckten Dateien und Verzeichnissen."""
-#    )
 
 
 @when("computer anschauen", context="room5")
@@ -66,6 +60,9 @@ def computer_entsperren():
             "yellow"
         )
     )
+    say("""""")
+    input(colored("[Kommandozeile anzeigen...]", "yellow"))
+    say("""""")
 
     current_dir = "/root"
     dir_system = {
@@ -86,8 +83,11 @@ def computer_entsperren():
             help                -   zeigt diese Hilfeseite an \n
             ls                  -   listet Dateien im aktuellen Verzeichnis auf \n
             cd [dir]            -   wechselt ins Verzeichnis [dir] \n
-            hashcat [file]      -   vergleicht Hash in Datei [file] mit Hashes der Wörter in /root/Dokumente/password_list.txt  \n
-            [command] --help    -   zeigt die Hilfeseite des Kommandos [command] an""", "green", "on_grey")
+            hashcat [file]      -   vergleicht Hash in Datei [file] mit Hashes der Wörter in /root/Dokumente/password_list.txt \n
+            [command] --help    -   zeigt die Hilfeseite des Kommandos [command] an \n
+            exit                -   schließt die Kommandozeile""",
+            "green", "on_grey"
+    )
 
     say(helpmessage)
     global passwort_gefunden

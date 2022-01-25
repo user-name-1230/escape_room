@@ -10,6 +10,7 @@ from termcolor import colored
 
 
 # global vars
+klappe_gesehen = False
 klappe_offen = False
 kontrollrechner_entsperrt = False
 firewall_gesehen = False
@@ -40,11 +41,19 @@ def ueberleitung_room6():
 @when("schau dich um", context="room6")
 @when("umsehen", context="room6")
 def look_around_room6():
+    global klappe_gesehen
     if firewall_gesehen:
         say(
             colored(
                 """In einer Ecke des Kontrollpultes liegt ein Zettel. Vielleicht
                 hilft dir dieser ja weiter.""",
+                "yellow"
+            )
+        )
+    elif klappe_gesehen:
+        say(
+            colored(
+                """Leider liegt im Raum nichts mehr herum, womit du die Klappe aufbekommen könntest.""",
                 "yellow"
             )
         )
@@ -55,7 +64,25 @@ def look_around_room6():
                 fragt nach dem Status. Ihr erläutert ihm kurz das Problem und er zeigt auf
                 eine Wartungsklappe neben dem Kontrollpult. Dort muss eine Tastatur drin
                 sein, die mit dem alten DIN-AT-Anschluss kompatibel ist. Doch die Klappe
-                ist so verrostet, dass du sie mit bloßen Händen nicht aufbekommt.""",
+                ist so verrostet, dass du sie mit bloßen Händen nicht aufbekommst.""",
+                "yellow"
+            )
+        )
+        klappe_gesehen = True
+
+
+@when("klappe anschauen", context="room6")
+@when("wartungsklappe anschauen", context="room6")
+@when("klappe öffnen", context="room6")
+@when("wartungsklappe öffnen", context="room6")
+def klappe_oeffnen():
+    if klappe_offen:
+        say(colored("""Die Wartungsklappe ist bereits geöffnet.""","yellow"))
+    else:
+        say(
+            colored(
+                """Die Wartungsklappe ist leider so verrostet, dass man sie mit
+                bloßen Händen nicht aufbekommt.""",
                 "yellow"
             )
         )
@@ -65,22 +92,31 @@ def look_around_room6():
 @when("zettel anschauen", context="room6")
 @when("zettel anzeigen", context="room6")
 def zettel_anschauen2():
-    say(
-        colored("""
-            ORP.3.A7                |   5\n
-            APP.3.4         | 2.2   |   14\n
-            ISMS.1.A11              |   4\n
-            OPS.1.1.4.A14           |   5\n
-            SYS.2.1.A1              |   5""",
-            "grey", "on_white"
-        )
-    )
+    say(colored(""" ORP.3.A7                |    5 """, "grey", "on_white"))
+    say(colored("""                                """, "grey", "on_white"))
+    say(colored(""" APP.3.4         | 2.2   |   14 """, "grey", "on_white"))
+    say(colored("""                                """, "grey", "on_white"))
+    say(colored(""" ISMS.1.A11              |    4 """, "grey", "on_white"))
+    say(colored("""                                """, "grey", "on_white"))
+    say(colored(""" OPS.1.1.4.A14           |    5 """, "grey", "on_white"))
+    say(colored("""                                """, "grey", "on_white"))
+    say(colored(""" SYS.2.1.A1              |    5 """, "grey", "on_white"))
 
 
+
+@when("benutze brecheisen", context="room6")  # brecheisen, benutzen
+@when("benutz brecheisen", context="room6")
 @when("brecheisen benutzen", context="room6")
+@when("nutze brecheisen", context="room6")  # brecheisen, nutzen
+@when("nutz brecheisen", context="room6")
+@when("brecheisen nutzen", context="room6")
+@when("nutze brechstange", context="room6")  # brechstange, benutzen
+@when("nutz brechstange", context="room6")
+@when("benutze brechstange", context="room6")
+@when("benutz brechstange", context="room6")
+@when("brechstange benutzen", context="room6")  # brechstange, nutzen
+@when("brechstange nutzen", context="room6")
 @when("mit brecheisen öffnen", context="room6")
-@when("brecheisen anwenden", context="room6")
-@when("brecheisen verwenden", context="room6")
 def brecheisen_benutzen3():
     global klappe_offen
     klappe_offen = True
@@ -105,23 +141,32 @@ def brecheisen_benutzen3():
 @when("passwort eintippen", context="room6")
 @when("passwort eingeben", context="room6")
 def tastatur_benutzen():
-    say(
-        colored(
-            """Du steckst die Tastatur an den alten Kontrollrechner an.""",
-            "yellow"
-        )
-    )
-    say("""""")
     if klappe_offen:
+        say(
+            colored(
+                """Du nimmst die Tastatur und steckst sie an den alten Kontrollrechner an.""",
+                "yellow"
+            )
+        )
+        say("""""")
         while (True):
             input_tastatur = input(colored("Passwort eingeben: ", "white", "on_grey"))
             if input_tastatur == "30JahreBSI1991!":
+                say(colored("""...""", "yellow"))
+                time.sleep(4.0)
                 say("""""")
                 say(
                     colored(
-                        """Du tippst das Passwort ein: 3…0…J…a…h…r…e…B…S…I…1…9…9…1…!
-                        ENTER!
-                        Der Totenkopf verschwindet. Du hast es geschafft. Doch dir fällt
+                        """Du tippst das Passwort ein: 3...0...J...a...h...r...e...B...S...I...1...9...9...1...!
+                        ENTER!\n""",
+                        "yellow"
+                    )
+                )
+                time.sleep(5.0)
+                say("""""")
+                say(
+                    colored(
+                        """Der Totenkopf verschwindet. Du hast es geschafft. Doch dir fällt
                         etwas ein: „Wir müssen irgendetwas tun, um die Hacker aus dem
                         System zu werfen und das System besser.aBSIchern!“, rufst du.
                         Du wendest dich wieder dem Kontrollrechner zu um dir den Status
@@ -136,6 +181,13 @@ def tastatur_benutzen():
                 return
             else:
                 say(colored("""Falsches Passwort. Tippe "exit" um abzubrechen.""", "red"))
+    else:
+        say(
+            colored(
+                """Du hast leider keine passende Tastatur mit DIN-AT-Anschluss parat!""",
+                "yellow"
+            )
+        )
 
 
 @when("firewall schließen", context="room6")
@@ -165,20 +217,33 @@ def firewall_schliessen():
 |       MIT     |                       |               |       !       |
 +---------------+-----------------------+---------------+---------------+
 
-                """, "yellow"))
+                """, "red"))
         say(
             colored(
-                """Ohje…jede Menge Lücken! Wir müssen irgendetwas tun, um die Lücken
+                """Ohje...jede Menge Lücken! Wir müssen irgendetwas tun, um die Lücken
                 zu schließen:""",
                 "yellow"
             )
         )
+        say("""""")
+        loesungen = [
+            "IT-GRUNDSCHUTZ: DEN EINSTIEG MEISTERN UND SICHERHEITSKONZEPTE MIT MEHRWERT NUTZEN!", # mit allen Satzzeichen
+            "IT-Grundschutz: Den Einstieg meistern und Sicherheitskonzepte mit Mehrwert nutzen!",
+            "it-grundschutz: den einstieg meistern und sicherheitskonzepte mit mehrwert nutzen!",
+            "IT-GRUNDSCHUTZ: DEN EINSTIEG MEISTERN UND SICHERHEITSKONZEPTE MIT MEHRWERT NUTZEN", # ohne !
+            "IT-Grundschutz: Den Einstieg meistern und Sicherheitskonzepte mit Mehrwert nutzen",
+            "it-grundschutz: den einstieg meistern und sicherheitskonzepte mit mehrwert nutzen",
+            "IT-GRUNDSCHUTZ DEN EINSTIEG MEISTERN UND SICHERHEITSKONZEPTE MIT MEHRWERT NUTZEN", # ohne : und !
+            "IT-Grundschutz Den Einstieg meistern und Sicherheitskonzepte mit Mehrwert nutzen",
+            "it-grundschutz den einstieg meistern und sicherheitskonzepte mit mehrwert nutzen",
+            "IT GRUNDSCHUTZ DEN EINSTIEG MEISTERN UND SICHERHEITSKONZEPTE MIT MEHRWERT NUTZEN", # ohne Satzzeichen
+            "IT Grundschutz Den Einstieg meistern und Sicherheitskonzepte mit Mehrwert nutzen",
+            "it grundschutz den einstieg meistern und sicherheitskonzepte mit mehrwert nutzen",
+        ]
         while (True):
-            input_loesung = input(
-                "Richtigen Satz eingeben (""exit"" um zurückzugehen): ")
-            if (
-                input_loesung == "IT-GRUNDSCHUTZ: DEN EINSTIEG MEISTERN UND SICHERHEITSKONZEPTE MIT MEHRWERT NUTZEN" or input_loesung == "IT-Grundschutz: Den Einstieg meistern und Sicherheitskonzepte mit Mehrwert nutzein"
-            ):
+            input_loesung = input(colored(
+                "Richtigen Satz eingeben (""exit"" um zurückzugehen): ", "red"))
+            if (input_loesung in loesungen):
                 print_loesung_firewall()
                 abspann()
             elif input_loesung == "exit":
@@ -210,7 +275,7 @@ def print_loesung_firewall():
 |       MIT     |       MEHRWERT        |       NUTZEN  |       !       |
 +---------------+-----------------------+---------------+---------------+
 
-            """, "yellow"))
+            """, "green"))
 
 
 def abspann():
@@ -224,6 +289,9 @@ def abspann():
             "yellow"
         )
     )
+    say("""""")
+    input(colored("[...]", "yellow"))
+    say("""""")
     say(
         colored(
             """Glückwunsch!\n
@@ -241,8 +309,12 @@ def abspann():
             Wir bedanken uns ganz herzlich für deine Teilnahme und hoffen, das
             Textadventure hat dir gefallen.\n
             \n
-            Das DACS-Praktikantenteam""",
+            Das DACS-Praktikantenteam\n""",
             "yellow"
         )
     )
+    say("""""")
+    say("""""")
+    input(colored("[Abenteuer beenden...]", "yellow"))
+    say("""""")
     sys.exit()

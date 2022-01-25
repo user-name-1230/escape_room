@@ -32,7 +32,7 @@ türen = Bag(
 
 
 def ueberleitung_room3():
-    time.sleep(6.0)
+    time.sleep(1.0)
     say(
         colored(
             """---------------------------------------------------------------------------------""",
@@ -44,12 +44,28 @@ def ueberleitung_room3():
             """Doch von dem lauten Geräusch scheint der Kraftwerk-Chef wieder
             aufgewacht zu sein. Er kommt schweren Schrittes auf dich zugelaufen und
             versucht dir winkend und mit letztem Atem keuchend mitzuteilen, dass die
-            Pumpen nur über den Haupt-Kontrollrechner gestartet werden können.\n
-            Du musst also unbedingt einen Weg finden, den Rechner zu entsperren. Doch wie
+            Pumpen nur über den Haupt-Kontrollrechner gestartet werden können.""",
+            "yellow"
+        )
+    )
+    say("""""")
+    input(colored("[...]", "yellow"))
+    say("""""")
+    say(
+        colored(
+            """Du musst also unbedingt einen Weg finden, den Rechner zu entsperren. Doch wie
             sollst du das bloß anstellen? Vielleicht sind noch nicht alle Rechner mit
             der Ransomware infiziert. Du musst einen Rechner finden, der noch nicht
-            betroffen ist, vielleicht hilft dir das weiter.\n Herr Solar scheint einen
-            Gedankenblitz zu haben: „Wir haben neulich mit anderen Kraftwerken zusammen
+            betroffen ist, vielleicht hilft dir das weiter.""",
+            "yellow"
+        )
+    )
+    say("""""")
+    input(colored("[...]", "yellow"))
+    say("""""")
+    say(
+        colored(
+            """Herr Solar scheint einen Gedankenblitz zu haben: „Wir haben neulich mit anderen Kraftwerken zusammen
             ein 5G-Campusnetz aufgebaut, das alle verfügbaren Geräte in unserem Netzwerk
             auflisten kann. Dazu braucht man nur eine passende SIM-Karte. Jedoch hab ich
             leider vergessen, wo genau die SIM-Karten gelagert werden. Es muss irgendwo
@@ -152,6 +168,9 @@ def tuer_oeffnen(form):
                 "yellow"
             )
         )
+        say("""""")
+        input(colored("[...]", "yellow"))
+        say("""""")
         room_4.ueberleitung_room4()
     elif türen.find(form).closed:
         say(
@@ -161,7 +180,7 @@ def tuer_oeffnen(form):
                 "yellow"
             )
         )
-    elif türen.find(form).closed:
+    elif not türen.find(form).closed :
         say(
             colored(
                 f"""Du versuchst, die Tür mit der Form {form} zu öffnen.\n

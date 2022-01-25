@@ -13,7 +13,7 @@ inventory = Bag()
 @when("inventar zeigen")  # zeigen
 @when("zeige inventar")
 @when("inventar anzeigen")  # anzeigen
-@when("anzeige vom inventar")
+@when("anzeige des inventars")
 @when("öffne inventar")  # öffnen
 @when("inventar öffnen")
 def zeige_inventar():
