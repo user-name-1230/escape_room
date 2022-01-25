@@ -28,7 +28,7 @@ def ueberleitung_room1():
             Knöpfen erschlägt dich fast und es fällt dir schwer deine Panik in den Griff zu
             bekommen. Du versuchst dich zu sammeln und deine Möglichkeiten abzuwägen: \n
             Du kannst dich im Raum [umschauen]\n
-            Du kannst Dinge im Raum [anschauen], [nehmen] und [benutzen], sowie Knöpfe [drücken]\n
+            Du kannst Dinge im Raum [anschauen], [nehmen] und [benutzen], sowie Knöpfe [drücken] oder Türen [öffnen]\n
             Du kannst dein aktuelles [Inventar] anschauen\n
             Du kannst dir [help] suchen, wenn du nicht weiterkommst\n
             Du kannst mit [quit] das AKW verlassen (Spiel beenden)""",
@@ -50,7 +50,7 @@ def look_around_room1():
     elif (sicherheitsausruestung_gesehen and kontrollrechner_neugestartet and sicherheitstuer_gesehen):
         say(colored("""Dir fällt ein auffälliges Poster ins Auge, welches an der Wand gegenüber des Kontrollrechners hängt.""", "yellow"))
 
-    elif (sicherheitsausruestung_gesehen and kontrollrechner_neugestartet):
+    elif (kontrollrechner_neugestartet):
         say(colored("""Du blickst auf die riesige, meterdicke Sicherheitstür.""", "yellow"))
 
     elif (sicherheitsausruestung_gesehen):
@@ -189,6 +189,7 @@ def buchse_anschauen():
 @when("sicherheitstür anschauen", context="room1")
 @when("tür anschauen", context="room1")
 @when("sicherheitstuer anschauen", context="room1")
+@when("sicherheitstür öffnen", context="room1")
 def sicherheitstuer_anschauen():
     if kontrollrechner_neugestartet:
         say(
