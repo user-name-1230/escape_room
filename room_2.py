@@ -69,11 +69,11 @@ def look_around_room2():
 def zettel_anschauen():
     say(
         colored(
-            """Lila – L\n
-            Rot – R\n
-            Blau – B\n
-            Schwarz – S\n
-            Grün – G""",
+            """Lila     –   L\n
+            Rot     –   R\n
+            Blau    –   B\n
+            Schwarz –   S\n
+            Grün    –   G""",
             "yellow"
         )
     )

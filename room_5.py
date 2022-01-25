@@ -105,7 +105,7 @@ def computer_entsperren():
                     say(
                         colored(
                             """ls listet Dateien im aktuellen Verzeichnis auf:\n
-                            ls           -   listet Dateien im aktuellen Verzeichnis auf \n
+                            ls          -   listet Dateien im aktuellen Verzeichnis auf \n
                             ls -a       -   listet Dateien inklusive versteckter Dateien auf \n
                             ls --help   -   zeigt diese Hilfeseite an""",
                             "green", "on_grey"
