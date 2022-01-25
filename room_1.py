@@ -28,7 +28,7 @@ def ueberleitung_room1():
             Knöpfen erschlägt dich fast und es fällt dir schwer deine Panik in den Griff zu
             bekommen. Du versuchst dich zu sammeln und deine Möglichkeiten abzuwägen: \n
             Du kannst dich im Raum [umschauen]\n
-            Du kannst Dinge im Raum [anschauen], [nehmen] und [benutzen], sowie Knöpfe [drücken]\n
+            Du kannst Dinge im Raum [anschauen], [nehmen] und [benutzen], sowie Knöpfe [drücken] oder Türen [öffnen]\n
             Du kannst dein aktuelles [Inventar] anschauen\n
             Du kannst dir [help] suchen, wenn du nicht weiterkommst\n
             Du kannst mit [quit] das AKW verlassen (Spiel beenden)""",
@@ -46,18 +46,18 @@ def look_around_room1():
     # umschauen in Raum 1
     # TODO
     if room_2.zurueckgegangen:
-        say(colored("""Du siehst die Sicherheitsausrüstung in der Ecke.""", "yellow"))
+        say(colored("""Du siehst die Tasche mit Sicherheitsausrüstung in der Ecke liegen.""", "yellow"))
     elif (sicherheitsausruestung_gesehen and kontrollrechner_neugestartet and sicherheitstuer_gesehen):
-        say(colored("""Du entdeckst ein Scooter-Poster an der Wand.""", "yellow"))
+        say(colored("""Dir fällt ein auffälliges Poster ins Auge, welches an der Wand gegenüber des Kontrollrechners hängt.""", "yellow"))
 
-    elif (sicherheitsausruestung_gesehen and kontrollrechner_neugestartet):
-        say(colored("""Du entdeckst die riesige, meterdicke Sicherheitstür.""", "yellow"))
+    elif (kontrollrechner_neugestartet):
+        say(colored("""Du blickst auf die riesige, meterdicke Sicherheitstür.""", "yellow"))
 
     elif (sicherheitsausruestung_gesehen):
         say(colored("""Du siehst den Kontrollrechner.""", "yellow"))
 
     else:
-        say(colored("""Du siehst den Kontrollrechner und Sicherheitsausrüstung in der Ecke.""", "yellow"))
+        say(colored("""Du siehst den Kontrollrechner und entdeckst eine Tasche mit Sicherheitsausrüstung in der Ecke.""", "yellow"))
 
 
 @when("sicherheitsausrüstung anschauen", context="room1")
@@ -189,6 +189,7 @@ def buchse_anschauen():
 @when("sicherheitstür anschauen", context="room1")
 @when("tür anschauen", context="room1")
 @when("sicherheitstuer anschauen", context="room1")
+@when("sicherheitstür öffnen", context="room1")
 def sicherheitstuer_anschauen():
     if kontrollrechner_neugestartet:
         say(
