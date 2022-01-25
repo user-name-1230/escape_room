@@ -47,7 +47,7 @@ def look_around_room1():
     # TODO
     if room_2.zurueckgegangen:
         say(colored("""Du siehst die Tasche mit Sicherheitsausrüstung in der Ecke liegen.""", "yellow"))
-    elif (sicherheitsausruestung_gesehen and kontrollrechner_neugestartet and sicherheitstuer_gesehen):
+    elif (kontrollrechner_neugestartet and sicherheitstuer_gesehen):
         say(colored("""Dir fällt ein auffälliges Poster ins Auge, welches an der Wand gegenüber des Kontrollrechners hängt.""", "yellow"))
 
     elif (kontrollrechner_neugestartet):
