@@ -33,21 +33,9 @@ from termcolor import colored
 import random
 from adventurelib import when, say, start, set_context
 import adventurelib
-# from inventory import *
-# from room_1 import *
-# from room_2 import *
-# from room_3 import *
-# from room_4 import *
-# from room_5 import *
-# from room_6 import *
-
-
 import inventory
 import room_1
 
-print(colored("Test", "red"))
-say(colored("""Test say \n
-            test""", "yellow"))
 
 def no_command_matches(command):
     print(colored(random.choice([
