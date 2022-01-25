@@ -69,7 +69,7 @@ def zettel_anschauen():
 @when("ventile anschauen", context="room2")
 @when("pumpenventile anschauen", context="room2")
 def ventile_anschauen():
-    img = Image.open("ventile.jpg")
+    img = Image.open("picures/ventile.jpg")
     img.show()
 
 

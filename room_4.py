@@ -291,7 +291,7 @@ def sim_slot_oeffnen():
 @when("schaue qr an", context="room4")
 @when("schau qr an", context="room4")
 def show_qr():
-    img = Image.open("qr.png")
+    img = Image.open("pictures/qr.png")
     img.show()
 
 

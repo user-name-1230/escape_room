@@ -85,7 +85,7 @@ def look_around_room3():
 @when("pinnwand betrachten", context="room3")  # betrachten
 @when("betrachte pinnwand", context="room3")
 def pinnwand_anschauen():
-    pinnwand = Image.open("pinnwand.jpg")
+    pinnwand = Image.open("pictures/pinnwand.jpg")
     pinnwand.show()
 
 
@@ -116,7 +116,7 @@ def tueren_anschauen():
             "yellow"
         )
     )
-    img = Image.open("doors.png")
+    img = Image.open("pictures/doors.png")
     img.show()
 
 
