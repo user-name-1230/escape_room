@@ -18,7 +18,7 @@ can_use_pin = False
 
 
 def ueberleitung_room4():
-    time.sleep(6.0)
+    time.sleep(1.0)
     say(
         colored(
             """---------------------------------------------------------------------------------""",
@@ -322,14 +322,19 @@ def show_qr():
 def pin_eingeben():
     if can_use_pin:
         while True:
-            input_2 = input(colored("PIN eingeben: ", "grey", "on_white"))
+            input_2 = input(colored("PIN eingeben (oder [Abbrechen]): ", "grey", "on_white"))
+            say("""""")
             if input_2 == "1234":
                 say(colored("""PIN akzeptiert!""", "grey", "on_white"))
+                say("""""")
                 time.sleep(2.0)
                 raum4Ende()
                 return
+            elif (input_2 == "abbrechen") or (input_2 == "Abbrechen") or (input_2 == "Abbruch"):
+                return
             else:
                 say(colored("""PIN falsch, bitte noch einmal versuchen.""", "grey", "on_white"))
+                say("""""")
     else:
         say(colored("""Tut mir Leid, du musst die SIM-Karte erst in den SIM Slot einlegen""", "red"))
 
@@ -341,13 +346,34 @@ def raum4Ende():
             """Sehr gut. Du hast es geschafft, die SIM-Karte zu entsperren.
             Auf deinem Smartphone-Display erscheint direkt das Dashboard der
             Intranet-Seite des Kraftwerks. In einer Liste am Rand werden alle
-            Computer im Netzwerk angezeigt. Das sieht schlecht aus. Alle PCs
-            sind mit einem Schloss-Symbol versehen. Das kann nichts Gutes bedeuten.
-            Du scrollst durch die Liste. Doch was ist das? Kurz vor Ende der Liste
-            ist tatsächlich noch ein PC aufgeführt, der noch nicht mit einem Schloss
-            Symbol versehen ist. Das ist es! Du klickst darauf, um dir mehr Details
-            ansehen zu können. Dabei steht sogar eine Raumnummer. „Ich kann Sie
-            dort hinführen!“, sagt der Kraftwerkchef aufgeregt.""", "yellow"
+            Computer im Netzwerk angezeigt.""",
+            "yellow"
         )
     )
+    say("""""")
+    input(colored("[...]", "yellow"))
+    say("""""")
+    say(
+        colored(
+            """Das sieht schlecht aus. Alle PCs sind mit einem Schloss-Symbol versehen.
+            Das kann nichts Gutes bedeuten. Du scrollst durch die Liste. Doch was ist das?""",
+            "yellow"
+        )
+    )
+    say("""""")
+    input(colored("[...]", "yellow"))
+    say("""""")
+    say(
+        colored(
+            """Kurz vor Ende der Liste ist tatsächlich noch ein PC aufgeführt,
+            der noch nicht mit einem Schloss Symbol versehen ist. Das ist es!
+            Du klickst darauf, um dir mehr Details ansehen zu können. Dabei steht
+            sogar eine Raumnummer. „Ich kann Sie dort hinführen!“, sagt der
+            Kraftwerkchef aufgeregt.""",
+            "yellow"
+        )
+    )
+    say("""""")
+    input(colored("[...]", "yellow"))
+    say("""""")
     room_5.ueberleitung_room5()

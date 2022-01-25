@@ -14,7 +14,7 @@ kontrollrechner_neugestartet = False
 sicherheitsausruestung_gesehen = False
 sicherheitstuer_gesehen = False
 
-
+#Überleitung Room1 und Instructions
 def ueberleitung_room1():
     say(
         colored(
@@ -22,6 +22,7 @@ def ueberleitung_room1():
             "yellow"
         )
     )
+    time.sleep(1.0)
     say(
         colored(
             """Du befindest dich nun im Kontrollraum. Die Menge an Schaltern, Hebeln und
@@ -31,7 +32,8 @@ def ueberleitung_room1():
             Du kannst Dinge im Raum [anschauen], [nehmen] und [benutzen], sowie Knöpfe [drücken] oder Türen [öffnen]\n
             Du kannst dein aktuelles [Inventar] anschauen\n
             Du kannst dir [help] suchen, wenn du nicht weiterkommst\n
-            Du kannst mit [quit] das AKW verlassen (Spiel beenden)""",
+            Du kannst mit [quit] das AKW verlassen (Spiel beenden)\n
+            Das Symbol [...] bedeutet, dass du Enter drücken sollst, um fortzufahren""",
             "yellow"
         )
     )
@@ -121,6 +123,13 @@ def brecheisen_benutzen():
 
 
 @when("kontrollrechner anschauen", context="room1")
+@when("rechner anschauen", context="room1")
+@when("pc anschauen", context="room1")
+@when("kontrollpc anschauen", context="room1")
+@when("kontrollrechner benutzen", context="room1")
+@when("rechner benutzen", context="room1")
+@when("pc benutzen", context="room1")
+@when("kontrollrechner verwenden", context="room1")
 def kontrollrechner_anschauen():
     say(
         colored(
@@ -160,11 +169,19 @@ def computer_neustarten():
         colored(
             """Der Rechner startet neu, BIOS-Meldungen erscheinen auf dem Bildschirm,
             ein Windows 95 – Startsound ertönt und die Erpresserbotschaft erscheint
-            direkt wieder nach dem Bootvorgang.\n
-            „Das bringt nichts!“, denkst du dir und überlegst, was du tun sollst.
+            direkt wieder nach dem Bootvorgang.""",
+            "yellow"
+        )
+    )
+    say("""""")
+    input(colored("[...]", "yellow"))
+    say("""""")
+    say(
+        colored(
+            """„Das bringt nichts!“, denkst du dir und überlegst, was du tun sollst.
             Über den Kontrollrechner lassen sich die Pumpen für das Kühlsystem
             jedenfalls nicht mehr starten. Vielleicht hilft ein manueller Start der
-            Pumpen.""",
+            Pumpen. „Doch wie komme ich dorthin?“""",
             "yellow"
         )
     )
@@ -196,11 +213,20 @@ def sicherheitstuer_anschauen():
             colored(
                 """Du rüttelst an der Tür, doch sie bewegt sich keinen Zentimeter. Direkt neben der Tür befindet sich ein Tastenfeld
                 und darüber eine Kamera. Du drückst die Grüne Starttaste und die Kamera beginnt mit einem Scan von deinem Gesicht. Du
-                erschrickst. Auf dem Display erscheint in roter Schrift „Zugriff verweigert“. „Das Gesicht des Chefs sollte
+                erschrickst. Auf dem Display erscheint in roter Schrift „Zugriff verweigert“.""",
+                "yellow"
+            )
+        )
+        say("""""")
+        input(colored("[...]", "yellow"))
+        say("""""")
+        say(
+            colored(
+                """„Das Gesicht des Chefs sollte
                 funktionieren!“, denkst du dir, erinnerst dich aber, dass dieser ohnmächtig geworden ist. Du nimmst dein Smartphone in
                 die Hand und hältst ein Bild von Herrn Solar in die Kamera. „Guten Tag Herr Solar! Bitte geben Sie Ihre PIN ein!“,
                 ertönt eine roboterartige Stimme aus dem Terminal und das Display zeigt: * * * * * *. „Mist, wo krieg ich denn jetzt den
-                PIN her?“, fragst du dich. Vielleicht schaust du dich einfach noch einmal um.""",
+                Zugangscode her?“, fragst du dich. Vielleicht schaust du dich einfach noch einmal um.""",
                 "yellow"
             )
         )
@@ -228,8 +254,16 @@ def poster_anschauen():
             Schrift durch das dünne Papier. Du hebst das Poster an und entdeckst
             eine Widmung an Herrn Solar mit der Unterschrift von HP Baxxter und
             einer kurzen Biografie des Künstlers unter anderem mit seinem
-            Geburtsdatum: 16. März 1964\n
-            Du erinnerst dich: Einer aus dem Kamerateam hat dir im Vorfeld erzählt,
+            Geburtsdatum: 16. März 1964""",
+            "yellow"
+        )
+    )
+    say("""""")
+    input(colored("[...]", "yellow"))
+    say("""""")
+    say(
+        colored(
+            """Du erinnerst dich: Einer aus dem Kamerateam hat dir im Vorfeld erzählt,
             dass Herr Solar ein riesen Fan der Techno- und EDM-Band sei und immer
             wieder davon erzählte, dass er nur 5 Tage nach HP Baxxter Geburtstag hätte.""",
             "yellow"
@@ -241,6 +275,7 @@ def poster_anschauen():
 @when("tür öffnen", context="room1")
 @when("code eingeben", context="room1")
 @when("zahl eingeben", context="room1")
+@when("zugangscode eingeben", context="room1")
 def pin_eingeben():
     while True:
         input_1 = input(
@@ -260,8 +295,8 @@ def pin_eingeben():
             say(colored("""PIN wird überprüft...""", "grey", "on_green"))
             say("""""")
             time.sleep(3.0)
-            say(colored("""PIN falsch!""", "grey", "on_green"))
-            say(colored("""Zugriff verweigert!""", "grey", "on_green"))
+            say(colored("""PIN falsch!""", "red", "on_green"))
+            say(colored("""Zugriff verweigert!""", "red", "on_green"))
             say("""""")
 
 

@@ -16,6 +16,7 @@ zurueckgegangen = False
 
 
 def ueberleitung_room2():
+    time.sleep(1.0)
     say(
         colored(
             """---------------------------------------------------------------------------------""",
@@ -31,8 +32,17 @@ def ueberleitung_room2():
             wahr: „Noch 20 Minuten bis zur Kernschmelze!“ Die vielen blinkenden Lichter
             vor Ort werden alle von dem immer noch rot-pulsierenden Licht überdeckt. Das
             laute Brummen der großen Maschinen ist ohrenbetäubend. Mittig im Raum stehen
-            5 riesige Pumpen. „Das müssen sie sein!“ Vorsichtshalber ziehst du das
-            Netzwerkkabel des Kontrollrechners des Kühlsystems. Die Hacker dürften jetzt
+            5 riesige Pumpen.""",
+            "yellow"
+        )
+    )
+    say("""""")
+    input(colored("[...]", "yellow"))
+    say("""""")
+    say(
+        colored(
+            """„Das müssen sie sein!“ Vorsichtshalber ziehst du das
+            Netzwerkkabel des Steuerungsrechners für das Kühlsystems. Die Hacker dürften jetzt
             wenigstens keinen Zugriff mehr darauf haben. Was nun?""",
             "yellow"
         )
@@ -67,16 +77,17 @@ def look_around_room2():
 
 @when("zettel anschauen", context="room2")
 def zettel_anschauen():
-    say(
-        colored(
-            """Lila     –   L\n
-            Rot     –   R\n
-            Blau    –   B\n
-            Schwarz –   S\n
-            Grün    –   G""",
-            "yellow"
-        )
-    )
+    say(colored("""                  """, "grey", "on_white"))
+    say(colored(""" Lila    –   L    """, "grey", "on_white"))
+    say(colored("""                  """, "grey", "on_white"))
+    say(colored(""" Rot     –   R    """, "grey", "on_white"))
+    say(colored("""                  """, "grey", "on_white"))
+    say(colored(""" Blau    –   B    """, "grey", "on_white"))
+    say(colored("""                  """, "grey", "on_white"))
+    say(colored(""" Schwarz –   S    """, "grey", "on_white"))
+    say(colored("""                  """, "grey", "on_white"))
+    say(colored(""" Grün    –   G    """, "grey", "on_white"))
+    say(colored("""                  """, "grey", "on_white"))
 
 
 @when("ventile anschauen", context="room2")
@@ -154,7 +165,18 @@ def go_room1():
     zurueckgegangen = True
 
 
+@when("benutze brecheisen", context="room2")  # brecheisen, benutzen
+@when("benutz brecheisen", context="room2")
 @when("brecheisen benutzen", context="room2")
+@when("nutze brecheisen", context="room2")  # brecheisen, nutzen
+@when("nutz brecheisen", context="room2")
+@when("brecheisen nutzen", context="room2")
+@when("nutze brechstange", context="room2")  # brechstange, benutzen
+@when("nutz brechstange", context="room2")
+@when("benutze brechstange", context="room2")
+@when("benutz brechstange", context="room2")
+@when("brechstange benutzen", context="room2")  # brechstange, nutzen
+@when("brechstange nutzen", context="room2")
 @when("hebel benutzen", context="room2")
 @when("stange benutzen", context="room2")
 @when("hebel nehmen", context="room2")
@@ -164,12 +186,14 @@ def brecheisen_benutzen2():
         say(
             colored(
                 """Mit dem Brecheisen als Hebel lassen sich die Ventile nun drehen. Doch was ist das!? Ein lautes Knarzen übertönt plötzlich das Warnsignal
-                und alle Pumpen gehen wieder aus. Na toll…erneut hörst du eine Durchsage aus den Lautsprechern: „Noch 15
+                und alle Pumpen gehen wieder aus. Na toll...erneut hörst du eine Durchsage aus den Lautsprechern: „Noch 15
                 Minuten bis zur Kernschmelze!“""",
                 "yellow"
             )
         )
-        time.sleep(4.0)
+        say("""""")
+        input(colored("[...]", "yellow"))
+        say("""""")
         room_3.ueberleitung_room3()
     else:
-        say(colored("""Du hast leider kein Brecheisen dabei.""", "yellow"))
+        say(colored("""Du hast leider nichts dabei, was du als Hebel benutzen könntest.""", "yellow"))
