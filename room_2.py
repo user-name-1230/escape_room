@@ -11,7 +11,10 @@ from inventory import *
 from termcolor import colored
 
 #global vars
+zettel_angeschaut = False
+ventile_angeschaut = False
 ventile_gedreht = False
+hebel_gesucht = False
 zurueckgegangen = False
 
 
@@ -64,6 +67,8 @@ def look_around_room2():
                 "yellow"
             )
         )
+        global hebel_gesucht
+        hebel_gesucht = True
     else:
         say(
             colored(
@@ -76,6 +81,7 @@ def look_around_room2():
 
 
 @when("zettel anschauen", context="room2")
+@when("zettel nehmen", context="room2")
 def zettel_anschauen():
     say(colored("""                  """, "grey", "on_white"))
     say(colored(""" Lila    –   L    """, "grey", "on_white"))
@@ -88,6 +94,8 @@ def zettel_anschauen():
     say(colored("""                  """, "grey", "on_white"))
     say(colored(""" Grün    –   G    """, "grey", "on_white"))
     say(colored("""                  """, "grey", "on_white"))
+    global zettel_angeschaut
+    zettel_angeschaut = True
 
 
 @when("ventile anschauen", context="room2")
@@ -95,6 +103,8 @@ def zettel_anschauen():
 def ventile_anschauen():
     img = Image.open("pictures/ventile.jpg")
     img.show()
+    global ventile_angeschaut
+    ventile_angeschaut = True
 
 
 # @when("zu den ventilen gehen", context="room2")  # gehen
@@ -109,50 +119,61 @@ def ventile_anschauen():
 # @when("lauf zu den ventilen", context="room2")
 # @when("zu ventilen laufen", context="room2")
 @when("ventile drehen", context="room2")
+@when("ventile aufdrehen", context="room2")
 @when("drehe ventile", context="room2")
 @when("ventile benutzen", context="room2")
 @when("ventile öffnen", context="room2")
 @when("pumpen einschalten", context="room2")
 def zu_ventilen():
-    # if current_room == room2:
-    counter = 20
-    while True:
-        input_2 = input(colored(
-            "Reihenfolge der Ventile eingeben (um evtl. weitere Hinweise zu suchen [zurück]): ", "white"))
-        if (input_2 == "35124" or input_2 == "3,5,1,2,4" or input_2 == "3, 5, 1, 2, 4" or input_2 == "III, V, I, II, IV" or input_2 == "III,V,I,II,IV"):
-            say(
-                colored(
-                    """Das muss die richtige Reihenfolge gewesen sein. Doch die Ventile lassen sich nicht drehen. Du brauchst
-                    irgendetwas, womit du mehr Kraft aufbringen kannst. Eine Art Hebel.""",
-                    "yellow"
-                )
+    global ventile_gedreht
+    if (zurueckgegangen and ventile_gedreht and ("brecheisen" in inventory)):
+        say(
+            colored(
+                """Die Ventile sind so fest zugedreht, dass du sie nicht bewegen
+                kannst. Benutze einen Hebel, um sie aufzudrehen.""",
+                "yellow"
             )
-            global ventile_gedreht
-            ventile_gedreht = True
-            return
-            # TODO gehe wieder zu Raum 1
-        if input_2 == "zurück" or input_2 == "exit":
-            return
-        else:
-            if counter > 16:
-                counter = counter - 1
-            say(
-                colored(
-                    f"""Das war leider die falsche Reihenfolge...du hast wertvolle Zeit verloren!\n
-                    Noch {counter} Minuten bis zur Kernschmelze""",
-                    "yellow"
+        )
+    else:
+        counter = 20
+        while True:
+            input_2 = input(colored(
+                "Reihenfolge der Ventile eingeben (um evtl. weitere Hinweise zu suchen [zurück]): ", "white"))
+            if (input_2 == "35124" or input_2 == "3,5,1,2,4" or input_2 == "3, 5, 1, 2, 4" or input_2 == "III, V, I, II, IV" or input_2 == "III,V,I,II,IV"):
+                say(
+                    colored(
+                        """Das muss die richtige Reihenfolge gewesen sein. Doch die Ventile lassen sich nicht drehen. Du brauchst
+                        irgendetwas, womit du mehr Kraft aufbringen kannst. Eine Art Hebel.""",
+                        "yellow"
+                    )
                 )
-            )
-            say("""""")
+                ventile_gedreht = True
+                return
+                # TODO gehe wieder zu Raum 1
+            if input_2 == "zurück" or input_2 == "exit":
+                return
+            else:
+                if counter > 16:
+                    counter = counter - 1
+                say(
+                    colored(
+                        f"""Das war leider die falsche Reihenfolge...du hast wertvolle Zeit verloren!\n
+                        Noch {counter} Minuten bis zur Kernschmelze""",
+                        "yellow"
+                    )
+                )
+                say("""""")
 
 
 @when("zurück gehen", context="room2")
 @when("zurück in kontrollraum gehen", context="room2")
+@when("zurück in den kontrollraum gehen", context="room2")
 @when("in kontrollraum gehen", context="room2")
 @when("zu kontrollraum gehen", context="room2")
 @when("kontrollraum betreten", context="room2")
 @when("gehe zurück", context="room2")
 @when("gehe zurück in kontrollraum", context="room2")
+@when("gehe zurück in den kontrollraum", context="room2")
 def go_room1():
     say(
         colored(
@@ -185,9 +206,11 @@ def brecheisen_benutzen2():
     if inventory.find("brecheisen") is not None:
         say(
             colored(
-                """Mit dem Brecheisen als Hebel lassen sich die Ventile nun drehen. Doch was ist das!? Ein lautes Knarzen übertönt plötzlich das Warnsignal
-                und alle Pumpen gehen wieder aus. Na toll...erneut hörst du eine Durchsage aus den Lautsprechern: „Noch 15
-                Minuten bis zur Kernschmelze!“""",
+                """Mit dem Brecheisen als Hebel lassen sich die Ventile nun drehen.
+                Die Kühlpumpen scheinen wieder anzulaufen. Doch was ist das!?
+                Ein lautes Knarzen übertönt plötzlich das Warnsignal und alle
+                Pumpen gehen wieder aus. Na toll...erneut hörst du eine Durchsage
+                aus den Lautsprechern: „Noch 15 Minuten bis zur Kernschmelze!“""",
                 "yellow"
             )
         )
@@ -197,3 +220,34 @@ def brecheisen_benutzen2():
         room_3.ueberleitung_room3()
     else:
         say(colored("""Du hast leider nichts dabei, was du als Hebel benutzen könntest.""", "yellow"))
+
+
+@when("hilfe", context="room2")
+@when("help", context="room2")
+def help_room2():
+    if zettel_angeschaut and ventile_angeschaut and not ventile_gedreht:
+        say(
+            colored(
+                """Irgendeine Reihenfolge muss beim Aufdrehen der Pumpenventile
+                beachtet werden. Es muss etwas mit den Buchstaben auf dem Zettel
+                zu tun haben. Vielleicht sind die Buchstaben in eine Reihnefolge
+                zu setzen.""",
+                "yellow"
+            )
+        )
+    elif ((not ventile_angeschaut) or (not zettel_angeschaut)) and (not ventile_gedreht):
+        say(
+            colored(
+                """Schau dich einfach noch einmal um. Vielleicht hast du einen
+                Hinweis übersehen.""",
+                "yellow"
+            )
+        )
+    elif ventile_gedreht and (inventory.find("brecheisen") is None) and hebel_gesucht:
+        say(
+            colored(
+                """In DIESEM Raum befindet sich kein Gegenstand, den du als Hebel
+                benutzen könntest...""",
+                "yellow"
+            )
+        )

@@ -72,12 +72,6 @@ say(
 )
 
 
-#Skip Einleitung
-@when("skip")
-def skip():
-    set_context("room1")
-    room_1.ueberleitung_room1()
-
 
 # Einleitungsstory
 @when("start")

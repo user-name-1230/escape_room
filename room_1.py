@@ -29,9 +29,9 @@ def ueberleitung_room1():
             Knöpfen erschlägt dich fast und es fällt dir schwer deine Panik in den Griff zu
             bekommen. Du versuchst dich zu sammeln und deine Möglichkeiten abzuwägen: \n
             Du kannst dich im Raum [umschauen]\n
-            Du kannst Dinge im Raum [anschauen], [nehmen] und [benutzen], sowie Knöpfe [drücken] oder Türen [öffnen]\n
+            Du kannst Dinge im Raum [anschauen], [nehmen] und [benutzen], sowie Knöpfe [drücken] oder Türen [öffnen], etc.\n
             Du kannst dein aktuelles [Inventar] anschauen\n
-            Du kannst dir [help] suchen, wenn du nicht weiterkommst\n
+            Du kannst dir [hilfe] suchen, wenn du nicht weiterkommst\n
             Du kannst mit [quit] das AKW verlassen (Spiel beenden)\n
             Das Symbol [...] bedeutet, dass du Enter drücken sollst, um fortzufahren""",
             "yellow"
