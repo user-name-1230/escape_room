@@ -30,6 +30,9 @@ türen = Bag(
     [tür_welle, tür_stern, tür_dach, tür_dreieck, tür_fünfeck, tür_minus, tür_plus]
 )
 
+#global vars
+tueren_gesehen = False
+pinnwand_gesehen = False
 
 def ueberleitung_room3():
     time.sleep(1.0)
@@ -111,6 +114,8 @@ def look_around_room3():
 def pinnwand_anschauen():
     pinnwand = Image.open("pictures/pinnwand.jpg")
     pinnwand.show()
+    global pinnwand_gesehen
+    pinnwand_gesehen = True
 
 
 @when("türen anschauen", context="room3")  # anschauen
@@ -142,6 +147,8 @@ def tueren_anschauen():
     )
     img = Image.open("pictures/doors.png")
     img.show()
+    global tueren_gesehen
+    tueren_gesehen = True
 
 
 @when("öffne tür FORM", context="room3")  # öffnen
@@ -189,13 +196,33 @@ def tuer_oeffnen(form):
                 "yellow"
             )
         )
-        # TODO verschlossene Türen und leere Räume
+
 
 
 @when("öffne tür", context="room3")
 @when("tür öffnen", context="room3")
 def tuer_oeffnen_unklar():
     say(colored("""Ich weiß nicht, welche Tür du meinst""", "yellow"))
+
+
+@when("help", context="room3")
+@when("hilfe", context="room3")
+def help_room3():
+    if (tueren_gesehen and pinnwand_gesehen):
+        say(
+            colored(
+                """Die Fotos scheinen in verschiedenen deutschen Städten aufgenommen
+                worden zu sein. Sieh dir diese Städte doch mal auf einer Karte an.""",
+                "yellow"
+            )
+        )
+    else:
+        say(
+            colored(
+                """Schau dich doch noch einmal um. Vielleicht hast du etwas übersehen. """,
+                "yellow"
+            )
+        )
 
 
 # @when("gehe in den raum", context="room3")  # gehe,raum
