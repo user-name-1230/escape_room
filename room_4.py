@@ -12,9 +12,9 @@ from termcolor import colored
 
 
 # global vars
-can_check_sim_slot = False
 sim_schrank_offen = False
-can_use_pin = False
+sim_eingelegt = False
+qr_gesehen = False
 
 
 def ueberleitung_room4():
@@ -43,7 +43,7 @@ def ueberleitung_room4():
 @when("schau dich um", context="room4")
 @when("umsehen", context="room4")
 def look_around_room4():
-    if can_use_pin:
+    if sim_eingelegt:
         say(
             colored(
                 """An der Innenseite der Spindtür entdeckst du einen QR Code.
@@ -51,7 +51,7 @@ def look_around_room4():
                 "yellow"
             )
         )
-    elif inventory.find("simkarte") is not None:
+    elif "simkarte" in inventory:
         say(
             colored(
                 """Dir fällt sofort die feine Haarnadel der Ministerin ins Auge.
@@ -71,76 +71,6 @@ def look_around_room4():
             )
         )
 
-
-# @when("oberes abteil angucken", context="room4")  # angucken
-# @when("gucke oberes abteil an", context="room4")
-# @when("guck oberes abteil an", context="room4")
-# @when("abteil oben angucken", context="room4")
-# @when("oberes abteil anschauen", context="room4")  # anschauen
-# @when("schaue oberes abteil an", context="room4")
-# @when("schau oberes abteil an", context="room4")
-# @when("abteil oben anschauen", context="room4")
-# @when("abteil oben betrachten", context="room4")  # betrachten
-# @when("betrachte oberes abteil", context="room4")
-# def oberes_abteil():
-#     print("oberes abteil beschreibung")
-#
-#
-# @when("mittleres abteil angucken", context="room4")  # angucken
-# @when("gucke mittleres abteil an", context="room4")
-# @when("guck mittleres abteil an", context="room4")
-# @when("abteil mitte angucken", context="room4")
-# @when("abteil in der mitte angucken", context="room4")
-# @when("mittleres abteil anschauen", context="room4")  # anschauen
-# @when("schaue mittleres abteil an", context="room4")
-# @when("schau mittleres abteil an", context="room4")
-# @when("abteil mitte anschauen", context="room4")
-# @when("abteil in der mitte anschauen", context="room4")
-# @when("abteil mitte betrachten", context="room4")  # betrachten
-# @when("abteil in der mitte betrachten", context="room4")
-# @when("betrachte mittleres abteil", context="room4")
-# def mittleres_abteil():
-#     print("mittleres abteil beschreibung")
-#
-#
-# @when("unteres abteil angucken", context="room4")  # angucken
-# @when("gucke unteres abteil an", context="room4")
-# @when("abteil unten angucken", context="room4")
-# @when("unteres abteil anschauen", context="room4")  # anschauen
-# @when("schaue unteres abteil an", context="room4")
-# @when("abteil unten anschauen", context="room4")
-# @when("abteil unten betrachten", context="room4")  # betrachten
-# @when("betrachte unteres abteil", context="room4")
-# def unteres_abteil():
-#     print("unteres abteil beschreibung")
-
-
-# @when("rechner anmachen", context="room4")  # rechner, anmachen
-# @when("mache rechner an", context="room4")
-# @when("rechner starten", context="room4")  # rechner, starten
-# @when("starte rechner", context="room4")
-# @when("rechner anschalten", context="room4")  # rechner, anschalten
-# @when("schalte rechner an", context="room4")
-# @when("computer anmachen", context="room4")  # computer, anmachen
-# @when("mache computer an", context="room4")
-# @when("computer starten", context="room4")  # computer, starten
-# @when("starte computer", context="room4")
-# @when("computer anschalten", context="room4")  # computer, anschalten
-# @when("schalte computer an", context="room4")
-# @when("pc anmachen", context="room4")  # pc, anmachen
-# @when("mache pc an", context="room4")
-# @when("pc starten", context="room4")  # pc, starten
-# @when("starte pc", context="room4")
-# @when("pc anschalten", context="room4")  # pc, anschalten
-# @when("schalte pc an", context="room4")
-# def rechner_anmachen():
-#     print("schon betroffen")
-
-
-# @when("werkzeugkiste öffnen", context="room4")  # öffnen
-# @when("öffne werkzeugkiste", context="room4")
-# def werkzeugkiste_oeffnen():
-#     print("werkzeugkiste geöffnet, nichts drin")
 
 
 @when("spind öffnen", context="room4")  # öffnen
@@ -199,30 +129,6 @@ def sim_karte_nehmen():
         )
 
 
-# @when("smartphone anschauen", context="room4")  # anschauen, smartphone
-# @when("schaue smartphone an", context="room4")
-# @when("schaue das smartphone an", context="room4")
-# @when("schau smartphone an", context="room4")
-# @when("schau das smartphone an", context="room4")
-# @when("handy anschauen", context="room4")  # anschauen, handy
-# @when("schaue handy an", context="room4")
-# @when("schaue das handy an", context="room4")
-# @when("schau handy an", context="room4")
-# @when("schau das handy an", context="room4")
-# @when("smartphone angucken", context="room4")  # angucken, smartphone
-# @when("gucke smartphone an", context="room4")
-# @when("gucke das smartphone an", context="room4")
-# @when("guck smartphone an", context="room4")
-# @when("guck das smartphone an", context="room4")
-# @when("handy angucken", context="room4")  # angucken, handy
-# @when("gucke handy an", context="room4")
-# @when("gucke das handy an", context="room4")
-# @when("guck handy an", context="room4")
-# @when("guck das handy an", context="room4")
-# def smartphone_anschauen():
-#     print("smartphone angeschaut")
-#     global can_check_sim_slot
-#     can_check_sim_slot = True
 
 
 @when("haarnadel benutzen", context="room4")
@@ -250,32 +156,19 @@ def sim_slot_oeffnen():
             say(
                 colored(
                     """Zum Glück ist die Nadel dünn genug, um den
-                    SIM-Slot zu öffnen. Du legst die SIM-Karte in dein Handy ein,
-                    worauf die Aufforderung „SIM-PIN eingeben“ angezeigt wird.""",
+                    SIM-Slot zu öffnen. Du legst die Karte in dein Handy ein,
+                    worauf die Aufforderung „SIM PIN eingeben“ angezeigt wird.""",
                     "yellow",
                 )
             )
-            global can_use_pin
-            can_use_pin = True
+            global sim_eingelegt
+            sim_eingelegt = True
         else:
             say(colored("""Tut mir Leid, der SIM-Slot kann nicht per Hand geöffnet werden.""", "red"))
     else:
         say(colored("""Tut mir Leid, du hast leider keine SIM-Karte in deinem Inventar.""", "red"))
 
 
-
-# @when("schrader nach haarnadel fragen", context="room4")
-# @when("frage schrader nach haarnadel", context="room4")
-# def schrader_haarnadel():
-#     say(
-#         colored(
-#             """Dir fällt sofort die feine Haarnadel der Ministerin ins Auge.
-#             Du fragst sie, ob du dir ihre Haarnadel kurz ausleihen kannst. Sie nickt
-#             aufgeregt und übergibt sie dir schnell.""",
-#             "yellow",
-#         )
-#     )
-#     inventory.add(inventory.hairpin)
 
 
 @when("qr code anzeigen", context="room4")  # qr code, anzeigen
@@ -299,6 +192,8 @@ def sim_slot_oeffnen():
 def show_qr():
     img = Image.open("pictures/qr.png")
     img.show()
+    global qr_gesehen
+    qr_gesehen = True
 
 
 @when("pin eingeben", context="room4")  # eingeben
@@ -320,7 +215,7 @@ def show_qr():
 @when("simpin eingeben", context="room4")
 @when("simpin benutzen", context="room4")
 def pin_eingeben():
-    if can_use_pin:
+    if sim_eingelegt:
         while True:
             input_2 = input(colored("PIN eingeben (oder [Abbrechen]): ", "grey", "on_white"))
             say("""""")
@@ -377,3 +272,41 @@ def raum4Ende():
     input(colored("[...]", "yellow"))
     say("""""")
     room_5.ueberleitung_room5()
+
+
+
+@when("hilfe", context="room4")
+@when("help", context="room4")
+def help_room4():
+    help_counter = 0
+    if sim_eingelegt and qr_gesehen:
+        if help_counter == 0:
+            say(
+                colored(
+                    """Bei der Übertragung der Nachricht mit der PIN ist wohl
+                    etwas schief gelaufen. Der Name des Absenders im Protokoll
+                    könnte etwas mit der Entschlüsselung des Codes zu tun haben. \n
+                    Hast du auf der Seite des QR-Codes schon einmal nach unten gescrollt?""",
+                    "yellow"
+                )
+            )
+            help_counter += 1
+        else:
+            say(
+                colored(
+                    """Die Nachricht enthält einen Binärcode, der für die Übertragung
+                    in einen einfachen fehlerkorrigierenden Code, den sogenannten Hamming
+                    Code umgewandelt wurde. \n
+                    Die Anleitung beschreibt, wie man den Fehler im Code findet
+                    und behebt. Im Anschluss muss man lediglich die Paritätsbits
+                    entfernen und die Binärzahl in eine Dezimalzahl umwandeln.""",
+                    "yellow"
+                )
+            )
+    elif sim_eingelegt and not qr_gesehen:
+        say(
+            colored(
+                """Schau dich doch noch einmal um. Vielleicht hast du etwas übersehen.""",
+                "yellow"
+            )
+        )

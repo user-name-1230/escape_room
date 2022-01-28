@@ -205,8 +205,8 @@ def tuer_oeffnen_unklar():
     say(colored("""Ich weiß nicht, welche Tür du meinst""", "yellow"))
 
 
-@when("help", context="room3")
 @when("hilfe", context="room3")
+@when("help", context="room3")
 def help_room3():
     if (tueren_gesehen and pinnwand_gesehen):
         say(
@@ -219,7 +219,7 @@ def help_room3():
     else:
         say(
             colored(
-                """Schau dich doch noch einmal um. Vielleicht hast du etwas übersehen. """,
+                """Schau dich doch noch einmal um. Vielleicht hast du etwas übersehen.""",
                 "yellow"
             )
         )
