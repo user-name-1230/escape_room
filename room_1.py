@@ -323,3 +323,14 @@ def go_room2():
                 "yellow"
             )
         )
+
+@when("hilfe", context="room1")
+@when("help", context="room1")
+def help_room1():
+    say(
+        colored(
+            """In diesem Raum ist leider keine Hilfe verfügbar. Schau dich einfach
+            weiter um und die Hinweise werden dir den Weg zeigen.""",
+            "yellow"
+        )
+    )

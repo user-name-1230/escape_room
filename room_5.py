@@ -38,7 +38,7 @@ def ueberleitung_room5():
 @when("schau dich um", context="room5")
 @when("umsehen", context="room5")
 def look_around_room5():
-    say(colored("""Schnell entdeckst du den potentiell nicht betroffenen PC im Raum.""", "yellow"))
+    say(colored("""Schnell entdeckst du den potentiell nicht betroffenen Computer im Raum.""", "yellow"))
 
 
 
@@ -203,3 +203,15 @@ def computer_entsperren():
     say(colored("""Du verlässt die Kommandozeile""", "yellow"))
     if (passwort_gefunden):
         room_6.ueberleitung_room6()
+
+
+@when("hilfe", context="room5")
+@when("help", context="room5")
+def help_room5():
+    say(
+        colored(
+            """In diesem Raum ist leider keine Hilfe verfügbar. Versuch dein
+            Glück mal mit dem nicht betroffenen Computer.""",
+            "yellow"
+        )
+    )

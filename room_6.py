@@ -14,6 +14,7 @@ klappe_gesehen = False
 klappe_offen = False
 kontrollrechner_entsperrt = False
 firewall_gesehen = False
+zettel_gesehen = False
 
 
 def ueberleitung_room6():
@@ -92,15 +93,22 @@ def klappe_oeffnen():
 @when("zettel anschauen", context="room6")
 @when("zettel anzeigen", context="room6")
 def zettel_anschauen2():
-    say(colored(""" ORP.3.A7                |    5 """, "grey", "on_white"))
-    say(colored("""                                """, "grey", "on_white"))
-    say(colored(""" APP.3.4         | 2.2   |   14 """, "grey", "on_white"))
-    say(colored("""                                """, "grey", "on_white"))
-    say(colored(""" ISMS.1.A11              |    4 """, "grey", "on_white"))
-    say(colored("""                                """, "grey", "on_white"))
-    say(colored(""" OPS.1.1.4.A14           |    5 """, "grey", "on_white"))
-    say(colored("""                                """, "grey", "on_white"))
-    say(colored(""" SYS.2.1.A1              |    5 """, "grey", "on_white"))
+    say(colored("""                 2022:                   """, "grey", "on_white"))
+    say(colored("""                                         """, "grey", "on_white"))
+    say(colored(""" ORP.3.A7                |    5          """, "grey", "on_white"))
+    say(colored("""                                         """, "grey", "on_white"))
+    say(colored(""" APP.3.4         | 2.2   |   14          """, "grey", "on_white"))
+    say(colored("""                                         """, "grey", "on_white"))
+    say(colored(""" G 0.28                  |   19 + "ern"  """, "grey", "on_white"))
+    say(colored("""                                         """, "grey", "on_white"))
+    say(colored(""" ISMS.1.A11              |    4          """, "grey", "on_white"))
+    say(colored("""                                         """, "grey", "on_white"))
+    say(colored(""" OPS.1.1.4.A14           |    5          """, "grey", "on_white"))
+    say(colored("""                                         """, "grey", "on_white"))
+    say(colored(""" SYS.2.1.A1              |    5          """, "grey", "on_white"))
+    say(colored("""                                         """, "grey", "on_white"))
+    global zettel_gesehen
+    zettel_gesehen = True
 
 
 
@@ -117,6 +125,11 @@ def zettel_anschauen2():
 @when("brechstange benutzen", context="room6")  # brechstange, nutzen
 @when("brechstange nutzen", context="room6")
 @when("mit brecheisen öffnen", context="room6")
+@when("klappe mit brecheisen öffnen", context="room6")
+@when("wartungsklappe mit brecheisen öffnen", context="room6")
+@when("mit brechstange öffnen", context="room6")
+@when("klappe mit brechstange öffnen", context="room6")
+@when("wartungsklappe mit brechstange öffnen", context="room6")
 def brecheisen_benutzen3():
     global klappe_offen
     klappe_offen = True
@@ -245,6 +258,7 @@ def firewall_schliessen():
                 "Richtigen Satz eingeben (""exit"" um zurückzugehen): ", "red"))
             if (input_loesung in loesungen):
                 print_loesung_firewall()
+                time.sleep(4.0)
                 abspann()
             elif input_loesung == "exit":
                 return
@@ -263,7 +277,7 @@ def print_loesung_firewall():
         r"""
 +---------------+---------------+-----------------------+---------------+
 |               |               |                       |               |
-|       IT      |       -       |       Grundschutz     |       :       |
+|       IT      |       -       |       GRUNDSCHUTZ     |       :       |
 |---------------+-------+-------+------------------+----+---------------|
 |                       |                          |                    |
 |       DEN             |       EINSTIEG           |       MEISTERN     |
@@ -318,3 +332,46 @@ def abspann():
     input(colored("[Abenteuer beenden...]", "yellow"))
     say("""""")
     sys.exit()
+
+
+@when("hilfe", context="room6")
+@when("help", context="room6")
+def help_room6():
+    if firewall_gesehen and zettel_gesehen:
+        help_counter = 0
+        if help_counter == 0:
+            say(
+                colored(
+                    """Guck dir den Zettel noch einmal genau an. Das sieht doch
+                    aus wie Anforderungs-Bausteine aus dem IT-Grundschutz-Kompendium...
+                    doch was haben die Zahlen dahinter zu bedeuten?""",
+                    "yellow"
+                )
+            )
+            help_counter += 1
+        elif help_counter == 1:
+            say(
+                colored(
+                    """Die Zahlen könnten doch für ein Wort in dem angegebenen
+                    Anforderungs-Abschnitt stehen. Nur der zweite und dritte Punkt
+                    auf dem Zettel weicht etwas von den anderen ab.""",
+                    "yellow"
+                )
+            )
+        else:
+            say(
+                colored(
+                    """Beim zweiten Wort ist keine Anforderung des Bausteins angegeben.
+                    Allerdings ein Gliederungspunkt.
+                    Der dritte Punkt sieht aus wie eine Elementare Gefährdung.
+                    Schau dir diese Sachen noch einmal genau im Kompendium an.""",
+                    "yellow"
+                )
+            )
+    else:
+        say(
+            colored(
+                """Schau dich doch noch einmal um. Vielleicht hast du etwas übersehen.""",
+                "yellow"
+            )
+        )

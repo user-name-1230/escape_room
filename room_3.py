@@ -223,30 +223,3 @@ def help_room3():
                 "yellow"
             )
         )
-
-
-# @when("gehe in den raum", context="room3")  # gehe,raum
-# @when("gehe in raum", context="room3")
-# @when("in raum gehen", context="room3")
-# @when("in den raum gehen", context="room3")
-# @when("gehe durch tür", context="room3")  # gehe, tür
-# @when("gehe durch die tür", context="room3")
-# @when("durch tür gehen", context="room3")
-# @when("durch die tür gehen", context="room3")
-# @when("durch die tür hindurch gehen", context="room3")
-# @when("geh in den raum", context="room3")  # geh, raum
-# @when("geh in raum", context="room3")
-# @when("geh durch tür", context="room3")  # geh, tür
-# @when("geh durch die tür", context="room3")
-# @when("geh durch die tür hindurch", context="room3")
-# @when("raum betreten", context="room3")  # betreten, raum
-# @when("den raum betreten", context="room3")
-# @when("betrete raum", context="room3")  # betrete, raum
-# @when("betrete den raum", context="room3")
-# def gehe_in_lagerraum():
-#     # TODO: andere Türen machen
-#     if türen.find("stern").status:
-#         say(colored("""Du betrittst den Raum hinter der soeben geöffneten Tür.""", "yellow"))
-#         ueberleitung_room4()
-#     else:
-#         say(colored("""Die Tür ist noch geschlossen.""", "yellow"))
