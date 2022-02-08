@@ -4,6 +4,8 @@
 
 # imports
 from PIL import Image
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
 import time
 from adventurelib import when, say, set_context
 import room_3
@@ -101,8 +103,11 @@ def zettel_anschauen():
 @when("ventile anschauen", context="room2")
 @when("pumpenventile anschauen", context="room2")
 def ventile_anschauen():
-    img = Image.open("pictures/ventile.jpg")
-    img.show()
+    # img = Image.open("pictures/ventile.jpg")
+    # img.show()
+    img = mpimg.imread('pictures/ventile.jpg')
+    imgplot = plt.imshow(img)
+    plt.show()
     global ventile_angeschaut
     ventile_angeschaut = True
 
