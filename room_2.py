@@ -6,6 +6,8 @@
 from PIL import Image
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
+import cv2
+from tkinter import *
 import time
 from adventurelib import when, say, set_context
 import room_3
@@ -105,9 +107,21 @@ def zettel_anschauen():
 def ventile_anschauen():
     # img = Image.open("pictures/ventile.jpg")
     # img.show()
-    img = mpimg.imread('pictures/ventile.jpg')
-    imgplot = plt.imshow(img)
-    plt.show()
+    
+    # img = cv2.imread(r"pictures/ventile.jpg", cv2.IMREAD_COLOR)
+    # cv2.imshow("Ventile", img)
+    # cv2.waitKey(1)
+    # cv2.destroyAllWindows()
+    ws = Tk()
+    ws.title('Ventile')
+
+    img = PhotoImage(file='pictures/ventile.jpg')
+    Label(
+        ws,
+        image=img
+    ).pack()
+
+    ws.mainloop()
     global ventile_angeschaut
     ventile_angeschaut = True
 
