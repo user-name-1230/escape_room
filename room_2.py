@@ -105,7 +105,7 @@ def ventile_anschauen():
     root = tkinter.Tk()
     root.title('Ventile')
 
-    ventile = ImageTk.PhotoImage(Image.open("pictures/ventile.jpg"))
+    ventile = ImageTk.PhotoImage(Image.open("pictures/ventile.png"))
     tkinter.Label(root, image=ventile).pack()
 
     root.mainloop()

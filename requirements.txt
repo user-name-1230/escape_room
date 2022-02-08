@@ -1,3 +1,7 @@
+Pip:
 - Pillow
 - termcolor
 - adventurelib
+
+Apt:
+- tkinter

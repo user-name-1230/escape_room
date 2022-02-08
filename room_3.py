@@ -116,7 +116,7 @@ def pinnwand_anschauen():
     root = tkinter.Tk()
     root.title('Pinnwand')
 
-    pinnwand = ImageTk.PhotoImage(Image.open("pictures/pinnwand.jpg"))
+    pinnwand = ImageTk.PhotoImage(Image.open("pictures/pinnwand.png"))
     tkinter.Label(root, image=pinnwand).pack()
 
     root.mainloop()
@@ -155,11 +155,11 @@ def tueren_anschauen():
     root = tkinter.Tk()
     root.title('Türen')
 
-    tueren = ImageTk.PhotoImage(Image.open("pictures/doors.jpg"))
+    tueren = ImageTk.PhotoImage(Image.open("pictures/doors.png"))
     tkinter.Label(root, image=tueren).pack()
 
     root.mainloop()
-    
+
     global tueren_gesehen
     tueren_gesehen = True
 
