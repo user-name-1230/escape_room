@@ -5,3 +5,4 @@ Pip:
 
 Apt:
 - tkinter
+- python3-pil.imagetk
