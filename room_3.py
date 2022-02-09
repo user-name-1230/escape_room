@@ -3,7 +3,8 @@
 ################
 
 # imports
-from PIL import Image
+from PIL import Image, ImageTk
+import tkinter
 import time
 from adventurelib import when, say, Bag, Item, set_context
 import room_4
@@ -112,8 +113,14 @@ def look_around_room3():
 @when("fotos betrachten", context="room3")  # betrachten
 @when("betrachte fotos", context="room3")
 def pinnwand_anschauen():
-    pinnwand = Image.open("pictures/pinnwand.jpg")
-    pinnwand.show()
+    root = tkinter.Tk()
+    root.title('Pinnwand')
+
+    pinnwand = ImageTk.PhotoImage(Image.open("pictures/pinnwand.png"))
+    tkinter.Label(root, image=pinnwand).pack()
+
+    root.mainloop()
+
     global pinnwand_gesehen
     pinnwand_gesehen = True
 
@@ -145,8 +152,14 @@ def tueren_anschauen():
             "yellow"
         )
     )
-    img = Image.open("pictures/doors.png")
-    img.show()
+    root = tkinter.Tk()
+    root.title('Türen')
+
+    tueren = ImageTk.PhotoImage(Image.open("pictures/doors.png"))
+    tkinter.Label(root, image=tueren).pack()
+
+    root.mainloop()
+
     global tueren_gesehen
     tueren_gesehen = True
 

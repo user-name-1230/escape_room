@@ -3,7 +3,8 @@
 #########################
 
 # imports
-from PIL import Image
+from PIL import Image, ImageTk
+import tkinter
 import time
 from adventurelib import when, say, set_context
 import room_3
@@ -101,8 +102,14 @@ def zettel_anschauen():
 @when("ventile anschauen", context="room2")
 @when("pumpenventile anschauen", context="room2")
 def ventile_anschauen():
-    img = Image.open("pictures/ventile.jpg")
-    img.show()
+    root = tkinter.Tk()
+    root.title('Ventile')
+
+    ventile = ImageTk.PhotoImage(Image.open("pictures/ventile.png"))
+    tkinter.Label(root, image=ventile).pack()
+
+    root.mainloop()
+
     global ventile_angeschaut
     ventile_angeschaut = True
 
@@ -124,7 +131,7 @@ def ventile_anschauen():
 @when("ventile benutzen", context="room2")
 @when("ventile öffnen", context="room2")
 @when("pumpen einschalten", context="room2")
-def zu_ventilen():
+def ventile_drehen():
     global ventile_gedreht
     if (zurueckgegangen and ventile_gedreht and ("brecheisen" in inventory)):
         say(

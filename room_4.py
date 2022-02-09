@@ -3,7 +3,8 @@
 #####################
 
 # imports
-from PIL import Image
+from PIL import Image, ImageTk
+import tkinter
 import time
 from adventurelib import when, say, set_context
 import room_5
@@ -190,8 +191,14 @@ def sim_slot_oeffnen():
 @when("schaue qr an", context="room4")
 @when("schau qr an", context="room4")
 def show_qr():
-    img = Image.open("pictures/qr.png")
-    img.show()
+    root = tkinter.Tk()
+    root.title('QR-Code')
+
+    qr = ImageTk.PhotoImage(Image.open("pictures/qr.png"))
+    tkinter.Label(root, image=qr).pack()
+
+    root.mainloop()
+
     global qr_gesehen
     qr_gesehen = True
 
