@@ -27,8 +27,7 @@
 
 
 
-# Todos:
-- Textstil ändern
+## Todos:
 - Dependencies packagen
 - Lauffähig auf Windows machen -> In BK-Client testen
 - Verschiedene Versionen zusammenführen und vereinheitlichen
