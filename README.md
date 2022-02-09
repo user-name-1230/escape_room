@@ -13,7 +13,7 @@
 
 ## Installation (macOS)
 
-1. Terminal öffnen mit: ⌘ + Leertaste -> Terminal -> ENTER
+1. Terminal öffnen mit: ⌘ + Leertaste -> `Terminal -> ENTER
 2. `xcode-select --install`
 3. `git clone https://github.com/user-name-1230/escape_room.git`
 4. `cd escape_room/`
