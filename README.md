@@ -1,6 +1,6 @@
 # escape_room (unfertig)
 ***
-## Installation (debian-based Linux)
+## Installation (Debian-basiertes Linux)
 
 1. Linux starten
 2. Terminal öffnen mit: Strg + Alt + T
