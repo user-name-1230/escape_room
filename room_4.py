@@ -43,11 +43,12 @@ def ueberleitung_room4():
 @when("schau um", context="room4")
 @when("schau dich um", context="room4")
 @when("umsehen", context="room4")
+@when("um", context="room4")
 def look_around_room4():
     if sim_eingelegt:
         say(
             colored(
-                """An der Innenseite der Spindtür entdeckst du einen QR Code.
+                """An der Innenseite der Spindtür entdeckst du einen [QR Code].
                 Ob der wohl was damit zu tun hat?""",
                 "yellow"
             )
@@ -55,7 +56,7 @@ def look_around_room4():
     elif "simkarte" in inventory:
         say(
             colored(
-                """Dir fällt sofort die feine Haarnadel der Ministerin ins Auge.
+                """Dir fällt sofort die feine [Haarnadel] der Ministerin ins Auge.
                 Du fragst sie, ob du dir ihre Haarnadel kurz ausleihen kannst.
                 Sie nickt aufgeregt und übergibt sie dir schnell.""",
                 "yellow",
@@ -66,7 +67,7 @@ def look_around_room4():
         say(
             colored(
                 """An der gegenüberliegenden Wand des Serverracks steht ein
-                Lagerspind mit einem Zahlenschloss, das anscheinend bei der letzten
+                [Lagerspind] mit einem Zahlenschloss, das anscheinend bei der letzten
                 Benutzung nicht richtig verschlossen wurde.""",
                 "yellow",
             )
@@ -88,7 +89,7 @@ def spind_oeffnen():
             """Du öffnest den Spind und schaust dir den Inhalt genau an.
             Zuerst siehst du nur alte Ersatzteile für Computer. RAM, Lüfter,
             Netzteile, alte Festplatten und so weiter. Doch dann sticht dir ein
-            kleiner Karton mit der Aufschrift „SIM Karten“ ins Auge.""",
+            kleiner Karton mit der Aufschrift „[SIM Karten]“ ins Auge.""",
             "yellow",
         )
     )
@@ -96,18 +97,13 @@ def spind_oeffnen():
 
 @when("sim karte nehmen", context="room4")  # nehmen
 @when("sim nehmen", context="room4")
-@when("nehme sim karte", context="room4")
-@when("nehme sim", context="room4")
-@when("nehme die sim karte", context="room4")
-@when("nehme die sim", context="room4")
-@when("nehm sim karte", context="room4")
-@when("nehm sim", context="room4")
-@when("nehm die sim karte", context="room4")
-@when("nehm die sim", context="room4")
-@when("nimm sim karte", context="room4")  # nimm
-@when("nimm sim", context="room4")
-@when("nimm die sim karte", context="room4")
-@when("nimm die sim", context="room4")
+@when("karte nehmen", context="room4")
+@when("sim karten nehmen", context="room4")
+@when("karten nehmen", context="room4")
+@when("sim karte anschauen", context="room4")  # anschauen
+@when("sim anschauen", context="room4")
+@when("karte anschauen", context="room4")
+@when("karton anschauen", context="room4")
 def sim_karte_nehmen():
     if sim_schrank_offen:
         say(
@@ -158,7 +154,7 @@ def sim_slot_oeffnen():
                 colored(
                     """Zum Glück ist die Nadel dünn genug, um den
                     SIM-Slot zu öffnen. Du legst die Karte in dein Handy ein,
-                    worauf die Aufforderung „SIM PIN eingeben“ angezeigt wird.""",
+                    worauf die Aufforderung „[SIM PIN eingeben]“ angezeigt wird.""",
                     "yellow",
                 )
             )
@@ -304,9 +300,17 @@ def help_room4():
                     """Die Nachricht enthält einen Binärcode, der für die Übertragung
                     in einen einfachen fehlerkorrigierenden Code, den sogenannten Hamming
                     Code umgewandelt wurde. \n
-                    Die Anleitung beschreibt, wie man den Fehler im Code findet
-                    und behebt. Im Anschluss muss man lediglich die Paritätsbits
-                    entfernen und die Binärzahl in eine Dezimalzahl umwandeln.""",
+                    Um ihn zurückzuwandeln musst du zunächst die Positionen der 1en
+                    also 4, 5, 7, 9, 10 und 13 in binär umwandeln (0100, 0101, 0111, ...).\n
+                    Anschließend schreibst du alle Binärwerte untereinander. Das Ergebnis
+                    pro Spalte, in der sich eine gerade Anzahl 1en befindet ist *0*. Bei
+                    einer ungeraden Anzahl 1en ist das Ergebnis *1*.\n
+                    Das Endergebnis des exklusiven verODERns ist die Position im
+                    ursprünglichen Binärcode, an der sich der Fehler befindet. \n
+                    Nachdem dieser korrigiert wurde, löscht man wie beschrieben alle
+                    Positionen, die eine Potenz von 2 darstellen (1, 2, 4 und 8) aus
+                    dem Binärcode raus und wandelt das Ergebnis ohne die Paritätsbits
+                    in Dezimal um.""",
                     "yellow"
                 )
             )
