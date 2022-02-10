@@ -10,6 +10,7 @@ inventory = Bag()
 
 
 @when("inventar")
+@when("inventar anschauen")  # anschauen
 @when("inventar zeigen")  # zeigen
 @when("zeige inventar")
 @when("inventar anzeigen")  # anzeigen
