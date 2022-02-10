@@ -85,12 +85,13 @@ def ueberleitung_room3():
 @when("schaue um", context="room3")
 @when("schau dich um", context="room3")
 @when("umsehen", context="room3")
+@when("um", context="room3")
 def look_around_room3():
     # umschauen in Raum 3
     say(
         colored(
-            """Auf den Türen entdeckst du seltsame Symbole. Was die wohl zu bedeuten
-            haben? An der Wand hängt außerdem eine Pinnwand mit Fotos.""",
+            """Auf den [Türen] entdeckst du seltsame Symbole. Was die wohl zu bedeuten
+            haben? An der Wand hängt außerdem eine [Pinnwand] mit Fotos.""",
             "yellow"
         )
     )
@@ -170,6 +171,7 @@ def tueren_anschauen():
 @when("tür öffnen mit FORM", context="room3")
 @when("tür mit FORM öffnen", context="room3")
 @when("FORM tür öffnen", context="room3")
+@when("tür FORM öffnen", context="room3")
 @when("tür mit FORM beutzen", context="room3")  # benutzen
 @when("benutze tür mit FORM", context="room3")
 @when("benutze die tür mit FORM", context="room3")
@@ -215,7 +217,17 @@ def tuer_oeffnen(form):
 @when("öffne tür", context="room3")
 @when("tür öffnen", context="room3")
 def tuer_oeffnen_unklar():
-    say(colored("""Ich weiß nicht, welche Tür du meinst""", "yellow"))
+    if tueren_gesehen:
+        say(colored("""Ich weiß nicht, welche Tür du meinst. Es gibt folgende Möglichkeiten: """, "yellow"))
+        say("""""")
+        say(colored("""- Welle """, "yellow"))
+        say(colored("""- Plus """, "yellow"))
+        say(colored("""- Minus """, "yellow"))
+        say(colored("""- Kleiner """, "yellow"))
+        say(colored("""- Stern """, "yellow"))
+        say(colored("""- Dreieck """, "yellow"))
+        say(colored("""- Fünfeck """, "yellow"))
+        say("""""")
 
 
 @when("hilfe", context="room3")

@@ -29,7 +29,8 @@ def ueberleitung_room1():
             Knöpfen erschlägt dich fast und es fällt dir schwer deine Panik in den Griff zu
             bekommen. Du versuchst dich zu sammeln und deine Möglichkeiten abzuwägen: \n
             Du kannst dich im Raum [umschauen]\n
-            Du kannst Dinge im Raum [anschauen], [nehmen] und [benutzen], sowie Knöpfe [drücken] oder Türen [öffnen], etc.\n
+            Du kannst im Raum [Dinge anschauen], [... nehmen] und [... benutzen], sowie [Knöpfe drücken] oder [Türen öffnen], etc.\n
+            Du kannst, wenn nötig in einen bestimmten Raum [zurück gehen]\n
             Du kannst dein aktuelles [Inventar] anschauen\n
             Du kannst dir [hilfe] suchen, wenn du nicht weiterkommst\n
             Du kannst mit [quit] das AKW verlassen (Spiel beenden)\n
@@ -44,31 +45,33 @@ def ueberleitung_room1():
 @when("schaue um", context="room1")
 @when("schau dich um", context="room1")
 @when("umsehen", context="room1")
+@when("um", context="room1")
 def look_around_room1():
     # umschauen in Raum 1
     # TODO
     if room_2.zurueckgegangen:
-        say(colored("""Du siehst die Tasche mit Sicherheitsausrüstung in der Ecke liegen.""", "yellow"))
+        say(colored("""Du siehst die Tasche mit [Sicherheitsausrüstung] in der Ecke liegen.""", "yellow"))
     elif (kontrollrechner_neugestartet and sicherheitstuer_gesehen):
-        say(colored("""Dir fällt ein auffälliges Poster ins Auge, welches an der Wand gegenüber des Kontrollrechners hängt.""", "yellow"))
+        say(colored("""Dir fällt ein auffälliges [Poster] ins Auge, welches an der Wand gegenüber des Kontrollrechners hängt.""", "yellow"))
 
     elif (kontrollrechner_neugestartet):
-        say(colored("""Du blickst auf die riesige, meterdicke Sicherheitstür.""", "yellow"))
+        say(colored("""Du blickst auf die riesige, meterdicke [Sicherheitstür].""", "yellow"))
 
     elif (sicherheitsausruestung_gesehen):
-        say(colored("""Du siehst den Kontrollrechner.""", "yellow"))
+        say(colored("""Du siehst den [Kontrollrechner].""", "yellow"))
 
     else:
-        say(colored("""Du siehst den Kontrollrechner und entdeckst eine Tasche mit Sicherheitsausrüstung in der Ecke.""", "yellow"))
+        say(colored("""Du siehst den [Kontrollrechner] und entdeckst eine Tasche mit [Sicherheitsausrüstung] in der Ecke.""", "yellow"))
 
 
 @when("sicherheitsausrüstung anschauen", context="room1")
 @when("ausrüstung anschauen", context="room1")
+@when("tasche anschauen", context="room1")
 def sicherheitsausruestung_anschauen():
     if inventory.find("brecheisen") is None:
         global sicherheitsausruestung_gesehen
         sicherheitsausruestung_gesehen = True
-        say(colored("""In der Sicherheitsausrüstung findest du ein Brecheisen.""", "yellow"))
+        say(colored("""In der Sicherheitsausrüstung findest du ein [Brecheisen].""", "yellow"))
     else:
         say(colored("""Du hast die Sicherheitsausrüstung bereits durchsucht""", "yellow"))
 
@@ -135,7 +138,7 @@ def kontrollrechner_anschauen():
         colored(
             """Der Bildschirm zeigt weiterhin den Totenkopf und die Nachricht der
             Erpresser. Du entdeckst ein Terminal mit Anschlüssen und einigen Knöpfen.
-            Darunter ein Knopf auf dem "Reset" steht und eine Buchse, die mit
+            Darunter ein [Knopf] auf dem "Reset" steht und eine [Buchse], die mit
             "DIN AT" beschriftet ist.""",
             "yellow"
         )
@@ -204,9 +207,14 @@ def buchse_anschauen():
 
 
 @when("sicherheitstür anschauen", context="room1")
-@when("tür anschauen", context="room1")
 @when("sicherheitstuer anschauen", context="room1")
+@when("tür anschauen", context="room1")
+@when("tuer anschauen", context="room1")
 @when("sicherheitstür öffnen", context="room1")
+@when("sicherheitstuer öffnen", context="room1")
+@when("tür öffnen", context="room1")
+@when("tuer öffnen", context="room1")
+@when("kontrollraum verlassen", context="room1")
 def sicherheitstuer_anschauen():
     if kontrollrechner_neugestartet:
         say(
@@ -222,11 +230,13 @@ def sicherheitstuer_anschauen():
         say("""""")
         say(
             colored(
-                """„Das Gesicht des Chefs sollte
-                funktionieren!“, denkst du dir, erinnerst dich aber, dass dieser ohnmächtig geworden ist. Du nimmst dein Smartphone in
-                die Hand und hältst ein Bild von Herrn Solar in die Kamera. „Guten Tag Herr Solar! Bitte geben Sie Ihre PIN ein!“,
-                ertönt eine roboterartige Stimme aus dem Terminal und das Display zeigt: * * * * * *. „Mist, wo krieg ich denn jetzt den
-                Zugangscode her?“, fragst du dich. Vielleicht schaust du dich einfach noch einmal um.""",
+                """„Das Gesicht des Chefs sollte funktionieren!“, denkst du dir,
+                erinnerst dich aber, dass dieser ohnmächtig geworden ist. Du nimmst
+                dein Smartphone in die Hand und hältst ein Bild von Herrn Solar
+                in die Kamera. „Guten Tag Herr Solar! Bitte geben Sie Ihre PIN ein!“,
+                ertönt eine roboterartige Stimme aus dem [Terminal] und das Display
+                zeigt: * * * * * *. „Mist, wo krieg ich denn jetzt den Zugangscode
+                her?“, fragst du dich. Vielleicht schaust du dich einfach noch einmal um.""",
                 "yellow"
             )
         )
@@ -236,7 +246,7 @@ def sicherheitstuer_anschauen():
         say(
             colored(
                 """Die Tür scheint verschlossen zu sein. Vielleicht versuchst du
-                dein Glück erst mal am Kontrollrechner.""",
+                dein Glück erst mal am [Kontrollrechner].""",
                 "yellow"
             )
         )
@@ -271,15 +281,19 @@ def poster_anschauen():
     )
 
 
+@when("terminal benutzen", context="room1")
+@when("tastenfeld benutzen", context="room1")
+@when("terminal anschauen", context="room1")
+@when("tastenfeld anschauen", context="room1")
+@when("pin benutzen", context="room1")
 @when("pin eingeben", context="room1")
-@when("tür öffnen", context="room1")
 @when("code eingeben", context="room1")
 @when("zahl eingeben", context="room1")
 @when("zugangscode eingeben", context="room1")
 def pin_eingeben():
     while True:
         input_1 = input(
-            colored("PIN eingeben ([exit] um abzubrechen): ", "grey", "on_green"))
+            colored("PIN eingeben ([X] um abzubrechen): ", "grey", "on_green"))
         if (input_1 == "210364"):
             say(colored("""PIN wird überprüft...""", "grey", "on_green"))
             say("""""")
@@ -289,7 +303,7 @@ def pin_eingeben():
             time.sleep(2.0)
             room_2.ueberleitung_room2()
             return
-        elif (input_1 == "exit"):
+        elif (input_1 == "X" or input_1 == "x" or input_1 == "[X]"):
             return
         else:
             say(colored("""PIN wird überprüft...""", "grey", "on_green"))

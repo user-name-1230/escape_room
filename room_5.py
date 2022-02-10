@@ -37,8 +37,9 @@ def ueberleitung_room5():
 @when("schau um", context="room5")
 @when("schau dich um", context="room5")
 @when("umsehen", context="room5")
+@when("um", context="room5")
 def look_around_room5():
-    say(colored("""Schnell entdeckst du den potentiell nicht betroffenen Computer im Raum.""", "yellow"))
+    say(colored("""Schnell entdeckst du den potentiell nicht betroffenen [Computer] im Raum.""", "yellow"))
 
 
 

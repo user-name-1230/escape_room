@@ -41,12 +41,13 @@ def ueberleitung_room6():
 @when("schau um", context="room6")
 @when("schau dich um", context="room6")
 @when("umsehen", context="room6")
+@when("um", context="room6")
 def look_around_room6():
     global klappe_gesehen
     if firewall_gesehen:
         say(
             colored(
-                """In einer Ecke des Kontrollpultes liegt ein Zettel. Vielleicht
+                """In einer Ecke des Kontrollpultes liegt ein [Zettel]. Vielleicht
                 hilft dir dieser ja weiter.""",
                 "yellow"
             )
@@ -63,7 +64,7 @@ def look_around_room6():
             colored(
                 """Du schaust dich fragend um. Der Kraftwerkchef kommt auf euch zu und
                 fragt nach dem Status. Ihr erläutert ihm kurz das Problem und er zeigt auf
-                eine Wartungsklappe neben dem Kontrollpult. Dort muss eine Tastatur drin
+                eine [Wartungsklappe] neben dem Kontrollpult. Dort muss eine Tastatur drin
                 sein, die mit dem alten DIN-AT-Anschluss kompatibel ist. Doch die Klappe
                 ist so verrostet, dass du sie mit bloßen Händen nicht aufbekommst.""",
                 "yellow"
@@ -93,20 +94,20 @@ def klappe_oeffnen():
 @when("zettel anschauen", context="room6")
 @when("zettel anzeigen", context="room6")
 def zettel_anschauen2():
-    say(colored("""                 2022:                   """, "grey", "on_white"))
-    say(colored("""                                         """, "grey", "on_white"))
-    say(colored(""" ORP.3.A7                |    5          """, "grey", "on_white"))
-    say(colored("""                                         """, "grey", "on_white"))
-    say(colored(""" APP.3.4         | 2.2   |   14          """, "grey", "on_white"))
-    say(colored("""                                         """, "grey", "on_white"))
-    say(colored(""" G 0.28                  |   19 + "ern"  """, "grey", "on_white"))
-    say(colored("""                                         """, "grey", "on_white"))
-    say(colored(""" ISMS.1.A11              |    4          """, "grey", "on_white"))
-    say(colored("""                                         """, "grey", "on_white"))
-    say(colored(""" OPS.1.1.4.A14           |    5          """, "grey", "on_white"))
-    say(colored("""                                         """, "grey", "on_white"))
-    say(colored(""" SYS.2.1.A1              |    5          """, "grey", "on_white"))
-    say(colored("""                                         """, "grey", "on_white"))
+    say(colored("""                  2022:                   """, "grey", "on_white"))
+    say(colored("""                                          """, "grey", "on_white"))
+    say(colored(""" ORP.3.A7                |    5 '...-...' """, "grey", "on_white"))
+    say(colored("""                                          """, "grey", "on_white"))
+    say(colored(""" APP.3.4         | 2.2   |   14           """, "grey", "on_white"))
+    say(colored("""                                          """, "grey", "on_white"))
+    say(colored(""" G 0.28                  |   19 + 'ern'   """, "grey", "on_white"))
+    say(colored("""                                          """, "grey", "on_white"))
+    say(colored(""" ISMS.1.A11              |    4           """, "grey", "on_white"))
+    say(colored("""                                          """, "grey", "on_white"))
+    say(colored(""" OPS.1.1.4.A14           |    5           """, "grey", "on_white"))
+    say(colored("""                                          """, "grey", "on_white"))
+    say(colored(""" SYS.2.1.A1              |    5           """, "grey", "on_white"))
+    say(colored("""                                          """, "grey", "on_white"))
     global zettel_gesehen
     zettel_gesehen = True
 
@@ -137,7 +138,7 @@ def brecheisen_benutzen3():
         colored(
             """Gut, dass du das Brecheisen vom Anfang noch bei dir hast. Du brichst
             die Klappe auf und dahinter versteckt sich tatsächlich eine passende
-            Tastatur.""",
+            [Tastatur].""",
             "yellow"
         )
     )
@@ -170,7 +171,7 @@ def tastatur_benutzen():
                 say("""""")
                 say(
                     colored(
-                        """Du tippst das Passwort ein: 3...0...J...a...h...r...e...B...S...I...1...9...9...1...!
+                        """Du tippst das Passwort ein: 3...0...J...a...h...r...e...B...S...I...1...9...9...1...!\n
                         ENTER!\n""",
                         "yellow"
                     )
@@ -183,7 +184,7 @@ def tastatur_benutzen():
                         etwas ein: „Wir müssen irgendetwas tun, um die Hacker aus dem
                         System zu werfen und das System besser.aBSIchern!“, rufst du.
                         Du wendest dich wieder dem Kontrollrechner zu um dir den Status
-                        der Firewall anzuschauen.""",
+                        der [Firewall] anzuschauen.""",
                         "yellow"
                     )
                 )
@@ -255,7 +256,7 @@ def firewall_schliessen():
         ]
         while (True):
             input_loesung = input(colored(
-                "Richtigen Satz eingeben (""exit"" um zurückzugehen): ", "red"))
+                "Richtigen Satz eingeben ([zurück] um zurückzugehen): ", "red"))
             if (input_loesung in loesungen):
                 print_loesung_firewall()
                 time.sleep(4.0)
@@ -342,7 +343,7 @@ def help_room6():
         if help_counter == 0:
             say(
                 colored(
-                    """Guck dir den Zettel noch einmal genau an. Das sieht doch
+                    """Guck dir den [Zettel] noch einmal genau an. Das sieht doch
                     aus wie Anforderungs-Bausteine aus dem IT-Grundschutz-Kompendium...
                     doch was haben die Zahlen dahinter zu bedeuten?""",
                     "yellow"

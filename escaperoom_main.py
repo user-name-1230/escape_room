@@ -1,34 +1,10 @@
 # TODO
-# Texte in der Einleitung langsamer machen
-# Mehr Sätze
-# Umlaute
-# Ausrüstung / Kontrollrechner anschauen / benutzen / neustarten
-# Inventar anschauen
 
-# ventile / pumpenventile
-# Mehr möglichkeiten
-# Ventileingaben besser machen
-# Brechstange wird automatisch benutzt
+# (Mehr möglichkeiten)
 
-# Bild muss geschlossen werden
-# Fotos / Pinnwand anschauen
-# Hinweis auf L
-# Hinweis auf Karte für Lösung
-# "Benutze" öfter
-# in raum gehen weglassen
-# Spind öffnen
-# haarnadel benutzen
-# simslot öffnen
-# pin eingeben
-# Überleitung zu Raum 5
-
-# exit in cmd
-# ls richtig einrücken
-# Überleitung in Raum 6
 # NICHT STRG-C DRÜCKEN
 
-# Hinweis zum Lückentext
-# lower()
+
 from termcolor import colored
 import time
 import random
