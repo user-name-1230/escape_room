@@ -98,6 +98,7 @@ def look_around_room3():
 
 
 @when("pinnwand anschauen", context="room3")  # anschauen
+@when("pinnwand an", context="room3")  # anschauen
 @when("schaue pinnwand an", context="room3")
 @when("schau pinnwand an", context="room3")
 @when("gucke pinnwand an", context="room3")  # gucken
@@ -127,6 +128,9 @@ def pinnwand_anschauen():
 
 
 @when("türen anschauen", context="room3")  # anschauen
+@when("türen an", context="room3")  # anschauen
+@when("tueren anschauen", context="room3")  # anschauen
+@when("tueren an", context="room3")  # anschauen
 @when("schaue türen an", context="room3")
 @when("schau türen an", context="room3")
 @when("tür anschauen", context="room3")
@@ -216,6 +220,7 @@ def tuer_oeffnen(form):
 
 @when("öffne tür", context="room3")
 @when("tür öffnen", context="room3")
+@when("tuer öffnen", context="room3")
 def tuer_oeffnen_unklar():
     if tueren_gesehen:
         say(colored("""Ich weiß nicht, welche Tür du meinst. Es gibt folgende Möglichkeiten: """, "yellow"))

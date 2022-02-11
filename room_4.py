@@ -78,9 +78,11 @@ def look_around_room4():
 @when("spind öffnen", context="room4")  # öffnen
 @when("öffne spind", context="room4")
 @when("spind anschauen", context="room4")  # anschauen
+@when("spind an", context="room4")
 @when("lagerspind öffnen", context="room4")  # öffnen
 @when("öffne lagerspind", context="room4")
 @when("lagerspind anschauen", context="room4")  # anschauen
+@when("lagerspind an", context="room4")
 def spind_oeffnen():
     global sim_schrank_offen
     sim_schrank_offen = True
@@ -104,6 +106,10 @@ def spind_oeffnen():
 @when("sim anschauen", context="room4")
 @when("karte anschauen", context="room4")
 @when("karton anschauen", context="room4")
+@when("sim karte an", context="room4")
+@when("sim an", context="room4")
+@when("karte an", context="room4")
+@when("karton an", context="room4")
 def sim_karte_nehmen():
     if sim_schrank_offen:
         say(
@@ -168,24 +174,15 @@ def sim_slot_oeffnen():
 
 
 
-@when("qr code anzeigen", context="room4")  # qr code, anzeigen
-@when("zeige qr code an", context="room4")
-@when("zeig qr code an", context="room4")
-@when("qr code anschauen", context="room4")  # qr code, anschauen
-@when("schaue qr code an", context="room4")
-@when("schau qr code an", context="room4")
-@when("qrcode anzeigen", context="room4")  # qrcode, anzeigen
-@when("zeige qrcode an", context="room4")
-@when("zeig qrcode an", context="room4")
-@when("qrcode anschauen", context="room4")  # qrcode, anschauen
-@when("schaue qrcode an", context="room4")
-@when("schau qrcode an", context="room4")
-@when("qr anzeigen", context="room4")  # qr, anzeigen
-@when("zeige qr an", context="room4")
-@when("zeig qr an", context="room4")
-@when("qr anschauen", context="room4")  # qr, anschauen
-@when("schaue qr an", context="room4")
-@when("schau qr an", context="room4")
+@when("qr code anzeigen", context="room4")  # anzeigen
+@when("qrcode anzeigen", context="room4")
+@when("qr anzeigen", context="room4")
+@when("qr code anschauen", context="room4")  # anschauen
+@when("qrcode anschauen", context="room4")
+@when("qr anschauen", context="room4")
+@when("qr code an", context="room4")  # anschauen
+@when("qrcode an", context="room4")
+@when("qr an", context="room4")
 def show_qr():
     root = tkinter.Tk()
     root.title('QR-Code')

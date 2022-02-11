@@ -14,6 +14,10 @@ kontrollrechner_neugestartet = False
 sicherheitsausruestung_gesehen = False
 sicherheitstuer_gesehen = False
 
+# objects
+kontrollraum = colored('Kontrollraum', 'red')
+
+
 #Überleitung Room1 und Instructions
 def ueberleitung_room1():
     say(
@@ -25,12 +29,12 @@ def ueberleitung_room1():
     time.sleep(1.0)
     say(
         colored(
-            """Du befindest dich nun im Kontrollraum. Die Menge an Schaltern, Hebeln und
+            """Du befindest dich nun im """, "yellow"), colored("Kontrollraum", attrs=["underline"]), colored(""". Die Menge an Schaltern, Hebeln und
             Knöpfen erschlägt dich fast und es fällt dir schwer deine Panik in den Griff zu
             bekommen. Du versuchst dich zu sammeln und deine Möglichkeiten abzuwägen: \n
             Du kannst dich im Raum [umschauen]\n
-            Du kannst im Raum [Dinge anschauen], [... nehmen] und [... benutzen], sowie [Knöpfe drücken] oder [Türen öffnen], etc.\n
-            Du kannst, wenn nötig in einen bestimmten Raum [zurück gehen]\n
+            Du kannst im Raum »Dinge« [anschauen], [nehmen] und [benutzen], sowie »Knöpfe« [drücken] oder »Türen« [öffnen], etc.\n
+            Du kannst, wenn nötig [in] einen bestimmten »Raum« [gehen]\n
             Du kannst dein aktuelles [Inventar] anschauen\n
             Du kannst dir [hilfe] suchen, wenn du nicht weiterkommst\n
             Du kannst mit [quit] das AKW verlassen (Spiel beenden)\n
@@ -50,23 +54,26 @@ def look_around_room1():
     # umschauen in Raum 1
     # TODO
     if room_2.zurueckgegangen:
-        say(colored("""Du siehst die Tasche mit [Sicherheitsausrüstung] in der Ecke liegen.""", "yellow"))
+        say(colored("""Du siehst die Tasche mit »Sicherheitsausrüstung« in der Ecke liegen.""", "yellow"))
     elif (kontrollrechner_neugestartet and sicherheitstuer_gesehen):
-        say(colored("""Dir fällt ein auffälliges [Poster] ins Auge, welches an der Wand gegenüber des Kontrollrechners hängt.""", "yellow"))
+        say(colored("""Dir fällt ein auffälliges »Poster« ins Auge, welches an der Wand gegenüber des Kontrollrechners hängt.""", "yellow"))
 
     elif (kontrollrechner_neugestartet):
-        say(colored("""Du blickst auf die riesige, meterdicke [Sicherheitstür].""", "yellow"))
+        say(colored("""Du blickst auf die riesige, meterdicke »Sicherheitstür«.""", "yellow"))
 
     elif (sicherheitsausruestung_gesehen):
-        say(colored("""Du siehst den [Kontrollrechner].""", "yellow"))
+        say(colored("""Du siehst den »Kontrollrechner«.""", "yellow"))
 
     else:
-        say(colored("""Du siehst den [Kontrollrechner] und entdeckst eine Tasche mit [Sicherheitsausrüstung] in der Ecke.""", "yellow"))
+        say(colored("""Du siehst den »Kontrollrechner« und entdeckst eine Tasche mit »Sicherheitsausrüstung« in der Ecke.""", "yellow"))
 
 
 @when("sicherheitsausrüstung anschauen", context="room1")
 @when("ausrüstung anschauen", context="room1")
 @when("tasche anschauen", context="room1")
+@when("sicherheitsausrüstung an", context="room1")
+@when("ausrüstung an", context="room1")
+@when("tasche an", context="room1")
 def sicherheitsausruestung_anschauen():
     if inventory.find("brecheisen") is None:
         global sicherheitsausruestung_gesehen
@@ -128,7 +135,9 @@ def brecheisen_benutzen():
 @when("kontrollrechner anschauen", context="room1")
 @when("rechner anschauen", context="room1")
 @when("pc anschauen", context="room1")
-@when("kontrollpc anschauen", context="room1")
+@when("kontrollrechner an", context="room1")
+@when("rechner an", context="room1")
+@when("pc an", context="room1")
 @when("kontrollrechner benutzen", context="room1")
 @when("rechner benutzen", context="room1")
 @when("pc benutzen", context="room1")
@@ -210,11 +219,14 @@ def buchse_anschauen():
 @when("sicherheitstuer anschauen", context="room1")
 @when("tür anschauen", context="room1")
 @when("tuer anschauen", context="room1")
+@when("sicherheitstür an", context="room1")
+@when("sicherheitstuer an", context="room1")
+@when("tür an", context="room1")
+@when("tuer an", context="room1")
 @when("sicherheitstür öffnen", context="room1")
 @when("sicherheitstuer öffnen", context="room1")
 @when("tür öffnen", context="room1")
 @when("tuer öffnen", context="room1")
-@when("kontrollraum verlassen", context="room1")
 def sicherheitstuer_anschauen():
     if kontrollrechner_neugestartet:
         say(
@@ -253,8 +265,7 @@ def sicherheitstuer_anschauen():
 
 
 @when("poster anschauen", context="room1")
-@when("scooter poster anschauen", context="room1")
-@when("scooter poster anschauen", context="room1")
+@when("poster an", context="room1")
 @when("poster ansehen", context="room1")
 def poster_anschauen():
     say(
@@ -285,6 +296,8 @@ def poster_anschauen():
 @when("tastenfeld benutzen", context="room1")
 @when("terminal anschauen", context="room1")
 @when("tastenfeld anschauen", context="room1")
+@when("terminal an", context="room1")
+@when("tastenfeld an", context="room1")
 @when("pin benutzen", context="room1")
 @when("pin eingeben", context="room1")
 @when("code eingeben", context="room1")
@@ -315,12 +328,25 @@ def pin_eingeben():
 
 
 @when("zurück gehen", context="room1")
+@when("zurueck gehen", context="room1")
 @when("zurück in maschinenraum gehen", context="room1")
+@when("zurück in den maschinenraum gehen", context="room1")
 @when("in maschinenraum gehen", context="room1")
 @when("zu maschinenraum gehen", context="room1")
 @when("maschinenraum betreten", context="room1")
 @when("gehe zurück", context="room1")
 @when("gehe zurück in maschinenraum", context="room1")
+@when("gehe zurück in den maschinenraum", context="room1")
+@when("in den maschinenraum zurückgehen", context="room1")
+@when("in den maschinenraum zurück gehen", context="room1")
+@when("in den maschinenraum gehen", context="room1")
+@when("gehe in maschinenraum", context="room1")
+@when("gehe in den maschinenraum", context="room1")
+@when("gehe zu maschinenraum", context="room1")
+@when("gehe in maschinenraum zurück", context="room1")
+@when("gehe in maschinenraum zurueck", context="room1")
+@when("gehe in den maschinenraum zurück", context="room1")
+@when("gehe in den maschinenraum zurueck", context="room1")
 def go_room2():
     if room_2.zurueckgegangen:
         say(

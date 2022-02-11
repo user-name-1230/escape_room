@@ -83,6 +83,7 @@ def look_around_room2():
 
 
 @when("zettel anschauen", context="room2")
+@when("zettel an", context="room2")
 @when("zettel nehmen", context="room2")
 def zettel_anschauen():
     say(colored("""                  """, "grey", "on_white"))
@@ -102,6 +103,8 @@ def zettel_anschauen():
 
 @when("ventile anschauen", context="room2")
 @when("pumpenventile anschauen", context="room2")
+@when("ventile an", context="room2")
+@when("pumpenventile an", context="room2")
 def ventile_anschauen():
     root = tkinter.Tk()
     root.title('Ventile')
@@ -167,6 +170,7 @@ def ventile_drehen():
 
 
 @when("zurück gehen", context="room2")
+@when("zurueck gehen", context="room2")
 @when("zurück in kontrollraum gehen", context="room2")
 @when("zurück in den kontrollraum gehen", context="room2")
 @when("in kontrollraum gehen", context="room2")
@@ -177,7 +181,14 @@ def ventile_drehen():
 @when("gehe zurück in den kontrollraum", context="room2")
 @when("in den kontrollraum zurückgehen", context="room2")
 @when("in den kontrollraum zurück gehen", context="room2")
-
+@when("in den kontrollraum gehen", context="room2")
+@when("gehe in kontrollraum", context="room2")
+@when("gehe in den kontrollraum", context="room2")
+@when("gehe zu kontrollraum", context="room2")
+@when("gehe in kontrollraum zurück", context="room2")
+@when("gehe in kontrollraum zurueck", context="room2")
+@when("gehe in den kontrollraum zurück", context="room2")
+@when("gehe in den kontrollraum zurueck", context="room2")
 def go_room1():
     say(
         colored(

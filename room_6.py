@@ -75,6 +75,8 @@ def look_around_room6():
 
 @when("klappe anschauen", context="room6")
 @when("wartungsklappe anschauen", context="room6")
+@when("klappe an", context="room6")
+@when("wartungsklappe an", context="room6")
 @when("klappe öffnen", context="room6")
 @when("wartungsklappe öffnen", context="room6")
 def klappe_oeffnen():
@@ -92,6 +94,7 @@ def klappe_oeffnen():
 
 @when("zettel nehmen", context="room6")
 @when("zettel anschauen", context="room6")
+@when("zettel an", context="room6")
 @when("zettel anzeigen", context="room6")
 def zettel_anschauen2():
     say(colored("""                  2022:                   """, "grey", "on_white"))
@@ -204,13 +207,16 @@ def tastatur_benutzen():
         )
 
 
-@when("firewall schließen", context="room6")
 @when("firewall anschauen", context="room6")
+@when("firewall an", context="room6")
+@when("status anschauen", context="room6")
+@when("status an", context="room6")
 @when("status firewall", context="room6")
-@when("lücken schließen", context="room6")
 @when("status der firewall anschauen", context="room6")
 @when("status der firewall anzeigen", context="room6")
 @when("firewall reparieren", context="room6")
+@when("firewall schließen", context="room6")
+@when("lücken schließen", context="room6")
 def firewall_schliessen():
     if kontrollrechner_entsperrt:
         global firewall_gesehen

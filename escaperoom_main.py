@@ -31,6 +31,9 @@ adventurelib.no_command_matches = no_command_matches
 
 
 
+# test
+
+
 # Start #
 print(colored("cmds for debug: debugraum, debugitem", "cyan"))
 say(
@@ -103,7 +106,7 @@ def begin():
     say("""""")
     say(colored("""Ein Countdown startet: 30:00, 29:59, 29:58, ....""", "yellow"))
     say("""""")
-    time.sleep(4.0)
+    time.sleep(3.0)
     say(
         colored(
             """„Zur Entsperrung der Anlage müssen sie nur einen kleinen Betrag von

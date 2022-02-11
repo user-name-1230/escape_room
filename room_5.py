@@ -43,11 +43,13 @@ def look_around_room5():
 
 
 
-@when("computer anschauen", context="room5")
-@when("computer benutzen", context="room5")
-@when("computer verwenden", context="room5")
+@when("computer anschauen", context="room5")  # anschauen
 @when("pc anschauen", context="room5")
+@when("computer an", context="room5")
+@when("pc an", context="room5")
+@when("computer benutzen", context="room5")  # benutzen
 @when("pc benutzen", context="room5")
+@when("computer verwenden", context="room5")  # verwenden
 @when("pc verwenden", context="room5")
 def computer_entsperren():
     # abandon all hope, ye who enters here
