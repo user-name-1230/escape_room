@@ -357,7 +357,7 @@ def help_room6():
         if help_counter_room6 == 0:
             say(
                 colored(
-                    """Guck dir den [Zettel] noch einmal genau an. Das sieht doch
+                    """Guck dir den """, "yellow") + zettel + colored(""" noch einmal genau an. Das sieht doch
                     aus wie Anforderungs-Bausteine aus dem IT-Grundschutz-Kompendium...
                     doch was haben die Zahlen dahinter zu bedeuten?""",
                     "yellow"
