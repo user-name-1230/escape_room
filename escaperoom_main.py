@@ -31,9 +31,6 @@ adventurelib.no_command_matches = no_command_matches
 
 
 
-# test
-
-
 # Start #
 print(colored("cmds for debug: debugraum, debugitem", "cyan"))
 say(
