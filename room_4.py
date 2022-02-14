@@ -16,6 +16,13 @@ from termcolor import colored
 sim_schrank_offen = False
 sim_eingelegt = False
 qr_gesehen = False
+help_counter_room4 = 0
+
+#objects
+qr_code = colored("QR Code", "yellow", attrs=["underline"])
+haarnadel = colored("Haarnadel", "yellow", attrs=["underline"])
+lagerspind = colored("Lagerspind", "yellow", attrs=["underline"])
+karton = colored("Karton", "yellow", attrs=["underline"])
 
 
 def ueberleitung_room4():
@@ -48,15 +55,15 @@ def look_around_room4():
     if sim_eingelegt:
         say(
             colored(
-                """An der Innenseite der Spindtür entdeckst du einen [QR Code].
-                Ob der wohl was damit zu tun hat?""",
+                """An der Innenseite der Spindtür entdeckst du einen """, "yellow") +
+                qr_code + colored(""". Ob der wohl was damit zu tun hat?""",
                 "yellow"
             )
         )
     elif "simkarte" in inventory:
         say(
             colored(
-                """Dir fällt sofort die feine [Haarnadel] der Ministerin ins Auge.
+                """Dir fällt sofort die feine """, "yellow") + haarnadel + colored(""" der Ministerin ins Auge.
                 Du fragst sie, ob du dir ihre Haarnadel kurz ausleihen kannst.
                 Sie nickt aufgeregt und übergibt sie dir schnell.""",
                 "yellow",
@@ -67,8 +74,8 @@ def look_around_room4():
         say(
             colored(
                 """An der gegenüberliegenden Wand des Serverracks steht ein
-                [Lagerspind] mit einem Zahlenschloss, das anscheinend bei der letzten
-                Benutzung nicht richtig verschlossen wurde.""",
+                """, "yellow") + lagerspind + colored(""" mit einem Zahlenschloss,
+                das anscheinend bei der letzten Benutzung nicht richtig verschlossen wurde.""",
                 "yellow",
             )
         )
@@ -91,7 +98,7 @@ def spind_oeffnen():
             """Du öffnest den Spind und schaust dir den Inhalt genau an.
             Zuerst siehst du nur alte Ersatzteile für Computer. RAM, Lüfter,
             Netzteile, alte Festplatten und so weiter. Doch dann sticht dir ein
-            kleiner Karton mit der Aufschrift „[SIM Karten]“ ins Auge.""",
+            kleiner """, "yellow") + karton + colored(""" mit der Aufschrift „SIM Karten“ ins Auge.""",
             "yellow",
         )
     )
@@ -278,9 +285,9 @@ def raum4Ende():
 @when("hilfe", context="room4")
 @when("help", context="room4")
 def help_room4():
-    help_counter = 0
+    global help_counter_room4
     if sim_eingelegt and qr_gesehen:
-        if help_counter == 0:
+        if help_counter_room4 == 0:
             say(
                 colored(
                     """Bei der Übertragung der Nachricht mit der PIN ist wohl
@@ -290,7 +297,7 @@ def help_room4():
                     "yellow"
                 )
             )
-            help_counter += 1
+            help_counter_room4 += 1
         else:
             say(
                 colored(
@@ -300,8 +307,8 @@ def help_room4():
                     Um ihn zurückzuwandeln musst du zunächst die Positionen der 1en
                     also 4, 5, 7, 9, 10 und 13 in binär umwandeln (0100, 0101, 0111, ...).\n
                     Anschließend schreibst du alle Binärwerte untereinander. Das Ergebnis
-                    pro Spalte, in der sich eine gerade Anzahl 1en befindet ist *0*. Bei
-                    einer ungeraden Anzahl 1en ist das Ergebnis *1*.\n
+                    pro Spalte, in der sich eine gerade Anzahl 1en befindet ist 0. Bei
+                    einer ungeraden Anzahl 1en ist das Ergebnis 1.\n
                     Das Endergebnis des exklusiven verODERns ist die Position im
                     ursprünglichen Binärcode, an der sich der Fehler befindet. \n
                     Nachdem dieser korrigiert wurde, löscht man wie beschrieben alle

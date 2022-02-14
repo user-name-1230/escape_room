@@ -35,6 +35,11 @@ türen = Bag(
 tueren_gesehen = False
 pinnwand_gesehen = False
 
+# objects
+tueren = colored("Türen", "yellow", attrs=["underline"])
+pinnwand = colored("Pinnwand", "yellow", attrs=["underline"])
+
+
 def ueberleitung_room3():
     time.sleep(1.0)
     say(
@@ -90,8 +95,9 @@ def look_around_room3():
     # umschauen in Raum 3
     say(
         colored(
-            """Auf den [Türen] entdeckst du seltsame Symbole. Was die wohl zu bedeuten
-            haben? An der Wand hängt außerdem eine [Pinnwand] mit Fotos.""",
+            """Auf den """, "yellow") + tueren + colored(""" entdeckst du seltsame
+            Symbole. Was die wohl zu bedeuten haben? An der Wand hängt außerdem eine """,
+            "yellow") + pinnwand + colored(""" mit Fotos.""",
             "yellow"
         )
     )

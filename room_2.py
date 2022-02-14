@@ -17,6 +17,14 @@ ventile_angeschaut = False
 ventile_gedreht = False
 hebel_gesucht = False
 zurueckgegangen = False
+help_counter1_room2 = 0
+help_counter2_room2 = 0
+
+#objects
+zettel = colored("Zettel", "yellow", attrs=["underline"])
+ventile = colored("Ventile", "yellow", attrs=["underline"])
+kontrollraum = colored("Kontrollraum", "yellow", attrs=["underline"])
+zurueckgehen = colored("in den Kontrollraum zurückgehen", "yellow", attrs=["underline"])
 
 
 def ueberleitung_room2():
@@ -74,9 +82,9 @@ def look_around_room2():
     else:
         say(
             colored(
-                """Du entdeckst die Pumpenventile der riesigen Kühlpumpen und einen
-                [Zettel] auf einem Tisch in der Nähe. Die [Ventile] scheinen beschriftet zu
-                sein. Bestimmt muss eine Reihenfolge eingehalten werden.""",
+                """Du entdeckst die Pumpenventile der riesigen Kühlpumpen und einen """, "yellow") +
+                zettel + colored(""" auf einem Tisch in der Nähe. Die """, "yellow") + ventile +
+                colored(""" scheinen beschriftet zu sein. Bestimmt muss beim Benutzen eine Reihenfolge eingehalten werden.""",
                 "yellow"
             )
         )
@@ -192,7 +200,8 @@ def ventile_drehen():
 def go_room1():
     say(
         colored(
-            """Du bist zurück gegangen und befindest dich wieder im Kontrollraum.""",
+            """Du bist zurück gegangen und befindest dich wieder im """, "yellow") +
+            kontrollraum + colored(""".""",
             "yellow"
         )
     )
@@ -241,8 +250,8 @@ def brecheisen_benutzen2():
 @when("help", context="room2")
 def help_room2():
     if zettel_angeschaut and ventile_angeschaut and not ventile_gedreht:
-        help_counter1 = 0
-        if help_counter1 == 0:
+        global help_counter1_room2
+        if help_counter1_room2 == 0:
             say(
                 colored(
                     """Irgendeine Reihenfolge muss beim Aufdrehen der Pumpenventile
@@ -252,7 +261,7 @@ def help_room2():
                     "yellow"
                 )
             )
-            help_counter1 += 1
+            help_counter1_room2 += 1
         else:
             say(
                 colored(
@@ -271,8 +280,8 @@ def help_room2():
             )
         )
     elif ventile_gedreht and (inventory.find("brecheisen") is None) and hebel_gesucht:
-        help_counter2 = 0
-        if help_counter2 == 0:
+        global help_counter2_room2
+        if help_counter2_room2 == 0:
             say(
                 colored(
                     """In DIESEM Raum befindet sich kein Gegenstand, den du als Hebel
@@ -280,11 +289,11 @@ def help_room2():
                     "yellow"
                 )
             )
-            help_counter2 += 1
+            help_counter2_room2 += 1
         else:
             say(
                 colored(
-                    """Vielleicht kannst du [in den Kontrollraum zurückgehen]
+                    """Vielleicht kannst du """, "yellow") + zurueckgehen + colored("""
                     und dich dort noch einmal umschauen.""",
                     "yellow"
                 )
