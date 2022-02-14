@@ -35,6 +35,11 @@ türen = Bag(
 tueren_gesehen = False
 pinnwand_gesehen = False
 
+# objects
+tueren = colored("Türen", "yellow", attrs=["underline"])
+pinnwand = colored("Pinnwand", "yellow", attrs=["underline"])
+
+
 def ueberleitung_room3():
     time.sleep(1.0)
     say(
@@ -90,14 +95,16 @@ def look_around_room3():
     # umschauen in Raum 3
     say(
         colored(
-            """Auf den [Türen] entdeckst du seltsame Symbole. Was die wohl zu bedeuten
-            haben? An der Wand hängt außerdem eine [Pinnwand] mit Fotos.""",
+            """Auf den """, "yellow") + tueren + colored(""" entdeckst du seltsame
+            Symbole. Was die wohl zu bedeuten haben? An der Wand hängt außerdem eine """,
+            "yellow") + pinnwand + colored(""" mit Fotos.""",
             "yellow"
         )
     )
 
 
 @when("pinnwand anschauen", context="room3")  # anschauen
+@when("pinnwand an", context="room3")  # anschauen
 @when("schaue pinnwand an", context="room3")
 @when("schau pinnwand an", context="room3")
 @when("gucke pinnwand an", context="room3")  # gucken
@@ -127,6 +134,9 @@ def pinnwand_anschauen():
 
 
 @when("türen anschauen", context="room3")  # anschauen
+@when("türen an", context="room3")  # anschauen
+@when("tueren anschauen", context="room3")  # anschauen
+@when("tueren an", context="room3")  # anschauen
 @when("schaue türen an", context="room3")
 @when("schau türen an", context="room3")
 @when("tür anschauen", context="room3")
@@ -216,6 +226,7 @@ def tuer_oeffnen(form):
 
 @when("öffne tür", context="room3")
 @when("tür öffnen", context="room3")
+@when("tuer öffnen", context="room3")
 def tuer_oeffnen_unklar():
     if tueren_gesehen:
         say(colored("""Ich weiß nicht, welche Tür du meinst. Es gibt folgende Möglichkeiten: """, "yellow"))

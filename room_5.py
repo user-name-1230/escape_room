@@ -13,6 +13,9 @@ from termcolor import colored
 # global vars
 passwort_gefunden = False
 
+# objects
+computer = colored("Computer", "yellow", attrs=["underline"])
+
 
 def ueberleitung_room5():
     time.sleep(1.0)
@@ -39,15 +42,17 @@ def ueberleitung_room5():
 @when("umsehen", context="room5")
 @when("um", context="room5")
 def look_around_room5():
-    say(colored("""Schnell entdeckst du den potentiell nicht betroffenen [Computer] im Raum.""", "yellow"))
+    say(colored("""Schnell entdeckst du den potentiell nicht betroffenen """, "yellow") + computer + colored(""" im Raum.""", "yellow"))
 
 
 
-@when("computer anschauen", context="room5")
-@when("computer benutzen", context="room5")
-@when("computer verwenden", context="room5")
+@when("computer anschauen", context="room5")  # anschauen
 @when("pc anschauen", context="room5")
+@when("computer an", context="room5")
+@when("pc an", context="room5")
+@when("computer benutzen", context="room5")  # benutzen
 @when("pc benutzen", context="room5")
+@when("computer verwenden", context="room5")  # verwenden
 @when("pc verwenden", context="room5")
 def computer_entsperren():
     # abandon all hope, ye who enters here
@@ -77,8 +82,8 @@ def computer_entsperren():
         "/root/Bilder": ["reaktor_schema.jpg"],
         "/root/Videos": [""],
         "/root/Musik": ["never_gonna_give_you_up.mp3"],
-        "/root/Öffentlich": [""],
-        "/root/Desktop": ["run_hl3.sh", "reactorcontrol.sh"],
+        "/root/Öffentlich": ["(UNWICHTIG)IT-Grundschutz-Kompendium.pdf"],
+        "/root/Desktop": ["run_hl3.exe", "reactorcontrol.sh"],
     }
     helpmessage = colored("""Verfügbare Kommandos: \n
             help                -   zeigt diese Hilfeseite an \n
@@ -119,17 +124,17 @@ def computer_entsperren():
                     continue
             if current_dir == "/root":
                 for dir in dir_system:
-                    say(dir)
+                    say(colored(dir.replace("/root/",""), "green", "on_grey", attrs=["bold"]))
             elif current_dir in dir_system:
                 files = dir_system.get(current_dir)
                 for file in files:
                     if not list_all:
                         if not file.startswith("."):
-                            say(file)
+                            say(colored(file, "green", "on_grey"))
                         else:
                             continue
                     else:
-                        say(file)
+                        say(colored(file, "green", "on_grey"))
             else:
                 say(colored("""Fehler: Kommando ungültig""", "green", "on_grey"))
         elif command == "help":
@@ -183,9 +188,9 @@ def computer_entsperren():
                     )
                 elif dir == "..":
                     current_dir = "/root"
-                elif "/root/" + dir in dir_system.keys() and current_dir == "/root":
+                elif ("/root/" + dir in dir_system.keys() and current_dir == "/root"):
                     current_dir = "/root/" + dir
-                elif dir in dir_system.keys() and current_dir != "/root":
+                elif dir in dir_system.keys():
                     current_dir = dir
                 else:
                     say(colored("""Fehler: Verzeichnis {} nicht gefunden""".format(dir), "green", "on_grey"))

@@ -15,7 +15,13 @@ klappe_offen = False
 kontrollrechner_entsperrt = False
 firewall_gesehen = False
 zettel_gesehen = False
+help_counter_room6 = 0
 
+# objects
+zettel = colored("Zettel", "yellow", attrs=["underline"])
+wartungsklappe = colored("Wartungsklappe", "yellow", attrs=["underline"])
+tastatur = colored("Tastatur", "yellow", attrs=["underline"])
+firewall = colored("Firewall", "yellow", attrs=["underline"])
 
 def ueberleitung_room6():
     time.sleep(2.0)
@@ -27,10 +33,12 @@ def ueberleitung_room6():
     )
     say(
         colored(
-            """Ihr seid alle zurück im Kontrollraum angekommen. Du rennst zum
-            Rechner. Verdammt...wo ist die Tastatur? Du findest keine Eingabemöglichkeit.
-            Die Tastaturen der anderen Rechner würden nicht funktionieren. Die haben alle
-            einen USB-Anschluss.""",
+            """Du konntest tatsächlich das Passwort entschlüsseln. Jetzt aber schnell
+            zurück zum Kontrollrechner und die Kühlpumpen wieder hochfahren. Ihr lauft
+            gemeinsam los und betretet den Kontrollraum durch die Sicherheitstür.
+            Du wendest dich direkt dem Rechner zu. Verdammt...wo ist die Tastatur?
+            Es gibt keine Eingabemöglichkeit. Die Tastaturen der anderen Rechner
+            würden nicht funktionieren. Die haben alle einen USB-Anschluss.""",
             "yellow"
         )
     )
@@ -47,7 +55,7 @@ def look_around_room6():
     if firewall_gesehen:
         say(
             colored(
-                """In einer Ecke des Kontrollpultes liegt ein [Zettel]. Vielleicht
+                """In einer Ecke des Kontrollpultes liegt ein """, "yellow") + zettel + colored(""". Vielleicht
                 hilft dir dieser ja weiter.""",
                 "yellow"
             )
@@ -64,7 +72,7 @@ def look_around_room6():
             colored(
                 """Du schaust dich fragend um. Der Kraftwerkchef kommt auf euch zu und
                 fragt nach dem Status. Ihr erläutert ihm kurz das Problem und er zeigt auf
-                eine [Wartungsklappe] neben dem Kontrollpult. Dort muss eine Tastatur drin
+                eine """, "yellow") + wartungsklappe + colored(""" neben dem Kontrollpult. Dort muss eine Tastatur drin
                 sein, die mit dem alten DIN-AT-Anschluss kompatibel ist. Doch die Klappe
                 ist so verrostet, dass du sie mit bloßen Händen nicht aufbekommst.""",
                 "yellow"
@@ -75,6 +83,8 @@ def look_around_room6():
 
 @when("klappe anschauen", context="room6")
 @when("wartungsklappe anschauen", context="room6")
+@when("klappe an", context="room6")
+@when("wartungsklappe an", context="room6")
 @when("klappe öffnen", context="room6")
 @when("wartungsklappe öffnen", context="room6")
 def klappe_oeffnen():
@@ -92,6 +102,7 @@ def klappe_oeffnen():
 
 @when("zettel nehmen", context="room6")
 @when("zettel anschauen", context="room6")
+@when("zettel an", context="room6")
 @when("zettel anzeigen", context="room6")
 def zettel_anschauen2():
     say(colored("""                  2022:                   """, "grey", "on_white"))
@@ -137,8 +148,8 @@ def brecheisen_benutzen3():
     say(
         colored(
             """Gut, dass du das Brecheisen vom Anfang noch bei dir hast. Du brichst
-            die Klappe auf und dahinter versteckt sich tatsächlich eine passende
-            [Tastatur].""",
+            die Klappe auf und dahinter versteckt sich tatsächlich eine passende """,
+            "yellow") + tastatur + colored(""".""",
             "yellow"
         )
     )
@@ -184,7 +195,7 @@ def tastatur_benutzen():
                         etwas ein: „Wir müssen irgendetwas tun, um die Hacker aus dem
                         System zu werfen und das System besser.aBSIchern!“, rufst du.
                         Du wendest dich wieder dem Kontrollrechner zu um dir den Status
-                        der [Firewall] anzuschauen.""",
+                        der """, "yellow") + firewall + colored(""" anzuschauen.""",
                         "yellow"
                     )
                 )
@@ -204,13 +215,16 @@ def tastatur_benutzen():
         )
 
 
-@when("firewall schließen", context="room6")
 @when("firewall anschauen", context="room6")
+@when("firewall an", context="room6")
+@when("status anschauen", context="room6")
+@when("status an", context="room6")
 @when("status firewall", context="room6")
-@when("lücken schließen", context="room6")
 @when("status der firewall anschauen", context="room6")
 @when("status der firewall anzeigen", context="room6")
 @when("firewall reparieren", context="room6")
+@when("firewall schließen", context="room6")
+@when("lücken schließen", context="room6")
 def firewall_schliessen():
     if kontrollrechner_entsperrt:
         global firewall_gesehen
@@ -339,18 +353,18 @@ def abspann():
 @when("help", context="room6")
 def help_room6():
     if firewall_gesehen and zettel_gesehen:
-        help_counter = 0
-        if help_counter == 0:
+        global help_counter_room6
+        if help_counter_room6 == 0:
             say(
                 colored(
-                    """Guck dir den [Zettel] noch einmal genau an. Das sieht doch
+                    """Guck dir den """, "yellow") + zettel + colored(""" noch einmal genau an. Das sieht doch
                     aus wie Anforderungs-Bausteine aus dem IT-Grundschutz-Kompendium...
                     doch was haben die Zahlen dahinter zu bedeuten?""",
                     "yellow"
                 )
             )
-            help_counter += 1
-        elif help_counter == 1:
+            help_counter_room6 += 1
+        elif help_counter_room6 == 1:
             say(
                 colored(
                     """Die Zahlen könnten doch für ein Wort in dem angegebenen
