@@ -41,4 +41,5 @@ cd $(dirname $0)/../
 #Spiel starten
 echo Spiel wird jetzt gestartet...
 cd escape_room/
+clear
 python3 escaperoom_main.py
