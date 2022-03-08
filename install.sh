@@ -1,4 +1,5 @@
 #!/bin/sh
+cd $(dirname $0)/../
 { #try - update escape-room
     echo Try to update game...
     cd escape_room/
