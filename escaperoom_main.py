@@ -6,12 +6,31 @@
 
 
 from termcolor import colored
+import signal
+import readchar
 import time
 import random
 from adventurelib import when, say, start, set_context
 import adventurelib
 from inventory import *
 import room_1
+
+
+#Ctrl+C handler
+def handler(signal_received, frame):
+    msg = "Strg + C Eingabe wurde erkannt. Möchten Sie wirklich abbrechen? [y/n] "
+    print(msg, end="", flush=True)
+    res = readchar.readchar()
+    if res == 'y':
+        print("")
+        exit(1)
+    else:
+        print("", end="\r", flush=True)
+        print(" " * len(msg), end="", flush=True) # clear the printed line
+        print("    ", end="\r", flush=True)
+
+
+signal.signal(signal.SIGINT, handler)
 
 
 def no_command_matches(command):
