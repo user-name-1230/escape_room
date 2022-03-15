@@ -6,7 +6,7 @@ cd $(dirname $0)/../
     git pull
 } || { #catch - install escape-room
   echo There is no instance of the game in this directory.
-  echo Installing game... 
+  echo Installing game...
   { #try - Linux install
     sudo apt update
     sudo apt -y install git
@@ -27,7 +27,7 @@ cd $(dirname $0)/../
   }
   #clone git-repo
   git clone https://github.com/user-name-1230/escape_room.git
-  
+
   #install dependencies
   echo "Installing required methods..."
   echo "Installing adventurelib..."
@@ -36,6 +36,8 @@ cd $(dirname $0)/../
   pip3 install Pillow
   echo "Installing termcolor..."
   pip3 install termcolor
+  echo "Installing readchar..."
+  pip3 install readchar
 }
 
 #Spiel starten
