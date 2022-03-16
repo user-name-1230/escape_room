@@ -55,7 +55,9 @@ adventurelib.no_command_matches = no_command_matches
 
 
 # Start #
-print(colored("cmds for debug: debugraum, debugitem", "cyan"))
+set_context("room0")
+
+#print(colored("cmds for debug: debugraum, debugitem", "cyan"))
 say(
     colored(
         """---------------------------------------------------------------------""",
@@ -65,6 +67,7 @@ say(
 say(
     colored(
         """Das Symbol [...] bedeutet, dass du Enter drücken sollst, um fortzufahren.\n
+        Tipp: Mit einem größeren Terminal-Fenster spielt es sich leichter!\n
         Tippe "Start" ein, um zu beginnen""",
         "yellow"
     )
@@ -73,7 +76,7 @@ say(
 
 
 # Einleitungsstory
-@when("start")
+@when("start", context="room0")
 def begin():
     say(
         colored(
