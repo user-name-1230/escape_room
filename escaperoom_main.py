@@ -18,16 +18,20 @@ import room_1
 
 #Ctrl+C handler
 def handler(signal_received, frame):
-    msg = "Strg + C Eingabe wurde erkannt. Möchten Sie wirklich abbrechen? [y/n] "
+    msg = "Strg + C Eingabe wurde erkannt. Möchten Sie das Spiel wirklich beenden? [y/N] "
     print(msg, end="", flush=True)
     res = readchar.readchar()
     if res == 'y':
         print("")
         exit(1)
     else:
-        print("", end="\r", flush=True)
-        print(" " * len(msg), end="", flush=True) # clear the printed line
-        print("    ", end="\r", flush=True)
+        print("")
+        print("")
+        print("Hinweis: Zum Kopieren von Inhalten den Rechtsklick verwenden.")
+        print("")
+        # print("", end="\r", flush=True)
+        # print(" " * len(msg), end="", flush=True) # clear the printed line
+        # print("    ", end="\r", flush=True)
 
 
 signal.signal(signal.SIGINT, handler)
@@ -54,7 +58,7 @@ adventurelib.no_command_matches = no_command_matches
 print(colored("cmds for debug: debugraum, debugitem", "cyan"))
 say(
     colored(
-        """----------------------------------------------------------------------------------""",
+        """---------------------------------------------------------------------""",
         "yellow"
     )
 )
@@ -73,7 +77,7 @@ say(
 def begin():
     say(
         colored(
-            """----------------------------------------------------------------------------------""",
+            """-----------------------------------------------------------------""",
             "yellow"
         )
     )
