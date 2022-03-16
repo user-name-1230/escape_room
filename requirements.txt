@@ -2,6 +2,7 @@ Pip:
 - Pillow
 - termcolor
 - adventurelib
+- readchar
 
 Apt:
 - tkinter
