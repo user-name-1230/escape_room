@@ -2,7 +2,6 @@
 
 # (Mehr möglichkeiten)
 
-# NICHT STRG-C DRÜCKEN
 
 
 from termcolor import colored

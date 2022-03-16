@@ -261,8 +261,12 @@ def sicherheitstuer_anschauen():
             colored(
                 """Du rüttelst an der Tür, doch sie bewegt sich keinen Zentimeter. Direkt neben der Tür befindet sich ein Tastenfeld
                 und darüber eine Kamera. Du drückst die Grüne Starttaste und die Kamera beginnt mit einem Scan von deinem Gesicht. Du
-                erschrickst. Auf dem Display erscheint in roter Schrift „Zugriff verweigert“.""",
+                erschrickst. Auf dem Display erscheint in roter Schrift:\n""",
                 "yellow"
+            ) +
+            colored(
+                """Zugriff verweigert""",
+                "red"
             )
         )
         say("""""")
