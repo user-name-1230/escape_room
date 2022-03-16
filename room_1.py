@@ -31,11 +31,31 @@ terminal = colored("Terminal", "yellow", attrs=["underline"])
 maschinenraum = colored("Maschinenraum", "yellow", attrs=["underline"])
 
 
-#Überleitung Room1 und Instructions
+#Tutorial
+@when("tutorial")
+def tutorial():
+    say(
+        colored(
+            """Du kannst dich im Raum [umschauen]\n
+            Du kannst im Raum """, "yellow") + dinge + colored(""" [anschauen], [nehmen] und [benutzen], sowie """, "yellow") + knoepfe + colored(""" [drücken] oder """, "yellow") + tueren + colored(""" [öffnen], etc.\n
+            Du kannst, wenn nötig [in] einen bestimmten """, "yellow") + raum + colored(""" [gehen]\n
+            Du kannst dein aktuelles [Inventar] anschauen\n
+            Du kannst dir [Hilfe] suchen, wenn du nicht weiterkommst\n
+            Du kannst mit [quit] das AKW verlassen (Spiel beenden)\n
+            Das Symbol [...] bedeutet, dass du Enter drücken sollst, um fortzufahren\n
+            Hinweis: Bilder müssen zuerst geschlossen werden, bevor man das Spiel
+            fortsetzen kann. Sie können jedoch beliebig oft aufgerufen werden!\n
+            [Tutorial] zeigt dieses Tutorial erneut an.""",
+            "yellow"
+        )
+    )
+
+
+#Überleitung Room1
 def ueberleitung_room1():
     say(
         colored(
-            """----------------------------------------------------------------------------------""",
+            """---------------------------------------------------------------------""",
             "yellow"
         )
     )
@@ -45,17 +65,11 @@ def ueberleitung_room1():
             """Du befindest dich nun im """, "yellow") + kontrollraum + colored(""".
             Die Menge an Schaltern, Hebeln und Knöpfen erschlägt dich fast und es
             fällt dir schwer deine Panik in den Griff zu bekommen. Du versuchst
-            dich zu sammeln und deine Möglichkeiten abzuwägen: \n
-            Du kannst dich im Raum [umschauen]\n
-            Du kannst im Raum """, "yellow") + dinge + colored(""" [anschauen], [nehmen] und [benutzen], sowie """, "yellow") + knoepfe + colored(""" [drücken] oder """, "yellow") + tueren + colored(""" [öffnen], etc.\n
-            Du kannst, wenn nötig [in] einen bestimmten """, "yellow") + raum + colored(""" [gehen]\n
-            Du kannst dein aktuelles [Inventar] anschauen\n
-            Du kannst dir [Hilfe] suchen, wenn du nicht weiterkommst\n
-            Du kannst mit [quit] das AKW verlassen (Spiel beenden)\n
-            Das Symbol [...] bedeutet, dass du Enter drücken sollst, um fortzufahren""",
+            dich zu sammeln und deine Möglichkeiten abzuwägen:\n""",
             "yellow"
         )
     )
+    tutorial()
 
 
 # Look Around #
