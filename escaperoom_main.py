@@ -9,11 +9,13 @@ import signal
 import readchar
 import time
 import random
+import os
 from adventurelib import when, say, start, set_context
 import adventurelib
 from inventory import *
 import room_1
 
+os.system('color')
 
 #Ctrl+C handler
 def handler(signal_received, frame):
