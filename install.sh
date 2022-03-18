@@ -18,9 +18,12 @@ cd $(dirname $0)/../
     #install xcode-select for git
     xcode-select --install
     #install Homebrew
-    echo "Installing homebrew..."
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-    brew update
+    { #try - hombrew installed
+      brew --version
+    } || { #catch - hombrew not installed
+      echo "Installing homebrew..."
+      /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+    }
     #install python3
     echo "Installing python..."
     brew install python
