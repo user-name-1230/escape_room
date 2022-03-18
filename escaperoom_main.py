@@ -19,7 +19,7 @@ os.system('color')
 
 #Ctrl+C handler
 def handler(signal_received, frame):
-    msg = "Strg + C Eingabe wurde erkannt. Möchten Sie das Spiel wirklich beenden? [y/N] "
+    msg = "Strg + C Eingabe wurde erkannt. Möchten Sie das Spiel wirklich beenden (Auswahl nur unter Linux/Mac möglich)? [y/N] "
     print(msg, end="", flush=True)
     res = readchar.readchar()
     if res == 'y':
