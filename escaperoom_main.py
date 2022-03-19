@@ -19,7 +19,7 @@ os.system('color')
 
 #Ctrl+C handler
 def handler(signal_received, frame):
-    msg = "Strg + C Eingabe wurde erkannt. Möchten Sie das Spiel wirklich beenden? [y/N] "
+    msg = "Strg + C Eingabe wurde erkannt. Möchten Sie das Spiel wirklich beenden (Auswahl nur unter Linux/Mac möglich)? [y/N] "
     print(msg, end="", flush=True)
     res = readchar.readchar()
     if res == 'y':
@@ -59,6 +59,30 @@ adventurelib.no_command_matches = no_command_matches
 set_context("room0")
 
 #print(colored("cmds for debug: debugraum, debugitem", "cyan"))
+say(
+    colored(
+        """---------------------------------------------------------------------""",
+        "yellow"
+    )
+)
+print(
+    colored(
+        r"""
+███████ ███████  ██████  █████  ██████  ███████ 
+██      ██      ██      ██   ██ ██   ██ ██      
+█████   ███████ ██      ███████ ██████  █████ 
+██           ██ ██      ██   ██ ██      ██    
+███████ ███████  ██████ ██   ██ ██      ███████ 
+                                                
+
+ ██████   █████  ███    ███ ███████ 
+██       ██   ██ ████  ████ ██      
+██   ███ ███████ ██ ████ ██ █████ 
+██    ██ ██   ██ ██  ██  ██ ██    
+ ██████  ██   ██ ██      ██ ███████
+        """, "yellow"
+    )
+)
 say(
     colored(
         """---------------------------------------------------------------------""",
