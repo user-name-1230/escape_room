@@ -275,7 +275,7 @@ def firewall_schliessen():
                 print_loesung_firewall()
                 time.sleep(4.0)
                 abspann()
-            elif input_loesung == "zurück":
+            elif input_loesung == "zurück" or input_loesung == "exit":
                 return
             else:
                 say(

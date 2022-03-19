@@ -17,6 +17,7 @@ ventile_angeschaut = False
 ventile_gedreht = False
 hebel_gesucht = False
 zurueckgegangen = False
+zeit_verschwendet = 0
 help_counter1_room2 = 0
 help_counter2_room2 = 0
 
@@ -147,10 +148,9 @@ def ventile_drehen():
             )
         )
     else:
-        counter = 20
         while True:
             input_2 = input(colored(
-                "Reihenfolge der Ventile eingeben (um evtl. weitere Hinweise zu suchen [zurück]): ", "white"))
+                "Reihenfolge der Ventile eingeben (Beispiel: 12345) (um evtl. weitere Hinweise zu suchen [zurück]): ", "white"))
             if (input_2 == "35124" or input_2 == "3,5,1,2,4" or input_2 == "3, 5, 1, 2, 4" or input_2 == "III, V, I, II, IV" or input_2 == "III,V,I,II,IV"):
                 say(
                     colored(
@@ -165,12 +165,12 @@ def ventile_drehen():
             if input_2 == "zurück" or input_2 == "exit":
                 return
             else:
-                if counter > 16:
-                    counter = counter - 1
+                if zeit_verschwendet < 4:
+                    zeit_verschwendet = zeit_verschwendet + 1
                 say(
                     colored(
                         f"""Das war leider die falsche Reihenfolge...du hast wertvolle Zeit verloren!\n
-                        Noch {counter} Minuten bis zur Kernschmelze""",
+                        Noch {20 - zeit_verschwendet} Minuten bis zur Kernschmelze""",
                         "yellow"
                     )
                 )
