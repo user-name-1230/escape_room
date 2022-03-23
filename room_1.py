@@ -36,7 +36,7 @@ maschinenraum = colored("Maschinenraum", "yellow", attrs=["underline"])
 def tutorial():
     say(
         colored(
-            """Du kannst dich im Raum [umschauen]\n
+            """Du kannst dich im Raum [umschauen] (auch mehrmals)\n
             Du kannst im Raum """, "yellow") + dinge + colored(""" [anschauen], [nehmen] und [benutzen], sowie """, "yellow") + knoepfe + colored(""" [drücken] oder """, "yellow") + tueren + colored(""" [öffnen], etc.\n
             Du kannst, wenn nötig [in] einen bestimmten """, "yellow") + raum + colored(""" [gehen]\n
             Du kannst dein aktuelles [Inventar] anschauen\n
