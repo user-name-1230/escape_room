@@ -19,6 +19,7 @@ hebel_gesucht = False
 zurueckgegangen = False
 help_counter1_room2 = 0
 help_counter2_room2 = 0
+time_counter = 25
 
 #objects
 zettel = colored("Zettel", "yellow", attrs=["underline"])
@@ -147,7 +148,7 @@ def ventile_drehen():
             )
         )
     else:
-        counter = 20
+        global time_counter
         while True:
             input_2 = input(colored(
                 "Reihenfolge der Ventile eingeben (um evtl. weitere Hinweise zu suchen [zurück]): ", "white"))
@@ -165,12 +166,12 @@ def ventile_drehen():
             if input_2 == "zurück" or input_2 == "exit":
                 return
             else:
-                if counter > 16:
-                    counter = counter - 1
+                if time_counter > 21:
+                    time_counter -= 1
                 say(
                     colored(
                         f"""Das war leider die falsche Reihenfolge...du hast wertvolle Zeit verloren!\n
-                        Noch {counter} Minuten bis zur Kernschmelze""",
+                        Noch {time_counter} Minuten bis zur Kernschmelze""",
                         "yellow"
                     )
                 )
@@ -234,7 +235,7 @@ def brecheisen_benutzen2():
                 Die Kühlpumpen scheinen wieder anzulaufen. Doch was ist das!?
                 Ein lautes Knarzen übertönt plötzlich das Warnsignal und alle
                 Pumpen gehen wieder aus. Na toll...erneut hörst du eine Durchsage
-                aus den Lautsprechern: „Noch 15 Minuten bis zur Kernschmelze!“""",
+                aus den Lautsprechern: „Noch 20 Minuten bis zur Kernschmelze!“""",
                 "yellow"
             )
         )
