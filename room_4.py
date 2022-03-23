@@ -305,16 +305,16 @@ def help_room4():
                     in einen einfachen fehlerkorrigierenden Code, den sogenannten Hamming
                     Code umgewandelt wurde. \n
                     Um ihn zurückzuwandeln musst du zunächst die Positionen der 1en
-                    also 4, 5, 7, 9, 10 und 13 in binär umwandeln (0100, 0101, 0111, ...).\n
+                    also 4, 5, 9, 12 und 15 in binär umwandeln (0100, 0101, 1001, ...).\n
                     Anschließend schreibst du alle Binärwerte untereinander. Das Ergebnis
                     pro Spalte, in der sich eine gerade Anzahl 1en befindet ist 0. Bei
                     einer ungeraden Anzahl 1en ist das Ergebnis 1.\n
-                    Das Endergebnis des exklusiven verODERns ist die Position im
+                    Das Endergebnis dieses "exklusiven verODERns" ist die Position im
                     ursprünglichen Binärcode, an der sich der Fehler befindet. \n
-                    Nachdem dieser korrigiert wurde, löscht man wie beschrieben alle
-                    Positionen, die eine Potenz von 2 darstellen (1, 2, 4 und 8) aus
-                    dem Binärcode raus und wandelt das Ergebnis ohne die Paritätsbits
-                    in Dezimal um.""",
+                    Nachdem dieser korrigiert wurde (0 zu 1 gemacht, bzw. 1 zu 0 gemacht),
+                    löscht man alle Binärziffern an Positionen, die eine Potenz von 2
+                    darstellen (1, 2, 4 und 8) aus dem Binärcode raus und wandelt das
+                    Ergebnis ohne diese sogenannten Paritätsbits in Dezimal um.""",
                     "yellow"
                 )
             )
